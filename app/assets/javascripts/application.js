@@ -12,5 +12,38 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.timeago
+//= require chosen.jquery
+//= require pickadate/picker
+//= require pickadate/picker.date
+//= require underscore
 //= require turbolinks
-//= require_tree .
+//= require_self
+//= require_tree ./features
+
+var App = {
+    onLoadFns: [],
+
+    onPageLoad: function(callback) {
+        this.onLoadFns.push(callback);
+    },
+
+    load: function() {
+        _.each(this.onLoadFns, function(callback) {
+            callback.call(this);
+        }, this);
+    }
+};
+
+$(document).ready(function() {
+
+    // Called everytime turbolinks loads a new page
+    $(document).on("page:load", function() {
+        App.load();
+    });
+
+    // Called on initial full page load
+    _.defer(function() {
+        App.load();
+    });
+});
