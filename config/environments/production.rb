@@ -80,8 +80,7 @@ Rails.application.configure do
   config.force_ssl = true
 
   # Deliver emails with postmark
-  config.action_mailer.delivery_method = :postmark
-  config.action_mailer.postmark_settings = { api_key: ENV["POSTMARK_API_KEY"] }
+  config.action_mailer.delivery_method = :sendmail
 
   # Setup default mailer urls and asset hosts
   config.action_mailer.default_url_options = { host: "app.com", protocol: "https" }
