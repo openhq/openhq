@@ -47,6 +47,7 @@ GEM
     arel (6.0.0)
     bcrypt (3.1.10)
     builder (3.2.2)
+    cancancan (1.10.1)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     climate_control (0.0.3)
@@ -216,6 +217,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  cancancan (~> 1.10)
   database_cleaner
   devise
   dotenv-rails (~> 1.0.2)
