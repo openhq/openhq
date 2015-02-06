@@ -10,11 +10,13 @@ class Ability
       can :read, User, id: user.id
       can :update, User, id: user.id
 
+      can :create, Project
       can :create, Story
       can :create, Task
       can :create, Attachment
 
       # Can update objects they own
+      can :update, Project, owner_id: user.id
       can :update, Story, owner_id: user.id
       can :update, Task, owner_id: user.id
       can :update, Attachment, owner_id: user.id

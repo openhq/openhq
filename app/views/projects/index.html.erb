@@ -1,2 +1,7 @@
-<h1>Projects#index</h1>
-<p>Find me in app/views/projects/index.html.erb</p>
+<h1><%= t("projects") %></h1>
+
+<% if @projects.any? %>
+  <ul class="ui-projects-list">
+    <%= render @projects %>
+  </ul>
+<% end %>

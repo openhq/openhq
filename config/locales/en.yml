@@ -21,8 +21,14 @@
 
 en:
   projects: "Projects"
+  new_project: "New Project"
   files: "Files"
   team: "Team"
   error: "error"
+
   forms:
     form_contains: "The form contains"
+
+  unauthorized:
+    manage:
+      all: "You do not have permission to %{action} %{subject}!"

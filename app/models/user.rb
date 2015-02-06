@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :projects
+  has_many :created_projects, foreign_key: "owner_id", class_name: "Project"
 
   validates :first_name, :last_name, presence: true
   validates :role, presence: true, inclusion: {in: ROLES}
