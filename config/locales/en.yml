@@ -21,6 +21,8 @@
 
 en:
   projects: "Projects"
+  files: "Files"
+  team: "Team"
   error: "error"
   forms:
     form_contains: "The form contains"

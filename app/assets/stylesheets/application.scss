@@ -1,5 +1,9 @@
 $font-stack: 'Open Sans', Helvetica, Arial, sans-serif;
 $body-color: #333;
+$strong-color: #3A4245;
+$primary-color: #1CAAE7;
+$line-color: #d7d7d7;
+$line-color-light: #e7e7e7;
 
 /* Pure Framework */
 @import "pure/base";
@@ -20,6 +24,8 @@ $body-color: #333;
 @import "components/containers";
 @import "components/forms";
 @import "components/alerts";
+@import "components/nav";
 
-/* Page specific CSS */
-@import "pages/auth";
+/* Specific CSS */
+@import "styles/auth";
+@import "styles/header";
