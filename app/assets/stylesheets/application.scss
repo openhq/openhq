@@ -1,0 +1,19 @@
+$font-stack: 'Open Sans', Helvetica, Arial, sans-serif;
+$body-color: #333;
+
+/* Pure Framework */
+@import "pure/base";
+@import "pure/grids";
+@import "pure/grids-responsive";
+@import "pure/tables";
+@import "pure/menus";
+@import "pure/forms";
+@import "pure/buttons";
+
+/* Plugins */
+@import "chosen";
+@import "pickadate/default";
+@import "pickadate/default.date";
+
+/* Custom CSS */
+@import "components/type";
