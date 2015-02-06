@@ -1,8 +1,8 @@
 class DeviseCreateUsers < ActiveRecord::Migration
   def change
     create_table(:users) do |t|
-      t.string :firstname
-      t.string :lastname
+      t.string :first_name
+      t.string :last_name
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""
@@ -33,7 +33,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
-      t.boolean :admin
+      t.string  :role
       t.integer :invited_by
 
       t.timestamps

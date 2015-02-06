@@ -101,8 +101,8 @@ ActiveRecord::Schema.define(version: 20150206170036) do
   add_index "tasks", ["story_id"], name: "index_tasks_on_story_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "firstname"
-    t.string   "lastname"
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 20150206170036) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.boolean  "admin"
+    t.string   "role"
     t.integer  "invited_by"
     t.datetime "created_at"
     t.datetime "updated_at"
