@@ -7,6 +7,6 @@ class CreateProjects < ActiveRecord::Migration
       t.timestamps
     end
     add_index :projects, :owner_id
-    add_index :projects, :slug, :unqiue => true
+    add_index :projects, :slug, :unique => true
   end
 end

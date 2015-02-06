@@ -9,6 +9,6 @@ class CreateStories < ActiveRecord::Migration
       t.timestamps
     end
     add_index :stories, :project_id
-    add_index :stories, :slug, :unqiue => true
+    add_index :stories, :slug, :unique => true
   end
 end
