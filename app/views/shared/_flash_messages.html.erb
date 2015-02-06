@@ -1,0 +1,7 @@
+<% flash.each do |name, msg| %>
+  <% if msg.is_a?(String) %>
+    <div class="ui-notification <%= name.to_s %>">
+      <%= msg %>
+    </div>
+  <% end %>
+<% end %>

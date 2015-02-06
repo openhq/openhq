@@ -11,10 +11,9 @@
 
   Hey <%= current_user.first_name %>, <%= link_to('Sign out', destroy_user_session_path, :method => :delete) %>
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <%= render 'shared/flash_messages' %>
 
-<%= yield %>
+  <%= yield %>
 
 </body>
 </html>

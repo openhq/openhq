@@ -1,0 +1,11 @@
+<% if object.errors.any? %>
+  <div class="panel with-error ui-form-errors">
+    <h4>The form contains <%= pluralize(object.errors.count, "error") %></h4>
+
+    <ul>
+    <% object.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
