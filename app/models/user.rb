@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
 
   has_many :created_projects, foreign_key: "owner_id", class_name: "Project"
 
+  has_and_belongs_to_many :projects
+
   validates :first_name, :last_name, presence: true
   validates :role, presence: true, inclusion: {in: ROLES}
 

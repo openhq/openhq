@@ -32,6 +32,30 @@ describe Ability, :model do
         assert ability.cannot?(:update, build(content_item, owner: other))
       end
     end
+
+    describe "when user is a member of a project" do
+      let(:project) { create(:project, owner: user) }
+
+      before do
+        project.users << user
+      end
+
+      it "allows viewing of project" do
+        assert ability.can?(:read, project)
+      end
+    end
+
+    describe "when user is not a member of a project" do
+      let(:project) { create(:project, owner: other) }
+
+      before do
+        project.users << other
+      end
+
+      it "allows viewing of project" do
+        assert ability.cannot?(:read, project)
+      end
+    end
   end
 
   describe "admins" do

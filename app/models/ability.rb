@@ -10,6 +10,9 @@ class Ability
       can :read, User, id: user.id
       can :update, User, id: user.id
 
+      # Can view projects they are a member of
+      can :read, Project, id: user.projects.pluck(:id)
+
       can :create, Project
       can :create, Story
       can :create, Task
