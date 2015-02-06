@@ -29,12 +29,12 @@ ActiveRecord::Schema.define(version: 20150206170036) do
     t.string   "path"
     t.string   "size"
     t.string   "content_type"
-    t.integer  "uploaded_by"
+    t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "attachments", ["uploaded_by"], name: "index_attachments_on_uploaded_by", using: :btree
+  add_index "attachments", ["owner_id"], name: "index_attachments_on_owner_id", using: :btree
 
   create_table "commentables", force: :cascade do |t|
     t.integer "comment_id"
@@ -45,13 +45,13 @@ ActiveRecord::Schema.define(version: 20150206170036) do
   add_index "commentables", ["commentable_id"], name: "index_commentables_on_commentable_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
-    t.integer  "user_id"
     t.text     "content"
+    t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+  add_index "comments", ["owner_id"], name: "index_comments_on_owner_id", using: :btree
 
   create_table "metadata", force: :cascade do |t|
     t.string   "key"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20150206170036) do
     t.string   "name"
     t.string   "slug"
     t.string   "description"
-    t.integer  "created_by"
+    t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

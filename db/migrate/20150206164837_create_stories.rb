@@ -5,7 +5,7 @@ class CreateStories < ActiveRecord::Migration
       t.string :name
       t.string :slug
       t.string :description
-      t.integer :created_by
+      t.integer :owner_id
       t.timestamps
     end
     add_index :stories, :project_id

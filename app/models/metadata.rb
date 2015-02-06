@@ -1,4 +1,5 @@
 class Metadata < ActiveRecord::Base
+  validates_presence_of :key
 
   def self.get(key)
     data = where(key: key).first

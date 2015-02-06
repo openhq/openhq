@@ -5,9 +5,9 @@ class CreateAttachments < ActiveRecord::Migration
       t.string :path
       t.string :size
       t.string :content_type
-      t.integer :uploaded_by
+      t.integer :owner_id
       t.timestamps
     end
-    add_index :attachments, :uploaded_by
+    add_index :attachments, :owner_id
   end
 end
