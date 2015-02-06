@@ -71,4 +71,6 @@ group :test do
   gem 'minitest-rg'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'database_cleaner'
+  gem 'mocha'
 end
