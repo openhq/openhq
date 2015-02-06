@@ -15,5 +15,10 @@ $body-color: #333;
 @import "pickadate/default";
 @import "pickadate/default.date";
 
-/* Custom CSS */
+/* CSS components */
 @import "components/type";
+@import "components/containers";
+@import "components/forms";
+
+/* Page specific CSS */
+@import "pages/auth";

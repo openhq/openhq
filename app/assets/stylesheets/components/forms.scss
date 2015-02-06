@@ -1,0 +1,9 @@
+form label {
+  cursor: pointer;
+}
+
+.pure-checkbox {
+  & > input {
+    margin-right: 10px;
+  }
+}
