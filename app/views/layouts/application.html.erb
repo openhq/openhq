@@ -9,11 +9,28 @@
 </head>
 <body>
 
-  Hey <%= current_user.first_name %>, <%= link_to('Sign out', destroy_user_session_path, :method => :delete) %>
+  <header class="app-header">
+    <div class="page-container">
+      <menu>
+        <%= current_user.first_name %>
+        <%= link_to('Sign out', destroy_user_session_path, :method => :delete) %>
+      </menu>
 
-  <%= render 'shared/flash_messages' %>
+      <nav>
+        <ul>
+          <li class="brand"><%= link_to app_name, root_url %></li>
+          <li><%= link_to t('projects'), projects_path %></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  <%= yield %>
+
+  <div class="page-container">
+    <%= render 'shared/flash_messages' %>
+
+    <%= yield %>
+  </div>
 
 </body>
 </html>
