@@ -25,14 +25,12 @@ class Ability
       can :read, User
       can :assign_roles, User
 
-      # Can create users at or below their level
-      can :create, User, role: user.assignable_roles
-
-      # Can edit users below their level
+      # Can edit users below their role
       can :update, User, role: user.assignable_roles[0...-1]
     end
 
     if user.role? :owner
+      # Can haz all the things
       can :manage, :all
     end
 
