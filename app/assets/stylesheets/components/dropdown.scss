@@ -55,7 +55,7 @@
   }
 
   &:hover {
-    span.arrow { opacity: 0.4; }
+    span.arrow { opacity: 0.25; }
   }
 
   &.open {
@@ -64,7 +64,6 @@
       border-bottom-width: 0;
     }
     span.arrow {
-      opacity: 0.6;
       background-image: image-url("arrow-up.png");
     }
 
