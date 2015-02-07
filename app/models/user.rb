@@ -2,8 +2,8 @@ class User < ActiveRecord::Base
   ROLES = %w[user admin owner]
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  # :confirmable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable, :lockable,
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :created_projects, foreign_key: "owner_id", class_name: "Project"
