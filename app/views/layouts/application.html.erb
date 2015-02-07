@@ -12,8 +12,14 @@
   <header class="app-header">
     <div class="page-container">
       <menu>
-        <%= current_user.first_name %>
-        <%= link_to('Sign out', destroy_user_session_path, :method => :delete) %>
+
+        <div class="ui-dropdown-menu">
+          <span class="title noselect"><%= current_user.first_name %><span class="arrow"></span></span>
+          <ul class="dropdown">
+            <li><%= link_to(t("user.account"), edit_user_registration_path) %></li>
+            <li><%= link_to(t("auth.sign_out"), destroy_user_session_path, :method => :delete) %></li>
+          </ul>
+        </div>
       </menu>
 
       <nav>

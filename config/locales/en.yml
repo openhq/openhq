@@ -26,6 +26,12 @@ en:
   team: "Team"
   error: "error"
 
+  user:
+    account: My Profile
+
+  auth:
+    sign_out: "Sign out"
+
   forms:
     form_contains: "The form contains"
 

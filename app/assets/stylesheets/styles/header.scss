@@ -1,7 +1,8 @@
 .app-header {
   border-bottom: solid 1px $line-color-light;
-  padding: 40px 0 30px;
+  padding: 35px 0 25px;
   margin: 0 0 40px;
+  line-height: 42px;
 
   nav a {
     text-decoration: none;
@@ -16,6 +17,7 @@
   menu {
     margin: 0;
     padding: 0;
+    line-height: 22px;
   }
 }
 

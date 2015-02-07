@@ -4,6 +4,7 @@ $strong-color: #3A4245;
 $primary-color: #1CAAE7;
 $line-color: #d7d7d7;
 $line-color-light: #e7e7e7;
+$rollover-color: #f9f9f9;
 
 /* Pure Framework */
 @import "pure/base";
@@ -25,6 +26,7 @@ $line-color-light: #e7e7e7;
 @import "components/forms";
 @import "components/alerts";
 @import "components/nav";
+@import "components/dropdown";
 
 /* Specific CSS */
 @import "styles/auth";
