@@ -3,5 +3,6 @@
   <%= link_to project.name, project %>
   <hr>
   Last updated <%= human_time project.updated_at %>
+  Members: <%= project.users.map(&:first_name).to_sentence %>
 </li>
 <% end %>
