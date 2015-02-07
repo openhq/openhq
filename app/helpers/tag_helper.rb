@@ -21,7 +21,8 @@ module TagHelper
     @md_pipeline ||= HTML::Pipeline.new([
       HTML::Pipeline::MarkdownFilter,
       HTML::Pipeline::SanitizationFilter,
+      HTML::Pipeline::EmojiFilter,
       HTML::Pipeline::AutolinkFilter
-    ], gfm: true, whitelist: sanitize_whitelist)
+    ], gfm: true, whitelist: sanitize_whitelist, asset_root: "/images")
   end
 end

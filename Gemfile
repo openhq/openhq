@@ -31,6 +31,7 @@ gem 'html-pipeline'
 gem 'github-markdown'
 gem 'sanitize', '~> 3.0.3'
 gem 'rinku'
+gem 'gemoji', '~> 2.1.0'
 
 # Pagination
 gem 'kaminari', '~> 0.16.1'
