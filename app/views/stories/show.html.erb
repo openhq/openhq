@@ -4,5 +4,14 @@
 </h1>
 
 <div>
+  <p>
+    <%= present(@story.owner).full_name %> added <%= human_time @story.created_at %>
+    <% if can? :edit, @story %>
+      <span>Edit</span>
+    <% end %>
+  </p>
+</div>
+
+<div>
   <%= markdownify(@story.description) %>
 </div>
