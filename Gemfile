@@ -26,8 +26,11 @@ gem 'friendly_id', '~> 5.0.4'
 # File uploads
 gem 'paperclip', '~> 4.2.0'
 
-# Sanitize user generated html output
+# Markdown / editing support
+gem 'html-pipeline'
+gem 'github-markdown'
 gem 'sanitize', '~> 3.0.3'
+gem 'rinku'
 
 # Pagination
 gem 'kaminari', '~> 0.16.1'
