@@ -15,11 +15,11 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, presence: true
   validates :role, presence: true, inclusion: {in: ROLES}
   validates :username,
+    username: true,
     presence: true,
     uniqueness: {
       case_sensitive: false
-    },
-    format: { with: /\A[a-z0-9_-]{2,20}\z/ }
+    }
 
   # Overide devise finder to lookup by username or email
   def self.find_for_database_authentication(warden_conditions)
