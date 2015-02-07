@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = current_user.projects.build(project_params)
+    @project = current_user.created_projects.build(project_params)
     authorize! :create, @project
 
     if @project.save

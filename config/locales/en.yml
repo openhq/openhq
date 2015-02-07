@@ -30,6 +30,7 @@ en:
     account: My Profile
 
   auth:
+    username_or_email: "Username or Email"
     sign_out: "Sign out"
 
   forms:
