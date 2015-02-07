@@ -6,9 +6,7 @@
 <div>
   <p>
     <%= present(@story.owner).full_name %> added <%= human_time @story.created_at %>
-    <% if can? :edit, @story %>
-      <span>Edit</span>
-    <% end %>
+    <%= link_to "Edit", edit_project_story_path(@story.project, @story) if can? :edit, @story %>
   </p>
 </div>
 

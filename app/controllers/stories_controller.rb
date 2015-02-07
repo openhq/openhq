@@ -1,8 +1,8 @@
 class StoriesController < ApplicationController
-  before_action :set_project, only: [:new, :create]
+  before_action :set_project, only: [:new, :create, :edit]
+  before_action :set_story, only: [:show, :edit, :update]
 
   def show
-    @story = Story.friendly.find(params[:id])
   end
 
   def new
@@ -22,7 +22,25 @@ class StoriesController < ApplicationController
     end
   end
 
+  def edit
+    authorize! :update, @story
+  end
+
+  def update
+    authorize! :update, @story
+
+    if @story.update(story_params)
+      redirect_to project_story_path(@story.project, @story), notice: "Story updated"
+    else
+      render :edit
+    end
+  end
+
 private
+
+  def set_story
+    @story = Story.friendly.find(params[:id])
+  end
 
   def set_project
     @project = Project.friendly.find(params[:project_id])
