@@ -1,0 +1,30 @@
+.app-header {
+  border-bottom: solid 1px $line-color-light;
+  padding: 35px 0 25px;
+  margin: 0 0 40px;
+  line-height: 42px;
+
+  nav a {
+    text-decoration: none;
+    color: $primary-color;
+  }
+
+  .brand a {
+    font-weight: 700;
+    color: $strong-color;
+  }
+
+  menu {
+    margin: 0;
+    padding: 0;
+    line-height: 22px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .app-header {
+    menu {
+      float: right;
+    }
+  }
+}

@@ -1,17 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ProjectManagementApp</title>
+  <title>OpenCamp</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700" rel="stylesheet" type="text/css">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <header class="app-header">
+    <div class="page-container">
+      <menu>
+        <% present current_user do |user| %>
+          <div class="ui-dropdown-menu">
+            <span class="title noselect"><%= user.full_name %><span class="arrow"></span></span>
+            <ul class="dropdown">
+              <li><%= link_to(t("user.account"), edit_user_registration_path) %></li>
+              <li><%= link_to(t("auth.sign_out"), destroy_user_session_path, :method => :delete) %></li>
+            </ul>
+          </div>
+        <% end %>
+      </menu>
 
-<%= yield %>
+      <nav>
+        <ul>
+          <li class="brand"><%= link_to app_name, root_url %></li>
+          <li><%= link_to t('projects'), projects_path %></li>
+          <li><%= link_to t('files'), "#" %></li>
+          <li><%= link_to t('team'), "#" %></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+  <div class="page-container">
+    <%= render 'shared/flash_messages' %>
+
+    <%= yield %>
+  </div>
 
 </body>
 </html>

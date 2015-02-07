@@ -1,0 +1,7 @@
+body.auth {
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="password"] {
+    max-width: 340px;
+  }
+}

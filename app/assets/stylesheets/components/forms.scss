@@ -1,0 +1,27 @@
+form label {
+  cursor: pointer;
+}
+
+.pure-checkbox {
+  & > input {
+    margin-right: 10px;
+  }
+}
+
+.form-actions {
+  margin-top: 20px;
+  padding: 15px 20px;
+  border-top: 1px solid $line-color-light;
+  background: $rollover-color;
+}
+
+.full-width-inputs {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    max-width: 340px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+}

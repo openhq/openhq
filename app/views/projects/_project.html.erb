@@ -1,0 +1,7 @@
+<% if can? :read, project %>
+<li>
+  <%= link_to project.name, project %>
+  <hr>
+  Last updated <%= human_time project.updated_at %>
+</li>
+<% end %>

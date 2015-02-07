@@ -20,4 +20,21 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  projects: "Projects"
+  new_project: "New Project"
+  files: "Files"
+  team: "Team"
+  error: "error"
+
+  user:
+    account: My Profile
+
+  auth:
+    sign_out: "Sign out"
+
+  forms:
+    form_contains: "The form contains"
+
+  unauthorized:
+    manage:
+      all: "You do not have permission to %{action} %{subject}!"

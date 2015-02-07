@@ -1,0 +1,33 @@
+$font-stack: 'Open Sans', Helvetica, Arial, sans-serif;
+$body-color: #333;
+$strong-color: #3A4245;
+$primary-color: #1CAAE7;
+$line-color: #d7d7d7;
+$line-color-light: #e7e7e7;
+$rollover-color: #f9f9f9;
+
+/* Pure Framework */
+@import "pure/base";
+@import "pure/grids";
+@import "pure/grids-responsive";
+@import "pure/tables";
+@import "pure/menus";
+@import "pure/forms";
+@import "pure/buttons";
+
+/* Plugins */
+@import "chosen";
+@import "pickadate/default";
+@import "pickadate/default.date";
+
+/* CSS components */
+@import "components/type";
+@import "components/containers";
+@import "components/forms";
+@import "components/alerts";
+@import "components/nav";
+@import "components/dropdown";
+
+/* Specific CSS */
+@import "styles/auth";
+@import "styles/header";

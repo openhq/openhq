@@ -1,0 +1,7 @@
+<h1><%= t("projects") %></h1>
+
+<% if @projects.any? %>
+  <ul class="ui-projects-list">
+    <%= render @projects %>
+  </ul>
+<% end %>
