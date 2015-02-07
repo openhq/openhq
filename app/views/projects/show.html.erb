@@ -9,6 +9,6 @@
   </ul>
 <% end %>
 
-<hr>
-
-<%= render "/stories/form" %>
+<% if can? :create, @story %>
+  <%= render "/stories/form" %>
+<% end %>
