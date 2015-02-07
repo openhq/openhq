@@ -1,4 +1,7 @@
 class Story < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   belongs_to :project
   belongs_to :owner, class_name: "User"
   has_many :tasks

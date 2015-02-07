@@ -1,0 +1,8 @@
+<h1>
+  <%= @story.name %>
+  <small><%= link_to @story.project.name, @story.project %></small>
+</h1>
+
+<div>
+  <%= markdownify(@story.description) %>
+</div>

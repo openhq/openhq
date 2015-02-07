@@ -1,0 +1,5 @@
+<%= simple_form_for(@story, url: project_stories_path(@project), html: {class: "pure-form pure-form-stacked"}) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.submit class: "pure-button pure-button-primary" %>
+<% end %>
