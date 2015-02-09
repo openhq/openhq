@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :created_projects, foreign_key: "owner_id", class_name: "Project"
+  has_many :stories, foreign_key: "owner_id", class_name: "Story"
 
   has_and_belongs_to_many :projects
 

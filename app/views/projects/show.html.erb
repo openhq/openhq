@@ -2,3 +2,13 @@
   <%= @project.name %>
   <small>Last updated <%= human_time @project.updated_at %></small>
 </h1>
+
+<% if @project.stories.any? %>
+  <ul class="ui-stories-list">
+    <%= render @project.stories %>
+  </ul>
+<% end %>
+
+<% if can? :create, @story %>
+  <%= render "/stories/form" %>
+<% end %>

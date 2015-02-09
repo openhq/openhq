@@ -1,0 +1,15 @@
+<h1>
+  <%= @story.name %>
+  <small><%= link_to @story.project.name, @story.project %></small>
+</h1>
+
+<div>
+  <p>
+    <%= present(@story.owner).full_name %> added <%= human_time @story.created_at %>
+    <%= link_to "Edit", edit_project_story_path(@story.project, @story) if can? :edit, @story %>
+  </p>
+</div>
+
+<div>
+  <%= markdownify(@story.description) %>
+</div>

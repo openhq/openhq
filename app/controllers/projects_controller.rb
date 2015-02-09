@@ -7,6 +7,7 @@ class ProjectsController < ApplicationController
 
   def show
     authorize! :read, @project
+    @story = Story.new
   end
 
   def new

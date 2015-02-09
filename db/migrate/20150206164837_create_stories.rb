@@ -4,7 +4,7 @@ class CreateStories < ActiveRecord::Migration
       t.integer :project_id
       t.string :name
       t.string :slug
-      t.string :description
+      t.text :description
       t.integer :owner_id
       t.timestamps
     end
