@@ -1,4 +1,5 @@
 <%= simple_form_for [@project, @story], html: {class: "pure-form pure-form-stacked"} do |f| %>
+  <%= render 'shared/form_errors', object: f.object %>
   <%= f.input :name %>
   <%= f.input :description %>
   <%= f.submit class: "pure-button pure-button-primary" %>
