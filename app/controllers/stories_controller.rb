@@ -1,5 +1,5 @@
 class StoriesController < ApplicationController
-  before_action :set_project, only: [:new, :create, :edit]
+  before_action :set_project
   before_action :set_story, only: [:show, :edit, :update]
 
   def show
@@ -44,6 +44,7 @@ private
 
   def set_project
     @project = Project.friendly.find(params[:project_id])
+    authorize! :read, @project
   end
 
   def story_params
