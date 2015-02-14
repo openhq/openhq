@@ -1,6 +1,9 @@
 body {
   font-family: $font-stack;
   color: $body-color;
+  line-height: 1.6;
+  @include font-smoothing(on);
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -22,4 +25,9 @@ hr {
   margin: 20px 0px;
   border: 0;
   border-bottom: 1px solid $line-color-light;
+}
+
+
+abbr {
+  cursor: help;
 }

@@ -1,0 +1,66 @@
+.ui-story {
+  border: solid 1px $line-color;
+  border-radius: 4px;
+
+  max-width: 42em;
+
+  article:first-child > header {
+    border-top: none;
+  }
+
+  header {
+    padding: 10px;
+    line-height: 30px;
+    border-top: solid 1px $line-color;
+    border-bottom: solid 1px $line-color;
+    font-size: 15px;
+    color: $body-light-color;
+    position: relative;
+
+    &:after, &:before {
+      top: 100%;
+      left: 50px;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    &:after {
+      border-color: rgba(255, 255, 255, 0);
+      border-top-color: #ffffff;
+      border-width: 14px;
+      margin-left: -14px;
+    }
+    &:before {
+      border-color: rgba(215, 215, 215, 0);
+      border-top-color: $line-color;
+      border-width: 15px;
+      margin-left: -15px;
+    }
+
+    .actions {
+      float: right;
+    }
+
+    img {
+      float: left;
+      border-radius: 15px;
+      margin-right: 10px;
+    }
+  }
+
+  .body, .attachments, .tasks {
+    padding: 30px 40px;
+  }
+
+  .attachments, .tasks, form {
+    border-top: solid 1px $line-color;
+  }
+
+  .tasks {
+    background-color: $rollover-color;
+  }
+}

@@ -3,13 +3,39 @@
   <small><%= link_to @story.project.name, @story.project %></small>
 </h1>
 
-<div>
-  <p>
-    <%= present(@story.owner).full_name %> added <%= human_time @story.created_at %>
-    <%= link_to "Edit", edit_project_story_path(@story.project, @story) if can? :edit, @story %>
-  </p>
+<div class="ui-story">
+  <article>
+    <header>
+      <div class="actions">
+        <%= link_to "Edit", edit_project_story_path(@story.project, @story) if can? :edit, @story %>
+      </div>
+      <%= image_tag "https://placehold.it/30x30" %>
+      <%= present(@story.owner).full_name %> added <%= human_time @story.created_at %>
+    </header>
+    <section class="body">
+      <%= markdownify @story.description %>
+    </section>
+  </article>
+  <div class="tasks">
+    <p>No tasks</p>
+  </div>
+  <div class="attachments">
+    <p>No attachments</p>
+  </div>
+  <% @story.comments.each do |comment| %>
+  <article>
+    <header>
+      <div class="actions">
+        <%= link_to "Edit", edit_project_story_comment_path(@story.project, @story, comment) if can? :edit, comment %>
+      </div>
+      <%= image_tag "https://placehold.it/30x30" %>
+      <%= present(comment.owner).full_name %> added <%= human_time comment.created_at %>
+    </header>
+    <section class="body">
+      <%= markdownify comment.content %>
+    </section>
+  </article>
+  <% end %>
 </div>
 
-<div>
-  <%= markdownify(@story.description) %>
-</div>
+
