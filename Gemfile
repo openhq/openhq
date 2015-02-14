@@ -44,6 +44,8 @@ gem 'roadie-rails', '~> 1.0.4'
 # Background jobs
 gem 'sucker_punch', '~> 1.2.1'
 
+gem 'puma'
+
 group :development do
   gem 'spring'
   gem 'quiet_assets'
