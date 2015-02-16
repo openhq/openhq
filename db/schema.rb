@@ -18,41 +18,33 @@ ActiveRecord::Schema.define(version: 20150206231753) do
   enable_extension "hstore"
   enable_extension "citext"
 
-  create_table "attachables", force: :cascade do |t|
-    t.integer "attachment_id"
-    t.string  "attachable_type"
-    t.integer "attachable_id"
-  end
-
-  add_index "attachables", ["attachable_id"], name: "index_attachables_on_attachable_id", using: :btree
-
   create_table "attachments", force: :cascade do |t|
     t.string   "name"
     t.string   "path"
     t.string   "size"
     t.string   "content_type"
+    t.string   "attachable_type"
+    t.integer  "attachable_id"
+    t.integer  "story_id"
     t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "attachments", ["attachable_id"], name: "index_attachments_on_attachable_id", using: :btree
   add_index "attachments", ["owner_id"], name: "index_attachments_on_owner_id", using: :btree
-
-  create_table "commentables", force: :cascade do |t|
-    t.integer "comment_id"
-    t.string  "commentable_type"
-    t.integer "commentable_id"
-  end
-
-  add_index "commentables", ["commentable_id"], name: "index_commentables_on_commentable_id", using: :btree
+  add_index "attachments", ["story_id"], name: "index_attachments_on_story_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
+    t.string   "commentable_type"
+    t.integer  "commentable_id"
     t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
   add_index "comments", ["owner_id"], name: "index_comments_on_owner_id", using: :btree
 
   create_table "metadata", force: :cascade do |t|
