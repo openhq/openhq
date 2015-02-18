@@ -7,6 +7,11 @@ module TagHelper
     end
   end
 
+  def short_date(time)
+    return "Today" if time.today?
+    time.strftime("%d %b")
+  end
+
   def markdownify(text)
     md_pipeline.call(text)[:output].html_safe
   end

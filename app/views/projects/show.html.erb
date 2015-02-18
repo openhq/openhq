@@ -1,14 +1,25 @@
-<h1>
-  <%= @project.name %>
-  <small>Last updated <%= human_time @project.updated_at %></small>
-</h1>
+<div class="page-header">
+  <ul class="actions h-list">
+  <% if can? :update, @project %>
+    <li>
+      <%= link_to "Manage Project", [:edit, @project], class: "btn btn-text" %>
+    </li>
+  <% end %>
+  <% if can? :create, @story %>
+    <li>
+      <%= link_to "New Story", [:new, @project, :story], class: "btn btn-main" %>
+    </li>
+  <% end %>
+  </ul>
+
+  <h1>
+    <%= @project.name %>
+  </h1>
+</div>
+
 
 <% if @project.stories.any? %>
   <ul class="ui-stories-list">
     <%= render @project.stories %>
   </ul>
-<% end %>
-
-<% if can? :create, @story %>
-  <%= render "/stories/form" %>
 <% end %>

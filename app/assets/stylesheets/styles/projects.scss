@@ -1,0 +1,47 @@
+.project-box {
+  border: solid 1px $line-color;
+  border-radius: 3px;
+  margin: 30px;
+
+  h3 {
+    margin-top: 0;
+  }
+
+  .info {
+    padding: 20px;
+  }
+
+  footer {
+    border-top: solid 1px $line-color;
+    padding: 20px;
+
+    .members {
+      text-align: right;
+      a {
+        display: inline-block;
+        margin-left: 5px;
+      }
+    }
+  }
+
+  .recent-stories {
+    font-size: 14px;
+    line-height: 26px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    color: $small-copy;
+    min-height: 130px;
+
+    .when {
+      display: inline-block;
+      min-width: 60px;
+    }
+
+    li {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

@@ -9,4 +9,6 @@ class Story < ActiveRecord::Base
   has_many :comments, as: :commentable
 
   validates_presence_of :project_id, :name, :owner_id
+
+  scope :recent, -> { order(updated_at: :desc) }
 end

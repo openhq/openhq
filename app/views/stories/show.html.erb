@@ -9,7 +9,7 @@
       <div class="actions">
         <%= link_to "Edit", edit_project_story_path(@story.project, @story) if can? :edit, @story %>
       </div>
-      <%= image_tag "https://placehold.it/30x30" %>
+      <%= present(@story.owner).avatar_link(30) %>
       <%= present(@story.owner).full_name %> added <%= human_time @story.created_at %>
     </header>
     <section class="body">
@@ -28,7 +28,7 @@
       <div class="actions">
         <%= link_to "Edit", edit_project_story_comment_path(@story.project, @story, comment) if can? :edit, comment %>
       </div>
-      <%= image_tag "https://placehold.it/30x30" %>
+      <%= present(comment.owner).avatar_link(30) %>
       <%= present(comment.owner).full_name %> added <%= human_time comment.created_at %>
     </header>
     <section class="body">
