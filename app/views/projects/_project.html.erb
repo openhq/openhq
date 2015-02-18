@@ -8,6 +8,18 @@
           <small>Last updated <%= human_time project.updated_at %></small>
         <% end %>
       </h3>
+
+      <ul class="recent-stories">
+        <% if project.stories.recent.empty? %>
+          <li>No recent stories</li>
+        <% end %>
+        <% project.stories.recent.limit(5).each do |story| %>
+          <li>
+            <span class="when"><%= short_date story.updated_at %></span>
+            <%= link_to story.name, [project, story] %>
+          </li>
+        <% end %>
+      </ul>
     </section>
 
     <footer>

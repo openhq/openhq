@@ -9,7 +9,7 @@ class UserPresenter < BasePresenter
 
   def avatar_link(size = 100)
     # TODO implement link to user
-    h.link_to avatar(size), "#"
+    h.link_to avatar(size), "#", title: user.username
   end
 
   def avatar(size = 100)
@@ -17,7 +17,7 @@ class UserPresenter < BasePresenter
 
     url = gravatar_url(size)
 
-    h.image_tag(url, alt: full_name, class: "avatar")
+    h.image_tag(url, alt: user.username, class: "avatar")
   end
 
   private
