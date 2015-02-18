@@ -25,3 +25,7 @@ form label {
     width: 100%;
   }
 }
+
+input, textarea, select {
+  font-family: $font-stack;
+}
