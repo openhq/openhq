@@ -1,7 +1,7 @@
 .project-box {
   border: solid 1px $line-color;
   border-radius: 3px;
-  margin: 30px;
+  margin-bottom: 30px;
 
   h3 {
     margin-top: 0;
@@ -43,5 +43,15 @@
       margin: 0;
       padding: 0;
     }
+  }
+}
+
+@media only screen and (min-width: 48em) {
+  .ui-projects-list > div:nth-child(1n) {
+    .project-box { margin-right: 15px; }
+  }
+
+  .ui-projects-list > div:nth-child(2n) {
+    .project-box { margin-left: 15px; }
   }
 }

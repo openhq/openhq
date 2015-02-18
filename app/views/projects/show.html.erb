@@ -20,6 +20,6 @@
 
 <% if @project.stories.any? %>
   <ul class="ui-stories-list">
-    <%= render @project.stories %>
+    <%= render @project.stories.recent %>
   </ul>
 <% end %>
