@@ -2,6 +2,7 @@ $font-stack: 'Open Sans', Helvetica, Arial, sans-serif;
 $body-color: #333;
 $body-light-color: #94A3A9;
 $strong-color: #3A4245;
+$small-copy: #829298;
 $primary-color: #1CAAE7;
 $line-color: #d7d7d7;
 $line-color-light: #e7e7e7;
@@ -43,4 +44,6 @@ $rollover-color: #f9f9f9;
 /* Specific CSS */
 @import "styles/auth";
 @import "styles/header";
+@import "styles/projects";
 @import "styles/story";
+@import "styles/users";

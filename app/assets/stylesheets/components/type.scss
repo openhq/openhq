@@ -31,3 +31,27 @@ hr {
 abbr {
   cursor: help;
 }
+
+
+//
+// Headings
+// =============================================================================
+
+h3 {
+  font-size: 24px;
+  color: $strong-color;
+  font-weight: 700;
+
+  a {
+    text-decoration: none;
+    color: $strong-color;
+    display: block;
+  }
+
+  small, a small {
+    font-weight: 400;
+    font-size: 16px;
+    display: block;
+    color: $small-copy;
+  }
+}
