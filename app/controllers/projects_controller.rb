@@ -33,6 +33,12 @@ class ProjectsController < ApplicationController
 
   def update
     authorize! :update, @project
+
+    if @project.update(project_params)
+      redirect_to @project, notice: "Project saved"
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -46,7 +52,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:name)
+    params.require(:project).permit(:name, user_ids: [])
   end
 
 end

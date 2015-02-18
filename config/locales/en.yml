@@ -22,6 +22,7 @@
 en:
   projects: "Projects"
   new_project: "New Project"
+  edit_project: "Manage Project"
   files: "Files"
   team: "Team"
   error: "error"
