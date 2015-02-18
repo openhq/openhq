@@ -7,8 +7,13 @@ class Story < ActiveRecord::Base
   has_many :tasks
   has_many :attachments
   has_many :comments, as: :commentable
+  has_many :users, through: :comments, source: :owner
 
   validates_presence_of :project_id, :name, :owner_id
 
   scope :recent, -> { order(updated_at: :desc) }
+
+  def collaborators
+    users + [owner]
+  end
 end

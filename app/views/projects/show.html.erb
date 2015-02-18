@@ -20,6 +20,21 @@
 
 <% if @project.stories.any? %>
   <ul class="ui-stories-list">
-    <%= render @project.stories.recent %>
+    <% @project.stories.recent.each do |story| %>
+      <li>
+        <%= link_to [@project, story] do %>
+          <div class="members">
+            <% present_collection(story.collaborators).each do |user| %>
+              <%= user.avatar(30) %>
+            <% end %>
+          </div>
+
+          <h4>
+            <span class="title"><%= truncate(story.name, length: 50, separator: ' ') %></span>
+            <small>updated <%= human_time story.updated_at %></small>
+          </h4>
+        <% end %>
+      </li>
+    <% end %>
   </ul>
 <% end %>

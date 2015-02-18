@@ -46,6 +46,51 @@
   }
 }
 
+
+.ui-stories-list {
+  border-top: dotted 1px $line-color;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &>li {
+    border-bottom: dotted 1px $line-color;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    color: $strong-color;
+    font-size: 19px;
+    padding: 20px 0;
+
+    &:hover {
+      h4 .title {
+        text-decoration: underline;
+      }
+    }
+
+    .members {
+      float: right;
+      text-align: right;
+      img {
+        margin-left: 5px;
+      }
+    }
+
+    h4 {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 400;
+      small {
+        margin-left: 10px;
+        color: $small-copy;
+      }
+    }
+  }
+}
+
+
 @media only screen and (min-width: 48em) {
   .ui-projects-list > div:nth-child(1n) {
     .project-box { margin-right: 15px; }
