@@ -63,6 +63,10 @@
     padding: 30px 40px;
   }
 
+  .body.edit-mode {
+    padding: 30px 0 0 0;
+  }
+
   .attachments, .tasks, form {
     border-top: solid 1px $line-color;
   }

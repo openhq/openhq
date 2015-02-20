@@ -30,8 +30,8 @@ input, textarea, select {
   font-family: $font-stack;
 }
 
-.add-comment {
-  .add-comment-textarea {
+.content-input {
+  .text-box {
     border: 1px solid $line-color;
     border-radius: 4px;
     margin: 0 10px;
@@ -42,15 +42,24 @@ input, textarea, select {
       max-width: 100%;
       min-height: 120px;
       box-shadow: none;
+      line-height: 1.6;
+      padding: 8px 10px;
+      margin: 4px 0;
+      box-sizing: border-box;
+      outline: none;
     }
 
     span.note {
       display: block;
       text-align: right;
-      background: #e7e7e7;
-      color: #3A4245;
+      background: $rollover-dark;
       padding: 2px 5px;
       font-size: 14px;
+      color: $small-copy;
+
+      a {
+        color: $small-copy;
+      }
     }
   }
 
@@ -58,4 +67,14 @@ input, textarea, select {
     margin: 10px;
     text-align: right;
   }
+}
+
+
+/* wild big input so it is */
+input.title-input {
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  outline: none;
+  display: inline-block;
 }
