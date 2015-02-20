@@ -15,20 +15,35 @@ form label {
   background: $rollover-color;
 }
 
-.full-width-inputs {
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  textarea {
-    max-width: 340px;
-    box-sizing: border-box;
-    width: 100%;
-  }
-}
 
 input, textarea, select {
   font-family: $font-stack;
 }
+
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+textarea {
+  padding: 8px;
+  border-radius: 3px;
+  border: solid 1px $line-color;
+  outline: none;
+  margin: 4px 0;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+
+.stacked-form {
+  label {
+    display: block;
+    maring: 20px 0 8px;
+  }
+}
+
 
 .content-input {
   .text-box {
@@ -77,4 +92,10 @@ input.title-input {
   box-shadow: none;
   outline: none;
   display: inline-block;
+}
+
+@media only screen and (min-width: 768px) {
+  form input {
+    max-width: 300px;
+  }
 }

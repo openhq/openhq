@@ -25,6 +25,7 @@ en:
   edit_project: "Manage Project"
   files: "Files"
   team: "Team"
+  settings: "Settings"
   error: "error"
 
   user:
