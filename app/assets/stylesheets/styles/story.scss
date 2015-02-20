@@ -41,6 +41,13 @@
       margin-left: -15px;
     }
 
+    &.plain {
+      border-bottom: 0;
+      &:after, &:before {
+        content: none;
+      }
+    }
+
     .actions {
       float: right;
     }
@@ -62,5 +69,11 @@
 
   .tasks {
     background-color: $rollover-color;
+  }
+
+  .add-comment {
+    form {
+      border-top: 0;
+    }
   }
 }

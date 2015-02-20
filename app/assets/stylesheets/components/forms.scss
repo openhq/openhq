@@ -29,3 +29,33 @@ form label {
 input, textarea, select {
   font-family: $font-stack;
 }
+
+.add-comment {
+  .add-comment-textarea {
+    border: 1px solid $line-color;
+    border-radius: 4px;
+    margin: 0 10px;
+
+    textarea {
+      border: 0;
+      width: 100%;
+      max-width: 100%;
+      min-height: 120px;
+      box-shadow: none;
+    }
+
+    span.note {
+      display: block;
+      text-align: right;
+      background: #e7e7e7;
+      color: #3A4245;
+      padding: 2px 5px;
+      font-size: 14px;
+    }
+  }
+
+  footer {
+    margin: 10px;
+    text-align: right;
+  }
+}
