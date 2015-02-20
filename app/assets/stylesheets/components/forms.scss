@@ -20,6 +20,10 @@ input, textarea, select {
   font-family: $font-stack;
 }
 
+input[type="checkbox"],
+input[type="radio"] {
+  margin-right: 10px;
+}
 
 input[type="text"],
 input[type="email"],
@@ -37,11 +41,16 @@ textarea {
 }
 
 
-.stacked-form {
-  label {
-    display: block;
-    maring: 20px 0 8px;
-  }
+form label {
+  display: block;
+  margin: 8px 0 0;
+}
+
+form .hint {
+  display: block;
+  color: $small-copy;
+  font-size: 14px;
+  margin: 0 0 10px;
 }
 
 
