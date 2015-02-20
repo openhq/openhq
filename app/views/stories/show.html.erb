@@ -36,15 +36,12 @@
     </section>
   </article>
   <% end %>
-  <div class="add-comment">
+  <div class="add-comment content-input">
     <header class="plain">
       <%= present(current_user).avatar_link(30) %> Reply to this topic
     </header>
     <%= simple_form_for [@story.project, @story, Comment.new], html: {class: "pure-form pure-form-stacked"} do |f| %>
-      <div class="add-comment-textarea">
-        <%= f.input :content, label: false, placeholder: "Type your message" %>
-        <span class="note">Supports Markdown</span>
-      </div>
+      <%= render 'shared/text_box', form: f, method: :content %>
       <footer>
         <%= f.submit "Reply", class: "btn btn-main" %>
       </footer>

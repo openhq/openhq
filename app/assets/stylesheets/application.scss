@@ -8,6 +8,7 @@ $primary-deep: #0D8DC3;
 $line-color: #d7d7d7;
 $line-color-light: #e7e7e7;
 $rollover-color: #f9f9f9;
+$rollover-dark: #efefef;
 
 @mixin font-smoothing($value: on) {
     @if $value == on {
@@ -44,6 +45,7 @@ $rollover-color: #f9f9f9;
 @import "components/dropdown";
 
 /* Specific CSS */
+@import "styles/icons";
 @import "styles/auth";
 @import "styles/header";
 @import "styles/projects";

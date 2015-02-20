@@ -1,6 +1,24 @@
-<h1>
-  <%= @project.name %>
-  <small>Last updated <%= human_time @project.updated_at %></small>
-</h1>
+<%= simple_form_for [@project, @story] do |f| %>
+  <%= f.input :name, label: false, input_html: {class: "title-input", tabindex: 1, autofocus: "true", placeholder: "Name your story&hellip;".html_safe} %>
 
-<%= render "form" %>
+  <%= render 'shared/form_errors', object: f.object %>
+  <div class="ui-story">
+    <article>
+      <header>
+        <div class="actions">
+          <%= link_to "Cancel", project_path(@project) %>
+        </div>
+        <%= present(current_user).avatar_link(30) %>
+        <%= present(current_user).full_name %> added <%= human_time Time.zone.now %>
+      </header>
+      <section class="body edit-mode">
+        <div class="content-input">
+          <%= render 'shared/text_box', form: f, method: :description, tabindex: 2 %>
+          <footer>
+            <%= f.submit "Post", class: "btn btn-main", tabindex: 3 %>
+          </footer>
+        </div><%# /.content-input %>
+      </section>
+    </article>
+  </div>
+<% end %>

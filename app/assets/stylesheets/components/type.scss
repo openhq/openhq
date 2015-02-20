@@ -41,7 +41,8 @@ abbr {
 // Headings
 // =============================================================================
 
-h1 {
+h1, .title-input {
+  margin: 0 0 21px;
   font-size: 32px;
   line-height: 40px;
   font-weight: 400;
