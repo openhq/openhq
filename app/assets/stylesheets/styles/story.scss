@@ -70,4 +70,10 @@
   .tasks {
     background-color: $rollover-color;
   }
+
+  .add-comment {
+    form {
+      border-top: 0;
+    }
+  }
 }

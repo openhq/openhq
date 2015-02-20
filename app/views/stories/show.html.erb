@@ -41,8 +41,13 @@
       <%= present(current_user).avatar_link(30) %> Reply to this topic
     </header>
     <%= simple_form_for [@story.project, @story, @comment], html: {class: "pure-form pure-form-stacked"} do |f| %>
-      <%= f.input :content %>
-      <%= f.submit "Reply", class: "btn btn-main" %>
+      <div class="add-comment-textarea">
+        <%= f.input :content, label: false, placeholder: "Type your message" %>
+        <span class="note">Supports Markdown</span>
+      </div>
+      <footer>
+        <%= f.submit "Reply", class: "btn btn-main" %>
+      </footer>
     <% end %>
   </div>
 </div>
