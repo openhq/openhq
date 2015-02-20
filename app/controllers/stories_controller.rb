@@ -3,6 +3,7 @@ class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :edit, :update]
 
   def show
+    @comment = Comment.new
   end
 
   def new
@@ -20,6 +21,10 @@ class StoriesController < ApplicationController
     else
       render :new
     end
+  end
+
+  def create_comment
+    render :show
   end
 
   def edit
