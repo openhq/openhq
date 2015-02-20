@@ -1,13 +1,10 @@
 class SettingsController < ApplicationController
+  before_action :load_and_authorize_settings
+
   def edit
-    @settings = Settings.load
-    authorize!(:update, @settings)
   end
 
   def update
-    @settings = Settings.load
-    authorize!(:update, @settings)
-
     if @settings.update(settings_params)
       redirect_to root_path, notice: "Your settings have been updated"
     else
@@ -17,7 +14,13 @@ class SettingsController < ApplicationController
 
   private
 
+  def load_and_authorize_settings
+    @settings = Settings.load
+    authorize!(:update, @settings)
+  end
+
   def settings_params
     params.require(:settings).permit(:organisation_name)
   end
+
 end
