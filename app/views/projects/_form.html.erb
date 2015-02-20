@@ -1,9 +1,12 @@
 <%= simple_form_for @project, html: {class: "pure-form pure-form-stacked"} do |f| %>
   <%= render 'shared/form_errors', object: f.object %>
 
-  <%= f.input :name %>
+  <section class="info">
+    <%= f.input :name, label: "Project Name" %>
+    <%= f.association :users, as: :check_boxes, label_method: :username, label: "Invite team members" %>
+  </section>
 
-  <%= f.association :users, as: :check_boxes, label_method: :username %>
-
-  <%= f.submit class: "btn btn-main" %>
+  <footer>
+    <%= f.submit class: "btn btn-main" %>
+  </footer>
 <% end %>

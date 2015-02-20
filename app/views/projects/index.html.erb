@@ -1,7 +1,8 @@
 <h1><%= t("projects") %></h1>
 
-<% if @projects.any? %>
-  <div class="ui-projects-list pure-g">
+<div class="ui-projects-list pure-g">
+  <% if @projects.any? %>
     <%= render @projects %>
-  </div>
-<% end %>
+  <% end %>
+  <%= render "new_project" %>
+</div>
