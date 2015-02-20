@@ -30,3 +30,22 @@
   text-decoration: underline;
   font-size: 15px;
 }
+
+button.close-cross {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  display: block;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  font-weight: 700;
+  transform: translate(0, -50%);
+  color: rgba(0,0,0,0.5);
+  outline: none;
+
+  &:hover { color: rgba(0,0,0,0.6); }
+  &:active { color: rgba(0,0,0,0.8); }
+}
