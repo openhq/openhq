@@ -13,12 +13,14 @@ class Settings
     self.organisation_name = Metadata.get(:organisation_name)
   end
 
+  def persist!
+    Metadata.set(:organisation_name, organisation_name)
+  end
+
   def update(params)
     set_params(params)
 
-    return false unless valid?
-
-    Metadata.set(:organisation_name, organisation_name)
+    persist! if valid?
   end
 
   private
