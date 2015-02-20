@@ -3,6 +3,7 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = current_user.projects
+    @project = Project.new
   end
 
   def show
