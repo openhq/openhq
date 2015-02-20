@@ -1,8 +1,5 @@
 class CommentsController < ApplicationController
 
-  def new
-  end
-
   def create
     @comment = Comment.new(
       commentable: Story.friendly.find(params[:story_id]),

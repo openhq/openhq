@@ -23,10 +23,6 @@ class StoriesController < ApplicationController
     end
   end
 
-  def create_comment
-    render :show
-  end
-
   def edit
     authorize! :update, @story
   end
