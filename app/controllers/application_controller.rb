@@ -19,8 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_first_error(object)
-    error = object.errors.first
-    "#{error[0]} #{error[1]}"
+    object.errors.full_messages.first
   end
 
 end
