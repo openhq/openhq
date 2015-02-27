@@ -17,22 +17,25 @@
     </section>
   </article>
   <div class="tasks">
-    <% if @story.tasks.any? %>
+    <% if @story.tasks.empty? %>
+      <p>No tasks</p>
+
+    <% else %>
+      <h4><%= pluralize(@story.tasks.incomplete.count, "Incomplete Task") %></h4>
       <ul>
         <% @story.tasks.each do |task| %>
-          <li><%= task.label %></li>
+          <li data-id="<%= task.id %>" class="<%= "complete" if task.completed? %>">
+            <label>
+              <input type="checkbox" <%= "checked" if task.completed? %>><%= task.label %>
+            </label>
+          </li>
         <% end %>
       </ul>
-    <% else %>
-      <p>No tasks</p>
     <% end %>
 
     <% if can? :create, Task.new %>
       <%= simple_form_for [@story.project, @story, Task.new], html: { class: "pure-form pure-form-stacked" } do |f| %>
-        <%= f.input :label %>
-        <footer>
-          <%= f.submit "Add Task", class: "btn btn-main" %>
-        </footer>
+        <%= f.input :label, label: false, placeholder: "Add a new task..." %>
       <% end %>
     <% end %>
   </div>

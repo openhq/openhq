@@ -1,0 +1,22 @@
+.tasks {
+    h4 {
+        margin-top: 0;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+
+        li.complete {
+            text-decoration: line-through;
+        }
+    }
+
+    form {
+        border-top: 0;
+        input[type="text"] {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+}

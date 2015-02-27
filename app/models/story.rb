@@ -4,7 +4,7 @@ class Story < ActiveRecord::Base
 
   belongs_to :project
   belongs_to :owner, class_name: "User"
-  has_many :tasks
+  has_many :tasks, -> { order(created_at: :asc) }
   has_many :attachments
   has_many :comments, as: :commentable
   has_many :users, through: :comments, source: :owner
