@@ -6,7 +6,6 @@ $(function(){
     var url = $this.closest('form').attr('action');
     var completed = $this.is(':checked');
 
-    // Do the work
     $.ajax({
         type: "put",
         url: url,
@@ -18,6 +17,11 @@ $(function(){
         if (resp.result) {
             if (resp.task.completed) li.addClass('complete');
             else li.removeClass('complete');
+
+            count = li.closest('ul').find('li:not(.complete)').length
+            li.closest('.tasks').find('h4').html(
+                count + " Incomplete Task" + (count == 1 ? "" : "s")
+            );
         }
     });
   });
