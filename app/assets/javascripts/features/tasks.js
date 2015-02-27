@@ -13,11 +13,13 @@ $(function(){
         data: {
           completed: completed
         }
+    })
+    .done(function(resp){
+        if (resp.result) {
+            if (resp.task.completed) li.addClass('complete');
+            else li.removeClass('complete');
+        }
     });
-
-    // Add / Remove completed style
-    if (completed) { li.addClass('complete'); }
-    else { li.removeClass('complete'); }
   });
 
 });

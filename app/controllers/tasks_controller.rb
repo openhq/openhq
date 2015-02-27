@@ -7,6 +7,8 @@ class TasksController < ApplicationController
       label: task_params[:label],
     )
 
+    authorize! :create, @task
+
     if @task.save
       redirect_to :back, notice: "Your task has been added"
     else
@@ -16,13 +18,15 @@ class TasksController < ApplicationController
   end
 
   def update
-    task = Task.find(params[:id])
-    task.completed = params[:completed]
-    task.completed_by = current_user.id
-    task.completed_on = Time.zone.now
+    @task = Task.find(params[:id])
+    authorize! :update, @task
 
-    if task.save
-      render json: { result: true, task: task }
+    @task.completed = params[:completed]
+    @task.completed_by = current_user.id
+    @task.completed_on = Time.zone.now
+
+    if @task.save
+      render json: { result: true, task: @task }
     else
       render json: { result: false }
     end
