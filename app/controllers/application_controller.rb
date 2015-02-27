@@ -18,4 +18,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) << [:username, :email, :first_name, :last_name]
   end
 
+  def get_first_error(object)
+    error = object.errors.first
+    "#{error[0]} #{error[1]}"
+  end
+
 end

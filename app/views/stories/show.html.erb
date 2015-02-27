@@ -18,6 +18,14 @@
   </article>
   <div class="tasks">
     <p>No tasks</p>
+    <% if can? :create, Task.new %>
+      <%= simple_form_for [@story.project, @story, Task.new], html: { class: "pure-form pure-form-stacked" } do |f| %>
+        <%= f.input :label %>
+        <footer>
+          <%= f.submit "Add Task", class: "btn btn-main" %>
+        </footer>
+      <% end %>
+    <% end %>
   </div>
   <div class="attachments">
     <p>No attachments</p>

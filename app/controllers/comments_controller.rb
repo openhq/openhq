@@ -21,9 +21,4 @@ private
     params.require(:comment).permit(:content)
   end
 
-  def get_first_error(comment)
-    error = comment.errors.first
-    "#{error[0]} #{error[1]}"
-  end
-
 end
