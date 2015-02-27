@@ -15,8 +15,7 @@ $(function(){
     })
     .done(function(resp){
         if (resp.result) {
-            if (resp.task.completed) li.addClass('complete');
-            else li.removeClass('complete');
+            li.toggleClass('complete');
 
             count = li.closest('ul').find('li:not(.complete)').length
             li.closest('.tasks').find('h4').html(
