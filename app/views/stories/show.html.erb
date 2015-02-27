@@ -22,15 +22,18 @@
 
     <% else %>
       <h4><%= pluralize(@story.tasks.incomplete.count, "Incomplete Task") %></h4>
-      <ul>
-        <% @story.tasks.each do |task| %>
-          <li data-id="<%= task.id %>" class="<%= "complete" if task.completed? %>">
-            <label>
-              <input type="checkbox" <%= "checked" if task.completed? %>><%= task.label %>
-            </label>
-          </li>
-        <% end %>
-      </ul>
+
+        <ul>
+          <% @story.tasks.each do |task| %>
+            <li class="<%= "complete" if task.completed? %>">
+              <label>
+                <%= simple_form_for [@story.project, @story, task] do |f| %>
+                  <input type="checkbox" <%= "checked" if task.completed? %>><%= task.label %>
+                <% end %>
+              </label>
+            </li>
+          <% end %>
+        </ul>
     <% end %>
 
     <% if can? :create, Task.new %>

@@ -15,6 +15,18 @@ class TasksController < ApplicationController
     end
   end
 
+  def update
+    @task = Task.find(params[:id])
+
+    @task.update(
+      completed: params[:completed],
+      completed_by: params[:completed] ? current_user.id : nil,
+      completed_on: params[:completed] ? Time.zone.now : nil
+    )
+
+    render json: @task
+  end
+
 private
 
   def task_params
