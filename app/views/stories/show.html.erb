@@ -17,7 +17,16 @@
     </section>
   </article>
   <div class="tasks">
-    <p>No tasks</p>
+    <% if @story.tasks.any? %>
+      <ul>
+        <% @story.tasks.each do |task| %>
+          <li><%= task.label %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No tasks</p>
+    <% end %>
+
     <% if can? :create, Task.new %>
       <%= simple_form_for [@story.project, @story, Task.new], html: { class: "pure-form pure-form-stacked" } do |f| %>
         <%= f.input :label %>
