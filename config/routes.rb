@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :stories do
       resources :comments
+      resources :tasks
     end
   end
 
