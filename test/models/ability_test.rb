@@ -19,6 +19,10 @@ describe Ability, :model do
       assert ability.cannot?(:create, User)
     end
 
+    it "disallows dangerous settings" do
+      assert ability.cannot?(:update, Settings)
+    end
+
     it "allows creation of content" do
       assert ability.can?(:create, Project)
       assert ability.can?(:create, Story)
@@ -81,6 +85,10 @@ describe Ability, :model do
       owner = create(:user, role: "owner")
       assert ability.cannot?(:create, owner)
     end
+
+    it "can manage overall settings" do
+      assert ability.can?(:update, Settings)
+    end
   end
 
   describe "owner" do
@@ -88,6 +96,7 @@ describe Ability, :model do
 
     it "can do all the things" do
       assert ability.can?(:manage, :all)
+      assert ability.can?(:update, Settings)
     end
   end
 end

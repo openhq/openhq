@@ -1,19 +1,39 @@
 .ui-notification {
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 3px;
+  overflow-y: hidden;
+  max-height: 56px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 
-  &.alert {
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
+  -webkit-transition: max-height 0.25s ease-in-out;
+  -moz-transition: max-height 0.25s ease-in-out;
+  -o-transition: max-height 0.25s ease-in-out;
+  transition: max-height 0.25s ease-in-out;
+
+  &.dismiss {
+    max-height: 0;
   }
 
-  &.notice {
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1;
-  }
+  .box {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid transparent;
+    position: relative;
+    text-align: center;
 
+    &.alert {
+      color: #a94442;
+      background-color: #f2dede;
+      background: rgba(242,222,222,0.9);
+      border-color: #ebccd1;
+    }
+
+    &.notice {
+      color: #31708f;
+      background-color: #d9edf7;
+      background: rgba(217,237,247,0.9);
+      border-color: #bce8f1;
+    }
+  }
 }

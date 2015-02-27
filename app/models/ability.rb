@@ -29,6 +29,7 @@ class Ability
       can :manage, Project
       can :read, User
       can :assign_roles, User
+      can :update, Settings
 
       # Can edit users below their role
       can :update, User, role: user.assignable_roles[0...-1]

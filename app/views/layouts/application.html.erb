@@ -19,6 +19,9 @@
             <span class="title noselect"><%= user.full_name %><span class="arrow"></span></span>
             <ul class="dropdown">
               <li><%= link_to(t("user.account"), edit_user_registration_path) %></li>
+              <% if can?(:update, Settings) %>
+              <li><%= link_to(t("settings"), edit_settings_path) %></li>
+              <% end %>
               <li><%= link_to(t("auth.sign_out"), destroy_user_session_path, :method => :delete) %></li>
             </ul>
           </div>

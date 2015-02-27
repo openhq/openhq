@@ -1,0 +1,11 @@
+<h1>Settings</h1>
+
+<%= simple_form_for(@settings, url: settings_path, method: :patch) do |f| %>
+  <%= render 'shared/form_errors', object: f.object %>
+
+  <%= f.input :organisation_name %>
+
+  <div class="form-actions">
+    <%= f.submit "Save", class: "btn btn-main" %>
+  </div>
+<% end %>
