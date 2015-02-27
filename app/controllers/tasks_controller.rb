@@ -17,10 +17,9 @@ class TasksController < ApplicationController
 
   def update
     task = Task.find(params[:id])
-
     task.completed = params[:completed]
-    task.completed_by = params[:completed] ? current_user.id : nil
-    task.completed_on = params[:completed] ? Time.zone.now : nil
+    task.completed_by = current_user.id
+    task.completed_on = Time.zone.now
 
     if task.save
       render json: { result: true, task: task }
