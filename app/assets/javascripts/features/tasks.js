@@ -6,6 +6,7 @@ $(function(){
     var url = $this.closest('form').attr('action');
     var completed = $this.is(':checked');
 
+    // Do the work
     $.ajax({
         type: "put",
         url: url,
@@ -14,12 +15,9 @@ $(function(){
         }
     });
 
-    if (completed) {
-      li.addClass('complete');
-    } else {
-      li.removeClass('complete');
-    }
-
+    // Add / Remove completed style
+    if (completed) { li.addClass('complete'); }
+    else { li.removeClass('complete'); }
   });
 
 });

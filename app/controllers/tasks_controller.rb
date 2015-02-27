@@ -16,15 +16,17 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find(params[:id])
+    task = Task.find(params[:id])
 
-    @task.update(
-      completed: params[:completed],
-      completed_by: params[:completed] ? current_user.id : nil,
-      completed_on: params[:completed] ? Time.zone.now : nil
-    )
+    task.completed = params[:completed]
+    task.completed_by = params[:completed] ? current_user.id : nil
+    task.completed_on = params[:completed] ? Time.zone.now : nil
 
-    render json: @task
+    if task.save
+      render json: { result: true, task: task }
+    else
+      render json: { result: false }
+    end
   end
 
 private
