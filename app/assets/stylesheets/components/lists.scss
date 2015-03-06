@@ -44,3 +44,41 @@
     }
   }
 }
+
+
+.actions-list {
+  border: solid 1px #d7d7d7;
+  border-radius: 4px;
+
+  a {
+    display: block;
+    padding: 10px 15px;
+  }
+
+  li {
+    border-bottom: solid 1px #d7d7d7;
+
+    &:last-child { border-bottom: none; }
+  }
+}
+
+
+.progress-bar {
+  display: block;
+  background: #F5FCED;
+  border-radius: 8px;
+  line-height: 20px;
+  height: 20px;
+
+  .completion {
+    display: block;
+    background: #70C76F;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+}
