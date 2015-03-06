@@ -1,0 +1,5 @@
+$(function(){
+
+  $('#attachment-uploads').fileupload();
+
+});

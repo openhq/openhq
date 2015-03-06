@@ -16,3 +16,6 @@
 /tmp
 
 .env
+
+# Ignore files uploaded on localhost
+/public/system

@@ -69,6 +69,10 @@
         <%= f.submit "Reply", class: "btn btn-main" %>
       </footer>
     <% end %>
+
+    <%= simple_form_for [@story.project, @story, Attachment.new], html: { id: "attachment-uploads" } do |f| %>
+      <%= f.file_field :file %>
+    <% end %>
   </div>
 </div>
 

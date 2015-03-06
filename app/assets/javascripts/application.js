@@ -14,6 +14,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.timeago
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //= require chosen.jquery
 //= require pickadate/picker
 //= require pickadate/picker.date

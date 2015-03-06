@@ -27,6 +27,7 @@ gem 'friendly_id', '~> 5.0.4'
 
 # File uploads
 gem 'paperclip', '~> 4.2.0'
+gem 'jquery-fileupload-rails'
 
 # Markdown / editing support
 gem 'html-pipeline'
