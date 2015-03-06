@@ -5,7 +5,13 @@ class Attachment < ActiveRecord::Base
 
   has_attached_file :attachment
   validates_attachment_presence :attachment
+  # TODO: what all file types do we allow to upload?
   validates_attachment_content_type :attachment, :content_type => /\Aimage\/.*\Z/
 
-  validates_presence_of :owner_id, :story_id
+  validates_presence_of :owner_id
+
+  def attach_to(object)
+    self.attachable = object
+    self.save!
+  end
 end

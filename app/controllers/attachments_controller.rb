@@ -1,7 +1,6 @@
 class AttachmentsController < ApplicationController
 
   def create
-    # upload file first, get details, create attachment
     @attachment = Attachment.new(
       owner: current_user,
       story: Story.friendly.find(params[:story_id]),
