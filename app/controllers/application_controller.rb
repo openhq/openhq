@@ -12,6 +12,11 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def all_other_users
+    User.all.reject { |user| user == current_user }
+  end
+  helper_method :all_other_users
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_in) << :login
     devise_parameter_sanitizer.for(:sign_up) << [:username, :email, :first_name, :last_name]

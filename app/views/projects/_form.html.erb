@@ -3,7 +3,9 @@
 
   <section class="info">
     <%= f.input :name, label: "Project Name" %>
-    <%= f.association :users, as: :check_boxes, label_method: :username, label: "Invite team members" %>
+    <% if all_other_users.any? %>
+      <%= f.association :users, collection: all_other_users, as: :check_boxes, label_method: :username, label: "Invite team members" %>
+    <% end %>
   </section>
 
   <footer>
