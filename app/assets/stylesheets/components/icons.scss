@@ -1,0 +1,32 @@
+.icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  vertical-align: top;
+  margin-right: 5px;
+}
+
+.icon-trash {
+  background-image: image-url('trash.png');
+}
+
+.icon-bell {
+  background-image: image-url('bell.png');
+}
+
+/* Icon links */
+.icon-link {
+  text-decoration: none;
+  line-height: 24px;
+  color: $strong-color;
+
+  &.danger {
+    color: #D9233A;
+  }
+}
+
+.link-large {
+  font-weight: 600;
+}
