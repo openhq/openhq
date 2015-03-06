@@ -56,6 +56,15 @@
     </header>
     <section class="body">
       <%= markdownify comment.content %>
+
+      <% if comment.attachments.any? %>
+        <h5>Attachments:</h5>
+        <ul>
+          <% comment.attachments.each do |file| %>
+            <li><%= link_to file.attachment_file_name, file.url %></li>
+          <% end %>
+        </ul>
+      <% end %>
     </section>
   </article>
   <% end %>

@@ -14,4 +14,8 @@ class Attachment < ActiveRecord::Base
     self.attachable = object
     self.save!
   end
+
+  def url
+    attachment.url
+  end
 end
