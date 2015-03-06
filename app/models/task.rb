@@ -5,5 +5,6 @@ class Task < ActiveRecord::Base
 
   validates_presence_of :label, :story_id
 
+  scope :complete, -> { where(completed: true) }
   scope :incomplete, -> { where(completed: false) }
 end
