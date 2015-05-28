@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 
 ruby '2.2.0'
 
+# New mime-types uses way less memory
+gem 'mime-types', '~> 2.6.1', require: 'mime/types/columnar'
+
 gem 'rails', '~> 4.2.0'
 gem 'pg'
 gem 'sass-rails', '~> 4.0.3'
@@ -46,8 +49,15 @@ gem 'sucker_punch', '~> 1.2.1'
 
 gem 'puma'
 
-group :development do
+group :development, :test do
   gem 'spring'
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console'
+end
+
+group :development do
   gem 'quiet_assets'
   gem 'letter_opener_web'
 end
