@@ -82,3 +82,31 @@
     padding-right: 6px;
   }
 }
+
+
+/* Team list */
+
+.team-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &>li {
+    float: left;
+    display: block;
+    width: 50%;
+    margin: 0;
+    padding: 30px;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+}
+
+
+@media only screen and (min-width: 768px) {
+  .team-list >li {
+    width: 25%;
+  }
+}

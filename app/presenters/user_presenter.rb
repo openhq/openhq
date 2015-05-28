@@ -15,9 +15,9 @@ class UserPresenter < BasePresenter
   def avatar(size = 100)
     # TODO implement uploadable avatars to override gravatar if exists
 
-    url = gravatar_url(size)
+    url = gravatar_url(size * 2)
 
-    h.image_tag(url, alt: user.username, class: "avatar")
+    h.image_tag(url, alt: user.username, class: "avatar", width: size)
   end
 
   private

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resource :settings, only: [:edit, :update]
 
+  resources :team
+
   resources :projects do
     resources :stories do
       resources :comments
