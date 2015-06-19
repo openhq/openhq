@@ -14,6 +14,6 @@ class Story < ActiveRecord::Base
   scope :recent, -> { order(updated_at: :desc) }
 
   def collaborators
-    users + [owner]
+    (users + [owner]).uniq
   end
 end

@@ -2,8 +2,6 @@
   border: solid 1px $line-color;
   border-radius: 4px;
 
-  max-width: 42em;
-
   article:first-child > header {
     border-top: none;
   }
@@ -78,6 +76,27 @@
   .add-comment {
     form {
       border-top: 0;
+    }
+  }
+}
+
+
+@media only screen and (min-width: 48em) {
+  .ui-story-container {
+    padding-right: 2em;
+    box-sizing: border-box;
+    max-width: 42em;
+  }
+}
+
+.story-menu {
+  h4 {
+    margin: 25px 0 10px;
+  }
+
+  .members {
+    img {
+      margin-right: 5px;
     }
   }
 }

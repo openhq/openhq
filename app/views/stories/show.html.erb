@@ -1,97 +1,140 @@
-<h1>
-  <%= @story.name %>
-  <small><%= link_to @story.project.name, @story.project %></small>
-</h1>
+<% present @story do |story_presenter| %>
+  <h1>
+    <%= @story.name %>
+    <small><%= link_to @story.project.name, @story.project %></small>
+  </h1>
 
-<div class="ui-story">
-  <article>
-    <header>
-      <div class="actions">
-        <%= link_to "Edit", edit_project_story_path(@story.project, @story) if can? :edit, @story %>
-      </div>
-      <%= present(@story.owner).avatar_link(30) %>
-      <%= present(@story.owner).full_name %> added <%= human_time @story.created_at %>
-    </header>
-    <section class="body">
-      <%= markdownify @story.description %>
-    </section>
-  </article>
-  <div class="tasks">
-    <% if @story.tasks.empty? %>
-      <p>No tasks</p>
+  <div class="pure-g">
 
-    <% else %>
-      <h4><%= pluralize(@story.tasks.incomplete.count, "Incomplete Task") %></h4>
+    <div class="pure-u-1 pure-u-md-17-24 ui-story-container">
+      <div class="ui-story">
+        <article>
+          <header>
+            <div class="actions">
+              <%= link_to "Edit", edit_project_story_path(@story.project, @story) if can? :edit, @story %>
+            </div>
+            <%= present(@story.owner).avatar_link(30) %>
+            <%= present(@story.owner).full_name %> added <%= human_time @story.created_at %>
+          </header>
+          <section class="body">
+            <%= markdownify @story.description %>
+          </section>
+        </article>
+        <div class="tasks">
+          <% if @story.tasks.empty? %>
+            <p>No tasks</p>
 
-        <ul>
-          <% @story.tasks.each do |task| %>
-            <li class="<%= "complete" if task.completed? %>">
-              <label>
-                <%= simple_form_for [@story.project, @story, task] do |f| %>
-                  <input type="checkbox" <%= "checked" if task.completed? %>><%= task.label %>
+          <% else %>
+            <h4><%= pluralize(@story.tasks.incomplete.count, "Incomplete Task") %></h4>
+
+              <ul>
+                <% @story.tasks.each do |task| %>
+                  <li class="<%= "complete" if task.completed? %>">
+                    <label>
+                      <%= simple_form_for [@story.project, @story, task] do |f| %>
+                        <input type="checkbox" <%= "checked" if task.completed? %>><%= task.label %>
+                      <% end %>
+                    </label>
+                  </li>
                 <% end %>
-              </label>
-            </li>
+              </ul>
           <% end %>
-        </ul>
-    <% end %>
 
-    <% if can? :create, Task.new %>
-      <%= simple_form_for [@story.project, @story, Task.new], html: { class: "pure-form pure-form-stacked" } do |f| %>
-        <%= f.input :label, label: false, placeholder: "Add a new task..." %>
-      <% end %>
-    <% end %>
-  </div>
-  <div class="attachments">
-    <p>No attachments</p>
-  </div>
-  <% @story.comments.each do |comment| %>
-  <article>
-    <header>
-      <div class="actions">
-        <%= link_to "Edit", edit_project_story_comment_path(@story.project, @story, comment) if can? :edit, comment %>
-      </div>
-      <%= present(comment.owner).avatar_link(30) %>
-      <%= present(comment.owner).full_name %> added <%= human_time comment.created_at %>
-    </header>
-    <section class="body">
-      <%= markdownify comment.content %>
-
-      <% if comment.attachments.any? %>
-        <h5>Attachments:</h5>
-        <ul>
-          <% comment.attachments.each do |file| %>
-            <li><%= link_to file.attachment_file_name, file.url %></li>
+          <% if can? :create, Task.new %>
+            <%= simple_form_for [@story.project, @story, Task.new], html: { class: "pure-form pure-form-stacked" } do |f| %>
+              <%= f.input :label, label: false, placeholder: "Add a new task..." %>
+            <% end %>
           <% end %>
-        </ul>
-      <% end %>
-    </section>
-  </article>
-  <% end %>
-  <div class="add-comment content-input">
-    <header class="plain">
-      <%= present(current_user).avatar_link(30) %> Reply to this topic
-    </header>
-    <%= simple_form_for [@story.project, @story, Comment.new], html: {class: "pure-form pure-form-stacked"} do |f| %>
-      <%= f.input :attachment_ids, as: :hidden %>
-      <%= render 'shared/text_box', form: f, method: :content %>
-      <footer>
-        <%= f.submit "Reply", class: "btn btn-main" %>
-      </footer>
-    <% end %>
+        </div>
+        <div class="attachments">
+          <p>No attachments</p>
+        </div>
+        <% @story.comments.each do |comment| %>
+        <article>
+          <header>
+            <div class="actions">
+              <%= link_to "Edit", edit_project_story_comment_path(@story.project, @story, comment) if can? :edit, comment %>
+            </div>
+            <%= present(comment.owner).avatar_link(30) %>
+            <%= present(comment.owner).full_name %> added <%= human_time comment.created_at %>
+          </header>
+          <section class="body">
+            <%= markdownify comment.content %>
+            <% if comment.attachments.any? %>
+              <h5>Attachments:</h5>
+              <ul>
+                <% comment.attachments.each do |file| %>
+                  <li><%= link_to file.attachment_file_name, file.url %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </section>
+        </article>
+        <% end %>
+        <div class="add-comment content-input">
+          <header class="plain">
+            <%= present(current_user).avatar_link(30) %> Reply to this topic
+          </header>
+          <%= simple_form_for [@story.project, @story, Comment.new], html: {class: "pure-form pure-form-stacked"} do |f| %>
+            <%= f.input :attachment_ids, as: :hidden %>
+            <%= render 'shared/text_box', form: f, method: :content %>
+            <footer>
+              <%= f.submit "Reply", class: "btn btn-main" %>
+            </footer>
+          <% end %>
 
-    <%= simple_form_for [@story.project, @story, Attachment.new], html: { id: "attachment-uploads" } do |f| %>
-      <%= f.file_field :file %>
-    <% end %>
+          <%= simple_form_for [@story.project, @story, Attachment.new], html: { id: "attachment-uploads" } do |f| %>
+            <%= f.file_field :file %>
+          <% end %>
 
-    <div id="attachments-list"></div>
-    <script id="template-upload" type="text/x-tmpl">
-      <div class="upload">
-        {%=o.name%}
-        <div class="progress"><div class="bar" style="width: 0%"></div></div>
+          <div id="attachments-list"></div>
+          <script id="template-upload" type="text/x-tmpl">
+            <div class="upload">
+              {%=o.name%}
+              <div class="progress"><div class="bar" style="width: 0%"></div></div>
+            </div>
+          </script>
+        </div>
       </div>
-    </script>
-  </div>
-</div>
 
+    </div><%# /.pure-u-md-18-24 %>
 
+    <div class="pure-u-1 pure-u-md-6-24">
+      <aside class="story-menu">
+        <ul class="plain-list actions-list">
+          <li>
+            <a href="#" class="icon-link link-large">
+              <span class="icon icon-bell"></span>
+              Disable Notifications
+            </a>
+          </li>
+          <li>
+            <a href="#" class="icon-link link-large danger">
+              <span class="icon icon-trash"></span>
+              Archive this story
+            </a>
+          </li>
+        </ul>
+
+        <h4><%= pluralize(@story.collaborators.count, "Contributor") %></h4>
+
+        <div class="members">
+          <% present_collection(@story.collaborators).each do |user| %>
+            <%= user.avatar(30) %>
+          <% end %>
+        </div>
+
+        <% if @story.tasks.any? %>
+          <h4>Task progress</h4>
+
+          <div class="progress-bar">
+            <span class="completion" style="width: <%= story_presenter.task_completion_width %>%;"><%= story_presenter.task_completion %>%</span>
+          </div>
+        <% end %>
+
+        <h4><%= pluralize(@story.attachments.count, "Attachment") %></h4>
+      </aside>
+    </div><%# /.pure-u-md-6-24 %>
+
+  </div><%# /.pure-g %>
+<% end %>

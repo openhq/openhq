@@ -44,3 +44,69 @@
     }
   }
 }
+
+
+.actions-list {
+  border: solid 1px #d7d7d7;
+  border-radius: 4px;
+
+  a {
+    display: block;
+    padding: 12px 15px;
+  }
+
+  li {
+    border-bottom: solid 1px #d7d7d7;
+
+    &:last-child { border-bottom: none; }
+  }
+}
+
+
+.progress-bar {
+  display: block;
+  background: #F5FCED;
+  border-radius: 8px;
+  line-height: 20px;
+  height: 20px;
+
+  .completion {
+    display: block;
+    background: #70C76F;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+}
+
+
+/* Team list */
+
+.team-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &>li {
+    float: left;
+    display: block;
+    width: 50%;
+    margin: 0;
+    padding: 30px;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+}
+
+
+@media only screen and (min-width: 768px) {
+  .team-list >li {
+    width: 25%;
+  }
+}

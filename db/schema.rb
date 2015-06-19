@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(version: 20150306162723) do
     t.integer "project_id"
   end
 
+  add_index "projects_users", ["user_id", "project_id"], name: "index_projects_users_on_user_id_and_project_id", unique: true, using: :btree
+
   create_table "stories", force: :cascade do |t|
     t.integer  "project_id"
     t.string   "name"
