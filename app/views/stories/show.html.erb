@@ -60,6 +60,14 @@
           </header>
           <section class="body">
             <%= markdownify comment.content %>
+            <% if comment.attachments.any? %>
+              <h5>Attachments:</h5>
+              <ul>
+                <% comment.attachments.each do |file| %>
+                  <li><%= link_to file.attachment_file_name, file.url %></li>
+                <% end %>
+              </ul>
+            <% end %>
           </section>
         </article>
         <% end %>
@@ -68,13 +76,27 @@
             <%= present(current_user).avatar_link(30) %> Reply to this topic
           </header>
           <%= simple_form_for [@story.project, @story, Comment.new], html: {class: "pure-form pure-form-stacked"} do |f| %>
+            <%= f.input :attachment_ids, as: :hidden %>
             <%= render 'shared/text_box', form: f, method: :content %>
             <footer>
               <%= f.submit "Reply", class: "btn btn-main" %>
             </footer>
           <% end %>
+
+          <%= simple_form_for [@story.project, @story, Attachment.new], html: { id: "attachment-uploads" } do |f| %>
+            <%= f.file_field :file %>
+          <% end %>
+
+          <div id="attachments-list"></div>
+          <script id="template-upload" type="text/x-tmpl">
+            <div class="upload">
+              {%=o.name%}
+              <div class="progress"><div class="bar" style="width: 0%"></div></div>
+            </div>
+          </script>
         </div>
       </div>
+
     </div><%# /.pure-u-md-18-24 %>
 
     <div class="pure-u-1 pure-u-md-6-24">

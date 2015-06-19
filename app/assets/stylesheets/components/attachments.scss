@@ -1,0 +1,20 @@
+#attachments-list {
+
+  .upload {
+    .progress {
+      width: 100%;
+      height: 10px;
+
+      .bar {
+        height: 100%;
+        background: $primary-color;
+      }
+    }
+
+    &.complete {
+      .progress {
+        .bar { background: $primary-deep; }
+      }
+    }
+  }
+}

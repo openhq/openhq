@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :stories do
       resources :comments
       resources :tasks
+      resources :attachments
     end
   end
 
