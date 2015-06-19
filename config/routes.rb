@@ -7,9 +7,10 @@ Rails.application.routes.draw do
   post '/setup' => 'setup#create'
   get '/setup/complete' => 'setup#complete'
 
+  resource :account, only: [:edit, :update, :destroy], controller: :account
   resource :settings, only: [:edit, :update]
 
-  resources :team
+  resources :team, only: [:index, :edit]
 
   resources :projects do
     resources :stories do
@@ -17,6 +18,10 @@ Rails.application.routes.draw do
       resources :tasks
       resources :attachments
     end
+  end
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
 
   root to: "projects#index"

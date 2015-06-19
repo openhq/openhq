@@ -164,3 +164,10 @@ SimpleForm.setup do |config|
   # Defines which i18n scope will be used in Simple Form.
   # config.i18n_scope = 'simple_form'
 end
+
+# Make Postgres citext fields work
+module SimpleForm
+  class FormBuilder < ActionView::Helpers::FormBuilder
+    map_type :citext, to: SimpleForm::Inputs::StringInput
+  end
+end

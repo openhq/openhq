@@ -20,6 +20,7 @@ gem "sentry-raven", git: "https://github.com/getsentry/raven-ruby.git", require:
 
 # User authentication/authorization
 gem 'devise'
+gem 'devise_invitable', '~> 1.5.1'
 gem 'cancancan', '~> 1.10'
 
 # Form helpers
