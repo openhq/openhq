@@ -1,0 +1,20 @@
+<h1>Setup <%= app_name %></h1>
+
+<p>Thanks for trying <%= app_name %>. Setup your admin account below and you’re ready to get started!</p>
+
+<%= simple_form_for(@admin, url: setup_path) do |f| %>
+  <%= render 'shared/form_errors', object: f.object %>
+
+  <div class="form-inputs">
+    <%= f.input :first_name, required: true, autofocus: true %>
+    <%= f.input :last_name, required: true %>
+    <%= f.input :username, as: :string, required: true %>
+    <%= f.input :email, as: :email, required: true %>
+    <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable) %>
+    <%= f.input :password_confirmation, required: true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Complete Setup", class: "btn btn-main" %>
+  </div>
+<% end %>
