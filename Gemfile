@@ -42,6 +42,7 @@ gem 'gemoji', '~> 2.1.0'
 gem 'kaminari', '~> 0.16.1'
 
 # Sending emails
+gem 'mailgun_rails'
 gem 'roadie-rails', '~> 1.0.4'
 
 # Background jobs

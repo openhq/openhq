@@ -79,11 +79,15 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
-  # Deliver emails with postmark
-  config.action_mailer.delivery_method = :sendmail
-
   # Setup default mailer urls and asset hosts
   config.action_mailer.default_url_options = { host: "app.com", protocol: "https" }
   config.roadie.url_options = { host: "app.com" }
   config.action_mailer.asset_host = "https://app.com"
+
+  # Deliver emails with mailgun
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+          api_key: ENV['MAILGUN_API_KEY'],
+          domain: ENV['MAILGUN_DOMAIN']
+  }
 end

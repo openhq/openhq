@@ -10,13 +10,27 @@
   "env": {
     "REDIS_PROVIDER": "REDISCLOUD_URL",
     "AWS_ACCESS_KEY_ID": {
+      "description": "Your Amazon AWS credentials to store file uploads (sign up at aws.amazon.com)",
       "required": true
     },
-    "AWS_S3_BUCKET": "theturf-review-apps",
+    "AWS_S3_BUCKET": {
+      "description": "The name of the bucket to store file uploads in",
+      "required": true
+    },
     "AWS_SECRET_ACCESS_KEY": {
+      "description": "Your Amazon AWS secret access key",
       "required": true
     },
-    "POSTMARK_API_KEY": {
+    "MAILGUN_API_KEY": {
+      "description": "Your mailgun.com API Key (sign up at mailgun.com)",
+      "required": true
+    },
+    "MAILGUN_DOMAIN": {
+      "description": "Your mailgun.com DOMAIN e.g. mg.mydomain.com",
+      "required": true
+    },
+    "MAILGUN_FROM_EMAIL": {
+      "description": "The address emails will be delivered from e.g. hello@mg.mydomain.com",
       "required": true
     }
   },
