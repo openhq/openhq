@@ -1,0 +1,27 @@
+{
+  "name": "Open HQ",
+  "description": "Open source project management software",
+  "website": "https://openhq.io/",
+  "repository": "https://github.com/phawkinsltd/openhq",
+  "keywords": ["project", "management"],
+  "scripts": {
+    "postdeploy": "bin/rake db:migrate db:seed"
+  },
+  "env": {
+    "REDIS_PROVIDER": "REDISCLOUD_URL",
+    "AWS_ACCESS_KEY_ID": {
+      "required": true
+    },
+    "AWS_S3_BUCKET": "theturf-review-apps",
+    "AWS_SECRET_ACCESS_KEY": {
+      "required": true
+    },
+    "POSTMARK_API_KEY": {
+      "required": true
+    }
+  },
+  "addons": [
+    "heroku-postgresql:hobby-dev",
+    "rediscloud:30"
+  ]
+}
