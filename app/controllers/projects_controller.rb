@@ -36,6 +36,10 @@ class ProjectsController < ApplicationController
     authorize! :update, @project
 
     if @project.update(project_params)
+      # TODO bugfix:
+      # after updating a project params[:user_ids] won’t include
+      # the current_user anymore
+      @project.users << current_user
       redirect_to @project, notice: "Project saved"
     else
       render :edit
