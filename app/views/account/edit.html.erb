@@ -6,25 +6,21 @@
 
     <hr>
 
-    <p>Unhappy with this service? You can <%= link_to "delete your account", user_registration_path, data: { confirm: "Are you sure?" }, method: :delete %> at any time.</p>
+    <p>Unhappy with this service? You can <%= link_to "delete your account", account_path, data: { confirm: "Are you sure?" }, method: :delete %> at any time.</p>
   </div>
 
   <div class="pure-u-1 pure-u-md-2-5">
 
     <h2>Update your details</h2>
 
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-      <%= f.error_notification %>
+    <%= simple_form_for(current_user, url: account_path, html: { method: :put }) do |f| %>
+      <%= render 'shared/form_errors', object: f.object %>
 
       <div class="form-inputs">
         <%= f.input :first_name, required: true, autofocus: true %>
         <%= f.input :last_name, required: true %>
         <%= f.input :username, as: :string, required: true %>
         <%= f.input :email, as: :email, required: true %>
-
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-        <% end %>
 
         <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
         <%= f.input :password_confirmation, required: false %>

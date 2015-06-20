@@ -37,7 +37,7 @@ Rails.application.configure do
 
   # Basic email config to use for development
   config.action_mailer.delivery_method = :letter_opener_web
-  config.action_mailer.default_url_options = { host: "pm-app.dev", protocol: "https" }
-  config.action_mailer.asset_host = "https://pm-app.dev"
-  config.roadie.url_options = { host: "pm-app.dev" }
+  config.action_mailer.default_url_options = { host: "openhq.dev", protocol: "http" }
+  config.action_mailer.asset_host = "http://openhq.dev"
+  config.roadie.url_options = { host: "openhq.dev" }
 end
