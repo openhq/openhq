@@ -9,7 +9,7 @@ class SetupController < ApplicationController
   end
 
   def create
-    @admin = User.new(admin_user_params.merge(role: "admin"))
+    @admin = User.new(admin_user_params.merge(role: "owner"))
 
     if @admin.save
       sign_in :user, @admin
