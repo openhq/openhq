@@ -26,10 +26,10 @@ class SetupController < ApplicationController
   private
 
   def ensure_fresh_install
-    # if User.any?
-    #   flash[:error] = "This install has already been setup"
-    #   redirect_to root_url
-    # end
+    if User.any?
+      flash[:error] = "This install has already been setup"
+      redirect_to root_url
+    end
   end
 
   def admin_user_params
