@@ -19,3 +19,6 @@
 
 # Ignore files uploaded on localhost
 /public/system
+
+# Ignore code coverage
+coverage
