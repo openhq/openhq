@@ -27,9 +27,9 @@
           <% else %>
             <h4><%= pluralize(@story.tasks.incomplete.count, "Incomplete Task") %></h4>
 
-              <ul class="<%= "sortable" if can? :edit, @story %>">
+              <ul <%= "class=sortable data-update-url=#{update_order_project_story_tasks_path(@story.project, @story)}" if can? :edit, @story %>>
                 <% @story.tasks.each do |task| %>
-                  <li class="<%= "complete" if task.completed? %>">
+                  <li class="<%= "complete" if task.completed? %>" id="<%= task.id %>">
                     <%= simple_form_for [@story.project, @story, task] do |f| %>
                       <input type="checkbox" <%= "checked" if task.completed? %>><%= task.label %>
                     <% end %>

@@ -27,6 +27,22 @@ $(function(){
     });
 
     // rearranging a task list
-    $(".tasks ul.sortable").sortable();
+    $(".tasks ul.sortable").sortable({
+        update: function(event, ui) {
+            var $this = $(this);
+            var order = $this.sortable("toArray");
+
+            $.ajax({
+                type: "put",
+                url: $this.data('update-url'),
+                data: {
+                  order: order
+                }
+            })
+            .done(function(resp){
+                console.log('order updated');
+            });
+        }
+    });
 
 });

@@ -32,6 +32,16 @@ class TasksController < ApplicationController
     end
   end
 
+  def update_order
+    story = Project.friendly.find(params[:project_id]).stories.friendly.find(params[:story_id])
+
+    params[:order].each_with_index do |task_id, i|
+      story.tasks.find(task_id.to_i).update(order: i+1)
+    end
+
+    render nothing: true
+  end
+
 private
 
   def task_params
