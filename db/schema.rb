@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625135452) do
+ActiveRecord::Schema.define(version: 20150625140256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "citext"
   enable_extension "hstore"
+  enable_extension "citext"
 
   create_table "attachments", force: :cascade do |t|
     t.string   "name"
@@ -26,9 +26,10 @@ ActiveRecord::Schema.define(version: 20150625135452) do
     t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "attachment_file_name"
-    t.integer  "attachment_file_size"
-    t.string   "attachment_content_type"
+    t.string   "file_name"
+    t.integer  "file_size"
+    t.string   "content_type"
+    t.string   "file_path"
   end
 
   add_index "attachments", ["attachable_id"], name: "index_attachments_on_attachable_id", using: :btree

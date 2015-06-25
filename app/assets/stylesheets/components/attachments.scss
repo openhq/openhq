@@ -1,19 +1,34 @@
+.s3-file-upload-field-group {
+  display: none;
+}
+
 #attachments-list {
 
   .upload {
-    .progress {
-      width: 100%;
-      height: 10px;
+    padding-top: 10px;
 
-      .bar {
-        height: 100%;
+    .file-name {
+      display: block;
+      line-height: 30px;
+    }
+
+    .progress-bar {
+      border-radius: 0;
+      .completion {
         background: $primary-color;
+        border-radius: 0;
       }
     }
 
-    &.complete {
-      .progress {
-        .bar { background: $primary-deep; }
+    &.processing {
+      .progress-bar .completion {
+        background: #DFDC2C;
+      }
+    }
+
+    &.completed {
+      .progress-bar .completion {
+        background: #70C76F;
       }
     }
   }
