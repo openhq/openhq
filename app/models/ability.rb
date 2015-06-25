@@ -23,6 +23,7 @@ class Ability
       can :update, Story, owner_id: user.id
       can :update, Task, owner_id: user.id
       can :update, Attachment, owner_id: user.id
+      can :update, Comment, owner_id: user.id
     end
 
     if user.role? :admin

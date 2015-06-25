@@ -31,7 +31,7 @@ RSpec.describe Ability do
     end
 
     it "allows updating of owned content" do
-      [:project, :task, :story, :attachment].each do |content_item|
+      [:project, :task, :story, :attachment, :comment].each do |content_item|
         assert ability.can?(:update, build(content_item, owner: user))
         assert ability.cannot?(:update, build(content_item, owner: other))
       end
