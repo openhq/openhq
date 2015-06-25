@@ -1,27 +1,38 @@
 $(function(){
 
-  $('#attachment-uploads').fileupload({
-    add: function(e, data) {
-      // TODO: add validation on content type?
-      data.context = $(tmpl("template-upload", data.files[0]));
-      $('#attachments-list').append(data.context);
-      data.submit();
+  $('#s3-uploader').S3Uploader({
+    allow_multiple_files: true,
+    before_add: function(data){
+      // TODO: validate upload?
+      return true;
     },
+    progress_bar_target: $('#attachments-list')
+  });
 
-    progress: function(e, data) {
-      if (data.context) {
-        progress = parseInt(data.loaded / data.total * 100, 10);
-        data.context.find('.bar').css('width', progress + '%');
-      }
-    },
+  $("#s3-uploader").on("s3_upload_complete", function(e, content) {
+    $.ajax({
+      type: "POST",
+      url: window.location.pathname + "/attachments",
+      data: {
+        "attachment": {
+          "name": content.filename,
+          "file_name": content.filename,
+          "file_size": content.filesize,
+          "content_type": content.filetype,
+          "file_path": decodeURIComponent(content.filepath.split("/")[2])
+        }
+      },
+      dataType: "json"
+    }).done(function(data) {
+      console.log("Attachment added", data.attachment);
+      var input = $('#comment_attachment_ids');
+      input.val(input.val() + data.attachment.id + ',');
 
-    done: function(e, data) {
-      var attachment_id = data.result.attachment.id;
-      var input = $('input[name="comment[attachment_ids]"]');
-      input.val(input.val() + attachment_id + ',');
-
-      data.context.addClass('complete');
-    }
+      // #TODO mark progress bar complete
+      // re-enable submit button
+    }).fail(function() {
+      console.error("Error creating attachment", arguments);
+    });
   });
 
 });
