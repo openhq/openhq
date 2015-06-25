@@ -12,6 +12,12 @@ class Attachment < ActiveRecord::Base
     save!
   end
 
+  def extension
+    ext = File.extname(file_name)
+    ext[0] = ""
+    ext
+  end
+
   def url
     S3UrlSigner.sign(file_path)
   end
