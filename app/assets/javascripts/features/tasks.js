@@ -70,8 +70,9 @@ $(function(){
             })
             .done(function(resp){
                 if (resp.result) {
+                    console.log(resp.task);
                     $this.closest('li.task').find('span.label').html(resp.task.label);
-                    $this.closest('li.task').find('span.assignment').html(resp.assignment_name);
+                    $this.closest('li.task').find('span.assignment').html(resp.task.assignment_name);
                     toggleEditTaskForm(ev);
                 }
             });

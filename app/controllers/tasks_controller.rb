@@ -31,7 +31,7 @@ class TasksController < ApplicationController
     end
 
     if @task.save
-      render json: { result: true, task: @task, assignment_name: @task.assignment_name }
+      render json: { result: true, task: @task }
     else
       render json: { result: false, error: @task.errors.full_messages.first }
     end
