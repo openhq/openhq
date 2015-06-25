@@ -86,16 +86,18 @@
           <%= s3_uploader_form id: "s3-uploader", acl: "private", max_file_size: 50.megabytes do %>
             <%= hidden_field_tag  "Content-Type", "" %>
             <div class="s3-file-upload-field-group">
-              <%= file_field_tag :file, multiple: false, id: "s3-file-upload-field" %>
+              <%= file_field_tag :file, multiple: true, id: "s3-file-upload-field" %>
             </div>
           <% end %>
 
           <div id="attachments-list"></div>
           <script id="template-upload" type="text/x-tmpl">
-          <div id="file-{%=o.unique_id%}" class="upload">
-            {%=o.name%}
-            <div class="progress"><div class="bar" style="width: 0%"></div></div>
-          </div>
+            <div id="file-{%=o.unique_id%}" class="upload">
+              <span class="file_name">{%=o.name%}</span>
+              <div class="progress-bar"><div class="bar completion" style="width: 0%">
+                <span class="info-message">Uploading</span>
+              </div></div>
+            </div>
           </script>
         </div>
       </div>

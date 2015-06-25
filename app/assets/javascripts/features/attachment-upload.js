@@ -6,10 +6,16 @@ $(function(){
       // TODO: validate upload?
       return true;
     },
-    progress_bar_target: $('#attachments-list')
+    progress_bar_target: $('#attachments-list'),
+    remove_completed_progress_bar: false
   });
 
   $("#s3-uploader").on("s3_upload_complete", function(e, content) {
+    var $progress_bar = $("#file-"+ content.unique_id);
+
+    $progress_bar.addClass("processing");
+    $progress_bar.find(".info-message").text("Processing");
+
     $.ajax({
       type: "POST",
       url: window.location.pathname + "/attachments",
@@ -27,6 +33,9 @@ $(function(){
       console.log("Attachment added", data.attachment);
       var input = $('#comment_attachment_ids');
       input.val(input.val() + data.attachment.id + ',');
+
+      $progress_bar.removeClass("processing").addClass("completed");
+      $progress_bar.find(".info-message").text("Complete");
 
       // #TODO mark progress bar complete
       // re-enable submit button
