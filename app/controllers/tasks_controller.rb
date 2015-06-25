@@ -41,9 +41,9 @@ class TasksController < ApplicationController
   end
 
   def update_order
-    authorize! :read, @task.story.project
-
-    story = Project.friendly.find(params[:project_id]).stories.friendly.find(params[:story_id])
+    project = Project.friendly.find(params[:project_id])
+    authorize! :read, project
+    story = project.stories.friendly.find(params[:story_id])
 
     params[:order].each_with_index do |task_id, i|
       story.tasks.find(task_id.to_i).update(order: i+1)
