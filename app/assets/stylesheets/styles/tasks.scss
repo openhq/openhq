@@ -20,12 +20,18 @@
             ul.actions {
                 display: none;
                 margin: 0;
+                padding: 0 0 5px 20px;
 
                 li {
                     display: inline-block;
                     a {
                         display: inline-block;
-                        font-size: 12px;
+                        font-size: 10px;
+                        background: $primary-deep;
+                        color: #fff;
+                        text-decoration: none;
+                        padding: 1px 7px;
+                        border-radius: 10px;
                     }
                 }
             }

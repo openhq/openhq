@@ -21,14 +21,18 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     authorize! :update, @task
 
-    @task.completed = params[:completed]
-    @task.completed_by = current_user.id
-    @task.completed_on = Time.zone.now
+    if params[:completed].present?
+      @task.completed = params[:completed]
+      @task.completed_by = current_user.id
+      @task.completed_on = Time.zone.now
+    else
+      @task.label = task_params[:label]
+    end
 
     if @task.save
       render json: { result: true, task: @task }
     else
-      render json: { result: false }
+      render json: { result: false, error: @task.errors.full_messages.first }
     end
   end
 

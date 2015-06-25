@@ -45,4 +45,45 @@ $(function(){
         }
     });
 
+    // clicking the edit button
+    $('.tasks ul li ul.actions a.edit').on('click', function(ev){
+        ev.preventDefault();
+        toggleEditTaskForm(ev);
+    });
+
+    // clicking the cancel edit button
+    $('.tasks .edit-form a.cancel').on('click', function(ev){
+        ev.preventDefault();
+        toggleEditTaskForm(ev);
+    });
+
+    // submitting the edit form
+    $('.tasks .edit-form form').on('submit', function(ev){
+        ev.preventDefault();
+
+        var $this = $(ev.currentTarget);
+
+        $.ajax({
+                type: "put",
+                url: $this.attr('action'),
+                data: $this.serialize()
+            })
+            .done(function(resp){
+                if (resp.result) {
+                    $this.closest('li.task').find('span.label').html(resp.task.label);
+                    toggleEditTaskForm(ev);
+                }
+            });
+    });
+
+    function toggleEditTaskForm(ev) {
+        var $this = $(ev.currentTarget),
+            $li = $this.closest('li.task'),
+            $default_form = $li.find('.default-form form'),
+            $edit_form = $li.find('.edit-form form');
+
+        $default_form.toggle();
+        $edit_form.toggle();
+    }
+
 });
