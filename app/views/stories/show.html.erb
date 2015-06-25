@@ -30,11 +30,9 @@
               <ul>
                 <% @story.tasks.each do |task| %>
                   <li class="<%= "complete" if task.completed? %>">
-                    <label>
-                      <%= simple_form_for [@story.project, @story, task] do |f| %>
-                        <input type="checkbox" <%= "checked" if task.completed? %>><%= task.label %>
-                      <% end %>
-                    </label>
+                    <%= simple_form_for [@story.project, @story, task] do |f| %>
+                      <input type="checkbox" <%= "checked" if task.completed? %>><%= task.label %>
+                    <% end %>
                   </li>
                 <% end %>
               </ul>
