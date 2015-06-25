@@ -34,9 +34,9 @@ class TasksController < ApplicationController
     end
 
     if @task.save
-      render json: { result: true, task: @task }
+      render json: @task, status: 200
     else
-      render json: { result: false, error: @task.errors.full_messages.first }
+      render json: { result: false, error: @task.errors.full_messages.first }, status: 400
     end
   end
 

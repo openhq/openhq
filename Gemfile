@@ -25,7 +25,7 @@ gem 'devise_invitable', '~> 1.5.1'
 gem 'cancancan', '~> 1.10'
 
 # Serializers
-gem 'active_model_serializers', '~> 0.8.0'
+gem 'active_model_serializers', '~> 0.9.3'
 
 # Form helpers
 gem 'simple_form'

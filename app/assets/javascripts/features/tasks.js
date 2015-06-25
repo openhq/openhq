@@ -15,14 +15,20 @@ $(function(){
             }
         })
         .done(function(resp){
-            if (resp.result) {
-                li.toggleClass('complete');
+            li.toggleClass('complete');
 
-                count = li.closest('ul').find('li:not(.complete)').length
-                li.closest('.tasks').find('h4').html(
-                    count + " Incomplete Task" + (count == 1 ? "" : "s")
-                );
-            }
+            var overall = li.closest('ul').find('li.task').length,
+                complete = li.closest('ul').find('li.task:not(.complete)').length,
+                pct_complete = (100 - Math.round((complete/overall) * 100)) + "%";
+
+            li.closest('.tasks').find('h4').html(
+                complete + " Incomplete Task" + (complete == 1 ? "" : "s")
+            );
+
+            $('.story-menu .progress-bar span.completion').html(pct_complete).css({width: pct_complete});
+        })
+        .fail(function(resp){
+            console.log('error', resp.error);
         });
     });
 
@@ -69,12 +75,12 @@ $(function(){
                 data: $this.serialize()
             })
             .done(function(resp){
-                if (resp.result) {
-                    console.log(resp.task);
-                    $this.closest('li.task').find('span.label').html(resp.task.label);
-                    $this.closest('li.task').find('span.assignment').html(resp.task.assignment_name);
-                    toggleEditTaskForm(ev);
-                }
+                $this.closest('li.task').find('span.label').html(resp.task.label);
+                $this.closest('li.task').find('span.assignment').html(resp.task.assignment_name);
+                toggleEditTaskForm(ev);
+            })
+            .fail(function(resp){
+                console.log('error', resp.error);
             });
     });
 
