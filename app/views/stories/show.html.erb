@@ -30,18 +30,31 @@
               <ul <%= "class=sortable data-update-url=#{update_order_project_story_tasks_path(@story.project, @story)}" if can? :edit, @story %>>
                 <% @story.tasks.each do |task| %>
                   <li class="<%= "complete" if task.completed? %>" id="<%= task.id %>">
+
                     <%= simple_form_for [@story.project, @story, task] do |f| %>
-                      <input type="checkbox" <%= "checked" if task.completed? %>><%= task.label %>
+                      <input type="checkbox" <%= "checked" if task.completed? %>><span class="label"><%= task.label %></span>
+
+                      <ul class="actions">
+                        <% if can? :edit, task %>
+                          <li><%= link_to "Edit", "#", class: "edit" %></li>
+                        <% end %>
+
+                        <% if can? :delete, task %>
+                          <li><%= link_to "Delete", project_story_task_path(@story.project, @story, task), method: :delete, class: "delete", confirm: "Are you sure?" %></li>
+                        <% end %>
+                      </ul>
                     <% end %>
 
-                    <ul class="actions">
-                      <% if can? :edit, task %>
-                        <li><%= link_to "Edit", "#", class: "edit" %></li>
-                      <% end %>
-                      <% if can? :delete, task %>
-                        <li><%= link_to "Delete", project_story_task_path(@story.project, @story, task), method: :delete, class: "delete", confirm: "Are you sure?" %></li>
-                      <% end %>
-                    </ul>
+                    <% if can? :edit, task %>
+                      <div class="edit-form">
+                        <%= simple_form_for [@story.project, @story, task] do |f| %>
+                          <%= f.input :label, label: false %>
+                          <%= f.submit "Update" %>
+                          <%= link_to "Cancel", "#", class: "cancel" %>
+                        <% end %>
+                      </div>
+                    <% end %>
+
                   </li>
                 <% end %>
               </ul>
