@@ -42,6 +42,15 @@ class TasksController < ApplicationController
     render nothing: true
   end
 
+  def destroy
+    task = Task.find(params[:id])
+    authorize! :delete, @task
+
+    task.delete
+
+    redirect_to :back, notice: "Task has been deleted"
+  end
+
 private
 
   def task_params

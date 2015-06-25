@@ -33,6 +33,15 @@
                     <%= simple_form_for [@story.project, @story, task] do |f| %>
                       <input type="checkbox" <%= "checked" if task.completed? %>><%= task.label %>
                     <% end %>
+
+                    <ul class="actions">
+                      <% if can? :edit, task %>
+                        <li><%= link_to "Edit", "#", class: "edit" %></li>
+                      <% end %>
+                      <% if can? :delete, task %>
+                        <li><%= link_to "Delete", project_story_task_path(@story.project, @story, task), method: :delete, class: "delete", confirm: "Are you sure?" %></li>
+                      <% end %>
+                    </ul>
                   </li>
                 <% end %>
               </ul>
