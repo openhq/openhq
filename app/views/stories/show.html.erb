@@ -27,14 +27,40 @@
           <% else %>
             <h4><%= pluralize(@story.tasks.incomplete.count, "Incomplete Task") %></h4>
 
-              <ul>
+              <ul <%= "class=sortable data-update-url=#{update_order_project_story_tasks_path(@story.project, @story)}" if can? :edit, @story %>>
                 <% @story.tasks.each do |task| %>
-                  <li class="<%= "complete" if task.completed? %>">
-                    <label>
+                  <li class="task <%= "complete" if task.completed? %>" id="<%= task.id %>">
+
+                    <div class="default-form">
                       <%= simple_form_for [@story.project, @story, task] do |f| %>
-                        <input type="checkbox" <%= "checked" if task.completed? %>><%= task.label %>
+                        <input type="checkbox" <%= "checked" if task.completed? %>><span class="label"><%= task.label %></span>
+
+                        <span class="assignment"><%= task.assignment_name %></span>
+
+                        <ul class="actions">
+                          <% if can? :edit, task %>
+                            <li><%= link_to "Edit", "#", class: "edit" %></li>
+                          <% end %>
+
+                          <% if can? :delete, task %>
+                            <li><%= link_to "Delete", project_story_task_path(@story.project, @story, task), method: :delete, class: "delete", data: { confirm: "Are you sure?" } %></li>
+                          <% end %>
+                        </ul>
                       <% end %>
-                    </label>
+                    </div>
+
+                    <% if can? :edit, task %>
+                      <div class="edit-form">
+                        <%= simple_form_for [@story.project, @story, task] do |f| %>
+                          <%= f.input :label, label: false %>
+                          <%= f.input :assignment, collection: @story.users_select_array, selected: task.assigned_to, label: false %>
+                          <hr>
+                          <%= f.submit "Update", class: "btn btn-main btn-small" %>
+                          <%= link_to "Cancel", "#", class: "cancel" %>
+                        <% end %>
+                      </div>
+                    <% end %>
+
                   </li>
                 <% end %>
               </ul>

@@ -4,7 +4,7 @@ class Story < ActiveRecord::Base
 
   belongs_to :project
   belongs_to :owner, class_name: "User"
-  has_many :tasks, -> { order(created_at: :asc) }
+  has_many :tasks, -> { order(order: :asc, created_at: :asc) }
   has_many :attachments
   has_many :comments, as: :commentable
   has_many :users, through: :comments, source: :owner
@@ -15,5 +15,9 @@ class Story < ActiveRecord::Base
 
   def collaborators
     (users + [owner]).uniq
+  end
+
+  def users_select_array
+    @users_select_array ||= [['unassigned', 0]].concat(project.users.map {|u| [u.username, u.id]})
   end
 end
