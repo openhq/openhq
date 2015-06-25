@@ -7,4 +7,12 @@ class Task < ActiveRecord::Base
 
   scope :complete, -> { where(completed: true) }
   scope :incomplete, -> { where(completed: false) }
+
+  def assignment_name
+    if assignment.present?
+      assignment.username
+    else
+      "unassigned"
+    end
+  end
 end

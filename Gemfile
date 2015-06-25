@@ -10,6 +10,7 @@ gem 'pg'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'turbolinks'
 
 # Load environment variables
@@ -22,6 +23,9 @@ gem "sentry-raven", git: "https://github.com/getsentry/raven-ruby.git", require:
 gem 'devise'
 gem 'devise_invitable', '~> 1.5.1'
 gem 'cancancan', '~> 1.10'
+
+# Serializers
+gem 'active_model_serializers', '~> 0.9.3'
 
 # Form helpers
 gem 'simple_form'
