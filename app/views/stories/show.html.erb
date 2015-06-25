@@ -75,7 +75,7 @@
           <header class="plain">
             <%= present(current_user).avatar_link(30) %> Reply to this topic
           </header>
-          <%= simple_form_for [@story.project, @story, Comment.new], html: {class: "pure-form pure-form-stacked"} do |f| %>
+          <%= simple_form_for [@story.project, @story, Comment.new], html: {class: "pure-form pure-form-stacked", id: "new-attachment-form"} do |f| %>
             <%= f.input :attachment_ids, as: :hidden %>
             <%= render 'shared/text_box', form: f, method: :content %>
             <footer>
@@ -83,7 +83,7 @@
             </footer>
           <% end %>
 
-          <%= s3_uploader_form id: "s3-uploader", acl: "private", max_file_size: 50.megabytes do %>
+          <%= s3_uploader_form id: "s3-uploader", acl: "private", max_file_size: 50.megabytes, data:{"target-form" => "#new-attachment-form"} do %>
             <%= hidden_field_tag  "Content-Type", "" %>
             <div class="s3-file-upload-field-group">
               <%= file_field_tag :file, multiple: true, id: "s3-file-upload-field" %>
