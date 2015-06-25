@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require jquery.timeago
 //= require s3_direct_upload
+//= require jquery-ui
 //= require chosen.jquery
 //= require pickadate/picker
 //= require pickadate/picker.date

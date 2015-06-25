@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   resources :projects do
     resources :stories do
       resources :comments
-      resources :tasks
+      resources :tasks do
+        put "update-order", on: :collection
+      end
       resources :attachments
     end
   end
