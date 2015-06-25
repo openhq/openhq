@@ -1,3 +1,11 @@
+$(function() {
+  $(document).on("click", ".attach-files", function(ev) {
+    ev.preventDefault();
+
+    $("#s3-file-upload-field").click();
+  });
+});
+
 App.onPageLoad(function() {
 
   $('#s3-uploader').S3Uploader({
@@ -53,10 +61,7 @@ App.onPageLoad(function() {
       input.val(input.val() + data.attachment.id + ',');
 
       $progress_bar.removeClass("processing").addClass("completed");
-      $progress_bar.find(".info-message").text("Complete");
-
-      // #TODO mark progress bar complete
-      // re-enable submit button
+      $progress_bar.find(".info-message").text("Attached");
     }).fail(function() {
       console.error("Error creating attachment", arguments);
     });

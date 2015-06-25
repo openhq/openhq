@@ -90,6 +90,9 @@ form .hint {
   footer {
     margin: 10px;
     text-align: right;
+    .attach-files {
+      float: left;
+    }
   }
 }
 

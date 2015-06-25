@@ -26,6 +26,22 @@
   }
 }
 
+.btn-secondary {
+  background: #fff;
+  border-radius: 4px;
+  color: $strong-color;
+  box-shadow: inset 0 0 0 1px #d7d7d7;
+
+  &:hover {
+    background-image: linear-gradient(-180deg, #fff 0%, #efefef 100%);
+    color: $strong-color;
+  }
+
+  &:active {
+    box-shadow: inset 0 0 0 1px #A4A4A4;
+  }
+}
+
 .btn-text {
   text-decoration: underline;
   font-size: 15px;

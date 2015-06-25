@@ -79,6 +79,7 @@
             <%= f.input :attachment_ids, as: :hidden %>
             <%= render 'shared/text_box', form: f, method: :content %>
             <footer>
+              <button class="btn btn-secondary attach-files">Attach files</button>
               <%= f.submit "Reply", class: "btn btn-main" %>
             </footer>
           <% end %>
