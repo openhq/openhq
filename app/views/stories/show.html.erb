@@ -48,9 +48,9 @@
         </div>
         <div class="attachments">
           <% if @story.attachments.any? %>
-            <ul>
+            <ul class="file-list">
               <% @story.attachments.each do |file| %>
-                <li><%= link_to file.file_name, file.url %></li>
+                <li><%= render file %></li>
               <% end %>
             </ul>
           <% else %>
@@ -70,9 +70,9 @@
             <%= markdownify comment.content %>
             <% if comment.attachments.any? %>
               <h5>Attachments:</h5>
-              <ul>
+              <ul class="file-list">
                 <% comment.attachments.each do |file| %>
-                  <li><%= link_to file.file_name, file.url %></li>
+                  <li><%= render file %></li>
                 <% end %>
               </ul>
             <% end %>

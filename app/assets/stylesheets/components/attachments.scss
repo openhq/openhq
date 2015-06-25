@@ -33,3 +33,47 @@
     }
   }
 }
+
+
+.file-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+
+  &>li {
+    display: inline-block;
+  }
+}
+
+
+.attachment-preview {
+  padding: 20px 0;
+
+  a {
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 13px;
+    line-height: 19px;
+
+    span {
+      display: block;
+    }
+  }
+
+  .file-name {
+    color: $strong-color;
+  }
+
+  .file-size {
+    color: $body-light-color;
+  }
+
+  .file-preview {
+    margin: 0 30px 10px;
+    width: 108px;
+    height: 144px;
+    background-color: #d7d7d7;
+  }
+}
