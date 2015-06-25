@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Open HQ</title>
+  <title><%= app_name %></title>
   <%# <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700" rel="stylesheet" type="text/css"> %>
   <script src="//use.typekit.net/yzt3svm.js"></script>
   <script>try{Typekit.load();}catch(e){}</script>
@@ -18,7 +18,7 @@
           <div class="ui-dropdown-menu">
             <span class="title noselect"><%= user.full_name %><span class="arrow"></span></span>
             <ul class="dropdown">
-              <li><%= link_to(t("user.account"), edit_user_registration_path) %></li>
+              <li><%= link_to(t("user.account"), edit_account_path) %></li>
               <% if can?(:update, Settings) %>
               <li><%= link_to(t("settings"), edit_settings_path) %></li>
               <% end %>

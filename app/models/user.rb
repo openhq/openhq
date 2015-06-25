@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   attr_accessor :login # username or email
 
   # Include default devise modules. Others available are:
-  # :confirmable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :lockable,
+  # :confirmable, :timeoutable, :registerable, and :omniauthable
+  devise :database_authenticatable, :invitable, :lockable,
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :created_projects, foreign_key: "owner_id", class_name: "Project"

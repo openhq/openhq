@@ -20,6 +20,7 @@ gem "sentry-raven", git: "https://github.com/getsentry/raven-ruby.git", require:
 
 # User authentication/authorization
 gem 'devise'
+gem 'devise_invitable', '~> 1.5.1'
 gem 'cancancan', '~> 1.10'
 
 # Form helpers
@@ -63,15 +64,17 @@ end
 group :development do
   gem 'quiet_assets'
   gem 'letter_opener_web'
+  gem 'spring-commands-rspec'
 end
 
 group :test do
-  gem 'minitest-rails'
-  gem 'minitest-rg'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'capybara', '~> 2.0'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'database_cleaner'
   gem 'mocha'
+  gem 'simplecov', :require => false
 end
 
 group :production do

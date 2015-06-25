@@ -3,6 +3,10 @@ require 'digest/md5'
 class UserPresenter < BasePresenter
   presents :user
 
+  def name_with_fallback
+    full_name.presence || user.username.presence || user.email
+  end
+
   def full_name
     "#{user.first_name} #{user.last_name}"
   end
@@ -18,6 +22,14 @@ class UserPresenter < BasePresenter
     url = gravatar_url(size * 2)
 
     h.image_tag(url, alt: user.username, class: "avatar", width: size)
+  end
+
+  def display_role
+    if user.invited_to_sign_up?
+      "invited"
+    else
+      user.role
+    end
   end
 
   private

@@ -1,12 +1,12 @@
-require "test_helper"
+require "rails_helper"
 
-describe Ability, :model do
+RSpec.describe Ability do
   let(:ability) { Ability.new(user) }
-  let(:other) { create(:user, role: "user") }
-  let(:other_admin) { create(:user, role: "admin") }
+  let(:other) { create(:user, role: "user", username: "alfred") }
+  let(:other_admin) { create(:user, role: "admin", username: "frank") }
 
   describe "users" do
-    let(:user) { create(:user, role: "user") }
+    let(:user) { create(:user, role: "user", username: "john") }
 
     it "allows interacting with self" do
       assert ability.can?(:read, user)
@@ -63,7 +63,7 @@ describe Ability, :model do
   end
 
   describe "admins" do
-    let(:user) { create(:user, role: "admin") }
+    let(:user) { create(:user, role: "admin", username: "charlie") }
 
     it "allows assignment of roles" do
       assert ability.can?(:assign_roles, other)
@@ -92,7 +92,7 @@ describe Ability, :model do
   end
 
   describe "owner" do
-    let(:user) { create(:user, role: "owner") }
+    let(:user) { create(:user, role: "owner", username: "dennis") }
 
     it "can do all the things" do
       assert ability.can?(:manage, :all)

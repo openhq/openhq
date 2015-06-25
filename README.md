@@ -22,3 +22,16 @@ Coming soon.
 ## License
 
 GPLv3
+
+
+## Contributing
+
+### Testing
+
+```sh
+# Run the tests (uses spring)
+$ bin/rspec
+
+# Generate code coverage
+$ COVERAGE=true rspec
+```
