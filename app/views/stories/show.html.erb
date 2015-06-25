@@ -53,8 +53,9 @@
                       <div class="edit-form">
                         <%= simple_form_for [@story.project, @story, task] do |f| %>
                           <%= f.input :label, label: false %>
-                          <%= f.input :assignment, collection: @story.users_select_array, selected: task.assigned_to %>
-                          <%= f.submit "Update" %>
+                          <%= f.input :assignment, collection: @story.users_select_array, selected: task.assigned_to, label: false %>
+                          <hr>
+                          <%= f.submit "Update", class: "btn btn-main btn-small" %>
                           <%= link_to "Cancel", "#", class: "cancel" %>
                         <% end %>
                       </div>

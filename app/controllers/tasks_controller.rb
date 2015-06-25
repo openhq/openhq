@@ -21,10 +21,13 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     authorize! :update, @task
 
+    # just updating the completed field
     if params[:completed].present?
       @task.completed = params[:completed]
       @task.completed_by = current_user.id
       @task.completed_on = Time.zone.now
+
+    # updating the task itself
     else
       @task.label = task_params[:label]
       @task.assigned_to = task_params[:assignment].to_i
