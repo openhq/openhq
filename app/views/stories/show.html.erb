@@ -66,13 +66,13 @@
             <%= present(comment.owner).avatar_link(30) %>
             <%= present(comment.owner).full_name %> added <%= human_time comment.created_at %>
           </header>
-          <section class="body">
+          <section class="body comment">
             <%= markdownify comment.content %>
             <% if comment.attachments.any? %>
-              <h5>Attachments:</h5>
-              <ul class="file-list">
+              <h5>Added <%= pluralize(comment.attachments.count, "attachment") %></h5>
+              <ul class="comment-files-list">
                 <% comment.attachments.each do |file| %>
-                  <li><%= render file %></li>
+                  <li><%= render 'attachments/preview', attachment: file %></li>
                 <% end %>
               </ul>
             <% end %>

@@ -18,6 +18,10 @@ class Attachment < ActiveRecord::Base
     ext
   end
 
+  def image?
+    content_type.match(/^image\//)
+  end
+
   def url
     S3UrlSigner.sign(file_path)
   end

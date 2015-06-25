@@ -47,19 +47,11 @@
 }
 
 
-.attachment-preview {
-  padding: 20px 0;
-
+.attachment-file, .attachment-preview {
   a {
-    text-align: center;
     text-decoration: none;
-
     font-size: 13px;
     line-height: 19px;
-
-    span {
-      display: block;
-    }
   }
 
   .file-name {
@@ -69,10 +61,47 @@
   .file-size {
     color: $body-light-color;
   }
+}
+
+
+.attachment-file {
+  padding: 20px 0;
+
+  a {
+    text-align: center;
+
+    span {
+      display: block;
+    }
+  }
 
   .file-preview {
     margin: 0 50px 10px;
     width: 59px; // 108
     height: 77px; // 142
+  }
+}
+
+
+.body.comment h5 {
+  margin-bottom: 0;
+}
+
+.comment-files-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  &>li {
+    display: block;
+  }
+}
+
+.attachment-preview {
+  .image-preview {
+    border: solid 10px #efefef;
+    margin: 15px 0 4px;
+
+    img { max-width: 100%; }
   }
 }

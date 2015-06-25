@@ -1,5 +1,5 @@
 <% present attachment do |attachment_presenter| %>
-<div class="attachment-preview">
+<div class="attachment-file">
   <%= link_to attachment.url, title: attachment.file_name, target: "_blank" do %>
     <div class="file-preview">
       <%= image_tag "file_types/#{attachment_presenter.icon_name}.png", width: 59 %>
