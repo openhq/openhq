@@ -27,10 +27,11 @@ class TasksController < ApplicationController
       @task.completed_on = Time.zone.now
     else
       @task.label = task_params[:label]
+      @task.assigned_to = task_params[:assignment].to_i
     end
 
     if @task.save
-      render json: { result: true, task: @task }
+      render json: { result: true, task: @task, assignment_name: @task.assignment_name }
     else
       render json: { result: false, error: @task.errors.full_messages.first }
     end
@@ -58,7 +59,7 @@ class TasksController < ApplicationController
 private
 
   def task_params
-    params.require(:task).permit(:label)
+    params.require(:task).permit(:label, :assignment)
   end
 
 end

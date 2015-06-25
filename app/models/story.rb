@@ -16,4 +16,8 @@ class Story < ActiveRecord::Base
   def collaborators
     (users + [owner]).uniq
   end
+
+  def users_select_array
+    @users_select_array ||= project.users.map {|u| [u.username, u.id]}
+  end
 end

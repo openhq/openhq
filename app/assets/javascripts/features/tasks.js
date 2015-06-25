@@ -71,6 +71,7 @@ $(function(){
             .done(function(resp){
                 if (resp.result) {
                     $this.closest('li.task').find('span.label').html(resp.task.label);
+                    $this.closest('li.task').find('span.assignment').html(resp.assignment_name);
                     toggleEditTaskForm(ev);
                 }
             });

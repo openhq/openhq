@@ -17,6 +17,13 @@
                     display: block;
                 }
             }
+            span.assignment {
+                font-size: 10px;
+                background-color: #ccc;
+                color: #fff;
+                padding: 2px 5px;
+                border-radius: 10px;
+            }
             ul.actions {
                 display: none;
                 margin: 0;
@@ -27,7 +34,7 @@
                     a {
                         display: inline-block;
                         font-size: 10px;
-                        background: $primary-deep;
+                        background: $body-light-color;
                         color: #fff;
                         text-decoration: none;
                         padding: 1px 7px;
@@ -49,6 +56,15 @@
     .edit-form {
         form {
             display: none;
+            padding: 5px 8px;
+            background: $rollover-dark;
+
+            a.cancel {
+                float: right;
+                font-size: 12px;
+                display: block;
+                padding: 2px;
+            }
         }
     }
 }

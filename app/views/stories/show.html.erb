@@ -35,13 +35,15 @@
                       <%= simple_form_for [@story.project, @story, task] do |f| %>
                         <input type="checkbox" <%= "checked" if task.completed? %>><span class="label"><%= task.label %></span>
 
+                        <span class="assignment"><%= task.assignment_name %></span>
+
                         <ul class="actions">
                           <% if can? :edit, task %>
                             <li><%= link_to "Edit", "#", class: "edit" %></li>
                           <% end %>
 
                           <% if can? :delete, task %>
-                            <li><%= link_to "Delete", project_story_task_path(@story.project, @story, task), method: :delete, class: "delete", confirm: "Are you sure?" %></li>
+                            <li><%= link_to "Delete", project_story_task_path(@story.project, @story, task), method: :delete, class: "delete", data: { confirm: "Are you sure?" } %></li>
                           <% end %>
                         </ul>
                       <% end %>
@@ -51,6 +53,7 @@
                       <div class="edit-form">
                         <%= simple_form_for [@story.project, @story, task] do |f| %>
                           <%= f.input :label, label: false %>
+                          <%= f.input :assignment, collection: @story.users_select_array %>
                           <%= f.submit "Update" %>
                           <%= link_to "Cancel", "#", class: "cancel" %>
                         <% end %>
