@@ -27,7 +27,7 @@
           <% else %>
             <h4><%= pluralize(@story.tasks.incomplete.count, "Incomplete Task") %></h4>
 
-              <ul>
+              <ul class="<%= "sortable" if can? :edit, @story %>">
                 <% @story.tasks.each do |task| %>
                   <li class="<%= "complete" if task.completed? %>">
                     <%= simple_form_for [@story.project, @story, task] do |f| %>
