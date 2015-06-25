@@ -19,7 +19,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    authorize! :update, @task
+    authorize! :read, @task.story.project
 
     # just updating the completed field
     if params[:completed].present?
@@ -41,6 +41,8 @@ class TasksController < ApplicationController
   end
 
   def update_order
+    authorize! :read, @task.story.project
+
     story = Project.friendly.find(params[:project_id]).stories.friendly.find(params[:story_id])
 
     params[:order].each_with_index do |task_id, i|
@@ -52,7 +54,7 @@ class TasksController < ApplicationController
 
   def destroy
     task = Task.find(params[:id])
-    authorize! :delete, @task
+    authorize! :read, @task.story.project
 
     task.delete
 

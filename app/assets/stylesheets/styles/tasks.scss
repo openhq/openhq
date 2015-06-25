@@ -10,6 +10,7 @@
         li {
             &.complete {
                 text-decoration: line-through;
+                opacity: 0.4;
             }
             &:hover {
                 background: $rollover-dark;
