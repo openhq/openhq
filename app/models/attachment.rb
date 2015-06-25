@@ -1,3 +1,5 @@
+require_dependency 's3_url_signer'
+
 class Attachment < ActiveRecord::Base
   belongs_to :attachable, polymorphic: true
   belongs_to :story
@@ -11,6 +13,6 @@ class Attachment < ActiveRecord::Base
   end
 
   def url
-    file_path
+    S3UrlSigner.sign(file_path)
   end
 end
