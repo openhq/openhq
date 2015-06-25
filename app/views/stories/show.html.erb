@@ -47,7 +47,15 @@
           <% end %>
         </div>
         <div class="attachments">
-          <p>No attachments</p>
+          <% if @story.attachments.any? %>
+            <ul>
+              <% @story.attachments.each do |file| %>
+                <li><%= link_to file.file_name, file.url %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>No attachments</p>
+          <% end %>
         </div>
         <% @story.comments.each do |comment| %>
         <article>
