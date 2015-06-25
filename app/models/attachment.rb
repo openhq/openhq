@@ -15,7 +15,7 @@ class Attachment < ActiveRecord::Base
   def extension
     ext = File.extname(file_name)
     ext[0] = ""
-    ext
+    ext.downcase
   end
 
   def image?
