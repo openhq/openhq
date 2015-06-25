@@ -1,0 +1,11 @@
+<% present attachment do |attachment_presenter| %>
+<div class="attachment-preview">
+  <%= link_to attachment.url, title: attachment.file_name, target: "_blank" do %>
+  <% if attachment.image? %>
+    <div class="image-preview"><%= image_tag attachment.url %></div>
+  <% end %>
+    <span class="file-name"><%= truncate attachment.file_name, length: 80, separator: ' ' %></span>
+    <span class="file-size"><%= number_to_human_size attachment.file_size %></span>
+  <% end %>
+</div>
+<% end %>

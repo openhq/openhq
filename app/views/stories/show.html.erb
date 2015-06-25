@@ -73,7 +73,15 @@
           <% end %>
         </div>
         <div class="attachments">
-          <p>No attachments</p>
+          <% if @story.attachments.any? %>
+            <ul class="file-list">
+              <% @story.attachments.each do |file| %>
+                <li><%= render file %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>No attachments</p>
+          <% end %>
         </div>
         <% @story.comments.each do |comment| %>
         <article>
@@ -84,13 +92,13 @@
             <%= present(comment.owner).avatar_link(30) %>
             <%= present(comment.owner).full_name %> added <%= human_time comment.created_at %>
           </header>
-          <section class="body">
+          <section class="body comment">
             <%= markdownify comment.content %>
             <% if comment.attachments.any? %>
-              <h5>Attachments:</h5>
-              <ul>
+              <h5>Added <%= pluralize(comment.attachments.count, "attachment") %></h5>
+              <ul class="comment-files-list">
                 <% comment.attachments.each do |file| %>
-                  <li><%= link_to file.file_name, file.url %></li>
+                  <li><%= render 'attachments/preview', attachment: file %></li>
                 <% end %>
               </ul>
             <% end %>
