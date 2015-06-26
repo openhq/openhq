@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   has_many :created_projects, foreign_key: "owner_id", class_name: "Project"
   has_many :stories, foreign_key: "owner_id", class_name: "Story"
-  has_many :notifications
+  has_many :notifications, -> { order(project_id: :asc, story_id: :asc, created_at: :asc) }
 
   has_and_belongs_to_many :projects
 
@@ -39,5 +39,16 @@ class User < ActiveRecord::Base
 
   def assignable_roles
     ROLES[0..ROLES.index(role)]
+  end
+
+  def expecting_email_update?
+    case notification_frequency
+    when "asap"
+      true
+    when "hourly"
+      last_notified_at < (Time.now - 1.hour)
+    when "daily"
+      last_notified_at < (Time.now - 1.day)
+    end
   end
 end

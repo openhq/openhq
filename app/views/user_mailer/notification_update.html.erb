@@ -1,0 +1,19 @@
+<h1>Notifications Update</h1>
+
+<% current_project = nil %>
+<% current_story = nil %>
+<% @notifications.each do |n| %>
+
+  <% if n.project != current_project %>
+    <% current_project = n.project %>
+    <h2><%= n.project.name %></h2>
+  <% end %>
+
+  <% if n.story.present? && (n.story != current_story) %>
+    <% current_story = n.story %>
+    <h3><%= n.story.name %></h3>
+  <% end %>
+
+  <%= render n.partial, { model: n.notifiable } %>
+
+<% end %>
