@@ -1,5 +1,7 @@
 class TeamController < ApplicationController
   def index
+    fresh_when User.maximum(:updated_at)
+
     @team_members = User.all.sort_by {|u| User::ROLES.index(u.role) }.reverse
   end
 

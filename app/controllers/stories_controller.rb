@@ -3,6 +3,7 @@ class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :edit, :update]
 
   def show
+    fresh_when @story
   end
 
   def new
