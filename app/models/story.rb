@@ -2,7 +2,7 @@ class Story < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  belongs_to :project
+  belongs_to :project, touch: true
   belongs_to :owner, class_name: "User"
   has_many :tasks, -> { order(completed: :asc, order: :asc, created_at: :asc) }
   has_many :attachments
