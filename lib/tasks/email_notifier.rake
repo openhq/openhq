@@ -10,7 +10,7 @@ namespace :email_notifier do
           EmailNotificationUpdateJob.perform_now(user, notifications)
         end
 
-        # user.update(last_notified_at: Time.now)
+        user.update(last_notified_at: Time.now)
       end
     end
   end

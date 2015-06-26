@@ -5,6 +5,10 @@
       border-bottom: 1px solid #d7d7d7;
       padding-bottom: 20px;
     }
+    p {
+      padding: 12px 0 0 0;
+      margin: 0;
+    }
     .notifications-wrapper {
       max-width: 600px;
       margin: 0 auto;
@@ -19,12 +23,24 @@
     .story {
       border: solid 1px #d7d7d7;
       border-radius: 5px;
+      padding: 0 0 12px 0;
+      margin: 0 0 12px 0;
     }
     .story h3 {
       font-size: 16px;
       margin: 0;
       padding: 5px 10px;
       border-bottom: 1px solid #d7d7d7;
+    }
+    .story .description {
+      margin-top: 12px;
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #d7d7d7;
+      border-radius: 5px;
+    }
+    .story .description p {
+      padding: 0;
     }
     .story .notifications {
       font-size: 14px;
@@ -36,13 +52,14 @@
       background-color: #fff;
       border: 1px solid #d7d7d7;
       border-radius: 5px;
+      margin: 12px 0 0 0;
     }
     .story .comment .header {
       border-bottom: 1px solid #d7d7d7;
       padding: 5px 10px;
     }
     .story .comment p {
-      padding: 5px 20px;
+      padding: 20px;
     }
   </style>
 <% end %>
