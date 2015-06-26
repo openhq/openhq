@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
     end
   end
 
-private
+  private
 
   def comment_params
     params.require(:comment).permit(:content, :attachment_ids)

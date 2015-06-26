@@ -1,10 +1,10 @@
 class AttachmentsController < ApplicationController
 
   def create
-    @attachment = Attachment.new(attachment_params.merge({
+    @attachment = Attachment.new(attachment_params.merge(
       owner: current_user,
       story: Story.friendly.find(params[:story_id])
-    }))
+    ))
 
     if @attachment.save
       render json: { attachment: @attachment }

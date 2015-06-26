@@ -17,8 +17,9 @@ module TagHelper
   end
 
   def sanitize_whitelist
-    Sanitize::Config.merge(Sanitize::Config::BASIC,
-      elements: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'p', 'strong', 'em', 'ul', 'ol', 'li']
+    Sanitize::Config.merge(
+      Sanitize::Config::BASIC,
+      elements: %w(h1 h2 h3 h4 h5 h6 a p strong em ul ol li)
     )
   end
 

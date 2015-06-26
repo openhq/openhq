@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  ROLES = %w[user admin owner]
+  ROLES = %w(user admin owner)
 
   attr_accessor :login # username or email
 
@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
-      where(conditions.to_h).where(["username = :value OR email = :value", { :value => login }]).first
+      where(conditions.to_h).where(["username = :value OR email = :value", { value: login }]).first
     else
       where(conditions.to_h).first
     end

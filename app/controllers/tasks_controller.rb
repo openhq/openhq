@@ -4,7 +4,7 @@ class TasksController < ApplicationController
     @task = Task.new(
       story: Story.friendly.find(params[:story_id]),
       owner: current_user,
-      label: task_params[:label],
+      label: task_params[:label]
     )
 
     authorize! :create, @task
@@ -46,7 +46,7 @@ class TasksController < ApplicationController
     story = project.stories.friendly.find(params[:story_id])
 
     params[:order].each_with_index do |task_id, i|
-      story.tasks.find(task_id.to_i).update(order: i+1)
+      story.tasks.find(task_id.to_i).update(order: i + 1)
     end
 
     render nothing: true

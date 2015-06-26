@@ -19,7 +19,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def image?
-    content_type.match(/^image\//)
+    content_type.match(%r{^image\/})
   end
 
   def url
