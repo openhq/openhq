@@ -9,11 +9,7 @@ module FeatureHelper
   end
 
   def sign_out
-    visit "/"
-
-    if page.has_content?("Sign out")
-      click_link "Sign out"
-    end
+    Capybara.reset_session!
   end
 
   def reset_emails!

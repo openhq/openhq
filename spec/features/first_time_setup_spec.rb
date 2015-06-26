@@ -26,7 +26,7 @@ RSpec.feature "First time setup", type: :feature do
 
   context "complete setup page" do
     given!(:owner) { create(:user, role: "owner", password: "hunter212", password_confirmation: "hunter212") }
-    given!(:std_user) { create(:user, password: "hunter212", password_confirmation: "hunter212") }
+    given!(:std_user) { create(:user, role: "user", password: "hunter212", password_confirmation: "hunter212") }
 
     scenario "creates a project and invites team members" do
       sign_in_with owner.email, "hunter212"
