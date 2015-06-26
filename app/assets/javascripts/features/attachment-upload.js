@@ -51,7 +51,7 @@ App.onPageLoad(function() {
           "file_name": content.filename,
           "file_size": content.filesize,
           "content_type": content.filetype,
-          "file_path": decodeURIComponent(content.filepath.split("/")[2])
+          "file_path": decodeURIComponent(content.filepath.split("/")[2].replace(/\+/g, "%20"))
         }
       },
       dataType: "json"
