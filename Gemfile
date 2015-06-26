@@ -37,6 +37,10 @@ gem 'friendly_id', '~> 5.0.4'
 gem 'aws-sdk', '< 2.0'
 gem 's3_direct_upload', '~> 0.1.7'
 
+# Background jobs
+gem 'sinatra', :require => nil # for sidekiq/web
+gem 'sidekiq'
+
 # Markdown / editing support
 gem 'html-pipeline'
 gem 'github-markdown'
@@ -50,9 +54,6 @@ gem 'kaminari', '~> 0.16.1'
 # Sending emails
 gem 'mailgun_rails'
 gem 'roadie-rails', '~> 1.0.4'
-
-# Background jobs
-gem 'sucker_punch', '~> 1.2.1'
 
 gem 'puma'
 
