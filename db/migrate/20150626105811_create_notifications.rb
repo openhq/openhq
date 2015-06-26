@@ -7,8 +7,8 @@ class CreateNotifications < ActiveRecord::Migration
       t.integer   :notifiable_id
       t.string    :notifiable_type
       t.string    :action_performed
-      t.boolean   :send_email
-      t.boolean   :delivered
+      t.boolean   :seen, default: false
+      t.boolean   :delivered, default: false
       t.timestamps
     end
     add_index :notifications, :user_id

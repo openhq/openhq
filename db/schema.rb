@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(version: 20150626105811) do
     t.integer  "notifiable_id"
     t.string   "notifiable_type"
     t.string   "action_performed"
-    t.boolean  "send_email"
-    t.boolean  "delivered"
+    t.boolean  "seen",             default: false
+    t.boolean  "delivered",        default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

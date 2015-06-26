@@ -13,4 +13,13 @@ class StoryPresenter < BasePresenter
     task_completion
   end
 
+  # NOTIFICATIONS
+  def project
+    story.project
+  end
+
+  def notifiable_users
+    project.users.where('user_id != ?', story.owner.id)
+  end
+
 end
