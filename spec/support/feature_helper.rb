@@ -1,9 +1,19 @@
 module FeatureHelper
   def sign_in_with(email, password)
+    sign_out
+
     visit "/users/sign_in"
     fill_in "user_login", with: email
     fill_in "user_password", with: password
     click_button "Log in"
+  end
+
+  def sign_out
+    visit "/"
+
+    if page.has_content?("Sign out")
+      click_link "Sign out"
+    end
   end
 
   def reset_emails!

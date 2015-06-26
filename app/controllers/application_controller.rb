@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   private
 
   def ensure_owner
-    current_user.role?(:owner)
+    redirect_to root_url unless current_user.role?(:owner)
   end
 
   def all_other_users
