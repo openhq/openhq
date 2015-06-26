@@ -61,6 +61,5 @@ This will stop you from pushing up code that doesn’t pass the [Rubocop](https:
 ```sh
 $ touch .git/hooks/pre-push
 $ chmod +x .git/hooks/pre-push
-$ echo "bin/rubocop --fail-level convention" >> .git/hooks/pre-push
-$ echo "bin/rspec" >> .git/hooks/pre-push
+$ echo "bin/rubocop --fail-level convention && bin/rspec" >> .git/hooks/pre-push
 ```
