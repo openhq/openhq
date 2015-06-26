@@ -1,0 +1,11 @@
+<h1>You’re all set.</h1>
+
+<p>Open HQ is now configured, please take a moment to setup your first project and invite some team members</p>
+
+<%= simple_form_for(@initial_setup, url: setup_complete_path, method: :post) do |f| %>
+  <%= render 'shared/form_errors', object: f.object %>
+  <%= f.input :project_name, label: "Name your first project" %>
+  <%= f.input :team_members, as: :text, label: "Invite team members", hint: "Multiple emails separated by comma" %>
+
+  <%= f.submit "Save", class: "btn btn-main" %>
+<% end %>

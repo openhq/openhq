@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def ensure_owner
+    current_user.role?(:owner)
+  end
+
   def all_other_users
     User.where("users.id != ?", current_user.id)
   end
