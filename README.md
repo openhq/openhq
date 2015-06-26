@@ -42,9 +42,23 @@ GPLv3
 ### Testing
 
 ```sh
+# Run static code analysis
+$ bin/rubocop
+
 # Run the tests (uses spring)
 $ bin/rspec
 
 # Generate code coverage
 $ COVERAGE=true rspec
+```
+
+### Setup git hooks
+
+This will stop you from pushing up code that doesn’t pass the [Rubocop](https://github.com/bbatsov/rubocop) or [RSpec](https://github.com/rspec/rspec-rails) tests.
+
+```sh
+$ touch .git/hooks/pre-push
+$ chmod +x .git/hooks/pre-push
+$ echo "bin/rubocop --fail-level convention" >> .git/hooks/pre-push
+$ echo "bin/rspec" >> .git/hooks/pre-push
 ```
