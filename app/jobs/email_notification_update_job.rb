@@ -4,7 +4,7 @@ class EmailNotificationUpdateJob < ActiveJob::Base
   def perform(user)
     notifications = user.notifications.undelivered
     if notifications.any?
-      UserMailer.notification_update(user, notifications).deliver_later
+      UserMailer.notification_update(user, notifications).deliver_now
 
       notifications.each do |n|
         n.delivered!

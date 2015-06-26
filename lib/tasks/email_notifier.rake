@@ -4,7 +4,7 @@ namespace :email_notifier do
   task send_updates: :environment do
     User.all.each do |user|
       if user.expecting_email_update?
-        EmailNotificationUpdateJob.perform_later(user)
+        EmailNotificationUpdateJob.perform_now(user)
       end
     end
   end

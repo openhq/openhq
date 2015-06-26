@@ -38,7 +38,7 @@ class TasksController < ApplicationController
       @task.assigned_to = task_params[:assignment].to_i
 
       # assignment has been updated, and it wasn't to the current user
-      if (@task.assigned_to !== originally_assigned_to) && (@task.assigned_to !== current_user.id)
+      if (@task.assigned_to != originally_assigned_to) && (@task.assigned_to != current_user.id)
         NotificationService.new(@task, 'assigned').notify
       end
     end
