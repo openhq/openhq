@@ -11,6 +11,7 @@ To make using Open HQ as easy as possible we have optimised it for usage on Hero
 1. **File upload storage** - Sign up for [Amazon S3](https://aws.amazon.com) and have your S3 AWS access key ID, secret access key and S3 bucket name ready. (Please provision your bucket in the default zone)
 2. Setup CORS policy on your AWS S3 bucket (change the URL to match where you want to host it, or add '*' if unsure just yet)
 
+    ```xml
     &lt;CORSConfiguration&gt;
         &lt;CORSRule&gt;
             &lt;AllowedOrigin&gt;https://openhq.herokuapp.com&lt;/AllowedOrigin&gt;
@@ -21,6 +22,7 @@ To make using Open HQ as easy as possible we have optimised it for usage on Hero
             &lt;AllowedHeader&gt;*&lt;/AllowedHeader&gt;
         &lt;/CORSRule&gt;
     &lt;/CORSConfiguration&gt;
+    ```
 
 3. **Sending Email** - Sign up for [Mailgun](https://mailgun.com) and have your API key, mailgun domain and from address ready.
 
