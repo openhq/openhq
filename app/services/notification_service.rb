@@ -8,7 +8,11 @@ class NotificationService
   end
 
   def notify
-    presenter.notifiable_users.each do |user|
+    users = presenter.notifiable_users(action_performed)
+
+    return unless users.any?
+
+    users.each do |user|
       user.notifications.create(
         project: presenter.project,
         story: presenter.story,
