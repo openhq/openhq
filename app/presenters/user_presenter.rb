@@ -3,9 +3,7 @@ require 'digest/md5'
 class UserPresenter < BasePresenter
   presents :user
 
-  def display_name
-    user.display_name
-  end
+  delegate :display_name, to: :user
 
   def avatar_link(size = 100)
     # TODO implement link to user
