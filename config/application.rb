@@ -12,7 +12,8 @@ module ProjectManagementApp
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'London'
 
-    config.active_job.queue_adapter = :sucker_punch
+    # Set Active::Job backend
+    config.active_job.queue_adapter = :sidekiq
 
     config.active_record.raise_in_transactional_callbacks = true
 

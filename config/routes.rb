@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
 
   devise_for :users
@@ -24,6 +26,11 @@ Rails.application.routes.draw do
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
+  # Use devise to ensure user is signed in as an admin
+  authenticate :user, lambda { |u| u.role?(:owner) } do
+    mount Sidekiq::Web => '/sidekiq'
   end
 
   root to: "projects#index"
