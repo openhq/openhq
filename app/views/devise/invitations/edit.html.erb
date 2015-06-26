@@ -6,8 +6,8 @@
 
   <%= f.input :first_name %>
   <%= f.input :last_name %>
-  <%= f.input :username %>
-  <%= f.input :email, disabled: true %>
+  <%= f.input :username, as: :string %>
+  <%= f.input :email, as: :string, disabled: true %>
   <%= f.input :password %>
   <%= f.input :password_confirmation %>
 

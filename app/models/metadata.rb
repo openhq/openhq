@@ -3,7 +3,7 @@ class Metadata < ActiveRecord::Base
 
   def self.get(key)
     data = where(key: key).first
-    data = self.set(key, "") unless data
+    data = set(key, "") unless data
     data.value
   end
 

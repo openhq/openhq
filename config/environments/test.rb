@@ -37,4 +37,10 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Basic email config to use for development
+  # config.action_mailer.delivery_method = :letter_opener_web
+  config.action_mailer.default_url_options = { host: "openhq.dev", protocol: "http" }
+  config.action_mailer.asset_host = "http://openhq.dev"
+  config.roadie.url_options = { host: "openhq.dev" }
 end

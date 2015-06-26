@@ -40,6 +40,5 @@ class Ability
       # Can haz all the things
       can :manage, :all
     end
-
   end
 end

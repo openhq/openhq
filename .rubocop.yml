@@ -1,0 +1,57 @@
+AllCops:
+  RunRailsCops: true
+  DisplayCopNames: true
+  Include:
+    - 'app/**/*.rb'
+    - 'lib/**/*.rb'
+    - 'lib/**/*.rake'
+  Exclude:
+    - 'bin/*'
+    - 'config/**/*'
+    - 'spec/**/*'
+    - 'db/**/*'
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+Metrics/LineLength:
+  Max: 120
+  Severity: refactor
+Metrics/AbcSize:
+  Max: 30
+  Severity: refactor
+Metrics/MethodLength:
+  Max: 20
+  Severity: refactor
+Style/AccessorMethodName:
+  Severity: refactor
+Style/Documentation:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: false
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+Style/AlignParameters:
+  Enabled: false
+Style/FirstParameterIndentation:
+  Enabled: false
+Style/TrailingBlankLines:
+  Enabled: false
+Style/CommentAnnotation:
+  Enabled: false
+Style/AsciiComments:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Style/AccessModifierIndentation:
+  Enabled: false
+Style/SpaceInsideHashLiteralBraces:
+  Enabled: false
+Lint/AssignmentInCondition:
+  Enabled: false
+Style/SpaceInsideBlockBraces:
+  Enabled: false
+Rails/Validation:
+  Enabled: false
+Rails/HasAndBelongsToMany:
+  Enabled: false
+Rails/FindBy:
+  Enabled: false
