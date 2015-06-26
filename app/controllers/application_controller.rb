@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   private
 
   def all_other_users
-    User.all.reject { |user| user == current_user }
+    User.where("users.id != ?", current_user.id)
   end
   helper_method :all_other_users
 

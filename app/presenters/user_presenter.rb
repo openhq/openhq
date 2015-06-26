@@ -3,12 +3,8 @@ require 'digest/md5'
 class UserPresenter < BasePresenter
   presents :user
 
-  def name_with_fallback
-    full_name.presence || user.username.presence || user.email
-  end
-
-  def full_name
-    "#{user.first_name} #{user.last_name}"
+  def display_name
+    user.display_name
   end
 
   def avatar_link(size = 100)

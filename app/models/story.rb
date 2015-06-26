@@ -18,6 +18,6 @@ class Story < ActiveRecord::Base
   end
 
   def users_select_array
-    @users_select_array ||= [['unassigned', 0]].concat(project.users.map {|u| [u.username, u.id]})
+    @users_select_array ||= [['unassigned', 0]].concat(project.users.active.map {|u| [u.username, u.id]})
   end
 end

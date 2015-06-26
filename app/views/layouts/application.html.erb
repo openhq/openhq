@@ -14,7 +14,7 @@
       <menu>
         <% present current_user do |user| %>
           <div class="ui-dropdown-menu">
-            <span class="title noselect"><%= user.full_name %><span class="arrow"></span></span>
+            <span class="title noselect"><%= user.display_name %><span class="arrow"></span></span>
             <ul class="dropdown">
               <li><%= link_to(t("user.account"), edit_account_path) %></li>
               <% if can?(:update, Settings) %>
