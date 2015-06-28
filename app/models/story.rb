@@ -7,7 +7,7 @@ class Story < ActiveRecord::Base
   has_many :tasks, -> { order(completed: :asc, order: :asc, created_at: :asc) }
   has_many :attachments
   has_many :comments, as: :commentable
-  has_many :users, through: :comments, source: :owner
+  has_many :users, -> { uniq }, through: :comments, source: :owner
 
   validates_presence_of :project_id, :name, :owner_id
 
@@ -17,7 +17,7 @@ class Story < ActiveRecord::Base
     collaborators = users
     collaborators.merge(owner) unless collaborators.include?(owner)
 
-    collaborators
+    collaborators.uniq
   end
 
   def users_select_array
