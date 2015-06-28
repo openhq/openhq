@@ -1,4 +1,4 @@
-class EmailNotificationUpdateJob < ActiveJob::Base
+class EmailNotificationsJob < ActiveJob::Base
   queue_as :default
 
   def perform
