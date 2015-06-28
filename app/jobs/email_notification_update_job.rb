@@ -1,11 +1,21 @@
 class EmailNotificationUpdateJob < ActiveJob::Base
   queue_as :default
 
-  def perform(user, notifications)
-    UserMailer.notification_update(user, notifications).deliver_now
+  def perform
+    User.all.each do |user|
+      if user.expecting_email_update?
+        notifications = user.notifications.undelivered
 
-    user.notifications.undelivered.each do |n|
-      n.delivered!
+        if notifications.any?
+          UserMailer.notification_update(user, notifications).deliver_later
+          user.notifications.undelivered.each do |n|
+            n.delivered!
+          end
+        end
+
+        user.update(last_notified_at: Time.now)
+      end
     end
+
   end
 end
