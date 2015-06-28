@@ -7,18 +7,11 @@ class EmailNotificationsJob < ActiveJob::Base
         notifications = user.notifications.undelivered
 
         if notifications.any?
-          p "Sending update email to: #{user.username}"
           UserMailer.notification_update(user).deliver_later
-          user.notifications.undelivered.each do |n|
-            n.delivered!
-          end
-        else
-          p "No notifications for: #{user.username}"
+          user.notifications.undelivered.each(&:delivered!)
         end
 
-        user.update(last_notified_at: Time.now)
-      else
-        p "#{user.username} is not expecting an email"
+        user.update(last_notified_at: Time.zone.now)
       end
     end
   end

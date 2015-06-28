@@ -17,7 +17,7 @@ class Story < ActiveRecord::Base
     collaborators = users
     collaborators.merge(owner) unless collaborators.include?(owner)
 
-    collaborators.uniq
+    collaborators
   end
 
   def users_select_array

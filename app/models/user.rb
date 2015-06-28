@@ -56,9 +56,9 @@ class User < ActiveRecord::Base
     when "asap"
       true
     when "hourly"
-      last_notified_at < (Time.now - 1.hour)
+      last_notified_at < (Time.zone.now - 1.hour)
     when "daily"
-      last_notified_at < (Time.now - 1.day)
+      last_notified_at < (Time.zone.now - 1.day)
     end
   end
 end
