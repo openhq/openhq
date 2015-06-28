@@ -14,7 +14,7 @@
               <%= link_to "Edit", edit_project_story_path(@story.project, @story) if can? :edit, @story %>
             </div>
             <%= present(@story.owner).avatar_link(30) %>
-            <%= present(@story.owner).full_name %> added <%= human_time @story.created_at %>
+            <%= present(@story.owner).display_name %> added <%= human_time @story.created_at %>
           </header>
           <section class="body">
             <%= markdownify @story.description %>
@@ -83,7 +83,7 @@
               <%= link_to "Edit", edit_project_story_comment_path(@story.project, @story, comment) if can? :edit, comment %>
             </div>
             <%= present(comment.owner).avatar_link(30) %>
-            <%= present(comment.owner).full_name %> added <%= human_time comment.created_at %>
+            <%= present(comment.owner).display_name %> added <%= human_time comment.created_at %>
           </header>
           <section class="body comment">
             <%= markdownify comment.content %>

@@ -11,7 +11,7 @@
               <%= link_to "Cancel", project_story_path(@project, @story) %>
             </div>
             <%= present(@story.owner).avatar_link(30) %>
-            <%= present(@story.owner).full_name %> added <%= human_time @story.created_at %>
+            <%= present(@story.owner).display_name %> added <%= human_time @story.created_at %>
           </header>
           <section class="body edit-mode">
             <div class="content-input">

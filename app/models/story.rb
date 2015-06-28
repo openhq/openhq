@@ -2,7 +2,7 @@ class Story < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  belongs_to :project
+  belongs_to :project, touch: true
   belongs_to :owner, class_name: "User"
   has_many :tasks, -> { order(completed: :asc, order: :asc, created_at: :asc) }
   has_many :attachments
@@ -18,6 +18,6 @@ class Story < ActiveRecord::Base
   end
 
   def users_select_array
-    @users_select_array ||= [['unassigned', 0]].concat(project.users.map {|u| [u.username, u.id]})
+    @users_select_array ||= [['unassigned', 0]].concat(project.users.active.map {|u| [u.username, u.id]})
   end
 end

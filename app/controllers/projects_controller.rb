@@ -4,10 +4,15 @@ class ProjectsController < ApplicationController
   def index
     @projects = current_user.projects
     @project = Project.new
+
+    fresh_when last_modified: @projects.maximum(:updated_at)
   end
 
   def show
     authorize! :read, @project
+
+    fresh_when @project
+
     @story = Story.new
   end
 

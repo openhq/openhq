@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
 
   devise_for :users
@@ -5,7 +7,8 @@ Rails.application.routes.draw do
   # First time setup
   get '/setup' => 'setup#new'
   post '/setup' => 'setup#create'
-  get '/setup/complete' => 'setup#complete'
+  get '/setup/complete' => 'setup#initial_setup', as: :initial_setup
+  post '/setup/complete' => 'setup#complete'
 
   resource :account, only: [:edit, :update, :destroy], controller: :account
   resource :settings, only: [:edit, :update]
@@ -24,6 +27,11 @@ Rails.application.routes.draw do
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
+  # Use devise to ensure user is signed in as an admin
+  authenticate :user, lambda { |u| u.role?(:owner) } do
+    mount Sidekiq::Web => '/sidekiq'
   end
 
   root to: "projects#index"

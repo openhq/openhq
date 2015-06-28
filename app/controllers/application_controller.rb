@@ -12,8 +12,12 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def ensure_owner
+    redirect_to root_url unless current_user.role?(:owner)
+  end
+
   def all_other_users
-    User.all.reject { |user| user == current_user }
+    User.where("users.id != ?", current_user.id)
   end
   helper_method :all_other_users
 

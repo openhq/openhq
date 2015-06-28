@@ -1,70 +1,73 @@
 $(function(){
 
-    // setting a task as complete / incomplete
-    $('.tasks li input[type=checkbox]').on('change', function(e){
-        var $this = $(this);
-        var li = $this.closest('li');
-        var url = $this.closest('form').attr('action');
-        var completed = $this.is(':checked');
-
-        $.ajax({
-            type: "put",
-            url: url,
-            data: {
-              completed: completed
-            }
-        })
-        .done(function(resp){
-            li.toggleClass('complete');
-
-            var overall = li.closest('ul').find('li.task').length,
-                complete = li.closest('ul').find('li.task:not(.complete)').length,
-                pct_complete = (100 - Math.round((complete/overall) * 100)) + "%";
-
-            li.closest('.tasks').find('h4').html(
-                complete + " Incomplete Task" + (complete == 1 ? "" : "s")
-            );
-
-            $('.story-menu .progress-bar span.completion').html(pct_complete).css({width: pct_complete});
-        })
-        .fail(function(resp){
-            console.log('error', resp.error);
-        });
-    });
-
-    // rearranging a task list
-    $(".tasks ul.sortable").sortable({
-        update: function(event, ui) {
+    App.onPageLoad(function() {
+        // setting a task as complete / incomplete
+        $('.tasks li input[type=checkbox]').on('change', function(e){
             var $this = $(this);
-            var order = $this.sortable("toArray");
+            var li = $this.closest('li');
+            var url = $this.closest('form').attr('action');
+            var completed = $this.is(':checked');
 
             $.ajax({
                 type: "put",
-                url: $this.data('update-url'),
+                url: url,
                 data: {
-                  order: order
+                  completed: completed
                 }
             })
             .done(function(resp){
-                console.log('order updated');
+                li.toggleClass('complete');
+
+                var overall = li.closest('ul').find('li.task').length,
+                    complete = li.closest('ul').find('li.task:not(.complete)').length,
+                    pct_complete = (100 - Math.round((complete/overall) * 100)) + "%";
+
+                li.closest('.tasks').find('h4').html(
+                    complete + " Incomplete Task" + (complete == 1 ? "" : "s")
+                );
+
+                $('.story-menu .progress-bar span.completion').html(pct_complete).css({width: pct_complete});
+            })
+            .fail(function(resp){
+                console.log('error', resp.error);
             });
-        }
+        });
+
+        // rearranging a task list
+        $(".tasks ul.sortable").sortable({
+            update: function(event, ui) {
+                var $this = $(this);
+                var order = $this.sortable("toArray");
+
+                $.ajax({
+                    type: "put",
+                    url: $this.data('update-url'),
+                    data: {
+                      order: order
+                    }
+                })
+                .done(function(resp){
+                    console.log('order updated');
+                });
+            }
+        });
+
     });
 
     // clicking the edit button
-    $('.tasks ul li ul.actions a.edit').on('click', function(ev){
+    $(document).on('click', '.tasks ul li ul.actions a.edit', function(ev){
         ev.preventDefault();
         toggleEditTaskForm(ev);
     });
 
     // clicking the cancel edit button
-    $('.tasks .edit-form a.cancel').on('click', function(ev){
+    $(document).on('click', '.tasks .edit-form a.cancel', function(ev){
         ev.preventDefault();
         toggleEditTaskForm(ev);
     });
 
     // submitting the edit form
-    $('.tasks .edit-form form').on('submit', function(ev){
+    $(document).on('submit', '.tasks .edit-form form', function(ev){
         ev.preventDefault();
 
         var $this = $(ev.currentTarget);

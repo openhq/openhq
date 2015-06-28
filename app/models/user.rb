@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
       case_sensitive: false
     }
 
+  scope :active, -> { where("users.invitation_created_at IS NULL OR users.invitation_accepted_at IS NOT NULL") }
+
   # Overide devise finder to lookup by username or email
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
@@ -31,6 +33,14 @@ class User < ActiveRecord::Base
     else
       where(conditions.to_h).first
     end
+  end
+
+  def display_name
+    full_name.presence || username.presence || email
+  end
+
+  def full_name
+    "#{first_name} #{last_name}".strip
   end
 
   def role?(base_role)
