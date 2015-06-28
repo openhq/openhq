@@ -9,8 +9,4 @@ class Notification < ActiveRecord::Base
   def delivered!
     update(delivered: true)
   end
-
-  def partial
-    "/user_mailer/notification_partials/#{notifiable.class.to_s.underscore}_#{action_performed}"
-  end
 end

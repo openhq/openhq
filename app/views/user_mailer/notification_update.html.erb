@@ -95,7 +95,7 @@
       <div class="notifications">
     <% end %>
 
-    <%= render n.partial, { model: n.notifiable } %>
+    <%= render "/user_mailer/notification_partials/#{n.notifiable.class.to_s.underscore}_#{n.action_performed}", { model: n.notifiable } %>
 
   <% end %>
 
