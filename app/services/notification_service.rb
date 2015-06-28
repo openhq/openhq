@@ -1,4 +1,6 @@
 class NotificationService
+  include PresenterHelper
+
   attr_reader :notifiable, :presenter, :action_performed
 
   def initialize(notifiable, action_performed)
@@ -10,7 +12,7 @@ class NotificationService
   def notify
     users = presenter.notifiable_users(action_performed)
 
-    return unless users.any?
+    return if users.empty?
 
     users.each do |user|
       user.notifications.create(
@@ -20,12 +22,6 @@ class NotificationService
         action_performed: action_performed
       )
     end
-  end
-
-  private
-
-  def present notifiable
-    "#{notifiable.class}Presenter".constantize.new(notifiable, self)
   end
 
 end
