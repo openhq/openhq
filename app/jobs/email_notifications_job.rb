@@ -3,16 +3,16 @@ class EmailNotificationsJob < ActiveJob::Base
 
   def perform
     User.all.each do |user|
-      if user.due_email_notification?
-        notifications = user.notifications.undelivered
+      next unless user.due_email_notification?
 
-        if notifications.any?
-          UserMailer.notification_update(user).deliver_later
-          user.notifications.undelivered.each(&:delivered!)
-        end
+      notifications = user.notifications.undelivered
 
-        user.update(last_notified_at: Time.zone.now)
+      if notifications.any?
+        UserMailer.notification_update(user).deliver_later
+        user.notifications.undelivered.each(&:delivered!)
       end
+
+      user.update(last_notified_at: Time.zone.now)
     end
   end
 end

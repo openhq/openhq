@@ -16,7 +16,7 @@ class Task < ActiveRecord::Base
     end
   end
 
-  def update_completion_status status, user
+  def update_completion_status(status, user)
     update(
       completed: status,
       completed_by: user.id,

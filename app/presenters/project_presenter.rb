@@ -6,7 +6,10 @@ class ProjectPresenter < BasePresenter
   end
 
   def notifiable_users(action_performed)
-    project.users.where('user_id != ?', project.owner_id)
+    case action_performed
+    when "created"
+      project.users.where('user_id != ?', project.owner_id)
+    end
   end
 
 end
