@@ -18,7 +18,7 @@ class StoryPresenter < BasePresenter
   end
 
   def notifiable_users(action_performed)
-    project.users.where('user_id != ?', story.owner.id)
+    project.users.where('user_id != ?', story.owner_id)
   end
 
 end

@@ -10,8 +10,7 @@ class CommentPresenter < BasePresenter
   end
 
   def notifiable_users(action_performed)
-    collaborator_ids = story.collaborators.map { |u| u[:id] == comment.owner.id ? nil : u[:id] }
-    User.where('id IN (?)', collaborator_ids)
+    story.collaborators.where("users.id != :id", id: comment.owner_id)
   end
 
 end

@@ -14,7 +14,10 @@ class Story < ActiveRecord::Base
   scope :recent, -> { order(updated_at: :desc) }
 
   def collaborators
-    (users + [owner]).uniq
+    collaborators = users
+    collaborators.merge(owner) unless collaborators.include?(owner)
+
+    collaborators
   end
 
   def users_select_array
