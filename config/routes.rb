@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   # First time setup
   get '/setup' => 'setup#new'
   post '/setup' => 'setup#create'
-  get '/setup/complete' => 'setup#complete'
+  get '/setup/complete' => 'setup#initial_setup', as: :initial_setup
+  post '/setup/complete' => 'setup#complete'
 
   resource :account, only: [:edit, :update, :destroy], controller: :account
   resource :settings, only: [:edit, :update]
