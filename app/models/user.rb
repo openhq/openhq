@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
     ROLES[0..ROLES.index(role)]
   end
 
-  def expecting_email_update?
+  def due_email_notification?
     case notification_frequency
     when "asap"
       true

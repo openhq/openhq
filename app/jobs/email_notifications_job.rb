@@ -3,7 +3,7 @@ class EmailNotificationsJob < ActiveJob::Base
 
   def perform
     User.all.each do |user|
-      if user.expecting_email_update?
+      if user.due_email_notification?
         notifications = user.notifications.undelivered
 
         if notifications.any?
