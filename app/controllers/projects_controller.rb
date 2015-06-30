@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
   def show
     authorize! :read, @project
 
-    fresh_when last_modified: @project
+    fresh_when last_modified: @project.updated_at
 
     @story = Story.new
   end
