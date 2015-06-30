@@ -54,7 +54,7 @@ class TasksController < ApplicationController
 
   def destroy
     task = Task.find(params[:id])
-    authorize! :read, @task.story.project
+    authorize! :read, task.story.project
 
     task.delete
 
