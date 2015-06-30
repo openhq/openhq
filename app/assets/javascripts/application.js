@@ -40,6 +40,8 @@ var App = {
 
 $(document).ready(function() {
 
+    Turbolinks.enableProgressBar();
+
     // Called everytime turbolinks loads a new page
     $(document).on("page:load", function() {
         App.load();
