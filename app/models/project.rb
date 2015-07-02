@@ -8,4 +8,9 @@ class Project < ActiveRecord::Base
 
   validates_presence_of :name, :owner_id
 
+  def self.all_cache_key
+    max_updated_at = maximum(:updated_at).try(:utc).try(:to_s, :number)
+    "project/all/#{max_updated_at}"
+  end
+
 end

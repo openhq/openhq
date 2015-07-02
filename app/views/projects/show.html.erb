@@ -1,40 +1,43 @@
-<div class="page-header">
-  <ul class="actions h-list">
-  <% if can? :update, @project %>
-    <li>
-      <%= link_to "Manage Project", [:edit, @project], class: "btn btn-text" %>
-    </li>
-  <% end %>
-  <% if can? :create, @story %>
-    <li>
-      <%= link_to "New Story", [:new, @project, :story], class: "btn btn-main" %>
-    </li>
-  <% end %>
-  </ul>
-
-  <h1>
-    <%= @project.name %>
-  </h1>
-</div>
-
-
-<% if @project.stories.any? %>
-  <ul class="ui-stories-list">
-    <% @project.stories.recent.each do |story| %>
+<% cache [:show, @project] do %>
+  <div class="page-header">
+    <ul class="actions h-list">
+    <% if can? :update, @project %>
       <li>
-        <%= link_to [@project, story] do %>
-          <div class="members">
-            <% present_collection(story.collaborators).each do |user| %>
-              <%= user.avatar(30) %>
-            <% end %>
-          </div>
-
-          <h4>
-            <span class="title"><%= truncate(story.name, length: 50, separator: ' ') %></span>
-            <small>updated <%= human_time story.updated_at %></small>
-          </h4>
-        <% end %>
+        <%= link_to "Manage Project", [:edit, @project], class: "btn btn-text" %>
       </li>
     <% end %>
-  </ul>
+    <% if can? :create, @story %>
+      <li>
+        <%= link_to "New Story", [:new, @project, :story], class: "btn btn-main" %>
+      </li>
+    <% end %>
+    </ul>
+
+    <h1>
+      <%= @project.name %>
+    </h1>
+  </div>
+
+
+  <% if @project.stories.any? %>
+    <ul class="ui-stories-list">
+      <% @project.stories.recent.each do |story| %>
+        <li>
+          <%= link_to [@project, story] do %>
+            <div class="members">
+              <% present_collection(story.collaborators).each do |user| %>
+                <%= user.avatar(30) %>
+              <% end %>
+            </div>
+
+            <h4>
+              <span class="title"><%= truncate(story.name, length: 50, separator: ' ') %></span>
+              <small>updated <%= human_time story.updated_at %></small>
+            </h4>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
 <% end %>
