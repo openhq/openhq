@@ -1,11 +1,11 @@
 <h1>All Files</h1>
 
 <% if @attachments.empty? %>
-	<p>You don’t have any files across your projects. Create a story and attach some files.</p>
+  <p>You don’t have any files across your projects. Create a story and attach some files.</p>
 <% else %>
-	<ul class="file-list">
-		<% @attachments.each do |attachment| %>
-			<li><%= render attachment %></li>
-		<% end %>
-	</ul>
+  <ul class="file-list">
+    <% @attachments.each do |attachment| %>
+      <li><%= render attachment %></li>
+    <% end %>
+  </ul>
 <% end %>
