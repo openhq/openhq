@@ -1,7 +1,7 @@
-<div class="avatar">
-  <%# presents(model.owner).avatar(30) %>
-</div>
+<td class="avatar">
+  <%= present(model.owner).avatar(30) %>
+</td>
 
-<div class="content">
-  <p><%= model.owner.username %> created the project: <%= model.name %></p>
-</div>
+<td class="content">
+  <p><strong><%= model.owner.username %></strong> created the project: <%= link_to model.name, model %></p>
+</td>

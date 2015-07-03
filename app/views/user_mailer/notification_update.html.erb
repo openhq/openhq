@@ -2,26 +2,71 @@
   <style type="text/css">
     h1, h2, h3 { font-weight: normal; }
     h1 {
-      border-bottom: 1px solid #d7d7d7;
+      border-bottom: 1px solid #e7e7e7;
       padding-bottom: 20px;
     }
     p {
-      padding: 12px 0 0 0;
+      padding: 0;
       margin: 0;
     }
+    a {
+      color: #1CAAE7;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #0D8DC3;
+    }
     .notifications-wrapper {
-      max-width: 600px;
+      width: 600px;
+      max-width: 90%;
       margin: 0 auto;
+    }
+    .notifications {
+      border: 1px solid #e7e7e7;
+      border-radius: 5px;
+      font-size: 14px;
+      width: 100%;
+    }
+    .notifications tr td {
+      border-bottom: 1px solid #e7e7e7;
+      padding: 10px;
+      vertical-align: top;
+    }
+    .notifications tr:last-child td {
+      border-bottom: 0;
+    }
+    .notifications tr td.avatar {
+      width: 30px;
+    }
+    .notifications tr td.avatar img {
+      border-radius: 50px;
+    }
+    .notifications tr td.content {
+      padding-left: 0;
+    }
+    .notifications tr td.content .details {
+      background: #f9f9f9;
+      border-radius: 5px;
+      padding: 10px;
+      margin-top: 10px;
     }
   </style>
 <% end %>
 
-<div class="notifications-wrapper">
-  <h1>Notifications Update</h1>
+<table class="notifications-wrapper">
+  <tbody>
+    <tr><td>
+      <h1>Notifications Update</h1>
 
-  <% @notifications.each do |n| %>
-    <div class="notification">
-      <%= render "/user_mailer/notification_partials/#{n.notifiable.class.to_s.underscore}_#{n.action_performed}", { model: n.notifiable } %>
-    </div>
-  <% end %>
-</div>
+      <table class="notifications" cellpadding="0" cellspacing="0">
+        <tbody>
+          <% @notifications.each do |n| %>
+            <tr>
+              <%= render "/user_mailer/notification_partials/#{n.notifiable.class.to_s.underscore}_#{n.action_performed}", { model: n.notifiable } %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </tr></tb>
+  </tbody>
+</table>

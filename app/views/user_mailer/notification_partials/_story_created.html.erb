@@ -1,11 +1,11 @@
-<div class="avatar">
-  <%# presents(model.owner).avatar(30) %>
-</div>
+<td class="avatar">
+  <%= present(model.owner).avatar(30) %>
+</td>
 
-<div class="content">
-  <p><%= model.owner.username %> created the story: <%= model.name %> in <%= model.project.name %></p>
+<td class="content">
+  <p><strong><%= model.owner.username %></strong> created the story: <%= link_to model.name, [model.project, model] %>, in <%= link_to model.project.name, model.project %></p>
 
-  <div class="description">
+  <div class="details">
     <%= markdownify model.description %>
   </div>
-</div>
+</td>

@@ -1,19 +1,19 @@
-<div class="avatar">
-  <%# presents(model.owner).avatar(30) %>
-</div>
+<td class="avatar">
+  <%= present(model.owner).avatar(30) %>
+</td>
 
-<div class="content">
-  <p><%= model.owner.username %> commented on <%= model.commentable.name %>:</p>
+<td class="content">
+  <p><strong><%= model.owner.username %></strong> commented on <%= link_to model.commentable.name, [model.commentable.project, model.commentable] %>, in <%= link_to model.commentable.project.name, model.commentable.project %>:</p>
 
-  <div class="comment">
+  <div class="details">
     <%= markdownify model.content %>
-  </div>
 
-  <% if model.attachments.any? %>
-    <ul>
-      <% model.attachments.each do |a| %>
-        <li><%= link_to a.file_name, a.url %></li>
-      <% end %>
-    </ul>
-  <% end %>
-</div>
+    <% if model.attachments.any? %>
+      <ul>
+        <% model.attachments.each do |a| %>
+          <li><%= link_to a.file_name, a.url %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</td>
