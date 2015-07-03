@@ -1,23 +1,23 @@
+<div class="page-header">
+  <ul class="actions h-list">
+  <% if can? :update, @project %>
+    <li>
+      <%= link_to "Manage Project", [:edit, @project], class: "btn btn-text" %>
+    </li>
+  <% end %>
+  <% if can? :create, @story %>
+    <li>
+      <%= link_to "New Story", [:new, @project, :story], class: "btn btn-main" %>
+    </li>
+  <% end %>
+  </ul>
+
+  <h1>
+    <%= @project.name %>
+  </h1>
+</div>
+
 <% cache [:show, @project] do %>
-  <div class="page-header">
-    <ul class="actions h-list">
-    <% if can? :update, @project %>
-      <li>
-        <%= link_to "Manage Project", [:edit, @project], class: "btn btn-text" %>
-      </li>
-    <% end %>
-    <% if can? :create, @story %>
-      <li>
-        <%= link_to "New Story", [:new, @project, :story], class: "btn btn-main" %>
-      </li>
-    <% end %>
-    </ul>
-
-    <h1>
-      <%= @project.name %>
-    </h1>
-  </div>
-
 
   <% if @project.stories.any? %>
     <ul class="ui-stories-list">
