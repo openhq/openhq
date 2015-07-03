@@ -15,9 +15,8 @@ class Story < ActiveRecord::Base
 
   def collaborators
     collaborators = users
-    collaborators.merge(owner) unless collaborators.include?(owner)
-
-    collaborators
+    return collaborators if collaborators.include?(owner)
+    collaborators.merge(User.where(id: owner_id))
   end
 
   def users_select_array
