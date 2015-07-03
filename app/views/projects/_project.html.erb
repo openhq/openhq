@@ -1,36 +1,34 @@
 <% if can? :read, project %>
-  <% cache [:mini, project] do %>
-    <div class="pure-u-1 pure-u-md-1-2">
-      <div class="project-box">
-        <section class="info">
-          <h3>
-            <%= link_to project do %>
-              <%= project.name %>
-              <small>Last updated <%= human_time project.updated_at %></small>
-            <% end %>
-          </h3>
+  <div class="pure-u-1 pure-u-md-1-2">
+    <div class="project-box">
+      <section class="info">
+        <h3>
+          <%= link_to project do %>
+            <%= project.name %>
+            <small>Last updated <%= human_time project.updated_at %></small>
+          <% end %>
+        </h3>
 
-          <ul class="recent-stories">
-            <% if project.stories.recent.empty? %>
-              <li>No recent stories</li>
-            <% end %>
-            <% project.stories.recent.limit(5).each do |story| %>
-              <li>
-                <span class="when"><%= short_date story.updated_at %></span>
-                <%= link_to story.name, [project, story] %>
-              </li>
-            <% end %>
-          </ul>
-        </section>
+        <ul class="recent-stories">
+          <% if project.stories.recent.empty? %>
+            <li>No recent stories</li>
+          <% end %>
+          <% project.stories.recent.limit(5).each do |story| %>
+            <li>
+              <span class="when"><%= short_date story.updated_at %></span>
+              <%= link_to story.name, [project, story] %>
+            </li>
+          <% end %>
+        </ul>
+      </section>
 
-        <footer>
-          <div class="members">
-            <% present_collection(project.users).each do |user| %>
-              <%= user.avatar_link(30) %>
-            <% end %>
-          </div>
-        </footer>
-      </div>
+      <footer>
+        <div class="members">
+          <% present_collection(project.users).each do |user| %>
+            <%= user.avatar_link(30) %>
+          <% end %>
+        </div>
+      </footer>
     </div>
-  <% end %>
+  </div>
 <% end %>
