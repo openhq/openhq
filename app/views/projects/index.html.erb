@@ -1,10 +1,8 @@
-<% cache(Project.all_cache_key) do %>
-  <h1><%= t("projects") %> </h1>
+<h1><%= t("projects") %> </h1>
 
-  <div class="ui-projects-list pure-g">
-    <% if @projects.any? %>
-      <%= render @projects %>
-    <% end %>
-    <%= render "new_project" %>
-  </div>
-<% end %>
+<div class="ui-projects-list pure-g">
+  <% if @projects.any? %>
+    <%= render @projects %>
+  <% end %>
+  <%= render "new_project" %>
+</div>

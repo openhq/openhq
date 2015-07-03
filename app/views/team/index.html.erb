@@ -1,19 +1,17 @@
-<% cache [:team, User.all_cache_key] do %>
-  <ul class="team-list">
-    <% present_collection(@team_members).each do |user| %>
-      <li class="<%= user.display_role %>">
-        <%= user.avatar %>
-        <h4>
-          <%= link_to_if can?(:edit, user.user), user.display_name, edit_team_path(user.user) %>
-          <small>(<%= user.display_role %>)</small>
-        </h4>
-      </li>
-    <% end %>
-    <li>
-      <a href="<%= new_team_path %>">
-        <%= image_tag "default-avatar.jpg", width: 100, class: "avatar" %>
-        <h4>Invite someone new</h4>
-      </a>
+<ul class="team-list">
+  <% present_collection(@team_members).each do |user| %>
+    <li class="<%= user.display_role %>">
+      <%= user.avatar %>
+      <h4>
+        <%= link_to_if can?(:edit, user.user), user.display_name, edit_team_path(user.user) %>
+        <small>(<%= user.display_role %>)</small>
+      </h4>
     </li>
-  </ul>
-<% end %>
+  <% end %>
+  <li>
+    <a href="<%= new_team_path %>">
+      <%= image_tag "default-avatar.jpg", width: 100, class: "avatar" %>
+      <h4>Invite someone new</h4>
+    </a>
+  </li>
+</ul>
