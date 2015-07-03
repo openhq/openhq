@@ -1,1 +1,7 @@
-<p><strong>Project created by <%= model.owner.username %></strong></p>
+<div class="avatar">
+  <%= presents(model.owner).avatar(30) %>
+</div>
+
+<div class="content">
+  <p><%= model.owner.username %> created the project: <%= model.name %></p>
+</div>

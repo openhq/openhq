@@ -1,4 +1,8 @@
-<p>
-  <strong>Task assigned to you:</strong> <br>
-  <%= model.label %>
-</p>
+<div class="avatar">
+  <%= presents(@user).avatar(30) %>
+</div>
+
+<div class="content">
+  <p>Task assigned to you on the story <%= model.story.name %>, in <%= model.story.project.name %>:</p>
+  <p><%= model.label %></p>
+</div>

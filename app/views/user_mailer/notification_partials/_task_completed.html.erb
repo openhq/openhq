@@ -1,4 +1,8 @@
-<p>
-  <strong>Task completed:</strong> <br>
-  <%= model.label %>
-</p>
+<div class="avatar">
+  <%= presents(model.completer).avatar(30) %>
+</div>
+
+<div class="content">
+  <p><%= model.completer.username %> compeleted a task on the story <%= model.story.name %>, in <%= model.story.project.name %>:</p>
+  <p><%= model.label %></p>
+</div>
