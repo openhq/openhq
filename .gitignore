@@ -16,6 +16,7 @@
 /tmp
 
 .env
+.DS_Store
 
 # Ignore files uploaded on localhost
 /public/system

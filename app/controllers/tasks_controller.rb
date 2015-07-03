@@ -10,6 +10,7 @@ class TasksController < ApplicationController
     authorize! :create, @task
 
     if @task.save
+      NotificationService.new(@task, 'created').notify
       redirect_to :back, notice: "Your task has been added"
     else
       flash[:error] = get_first_error(@task)
@@ -23,20 +24,9 @@ class TasksController < ApplicationController
 
     # just updating the completed field
     if params[:completed].present?
-      @task.completed = params[:completed]
-      @task.completed_by = current_user.id
-      @task.completed_on = Time.zone.now
-
-    # updating the task itself
+      update_completion_status(@task)
     else
-      @task.label = task_params[:label]
-      @task.assigned_to = task_params[:assignment].to_i
-    end
-
-    if @task.save
-      render json: @task, status: 200
-    else
-      render json: { result: false, error: @task.errors.full_messages.first }, status: 400
+      update_details(@task)
     end
   end
 
@@ -65,6 +55,30 @@ private
 
   def task_params
     params.require(:task).permit(:label, :assignment)
+  end
+
+  def update_completion_status(task)
+    task.update_completion_status(params[:completed], current_user)
+    NotificationService.new(task, 'completed').notify if params[:completed]
+
+    render json: task, status: 200
+  end
+
+  def update_details(task)
+    originally_assigned_to = task.assigned_to
+    task.label = task_params[:label]
+    task.assigned_to = task_params[:assignment].to_i
+
+    if task.save
+      # assignment has been updated, and it wasn't to the current user
+      if (task.assigned_to != originally_assigned_to) && (task.assigned_to != current_user.id)
+        NotificationService.new(task, 'assigned').notify
+      end
+
+      render json: task, status: 200
+    else
+      render json: { result: false, error: task.errors.full_messages.first }, status: 400
+    end
   end
 
 end

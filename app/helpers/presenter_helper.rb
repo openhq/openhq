@@ -1,4 +1,4 @@
-module ApplicationHelper
+module PresenterHelper
   def present_collection(collection, klass = nil)
     presenters = collection.map { |object| present(object, klass) }
     yield presenters if block_given?

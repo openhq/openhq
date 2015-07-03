@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625140256) do
+ActiveRecord::Schema.define(version: 20150626105811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,21 @@ ActiveRecord::Schema.define(version: 20150625140256) do
     t.datetime "updated_at"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.integer  "story_id"
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
+    t.string   "action_performed"
+    t.boolean  "seen",             default: false
+    t.boolean  "delivered",        default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
+
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
@@ -69,6 +84,7 @@ ActiveRecord::Schema.define(version: 20150625140256) do
   create_table "projects_users", force: :cascade do |t|
     t.integer "user_id"
     t.integer "project_id"
+    t.boolean "receive_notifications", default: true
   end
 
   add_index "projects_users", ["user_id", "project_id"], name: "index_projects_users_on_user_id_and_project_id", unique: true, using: :btree
@@ -131,6 +147,8 @@ ActiveRecord::Schema.define(version: 20150625140256) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
+    t.string   "notification_frequency", default: "asap"
+    t.datetime "last_notified_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
