@@ -1,4 +1,6 @@
 class UserMailer < ApplicationMailer
+  include PresenterHelper
+  include TagHelper
 
   def notification_update(user)
     @user = user
