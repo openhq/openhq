@@ -35,6 +35,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.all_cache_key
+    max_updated_at = maximum(:updated_at).try(:utc).try(:to_s, :number)
+    "user/all/#{max_updated_at}"
+  end
+
   def display_name
     full_name.presence || username.presence || email
   end
