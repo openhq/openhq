@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 20150626105811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "citext"
   enable_extension "hstore"
+  enable_extension "citext"
 
   create_table "attachments", force: :cascade do |t|
     t.string   "name"
