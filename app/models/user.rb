@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   has_many :created_projects, foreign_key: "owner_id", class_name: "Project"
   has_many :stories, foreign_key: "owner_id", class_name: "Story"
-  has_many :notifications, -> { order(project_id: :asc, story_id: :asc, created_at: :asc) }
+  has_many :notifications, -> { order(created_at: :asc) }
 
   has_and_belongs_to_many :projects
 

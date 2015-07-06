@@ -2,105 +2,71 @@
   <style type="text/css">
     h1, h2, h3 { font-weight: normal; }
     h1 {
-      border-bottom: 1px solid #d7d7d7;
+      border-bottom: 1px solid #e7e7e7;
       padding-bottom: 20px;
     }
     p {
-      padding: 12px 0 0 0;
+      padding: 0;
       margin: 0;
+    }
+    a {
+      color: #1CAAE7;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #0D8DC3;
     }
     .notifications-wrapper {
-      max-width: 600px;
+      width: 600px;
+      max-width: 90%;
       margin: 0 auto;
     }
-    .project {
-      background: #fff;
-      margin: 10px 0;
-    }
-    .project h2 {
-      font-size: 32px;
-    }
-    .story {
-      border: solid 1px #d7d7d7;
+    .notifications {
+      border: 1px solid #e7e7e7;
       border-radius: 5px;
-      padding: 0 0 12px 0;
-      margin: 0 0 12px 0;
-    }
-    .story h3 {
-      font-size: 16px;
-      margin: 0;
-      padding: 5px 10px;
-      border-bottom: 1px solid #d7d7d7;
-    }
-    .story .description {
-      margin-top: 12px;
-      background-color: #fff;
-      padding: 20px;
-      border: 1px solid #d7d7d7;
-      border-radius: 5px;
-    }
-    .story .description p {
-      padding: 0;
-    }
-    .story .notifications {
       font-size: 14px;
-      padding: 5px 20px;
+      width: 100%;
+    }
+    .notifications tr td {
+      border-bottom: 1px solid #e7e7e7;
+      padding: 10px;
+      vertical-align: top;
+    }
+    .notifications tr:last-child td {
+      border-bottom: 0;
+    }
+    .notifications tr td.avatar {
+      width: 30px;
+    }
+    .notifications tr td.avatar img {
+      border-radius: 50px;
+    }
+    .notifications tr td.content {
+      padding-left: 0;
+    }
+    .notifications tr td.content .details {
       background: #f9f9f9;
-      border-radius: 0 0 5px 5px;
-    }
-    .story .comment {
-      background-color: #fff;
-      border: 1px solid #d7d7d7;
       border-radius: 5px;
-      margin: 12px 0 0 0;
-    }
-    .story .comment .header {
-      border-bottom: 1px solid #d7d7d7;
-      padding: 5px 10px;
-    }
-    .story .comment p {
-      padding: 20px;
+      padding: 10px;
+      margin-top: 10px;
     }
   </style>
 <% end %>
 
-<div class="notifications-wrapper">
-  <h1>Notifications Update</h1>
+<table class="notifications-wrapper">
+  <tbody>
+    <tr><td>
+      <h1>Notifications Update</h1>
 
-  <% current_project = nil %>
-  <% current_story = nil %>
-  <% @notifications.each do |n| %>
-
-    <% if n.project != current_project %>
-      <% if current_project.present? %>
-        <% current_story = nil %>
-        </div><!-- / .notifications -->
-        </div><!-- / .story -->
-        </div><!-- / .project -->
-      <% end %>
-
-      <% current_project = n.project %>
-      <div class="project">
-      <h2><%= n.project.name %></h2>
-    <% end %>
-
-    <% if n.story.present? && (n.story != current_story) %>
-      <% if current_story.present? %>
-        </div><!-- / .story -->
-      <% end %>
-
-      <% current_story = n.story %>
-      <div class="story">
-      <h3><%= n.story.name %></h3>
-      <div class="notifications">
-    <% end %>
-
-    <%= render "/user_mailer/notification_partials/#{n.notifiable.class.to_s.underscore}_#{n.action_performed}", { model: n.notifiable } %>
-
-  <% end %>
-
-  </div><!-- / .notifications -->
-  </div><!-- / .story -->
-  </div><!-- / .project -->
-
-</div><!-- / .notifications-wrapper -->
+      <table class="notifications" cellpadding="0" cellspacing="0">
+        <tbody>
+          <% @notifications.each do |n| %>
+            <tr>
+              <%= render "/user_mailer/notification_partials/#{n.notifiable.class.to_s.underscore}_#{n.action_performed}", { model: n.notifiable } %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </tr></tb>
+  </tbody>
+</table>

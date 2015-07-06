@@ -1,1 +1,7 @@
-<p><strong>Project created by <%= model.owner.username %></strong></p>
+<td class="avatar">
+  <%= present(model.owner).avatar(30) %>
+</td>
+
+<td class="content">
+  <p><strong><%= model.owner.username %></strong> created the project: <%= link_to model.name, model %></p>
+</td>
