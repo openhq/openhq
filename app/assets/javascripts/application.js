@@ -21,6 +21,7 @@
 //= require pickadate/picker.date
 //= require underscore
 //= require turbolinks
+//= require highlightjs
 //= require_self
 //= require_tree ./features
 
