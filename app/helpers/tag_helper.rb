@@ -19,7 +19,13 @@ module TagHelper
   def sanitize_whitelist
     Sanitize::Config.merge(
       Sanitize::Config::BASIC,
-      elements: %w(h1 h2 h3 h4 h5 h6 a p strong em ul ol li)
+      elements: %w(h1 h2 h3 h4 h5 h6 a p strong em ul ol li code pre),
+      attributes: {
+        'a' => %w(href title class rel),
+        'span' => %w(class),
+        'pre' => %w(class lang),
+        'code' => %w(class)
+      }
     )
   end
 
