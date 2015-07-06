@@ -36,6 +36,7 @@
   },
   "addons": [
     "heroku-postgresql:hobby-dev",
+    "scheduler:standard",
     "rediscloud:30"
   ]
 }
