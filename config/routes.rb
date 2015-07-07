@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resource :settings, only: [:edit, :update]
 
   resources :files, only: :index
-  resources :team, only: [:index, :new, :create, :edit]
+  resources :team, only: [:index, :show, :new, :create, :edit]
 
   resources :projects do
     resources :stories do

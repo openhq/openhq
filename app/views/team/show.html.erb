@@ -1,0 +1,9 @@
+<% present(@team_member) do |user| %>
+  <div class="<%= user.display_role %>">
+    <%= user.avatar %>
+    <h4>
+      <%= link_to_if can?(:edit, user.user), user.display_name, edit_team_path(user.user) %>
+      <small>(<%= user.display_role %>)</small>
+    </h4>
+  </div>
+<% end %>

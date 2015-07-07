@@ -5,6 +5,11 @@ class TeamController < ApplicationController
     @team_members = User.all.sort_by {|u| User::ROLES.index(u.role) }.reverse
   end
 
+  def show
+    @team_member = User.find_by!(username: params[:id])
+    fresh_when last_modified: @team_member.updated_at
+  end
+
   def new
     @user = User.new
   end
