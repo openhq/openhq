@@ -30,11 +30,19 @@ module TagHelper
   end
 
   def md_pipeline
-    @md_pipeline ||= HTML::Pipeline.new([
-      HTML::Pipeline::MarkdownFilter,
-      HTML::Pipeline::SanitizationFilter,
-      HTML::Pipeline::EmojiFilter,
-      HTML::Pipeline::AutolinkFilter
-    ], gfm: true, whitelist: sanitize_whitelist, asset_root: "/images")
+    @md_pipeline ||= HTML::Pipeline.new(
+      [
+        HTML::Pipeline::MarkdownFilter,
+        HTML::Pipeline::SanitizationFilter,
+        HTML::Pipeline::EmojiFilter,
+        HTML::Pipeline::MentionFilter,
+        HTML::Pipeline::AutolinkFilter
+      ],
+      gfm: true,
+      whitelist: sanitize_whitelist,
+      asset_root: "/images",
+      base_url: "/team",
+      username_pattern: UsernameValidator::USERNAME_REGEXP
+    )
   end
 end
