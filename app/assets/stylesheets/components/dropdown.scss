@@ -69,3 +69,17 @@
     .dropdown { display: block; }
   }
 }
+
+/* Autocomplete @mentions and emojis */
+.atwho-view-ul {
+  li {
+    line-height: 20px;
+  }
+  li > img {
+    float: left;
+  }
+  li > span.value {
+    margin-left: 10px;
+    line-height: 20px;
+  }
+}

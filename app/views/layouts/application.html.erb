@@ -44,5 +44,12 @@
     <%= yield %>
   </div>
 
+  <script type="text/javascript">
+    <% cache :all_emojis_list do %>
+    App.emojis = <%== MultiJson.dump(Emoji.all.map(&:name)) %>;
+    <% end %>
+    App.users = <%== MultiJson.dump(ActiveModel::ArraySerializer.new(User.all, each_serializer: PublicUserSerializer, root: false), pretty: true) %>;
+  </script>
+
 </body>
 </html>
