@@ -3,8 +3,6 @@ App.onPageLoad(function() {
     if (!user.username) return true;
   });
 
-  console.log("Valid users", users);
-
   $('.atwho').atwho({
     at:"@",
     displayTpl: "<li title=\"${name}\"><img src='${gravatar_url}?s=40' width='20'> <span class='value'>${username}</span></li>",
