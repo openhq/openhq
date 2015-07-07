@@ -9,7 +9,6 @@ class EmailNotificationsJob < ActiveJob::Base
 
       if notifications.any?
         UserMailer.notification_update(user).deliver_later
-        user.notifications.undelivered.each(&:delivered!)
       end
 
       user.update(last_notified_at: Time.zone.now)

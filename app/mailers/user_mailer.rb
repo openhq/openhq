@@ -5,6 +5,7 @@ class UserMailer < ApplicationMailer
   def notification_update(user)
     @user = user
     @notifications = user.notifications.undelivered
+    @notifications.each(&:delivered!)
 
     mail to: user.email, subject: "OpenHQ Notification Update"
   end
