@@ -80,9 +80,9 @@ Rails.application.configure do
   config.force_ssl = true
 
   # Setup default mailer urls and asset hosts
-  config.action_mailer.default_url_options = { host: "openhq.herokuapp.com", protocol: "https" }
-  config.roadie.url_options = { host: "openhq.herokuapp.com" }
-  config.action_mailer.asset_host = "https://openhq.herokuapp.com"
+  config.action_mailer.default_url_options = { host: "beta.openhq.io", protocol: "https" }
+  config.roadie.url_options = { host: "beta.openhq.io" }
+  config.action_mailer.asset_host = "https://beta.openhq.io"
 
   # Deliver emails with mailgun
   config.action_mailer.delivery_method = :mailgun
