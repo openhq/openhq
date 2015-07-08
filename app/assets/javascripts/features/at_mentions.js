@@ -12,7 +12,7 @@ App.onPageLoad(function() {
   }).atwho({
     at: ":",
     data: App.emojis,
-    displayTpl: "<li><img src='http://a248.e.akamai.net/assets.github.com/images/icons/emoji/${name}.png' height='20' width='20'/> <span class='value'>${name}</span></li>",
+    displayTpl: "<li><img src='https://a248.e.akamai.net/assets.github.com/images/icons/emoji/${name}.png' height='20' width='20'/> <span class='value'>${name}</span></li>",
     insertTpl: ":${name}:"
   });
 });

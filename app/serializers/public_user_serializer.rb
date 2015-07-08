@@ -6,7 +6,7 @@ class PublicUserSerializer < ActiveModel::Serializer
   end
 
   def gravatar_url
-    base_url = "//www.gravatar.com/avatar/"
+    base_url = "https://www.gravatar.com/avatar/"
     hash = Digest::MD5.hexdigest(object.email)
     base_url + hash
   end
