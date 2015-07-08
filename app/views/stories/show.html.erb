@@ -61,7 +61,7 @@
 
           <% if can? :create, Task.new %>
             <%= simple_form_for [@story.project, @story, Task.new], html: { class: "pure-form pure-form-stacked" } do |f| %>
-              <%= f.input :label, label: false, placeholder: "Add a new task..." %>
+              <%= f.input :label, label: false, placeholder: "Add a new task...", input_html: { class: "atwho" } %>
             <% end %>
           <% end %>
         </div>

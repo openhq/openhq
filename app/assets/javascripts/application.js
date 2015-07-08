@@ -22,6 +22,7 @@
 //= require underscore
 //= require turbolinks
 //= require highlightjs
+//= require jquery.atwho
 //= require_self
 //= require_tree ./features
 
