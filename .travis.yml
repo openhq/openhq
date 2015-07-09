@@ -1,0 +1,18 @@
+language: ruby
+cache: bundler
+rvm:
+- 2.2.0
+addons:
+  postgresql: '9.4'
+services:
+- redis-server
+- memcached
+before_script:
+- psql -c "create extension citext;" -U postgres
+- psql -c "create extension hstore;" -U postgres
+- psql -c "create role niice_test with createdb login password 'test';" -U postgres
+script:
+- bin/rake db:test:prepare
+- bin/rubocop --fail-level convention
+- bin/rspec
+sudo: false
