@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   resources :team, only: [:index, :show, :new, :create, :edit]
 
   resources :projects do
+    get "archived", on: :collection
+    get "restore", on: :member
     resources :stories do
       resources :comments
       resources :tasks do

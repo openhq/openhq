@@ -1,0 +1,9 @@
+<h1><%= t("deleted_projects") %> </h1>
+
+<div class="ui-projects-list pure-g">
+  <% if @projects.any? %>
+    <ul>
+      <%= render partial: "project_list", collection: @projects, as: :project %>
+    </ul>
+  <% end %>
+</div>

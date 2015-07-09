@@ -57,6 +57,19 @@ class ProjectsController < ApplicationController
     redirect_to projects_path, notice: "#{@project.name} has been archived"
   end
 
+  def archived
+    @projects = current_user.projects.only_deleted
+  end
+
+  def restore
+    @project = current_user.projects.only_deleted.friendly.find(params[:id])
+
+    authorize! :edit, @project
+    @project.restore
+
+    redirect_to @project, notice: "#{@project.name} has been restored"
+  end
+
   private
 
   def set_project
