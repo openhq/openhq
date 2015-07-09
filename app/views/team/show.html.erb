@@ -1,17 +1,19 @@
 <% present(@team_member) do |user| %>
-  <div class="<%= user.display_role %>">
-    <h1>
+  <div class="account-profile <%= user.display_role %>">
+    <h1 class="<%= 'job-title' if user.user.job_title.present? %>">
       <%= user.avatar %>
       <%= user.display_name %>
+
       <small>(<%= user.display_role %>)</small>
+
+      <% if user.user.job_title.present? %>
+        <span><%= user.user.job_title %></span>
+      <% end %>
     </h1>
 
     <hr>
 
     <ul>
-      <% if user.user.job_title.present? %>
-        <li>Job Title: <%= user.user.job_title %></li>
-      <% end %>
       <li>Email: <%= mail_to user.user.email %></li>
       <% if user.user.phone.present? %>
         <li>Phone: <%= user.user.phone %></li>
