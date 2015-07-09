@@ -1,5 +1,7 @@
 # Open HQ
 
+[![Build Status](https://travis-ci.org/openhq/openhq.svg?branch=add_csrf_to_ajax_requests)](https://travis-ci.org/openhq/openhq)
+
 Open source project management app.
 
 ### This software is in pre-alpha phase and not suitable for external use.
