@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
   before_action :set_project
-  before_action :set_story, only: [:show, :edit, :update]
+  before_action :set_story, only: [:show, :edit, :update, :destroy]
 
   def show
     fresh_when last_modified: @story.updated_at
@@ -36,6 +36,26 @@ class StoriesController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    authorize! :destroy, @story
+
+    @story.destroy
+    redirect_to @story.project, notice: "#{@story.name} has been archived"
+  end
+
+  def archived
+    @stories = @project.stories.only_deleted
+  end
+
+  def restore
+    @story = @project.stories.only_deleted.friendly.find(params[:id])
+
+    authorize! :edit, @story
+    @story.restore
+
+    redirect_to [@story.project, @story], notice: "#{@story.name} has been restored"
   end
 
 private

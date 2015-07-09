@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626105811) do
+ActiveRecord::Schema.define(version: 20150709123308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
   enable_extension "citext"
+  enable_extension "hstore"
 
   create_table "attachments", force: :cascade do |t|
     t.string   "name"
@@ -76,8 +76,10 @@ ActiveRecord::Schema.define(version: 20150626105811) do
     t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
 
+  add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at", using: :btree
   add_index "projects", ["owner_id"], name: "index_projects_on_owner_id", using: :btree
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
 
@@ -97,8 +99,10 @@ ActiveRecord::Schema.define(version: 20150626105811) do
     t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
 
+  add_index "stories", ["deleted_at"], name: "index_stories_on_deleted_at", using: :btree
   add_index "stories", ["project_id"], name: "index_stories_on_project_id", using: :btree
   add_index "stories", ["slug"], name: "index_stories_on_slug", unique: true, using: :btree
 

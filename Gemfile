@@ -52,6 +52,9 @@ gem 'jquery-atwho-rails' # @mention autocomplete
 # Pagination
 gem 'kaminari', '~> 0.16.1'
 
+# Soft deletes
+gem "paranoia", "~> 2.0"
+
 # Sending emails
 gem 'mailgun_rails'
 gem 'roadie-rails', '~> 1.0.4'

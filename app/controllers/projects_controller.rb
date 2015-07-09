@@ -4,15 +4,10 @@ class ProjectsController < ApplicationController
   def index
     @projects = current_user.projects
     @project = Project.new
-
-    fresh_when last_modified: @projects.maximum(:updated_at)
   end
 
   def show
     authorize! :read, @project
-
-    fresh_when last_modified: @project.updated_at
-
     @story = Story.new
   end
 
@@ -54,6 +49,22 @@ class ProjectsController < ApplicationController
 
   def destroy
     authorize! :destroy, @project
+
+    @project.destroy
+    redirect_to projects_path, notice: "#{@project.name} has been archived"
+  end
+
+  def archived
+    @projects = current_user.projects.only_deleted
+  end
+
+  def restore
+    @project = current_user.projects.only_deleted.friendly.find(params[:id])
+
+    authorize! :edit, @project
+    @project.restore
+
+    redirect_to @project, notice: "#{@project.name} has been restored"
   end
 
   private

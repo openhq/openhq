@@ -23,10 +23,12 @@ en:
   projects: "Projects"
   new_project: "New Project"
   edit_project: "Manage Project"
+  archived_projects: "Archived Projects"
   files: "Files"
   team: "Team"
   settings: "Settings"
   error: "error"
+  archived_stories: "Archived Stories"
 
   user:
     account: My Profile

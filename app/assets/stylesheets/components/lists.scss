@@ -110,3 +110,26 @@
     width: 25%;
   }
 }
+
+
+
+/* Archived List */
+.ui-archived-list {
+  border-top: dotted 1px $line-color;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+
+  &>li {
+    border-bottom: dotted 1px $line-color;
+    color: $strong-color;
+    font-size: 19px;
+    padding: 20px 0;
+
+    .btn {
+      float: right;
+      margin-top: -5px;
+    }
+  }
+}

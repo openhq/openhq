@@ -144,12 +144,14 @@
               Disable Notifications
             </a>
           </li>
-          <li>
-            <a href="#" class="icon-link link-large danger">
-              <span class="icon icon-trash"></span>
-              Archive this story
-            </a>
-          </li>
+          <% if can? :destroy, @story %>
+            <li>
+              <%= link_to [@story.project, @story], class: "icon-link link-large danger", method: :delete, data: { confirm: "Are you sure?" } do %>
+                <span class="icon icon-trash"></span>
+                Archive this story
+              <% end %>
+            </li>
+          <% end %>
         </ul>
 
         <h4><%= pluralize(@story.collaborators.count, "Contributor") %></h4>
