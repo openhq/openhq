@@ -1,9 +1,11 @@
 <ul class="team-list">
   <% present_collection(@team_members).each do |user| %>
     <li class="<%= user.display_role %>">
-      <%= user.avatar %>
+      <%= link_to team_path(user.user.username) do %>
+        <%= user.avatar %>
+      <% end %>
       <h4>
-        <%= link_to_if can?(:edit, user.user), user.display_name, edit_team_path(user.user) %>
+        <%= link_to user.display_name, team_path(user.user.username) %>
         <small>(<%= user.display_role %>)</small>
       </h4>
     </li>
