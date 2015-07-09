@@ -28,7 +28,7 @@ To make using Open HQ as easy as possible we have optimised it for usage on Hero
 
 Once you have these setup click the magic deploy button, enter your details and get started with Open HQ!
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/phawkinsltd/openhq)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/openhq/openhq)
 
 ## Deploy to your own servers
 
