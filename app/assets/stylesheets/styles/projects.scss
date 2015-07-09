@@ -118,26 +118,6 @@
   }
 }
 
-.ui-projects-archived-list {
-  border-top: dotted 1px $line-color;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  width: 100%;
-
-  &>li {
-    border-bottom: dotted 1px $line-color;
-    color: $strong-color;
-    font-size: 19px;
-    padding: 20px 0;
-
-    .btn {
-      float: right;
-      margin-top: -5px;
-    }
-  }
-}
-
 @media only screen and (min-width: 48em) {
   .ui-projects-list > div:nth-child(1n) {
     .project-box { margin-right: 15px; }

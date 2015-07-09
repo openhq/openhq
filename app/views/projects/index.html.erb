@@ -1,4 +1,4 @@
-<h1><%= t("projects") %> </h1>
+<h1><%= t("projects") %></h1>
 
 <div class="ui-projects-list pure-g">
   <% if @projects.any? %>
@@ -7,4 +7,4 @@
   <%= render "new_project" %>
 </div>
 
-<%= link_to "View Archived", archived_projects_path %>
+<%= link_to "View archived projects", archived_projects_path %>

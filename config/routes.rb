@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     get "archived", on: :collection
     get "restore", on: :member
     resources :stories do
+      get "archived", on: :collection
+      get "restore", on: :member
       resources :comments
       resources :tasks do
         put "update-order", on: :collection

@@ -45,6 +45,19 @@ class StoriesController < ApplicationController
     redirect_to @story.project, notice: "#{@story.name} has been archived"
   end
 
+  def archived
+    @stories = @project.stories.only_deleted
+  end
+
+  def restore
+    @story = @project.stories.only_deleted.friendly.find(params[:id])
+
+    authorize! :edit, @story
+    @story.restore
+
+    redirect_to [@story.project, @story], notice: "#{@story.name} has been restored"
+  end
+
 private
 
   def set_story

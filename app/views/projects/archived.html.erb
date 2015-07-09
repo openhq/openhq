@@ -1,9 +1,9 @@
-<h1><%= t("deleted_projects") %> </h1>
+<h1><%= t("archived_projects") %> </h1>
 
-<div class="ui-projects-list pure-g">
+<div class="pure-g">
   <% if @projects.any? %>
-    <ul class="ui-projects-archived-list">
-      <%= render partial: "project_list", collection: @projects, as: :project %>
+    <ul class="ui-archived-list">
+      <%= render partial: "project_archived", collection: @projects, as: :project %>
     </ul>
   <% end %>
 </div>
