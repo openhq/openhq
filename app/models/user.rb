@@ -70,6 +70,8 @@ class User < ActiveRecord::Base
       last_notified_at < (Time.zone.now - 1.hour)
     when "daily"
       last_notified_at < (Time.zone.now - 1.day)
+    else
+      false
     end
   end
 end
