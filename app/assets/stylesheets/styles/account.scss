@@ -7,4 +7,12 @@ form .account-settings {
   .input {
     padding-right: 10px;
   }
+
+  .content-input .text-box {
+    margin: 5px 10px 0 0;
+
+    .input {
+      padding-right: 0;
+    }
+  }
 }

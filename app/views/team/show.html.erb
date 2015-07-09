@@ -5,5 +5,24 @@
       <%= user.display_name %>
       <small>(<%= user.display_role %>)</small>
     </h1>
+
+    <hr>
+
+    <ul>
+      <% if user.user.job_title.present? %>
+        <li>Job Title: <%= user.user.job_title %></li>
+      <% end %>
+      <li>Email: <%= mail_to user.user.email %></li>
+      <% if user.user.phone.present? %>
+        <li>Phone: <%= user.user.phone %></li>
+      <% end %>
+      <% if user.user.skype.present? %>
+        <li>Skype: <%= link_to user.user.skype, "skype:#{user.user.skype}?userinfo" %></li>
+      <% end %>
+    </ul>
+
+    <% if user.user.bio.present? %>
+      <%= markdownify user.user.bio %>
+    <% end %>
   </div>
 <% end %>
