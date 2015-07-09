@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   ROLES = %w(user admin owner)
+  NOTIFICATION_FREQUENCIES = %w(asap hourly daily never)
 
   attr_accessor :login # username or email
 
@@ -16,6 +17,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, presence: true
   validates :role, presence: true, inclusion: {in: ROLES}
+  validates :notification_frequency, presence: true, inclusion: {in: NOTIFICATION_FREQUENCIES}
   validates :username,
     username: true,
     presence: true,
