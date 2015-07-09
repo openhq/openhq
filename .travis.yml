@@ -8,8 +8,6 @@ services:
 - redis-server
 - memcached
 before_script:
-- psql -c 'create extension "citext";' -U postgres
-- psql -c 'create extension "hstore";' -U postgres
 - psql -c "create role pm_app_test with createdb superuser login password 'test';" -U postgres
 script:
 - bin/rake db:test:prepare
