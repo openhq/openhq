@@ -1,6 +1,10 @@
 form .account-settings {
-  input, select {
-    width: 90%;
-    max-width: 90%;
+  input, select, textarea {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .input {
+    padding-right: 10px;
   }
 }
