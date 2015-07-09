@@ -10,7 +10,7 @@ services:
 before_script:
 - psql -c "create extension citext;" -U postgres
 - psql -c "create extension hstore;" -U postgres
-- psql -c "create role niice_test with createdb login password 'test';" -U postgres
+- psql -c "create role pm_app_test with createdb login password 'test';" -U postgres
 script:
 - bin/rake db:test:prepare
 - bin/rubocop --fail-level convention
