@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :stories, foreign_key: "owner_id", class_name: "Story"
   has_many :notifications, -> { order(created_at: :asc) }
 
-  has_and_belongs_to_many :projects
+  has_and_belongs_to_many :projects, -> { order(name: :asc) }
 
   validates :first_name, :last_name, presence: true
   validates :role, presence: true, inclusion: {in: ROLES}
