@@ -1,4 +1,11 @@
-<p>
-  <strong>Task created:</strong> <br>
-  <%= model.label %>
-</p>
+<td class="avatar">
+  <%= present(model.owner).avatar(30) %>
+</td>
+
+<td class="content">
+  <p><strong><%= model.owner.username %></strong> created a task on the story <%= link_to model.story.name, [model.story.project, model.story] %>, in <%= link_to model.story.project.name, model.story.project %>:</p>
+
+  <div class="details">
+    <p><%= model.label %></p>
+  </div>
+</td>

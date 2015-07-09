@@ -47,6 +47,7 @@ gem 'github-markdown'
 gem 'sanitize', '~> 3.0.3'
 gem 'rinku'
 gem 'gemoji', '~> 2.1.0'
+gem 'jquery-atwho-rails' # @mention autocomplete
 
 # Pagination
 gem 'kaminari', '~> 0.16.1'
@@ -84,4 +85,8 @@ end
 
 group :production do
   gem 'rails_12factor'
+end
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-highlightjs'
 end

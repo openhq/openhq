@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "noreply@openhq.com"
+  default from: ENV['MAILGUN_FROM_EMAIL']
   layout 'mailer'
 end

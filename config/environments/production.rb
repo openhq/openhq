@@ -20,7 +20,7 @@ Rails.application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_files = false
+  config.serve_static_files = true
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -76,13 +76,11 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
-
   # Setup default mailer urls and asset hosts
-  config.action_mailer.default_url_options = { host: "openhq.herokuapp.com", protocol: "https" }
-  config.roadie.url_options = { host: "openhq.herokuapp.com" }
-  config.action_mailer.asset_host = "https://openhq.herokuapp.com"
+  app_url = Rails.application.secrets.application_url
+  config.action_mailer.default_url_options = { host: URI.parse(app_url).host, protocol: URI.parse(app_url).scheme }
+  config.roadie.url_options = { host: URI.parse(app_url).host }
+  config.action_mailer.asset_host = app_url
 
   # Deliver emails with mailgun
   config.action_mailer.delivery_method = :mailgun

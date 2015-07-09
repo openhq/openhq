@@ -25,7 +25,10 @@ Rails.application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  config.assets.debug = true
+  config.assets.debug = false
+  config.assets.compress = false
+  config.assets.digest = true
+  config.assets.compile = true
 
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
@@ -36,8 +39,9 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Basic email config to use for development
+  app_url = Rails.application.secrets.application_url
   config.action_mailer.delivery_method = :letter_opener_web
-  config.action_mailer.default_url_options = { host: "openhq.dev", protocol: "http" }
-  config.action_mailer.asset_host = "http://openhq.dev"
-  config.roadie.url_options = { host: "openhq.dev" }
+  config.action_mailer.default_url_options = { host: URI.parse(app_url).host, protocol: URI.parse(app_url).scheme }
+  config.action_mailer.asset_host = app_url
+  config.roadie.url_options = { host: URI.parse(app_url).host }
 end

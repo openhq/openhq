@@ -7,6 +7,11 @@ class Attachment < ActiveRecord::Base
 
   validates_presence_of :owner_id
 
+  def self.all_for_user(user)
+    users_story_ids = Story.where("stories.project_id IN (?)", user.project_ids).pluck(:id)
+    where("attachments.story_id IN (?)", users_story_ids).order(created_at: :desc)
+  end
+
   def attach_to(object)
     self.attachable = object
     save!

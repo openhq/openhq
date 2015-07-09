@@ -29,7 +29,7 @@ class UserPresenter < BasePresenter
   private
 
   def gravatar_url(size = 200)
-    base_url = "//www.gravatar.com/avatar/"
+    base_url = "https://www.gravatar.com/avatar/"
     opts = "?s="
 
     hash = Digest::MD5.hexdigest(user.email)

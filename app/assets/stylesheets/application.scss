@@ -29,6 +29,8 @@ $rollover-dark: #efefef;
 @import "pure/menus";
 
 /* Plugins */
+@import "jquery.atwho";
+@import "hljs-github-gist-theme";
 @import "chosen";
 @import "pickadate/default";
 @import "pickadate/default.date";

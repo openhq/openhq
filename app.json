@@ -9,6 +9,10 @@
   },
   "env": {
     "REDIS_PROVIDER": "REDISCLOUD_URL",
+    "APPLICATION_URL": {
+      "description": "Full URL to your application e.g. 'https://hq.example.org'",
+      "required": true
+    },
     "AWS_ACCESS_KEY_ID": {
       "description": "Your Amazon AWS credentials to store file uploads (sign up at aws.amazon.com)",
       "required": true
@@ -36,6 +40,7 @@
   },
   "addons": [
     "heroku-postgresql:hobby-dev",
+    "scheduler:standard",
     "rediscloud:30"
   ]
 }
