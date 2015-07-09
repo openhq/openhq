@@ -42,6 +42,10 @@ class User < ActiveRecord::Base
     "user/all/#{max_updated_at}"
   end
 
+  def self.notification_frequencies
+    NOTIFICATION_FREQUENCIES
+  end
+
   def display_name
     full_name.presence || username.presence || email
   end
