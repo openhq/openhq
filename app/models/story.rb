@@ -1,6 +1,7 @@
 class Story < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
+  acts_as_paranoid
 
   belongs_to :project, touch: true
   belongs_to :owner, class_name: "User"
