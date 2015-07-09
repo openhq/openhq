@@ -2,6 +2,8 @@
 
 Open source project management app.
 
+### This software is in pre-alpha phase and not suitable for external use.
+
 ## Deploy to Heroku
 
 To make using Open HQ as easy as possible we have optimised it for usage on Heroku with the 1 click deploy button, however for now we still require you to have a mailgun and amazon s3 account.
