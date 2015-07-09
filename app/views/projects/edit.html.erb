@@ -2,6 +2,9 @@
 
 <%= render 'form' %>
 
-<%= simple_form_for @project, method: :delete, html: {class: "pure-form pure-form-stacked"} do |f| %>
-  <%= f.submit "Archive this project" %>
+<% if can? :destroy, @story %>
+  <%= link_to @project, class: "icon-link link-large danger", method: :delete, data: { confirm: "Are you sure?" } do %>
+    <span class="icon icon-trash"></span>
+    Archive this project
+  <% end %>
 <% end %>
