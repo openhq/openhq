@@ -2,7 +2,7 @@
 
 <div class="ui-projects-list pure-g">
   <% if @projects.any? %>
-    <ul>
+    <ul class="ui-projects-archived-list">
       <%= render partial: "project_list", collection: @projects, as: :project %>
     </ul>
   <% end %>
