@@ -139,12 +139,12 @@
       <aside class="story-menu">
         <% if can? :destroy, @story %>
           <ul class="plain-list actions-list">
-            <!--<li>
+            <%# <li>
               <a href="#" class="icon-link link-large">
                 <span class="icon icon-bell"></span>
                 Disable Notifications
               </a>
-            </li>-->
+            </li> %>
             <li>
               <%= link_to [@story.project, @story], class: "icon-link link-large danger", method: :delete, data: { confirm: "Are you sure?" } do %>
                 <span class="icon icon-trash"></span>
