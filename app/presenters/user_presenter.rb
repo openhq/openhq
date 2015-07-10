@@ -26,6 +26,14 @@ class UserPresenter < BasePresenter
     end
   end
 
+  def profile_path
+    h.team_path(user.username) unless pending?
+  end
+
+  def pending?
+    user.invited_to_sign_up?
+  end
+
   private
 
   def gravatar_url(size = 200)

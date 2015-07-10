@@ -1,11 +1,9 @@
 <ul class="team-list">
   <% present_collection(@team_members).each do |user| %>
     <li class="<%= user.display_role %>">
-      <%= link_to team_path(user.user.username) do %>
-        <%= user.avatar %>
-      <% end %>
+      <%= link_to_unless user.pending?, user.avatar, user.profile_path %>
       <h4>
-        <%= link_to user.display_name, team_path(user.user.username) %>
+        <%= link_to_unless user.pending?, user.display_name, user.profile_path %>
         <small>(<%= user.display_role %>)</small>
       </h4>
     </li>
