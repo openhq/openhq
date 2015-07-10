@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def all_other_users
-    User.where("users.id != ?", current_user.id)
+    User.where("users.id != ?", current_user.id).not_deleted
   end
   helper_method :all_other_users
 
