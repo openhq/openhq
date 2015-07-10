@@ -12,7 +12,7 @@ class NotificationService
   def notify
     users = presenter.notifiable_users(action_performed)
 
-    return if users.empty?
+    return if users.nil? || users.empty?
 
     users.each do |user|
       next if user.notification_frequency == "never"
