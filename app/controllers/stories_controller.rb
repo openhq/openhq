@@ -3,7 +3,6 @@ class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :edit, :update, :destroy]
 
   def show
-    fresh_when last_modified: @story.updated_at
   end
 
   def new
@@ -17,7 +16,7 @@ class StoriesController < ApplicationController
 
     @story.project = @project
     if @story.save
-      NotificationService.new(@story, 'created').notify
+      notify(@story, %w(created mentioned))
       redirect_to project_story_path(@project, @story), notice: "Story created"
     else
       render :new

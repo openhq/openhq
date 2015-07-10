@@ -1,3 +1,5 @@
+require_dependency 'parsers/mention_parser'
+
 class CommentPresenter < BasePresenter
   presents :comment
 
@@ -11,6 +13,8 @@ class CommentPresenter < BasePresenter
     case action_performed
     when "created"
       story.collaborators.where("users.id != :id", id: comment.owner_id)
+    when "mentioned"
+      MentionParser.users(comment.content)
     end
   end
 

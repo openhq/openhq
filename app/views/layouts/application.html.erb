@@ -49,7 +49,7 @@
     App.emojis = <%== MultiJson.dump(Emoji.all.map(&:name)) %>;
     <% end %>
     <% cache User.all_cache_key do %>
-    App.users = <%== MultiJson.dump(ActiveModel::ArraySerializer.new(User.all, each_serializer: PublicUserSerializer, root: false), pretty: true) %>;
+    App.users = <%== MultiJson.dump(ActiveModel::ArraySerializer.new(all_other_users, each_serializer: PublicUserSerializer, root: false), pretty: true) %>;
     <% end %>
   </script>
 

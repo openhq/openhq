@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def all_other_users
-    User.where("users.id != ?", current_user.id)
+    User.where("users.id != ?", current_user.id).not_deleted
   end
   helper_method :all_other_users
 
@@ -30,6 +30,12 @@ class ApplicationController < ActionController::Base
 
   def get_first_error(object)
     object.errors.full_messages.first
+  end
+
+  def notify(subject, actions_performed)
+    Array(actions_performed).each do |action|
+      NotificationService.new(subject, action).notify
+    end
   end
 
 end

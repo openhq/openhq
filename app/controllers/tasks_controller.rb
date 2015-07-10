@@ -10,7 +10,7 @@ class TasksController < ApplicationController
     authorize! :create, @task
 
     if @task.save
-      NotificationService.new(@task, 'created').notify
+      notify(@task, %w(created mentioned))
       redirect_to :back, notice: "Your task has been added"
     else
       flash[:error] = get_first_error(@task)
@@ -59,7 +59,7 @@ private
 
   def update_completion_status(task)
     task.update_completion_status(params[:completed], current_user)
-    NotificationService.new(task, 'completed').notify if params[:completed]
+    notify(@task, 'completed') if params[:completed]
 
     render json: task, status: 200
   end
@@ -72,7 +72,7 @@ private
     if task.save
       # assignment has been updated, and it wasn't to the current user
       if (task.assigned_to != originally_assigned_to) && (task.assigned_to != current_user.id)
-        NotificationService.new(task, 'assigned').notify
+        notify(@task, 'assigned')
       end
 
       render json: task, status: 200

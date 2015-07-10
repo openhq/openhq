@@ -6,6 +6,6 @@
   <p><strong><%= model.completer.username %></strong> compeleted a task on the story <%= link_to model.story.name, [model.story.project, model.story] %>, in <%= link_to model.story.project.name, model.story.project %>:</p>
 
   <div class="details">
-    <p><%= model.label %></p>
+    <p><%= markdownify model.label %></p>
   </div>
 </td>

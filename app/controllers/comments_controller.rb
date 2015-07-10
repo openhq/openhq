@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
         Attachment.where("id IN (?)", attachment_ids).each { |a| a.attach_to(@comment) }
       end
 
-      NotificationService.new(@comment, 'created').notify
+      notify(@comment, %w(created mentioned))
 
       redirect_to :back, notice: "Your comment has been added"
     else
