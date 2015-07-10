@@ -46,7 +46,7 @@
 
                     <div class="edit-form">
                       <%= simple_form_for [@story.project, @story, task] do |f| %>
-                        <%= f.input :label, label: false %>
+                        <%= f.input :label, label: false, input_html: { autocomplete: 'off' } %>
                         <%= f.input :assignment, collection: @story.users_select_array, selected: task.assigned_to, label: false %>
                         <hr>
                         <%= f.submit "Update", class: "btn btn-main btn-small" %>
@@ -61,7 +61,7 @@
 
           <% if can? :create, Task.new %>
             <%= simple_form_for [@story.project, @story, Task.new], html: { class: "pure-form pure-form-stacked" } do |f| %>
-              <%= f.input :label, label: false, placeholder: "Add a new task...", input_html: { class: "atwho" } %>
+              <%= f.input :label, label: false, placeholder: "Add a new task...", input_html: { autocomplete: 'off', class: "atwho" } %>
             <% end %>
           <% end %>
         </div>
