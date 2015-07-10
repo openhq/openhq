@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
     }
 
   scope :active, -> { where("users.invitation_created_at IS NULL OR users.invitation_accepted_at IS NOT NULL") }
+  scope :not_deleted, -> { where("deleted_at IS NULL") }
 
   # Overide devise finder to lookup by username or email
   def self.find_for_database_authentication(warden_conditions)
