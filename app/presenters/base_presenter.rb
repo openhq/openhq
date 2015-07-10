@@ -25,11 +25,4 @@ class BasePresenter
   #   @template.send(*args, &block)
   # end
 
-  def mentioned_users(content)
-    return unless content.present?
-
-    usernames = content.scan(/@\S+/).map { |u| u.gsub(/@/, '') }
-    User.where("username IN (?)", usernames) if usernames.any?
-  end
-
 end

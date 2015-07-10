@@ -1,3 +1,5 @@
+require_dependency 'parsers/mention_parser'
+
 class StoryPresenter < BasePresenter
   presents :story
 
@@ -20,7 +22,7 @@ class StoryPresenter < BasePresenter
     when "created"
       project.users.where('user_id != ?', story.owner_id)
     when "mentioned"
-      mentioned_users(story.description)
+      MentionParser.users(story.description)
     end
   end
 

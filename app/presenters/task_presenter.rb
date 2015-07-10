@@ -1,3 +1,5 @@
+require_dependency 'parsers/mention_parser'
+
 class TaskPresenter < BasePresenter
   presents :task
 
@@ -13,7 +15,7 @@ class TaskPresenter < BasePresenter
     when "completed"
       story.collaborators.where("users.id != :id", id: task.completed_by)
     when "mentioned"
-      mentioned_users(task.label)
+      MentionParser.users(task.label)
     end
   end
 
