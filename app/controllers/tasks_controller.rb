@@ -71,7 +71,7 @@ private
 
     if task.save
       # assignment has been updated, and it wasn't to the current user
-      if (task.assigned_to != originally_assigned_to) && (task.assigned_to != current_user.id)
+      if assignment_updated?(task, originally_assigned_to)
         notify(@task, 'assigned')
       end
 
@@ -79,6 +79,12 @@ private
     else
       render json: { result: false, error: task.errors.full_messages.first }, status: 400
     end
+  end
+
+  def assignment_updated?(task, originally_assigned_to)
+    return false unless task.assignment.present?
+
+    (task.assigned_to != originally_assigned_to) && (task.assigned_to != current_user.id)
   end
 
 end
