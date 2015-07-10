@@ -6,10 +6,10 @@ RSpec.describe MentionParser do
   let!(:mac) { create(:user, username: "mac") }
   let!(:charlie) { create(:user, username: "charlie") }
 
-  it "returns nil if string not passed through" do
+  it "returns empty if string not passed through" do
     mentioned = MentionParser.users("")
 
-    expect(mentioned).to equal(nil)
+    expect(mentioned).to be_empty
   end
 
   it "only finds the at mentioned users" do
@@ -22,10 +22,10 @@ RSpec.describe MentionParser do
     expect(mentioned).not_to include(frank)
   end
 
-  it "returns nil if no one has been at mentioned" do
+  it "returns empty if no one has been at mentioned" do
     string = "mac, charlie and frank have not been at mentioned"
     mentioned = MentionParser.users(string)
 
-    expect(mentioned).to equal(nil)
+    expect(mentioned).to be_empty
   end
 end
