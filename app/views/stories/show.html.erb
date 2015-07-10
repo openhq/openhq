@@ -77,10 +77,13 @@
           <% end %>
         </div>
         <% @story.comments.each do |comment| %>
-        <article>
+        <article class="comment-row" data-owner-id="<%= comment.owner_id %>">
           <header>
             <div class="actions">
               <%= link_to "Edit", edit_project_story_comment_path(@story.project, @story, comment) if can? :edit, comment %>
+              <% if can? :destroy, comment %>
+                | <%= link_to raw("Delete"), project_story_comment_path(@story.project, @story, comment), method: :delete, data: {confirm: "Are you sure?"} %>
+              <% end %>
             </div>
             <%= present(comment.owner).avatar_link(30) %>
             <%= present(comment.owner).display_name %> added <%= human_time comment.created_at %>

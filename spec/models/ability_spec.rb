@@ -37,6 +37,13 @@ RSpec.describe Ability do
       end
     end
 
+    it "allows deletion of owned comments" do
+      [:comment].each do |content_item|
+        assert ability.can?(:destroy, build(content_item, owner: user))
+        assert ability.cannot?(:destroy, build(content_item, owner: other))
+      end
+    end
+
     describe "when user is a member of a project" do
       let(:project) { create(:project, owner: user) }
 

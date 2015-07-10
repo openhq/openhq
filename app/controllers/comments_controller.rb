@@ -1,4 +1,7 @@
 class CommentsController < ApplicationController
+  before_action :set_project
+  before_action :set_story
+  before_action :set_comment, except: :create
 
   def create
     @comment = Comment.new(
@@ -22,7 +25,40 @@ class CommentsController < ApplicationController
     end
   end
 
+  def edit
+    authorize! :update, @comment
+  end
+
+  def update
+    authorize! :update, @comment
+    if @comment.update(comment_params)
+      flash[:notice] = "Comment updated"
+      redirect_to project_story_path(@project, @story)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    authorize! :destroy, @comment
+    @comment.destroy
+    flash[:notice] = "Comment deleted"
+    redirect_to project_story_path(@project, @story)
+  end
+
   private
+
+  def set_project
+    @project = Project.friendly.find(params[:project_id])
+  end
+
+  def set_story
+    @story = @project.stories.friendly.find(params[:story_id])
+  end
+
+  def set_comment
+    @comment = @story.comments.find(params[:id])
+  end
 
   def comment_params
     params.require(:comment).permit(:content, :attachment_ids)
