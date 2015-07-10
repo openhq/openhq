@@ -46,6 +46,7 @@ $rollover-dark: #efefef;
 @import "components/dropdown";
 @import "components/attachments";
 @import "components/icons";
+@import "components/boxes";
 
 /* Specific CSS */
 @import "styles/icons";
@@ -56,6 +57,7 @@ $rollover-dark: #efefef;
 @import "styles/users";
 @import "styles/tasks";
 @import "styles/account";
+@import "styles/files";
 
 @import "jquery.fileupload";
 @import "jquery.fileupload-ui";
