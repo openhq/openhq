@@ -14,6 +14,7 @@ class CommentsController < ApplicationController
       end
 
       NotificationService.new(@comment, 'created').notify
+      NotificationService.new(@comment, 'mentioned').notify
 
       redirect_to :back, notice: "Your comment has been added"
     else
