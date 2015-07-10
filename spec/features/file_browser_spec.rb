@@ -37,7 +37,8 @@ RSpec.feature "File browser", type: :feature do
       visit "/files"
 
       @attachments.each do |file|
-        expect(page).to have_content(file.file_name)
+        file_name = file.file_name.truncate(25, separator: ' ')
+        expect(page).to have_content(file_name)
       end
     end
 
@@ -46,7 +47,8 @@ RSpec.feature "File browser", type: :feature do
         visit "/files"
 
         @unauthorized_attachments.each do |file|
-          expect(page).not_to have_content(file.file_name)
+          file_name = file.file_name.truncate(25, separator: ' ')
+          expect(page).not_to have_content(file_name)
         end
       end
     end

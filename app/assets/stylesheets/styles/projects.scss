@@ -1,26 +1,9 @@
 .project-box {
-  border: solid 1px $line-color;
-  border-radius: 3px;
-  margin-bottom: 30px;
-
-  h3 {
-    margin-top: 0;
-  }
-
-  .info {
-    padding: 20px;
-  }
-
-  footer {
-    border-top: solid 1px $line-color;
-    padding: 20px;
-
-    .members {
-      text-align: right;
-      a {
-        display: inline-block;
-        margin-left: 5px;
-      }
+  footer .members {
+    text-align: right;
+    a {
+      display: inline-block;
+      margin-left: 5px;
     }
   }
 

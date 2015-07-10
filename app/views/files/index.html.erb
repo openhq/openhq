@@ -1,11 +1,38 @@
-<h1>All Files</h1>
-
 <% if @attachments.empty? %>
   <p>You don’t have any files across your projects. Create a story and attach some files.</p>
 <% else %>
-  <ul class="file-list">
+  <div class="pure-g">
     <% @attachments.each do |attachment| %>
-      <li><%= render attachment %></li>
+
+      <div class="pure-u-1 pure-u-md-1-3">
+        <div class="info-box attachment-box">
+          <section class="info">
+            <h3>
+              <%= link_to attachment.url, title: attachment.file_name, target: "_blank" do %>
+                <%= truncate attachment.file_name, length: 25, separator: ' ' %>
+                <small>Uploaded <%= human_time attachment.created_at %></small>
+              <% end %>
+            </h3>
+          </section>
+
+          <section class="file-preview">
+            <% if attachment.image? %>
+              <div class="image-preview" style="background-image: url(<%= attachment.url %>);"></div>
+            <% else %>
+              <%= image_tag "file_types/#{present(attachment).icon_name}.png", width: 59 %>
+            <% end %>
+          </section>
+
+          <footer>
+            <%= link_to attachment.url, title: attachment.file_name, target: "_blank", class: "btn btn-main btn-with-icon" do %>
+              <span class="icon icon-cloud-download"></span>
+              Download
+            <% end %>
+            <span class="file-size"><%= number_to_human_size attachment.file_size %></span>
+            <span class="uploaded-by"><%= present(attachment.owner).avatar(30) %></span>
+          </footer>
+        </div>
+      </div>
     <% end %>
-  </ul>
+  </div>
 <% end %>
