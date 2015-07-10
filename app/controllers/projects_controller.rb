@@ -21,7 +21,8 @@ class ProjectsController < ApplicationController
     authorize! :create, @project
 
     if @project.save
-      NotificationService.new(@project, 'created').notify
+      notify(@project, 'created')
+
       @project.users << current_user
       redirect_to project_path(@project), notice: "Project created"
     else

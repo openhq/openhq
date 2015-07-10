@@ -32,4 +32,10 @@ class ApplicationController < ActionController::Base
     object.errors.full_messages.first
   end
 
+  def notify(subject, actions_performed)
+    Array(actions_performed).each do |action|
+      NotificationService.new(subject, action).notify
+    end
+  end
+
 end
