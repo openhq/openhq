@@ -11,6 +11,8 @@ class CommentPresenter < BasePresenter
     case action_performed
     when "created"
       story.collaborators.where("users.id != :id", id: comment.owner_id)
+    when "mentioned"
+      mentioned_users(comment.content)
     end
   end
 

@@ -12,6 +12,8 @@ class TaskPresenter < BasePresenter
       story.collaborators.where("users.id != :id", id: task.owner_id)
     when "completed"
       story.collaborators.where("users.id != :id", id: task.completed_by)
+    when "mentioned"
+      mentioned_users(task.label)
     end
   end
 

@@ -19,6 +19,8 @@ class StoryPresenter < BasePresenter
     case action_performed
     when "created"
       project.users.where('user_id != ?', story.owner_id)
+    when "mentioned"
+      mentioned_users(story.description)
     end
   end
 
