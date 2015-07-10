@@ -3,7 +3,6 @@ class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :edit, :update, :destroy]
 
   def show
-    fresh_when last_modified: @story.updated_at
   end
 
   def new
