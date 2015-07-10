@@ -11,6 +11,7 @@ class TasksController < ApplicationController
 
     if @task.save
       NotificationService.new(@task, 'created').notify
+      NotificationService.new(@task, 'mentioned').notify
       redirect_to :back, notice: "Your task has been added"
     else
       flash[:error] = get_first_error(@task)
