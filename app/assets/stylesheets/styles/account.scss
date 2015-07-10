@@ -1,0 +1,51 @@
+form .account-settings {
+  input, select, textarea {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .input {
+    padding-right: 10px;
+  }
+
+  .content-input .text-box {
+    margin: 5px 10px 0 0;
+
+    .input {
+      padding-right: 0;
+    }
+  }
+}
+
+.account-profile {
+  h1 {
+    height: 100px;
+    line-height: 0.9em;
+
+    img {
+      height: 100%;
+      margin-bottom: -35px;
+      margin-right: 15px;
+    }
+
+    &.job-title {
+      img {
+        margin-bottom: -50px;
+      }
+      span {
+        display: block;
+        color: $body-light-color;
+        margin-left: 125px;
+        font-size: 22px;
+      }
+    }
+  }
+
+  ul {
+    background: $rollover-dark;
+    list-style: none;
+    margin: 0;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+}

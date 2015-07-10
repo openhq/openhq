@@ -26,11 +26,19 @@ class UserPresenter < BasePresenter
     end
   end
 
+  def profile_path
+    h.team_path(user.username) unless pending?
+  end
+
+  def pending?
+    user.invited_to_sign_up?
+  end
+
   private
 
   def gravatar_url(size = 200)
     base_url = "https://www.gravatar.com/avatar/"
-    opts = "?s="
+    opts = "?d=blank&s="
 
     hash = Digest::MD5.hexdigest(user.email)
 

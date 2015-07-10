@@ -11,7 +11,7 @@ class AccountController < ApplicationController
   end
 
   def destroy
-    current_user.destroy
+    current_user.update(deleted_at: Time.zone.now)
     sign_out :user
     flash[:notice] = "Your account has been deleted"
     redirect_to root_url
@@ -21,6 +21,7 @@ class AccountController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :username, :email,
-      :password, :password_confirmation, :current_password)
+      :notification_frequency, :password, :password_confirmation,
+      :job_title, :phone, :skype, :bio, :current_password)
   end
 end

@@ -1,3 +1,6 @@
 img.avatar {
   border-radius: 100%;
+  background-image: image_url('default-avatar.jpg');
+  background-size: cover;
+  background-position: center;
 }

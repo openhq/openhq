@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   ROLES = %w(user admin owner)
+  NOTIFICATION_FREQUENCIES = %w(asap hourly daily never)
 
   attr_accessor :login # username or email
 
@@ -16,6 +17,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, presence: true
   validates :role, presence: true, inclusion: {in: ROLES}
+  validates :notification_frequency, presence: true, inclusion: {in: NOTIFICATION_FREQUENCIES}
   validates :username,
     username: true,
     presence: true,
@@ -24,6 +26,7 @@ class User < ActiveRecord::Base
     }
 
   scope :active, -> { where("users.invitation_created_at IS NULL OR users.invitation_accepted_at IS NOT NULL") }
+  scope :not_deleted, -> { where("deleted_at IS NULL") }
 
   # Overide devise finder to lookup by username or email
   def self.find_for_database_authentication(warden_conditions)
@@ -38,6 +41,14 @@ class User < ActiveRecord::Base
   def self.all_cache_key
     max_updated_at = maximum(:updated_at).try(:utc).try(:to_s, :number)
     "user/all/#{max_updated_at}"
+  end
+
+  def self.notification_frequencies
+    NOTIFICATION_FREQUENCIES
+  end
+
+  def active_for_authentication?
+    super && deleted_at.nil?
   end
 
   def display_name
@@ -64,6 +75,8 @@ class User < ActiveRecord::Base
       last_notified_at < (Time.zone.now - 1.hour)
     when "daily"
       last_notified_at < (Time.zone.now - 1.day)
+    else
+      false
     end
   end
 end

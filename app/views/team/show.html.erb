@@ -1,9 +1,30 @@
 <% present(@team_member) do |user| %>
-  <div class="<%= user.display_role %>">
-    <%= user.avatar %>
-    <h4>
-      <%= link_to_if can?(:edit, user.user), user.display_name, edit_team_path(user.user) %>
+  <div class="account-profile <%= user.display_role %>">
+    <h1 class="<%= 'job-title' if user.user.job_title.present? %>">
+      <%= user.avatar %>
+      <%= user.display_name %>
+
       <small>(<%= user.display_role %>)</small>
-    </h4>
+
+      <% if user.user.job_title.present? %>
+        <span><%= user.user.job_title %></span>
+      <% end %>
+    </h1>
+
+    <hr>
+
+    <ul>
+      <li>Email: <%= mail_to user.user.email %></li>
+      <% if user.user.phone.present? %>
+        <li>Phone: <%= user.user.phone %></li>
+      <% end %>
+      <% if user.user.skype.present? %>
+        <li>Skype: <%= link_to user.user.skype, "skype:#{user.user.skype}?userinfo" %></li>
+      <% end %>
+    </ul>
+
+    <% if user.user.bio.present? %>
+      <%= markdownify user.user.bio %>
+    <% end %>
   </div>
 <% end %>

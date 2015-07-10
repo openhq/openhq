@@ -8,8 +8,10 @@ class TaskPresenter < BasePresenter
     case action_performed
     when "assigned"
       [task.assignment]
-    when "created", "completed"
+    when "created"
       story.collaborators.where("users.id != :id", id: task.owner_id)
+    when "completed"
+      story.collaborators.where("users.id != :id", id: task.completed_by)
     end
   end
 

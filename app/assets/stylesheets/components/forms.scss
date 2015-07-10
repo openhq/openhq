@@ -30,7 +30,8 @@ input[type="email"],
 input[type="password"],
 input[type="tel"],
 input[type="number"],
-textarea {
+textarea,
+select {
   padding: 8px;
   border-radius: 3px;
   border: solid 1px $line-color;
@@ -110,7 +111,7 @@ input.title-input {
 }
 
 @media only screen and (min-width: 768px) {
-  form input {
+  form input, form select {
     max-width: 300px;
   }
 }
