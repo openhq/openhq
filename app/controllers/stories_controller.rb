@@ -16,7 +16,7 @@ class StoriesController < ApplicationController
 
     @story.project = @project
     if @story.save
-      notify(@story, ['created', 'mentioned'])
+      notify(@story, %w(created mentioned))
       redirect_to project_story_path(@project, @story), notice: "Story created"
     else
       render :new

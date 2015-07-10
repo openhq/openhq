@@ -10,7 +10,7 @@ class TasksController < ApplicationController
     authorize! :create, @task
 
     if @task.save
-      notify(@task, ['created', 'mentioned'])
+      notify(@task, %w(created mentioned))
       redirect_to :back, notice: "Your task has been added"
     else
       flash[:error] = get_first_error(@task)
