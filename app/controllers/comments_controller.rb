@@ -39,6 +39,13 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    authorize! :destroy, @comment
+    @comment.destroy
+    flash[:notice] = "Comment deleted"
+    redirect_to project_story_path(@project, @story)
+  end
+
   private
 
   def set_project
