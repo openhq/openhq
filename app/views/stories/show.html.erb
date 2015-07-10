@@ -33,7 +33,7 @@
 
                     <div class="default-form">
                       <%= simple_form_for [@story.project, @story, task] do |f| %>
-                        <input type="checkbox" <%= "checked" if task.completed? %>><span class="label"><%= task.label %></span>
+                        <input type="checkbox" <%= "checked" if task.completed? %>><%= markdownify task.label %>
 
                         <span class="assignment"><%= task.assignment_name %></span>
 
