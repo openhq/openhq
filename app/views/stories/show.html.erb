@@ -77,7 +77,7 @@
           <% end %>
         </div>
         <% @story.comments.each do |comment| %>
-        <article>
+        <article class="comment-row" data-owner-id="<%= comment.owner_id %>">
           <header>
             <div class="actions">
               <%= link_to "Edit", edit_project_story_comment_path(@story.project, @story, comment) if can? :edit, comment %>
