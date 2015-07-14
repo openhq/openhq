@@ -25,6 +25,7 @@ class Ability
       can :update, Attachment, owner_id: user.id
       can :update, Comment, owner_id: user.id
       can :destroy, Comment, owner_id: user.id
+      can :destroy, Project, owner_id: user.id
     end
 
     if user.role? :admin

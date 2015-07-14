@@ -38,7 +38,7 @@ RSpec.describe Ability do
     end
 
     it "allows deletion of owned comments" do
-      [:comment].each do |content_item|
+      [:comment, :project].each do |content_item|
         assert ability.can?(:destroy, build(content_item, owner: user))
         assert ability.cannot?(:destroy, build(content_item, owner: other))
       end
