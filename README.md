@@ -1,6 +1,7 @@
 # Open HQ
 
 [![Build Status](https://travis-ci.org/openhq/openhq.svg?branch=add_csrf_to_ajax_requests)](https://travis-ci.org/openhq/openhq)
+[![Code Climate](https://codeclimate.com/github/openhq/openhq/badges/gpa.svg)](https://codeclimate.com/github/openhq/openhq)
 
 Open source project management app.
 
