@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= app_name %></title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700,300,600,400' rel='stylesheet' type='text/css'>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="error-page">
+
+  <div class="page-container">
+    <%= render 'shared/flash_messages' %>
+
+    <%= yield %>
+
+    <footer>
+      <%= link_to "Back to my projects", root_url, class: "btn btn-large btn-main" %>
+    </footer>
+  </div>
+
+</body>
+</html>

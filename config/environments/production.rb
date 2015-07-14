@@ -88,4 +88,7 @@ Rails.application.configure do
           api_key: ENV['MAILGUN_API_KEY'],
           domain: ENV['MAILGUN_DOMAIN']
   }
+
+  # Use dynamic error pages
+  config.exceptions_app = self.routes
 end
