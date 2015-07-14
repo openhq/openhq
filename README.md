@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/openhq/openhq.svg?branch=add_csrf_to_ajax_requests)](https://travis-ci.org/openhq/openhq)
 [![Code Climate](https://codeclimate.com/github/openhq/openhq/badges/gpa.svg)](https://codeclimate.com/github/openhq/openhq)
+[![Coverage Status](https://coveralls.io/repos/openhq/openhq/badge.svg?branch=increase_test_coverage&service=github)](https://coveralls.io/github/openhq/openhq?branch=increase_test_coverage)
 
 Open source project management app.
 
