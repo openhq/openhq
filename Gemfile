@@ -84,7 +84,7 @@ group :test do
   gem 'faker'
   gem 'database_cleaner'
   gem 'mocha'
-  gem 'simplecov', require: false
+  gem 'coveralls', require: false
 end
 
 group :production do
