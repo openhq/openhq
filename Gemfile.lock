@@ -276,6 +276,8 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
+    shoulda-matchers (2.8.0)
+      activesupport (>= 3.0.0)
     sidekiq (3.4.1)
       celluloid (~> 0.16.0)
       connection_pool (>= 2.1.1)
@@ -373,6 +375,7 @@ DEPENDENCIES
   sanitize (~> 3.0.3)
   sass-rails (~> 4.0.3)
   sentry-raven!
+  shoulda-matchers
   sidekiq
   simple_form
   simplecov
