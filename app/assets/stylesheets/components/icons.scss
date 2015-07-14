@@ -3,7 +3,8 @@
   width: 24px;
   height: 24px;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-position: 50% 50%;
+  background-size: 24px;
   vertical-align: top;
   margin-right: 5px;
 }
@@ -22,6 +23,11 @@
 
 .icon-cloud-download {
   background-image: image-url('cloud-download.png');
+}
+
+.icon-archive {
+  background-image: image-url('archive.svg');
+  background-size: 20px;
 }
 
 /* Icon links */

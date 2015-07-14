@@ -38,4 +38,12 @@
   </ul>
 <% end %>
 
-<%= link_to "View archived stories", archived_project_stories_path(@project) %>
+
+<% if @project.stories.only_deleted.any? %>
+  <div class="center archive-link">
+    <%= link_to archived_project_stories_path(@project), class: "btn btn-secondary btn-with-icon" do %>
+      <span class="icon icon-archive"></span>
+      View archived stories (<%= @project.stories.only_deleted.count %>)
+    <% end %>
+  </div>
+<% end %>

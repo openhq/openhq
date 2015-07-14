@@ -5,4 +5,11 @@
   <%= render "new_project" %>
 </div>
 
-<%= link_to "View archived projects", archived_projects_path %>
+<% if current_user.projects.only_deleted.any? %>
+  <div class="center archive-link">
+    <%= link_to archived_projects_path, class: "btn btn-secondary btn-with-icon" do %>
+      <span class="icon icon-archive"></span>
+      View archived projects (<%= current_user.projects.only_deleted.count %>)
+    <% end %>
+  </div>
+<% end %>
