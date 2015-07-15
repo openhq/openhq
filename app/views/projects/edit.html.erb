@@ -2,11 +2,11 @@
 
 <%= render 'form' %>
 
-<% if can? :destroy, @story %>
+<% if can? :destroy, @project %>
   <hr>
   <ul class="plain-list actions-list">
     <li>
-      <%= link_to @project, class: "icon-link link-large danger", method: :delete, data: { confirm: "Are you sure?" } do %>
+      <%= link_to @project, class: "icon-link link-large danger", method: :delete, id: "archive-btn", data: { confirm: "Are you sure?" } do %>
         <span class="icon icon-trash"></span>
         Archive this project
       <% end %>

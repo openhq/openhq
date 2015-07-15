@@ -38,7 +38,7 @@ gem 'aws-sdk', '< 2.0'
 gem 's3_direct_upload', '~> 0.1.7'
 
 # Background jobs
-gem 'sinatra', :require => nil # for sidekiq/web
+gem 'sinatra', require: nil # for sidekiq/web
 gem 'sidekiq'
 
 # Markdown / editing support
@@ -80,10 +80,11 @@ group :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara', '~> 2.0'
   gem 'factory_girl_rails'
+  gem 'shoulda-matchers', require: false
   gem 'faker'
   gem 'database_cleaner'
   gem 'mocha'
-  gem 'simplecov', :require => false
+  gem 'coveralls', require: false
 end
 
 group :production do
