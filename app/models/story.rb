@@ -1,3 +1,5 @@
+require 'set'
+
 class Story < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
@@ -15,13 +17,10 @@ class Story < ActiveRecord::Base
   scope :recent, -> { order(updated_at: :desc) }
 
   def collaborators
-    collaborators = users
-    return collaborators if collaborators.include?(owner)
+    collaborator_ids = Set.new(users.pluck(:id))
 
-    User.where("id = :owner_id OR id IN (:collaborator_ids)", owner_id: owner_id, collaborator_ids: collaborators.pluck(:id))
-  end
+    collaborator_ids << owner_id
 
-  def users_select_array
-    @users_select_array ||= [['unassigned', 0]].concat(project.users.active.map {|u| [u.username, u.id]})
+    User.where("id IN (?)", collaborator_ids)
   end
 end

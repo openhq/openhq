@@ -1,6 +1,11 @@
 $(function(){
 
     App.onPageLoad(function() {
+        // If we’re on a story update task completion status
+        if ($(".ui-story").find(".tasks").length > 0) {
+            updateTaskCompletionBar();
+        }
+
         // setting a task as complete / incomplete
         $('.tasks li input[type=checkbox]').on('change', function(e){
             var $this = $(this);
@@ -18,15 +23,7 @@ $(function(){
             .done(function(resp){
                 li.toggleClass('complete');
 
-                var overall = li.closest('ul').find('li.task').length,
-                    complete = li.closest('ul').find('li.task:not(.complete)').length,
-                    pct_complete = (100 - Math.round((complete/overall) * 100)) + "%";
-
-                li.closest('.tasks').find('h4').html(
-                    complete + " Incomplete Task" + (complete == 1 ? "" : "s")
-                );
-
-                $('.story-menu .progress-bar span.completion').html(pct_complete).css({width: pct_complete});
+                updateTaskCompletionBar();
             })
             .fail(function(resp){
                 console.log('error', resp.error);
@@ -95,6 +92,25 @@ $(function(){
 
         $default_form.toggle();
         $edit_form.toggle();
+    }
+
+    function updateTaskCompletionBar() {
+        var $task_list = $(".ui-story").find(".tasks"),
+            overall = $task_list.find('li.task').length,
+            complete = $task_list.find('li.task:not(.complete)').length,
+            pct_complete = (100 - Math.round((complete/overall) * 100)) + "%";
+
+        $task_list.find('h4').html(
+            complete + " Incomplete Task" + (complete == 1 ? "" : "s")
+        );
+
+        if (overall < 1) {
+            $('.story-menu .overall-task-progress').hide();
+        }
+        else {
+            $('.story-menu .progress-bar span.completion').html(pct_complete).css({width: pct_complete});
+            $('.story-menu .overall-task-progress').show();
+        }
     }
 
 });

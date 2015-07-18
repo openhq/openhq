@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   post '/setup/complete' => 'setup#complete'
 
   resource :account, only: [:edit, :update, :destroy], controller: :account
-  resource :settings, only: [:edit, :update]
 
   resources :files, only: :index
   resources :team, only: [:index, :show, :new, :create, :edit]

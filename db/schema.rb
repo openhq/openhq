@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709161745) do
+ActiveRecord::Schema.define(version: 20150718133222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "citext"
   enable_extension "hstore"
+  enable_extension "citext"
 
   create_table "attachments", force: :cascade do |t|
     t.string   "name"
@@ -47,13 +47,6 @@ ActiveRecord::Schema.define(version: 20150709161745) do
 
   add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
   add_index "comments", ["owner_id"], name: "index_comments_on_owner_id", using: :btree
-
-  create_table "metadata", force: :cascade do |t|
-    t.string   "key"
-    t.text     "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"

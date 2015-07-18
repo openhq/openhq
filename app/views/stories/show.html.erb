@@ -1,7 +1,7 @@
 <% present @story do |story_presenter| %>
   <h1>
     <%= @story.name %>
-    <small><%= link_to @story.project.name, @story.project %></small>
+    <small><%= link_to @project.name, @project %></small>
   </h1>
 
   <div class="pure-g">
@@ -11,7 +11,7 @@
         <article>
           <header>
             <div class="actions">
-              <%= link_to "Edit", edit_project_story_path(@story.project, @story) if can? :edit, @story %>
+              <%= link_to "Edit", edit_project_story_path(@project, @story) if can? :edit, @story %>
             </div>
             <%= present(@story.owner).avatar_link(30) %>
             <%= present(@story.owner).display_name %> added <%= human_time @story.created_at %>
@@ -21,33 +21,32 @@
           </section>
         </article>
         <div class="tasks">
-          <% if @story.tasks.empty? %>
+          <% if @tasks.size < 1 %>
             <p>No tasks</p>
-
           <% else %>
-            <h4><%= pluralize(@story.tasks.incomplete.count, "Incomplete Task") %></h4>
+            <h4><%= pluralize(@incomplete_tasks.size, "Incomplete Task") %></h4>
 
-              <ul class="sortable" data-update-url="<%= update_order_project_story_tasks_path(@story.project, @story) %>">
-                <% @story.tasks.each do |task| %>
+              <ul class="sortable" data-update-url="<%= update_order_project_story_tasks_path(@project, @story) %>">
+                <% @tasks.each do |task| %>
                   <li class="task <%= "complete" if task.completed? %>" id="<%= task.id %>">
 
                     <div class="default-form">
-                      <%= simple_form_for [@story.project, @story, task] do |f| %>
+                      <%= simple_form_for [@project, @story, task] do |f| %>
                         <input type="checkbox" <%= "checked" if task.completed? %>><%= markdownify task.label %>
 
                         <span class="assignment"><%= task.assignment_name %></span>
 
                         <ul class="actions">
                           <li><%= link_to "Edit", "#", class: "edit" %></li>
-                          <li><%= link_to "Delete", project_story_task_path(@story.project, @story, task), method: :delete, class: "delete", data: { confirm: "Are you sure?" } %></li>
+                          <li><%= link_to "Delete", project_story_task_path(@project, @story, task), method: :delete, class: "delete", data: { confirm: "Are you sure?" } %></li>
                         </ul>
                       <% end %>
                     </div>
 
                     <div class="edit-form">
-                      <%= simple_form_for [@story.project, @story, task] do |f| %>
+                      <%= simple_form_for [@project, @story, task] do |f| %>
                         <%= f.input :label, label: false, input_html: { autocomplete: 'off' } %>
-                        <%= f.input :assignment, collection: @story.users_select_array, selected: task.assigned_to, label: false %>
+                        <%= f.input :assignment, collection: @project.users_select_array, selected: task.assigned_to, label: false %>
                         <hr>
                         <%= f.submit "Update", class: "btn btn-main btn-small" %>
                         <%= link_to "Cancel", "#", class: "cancel" %>
@@ -60,15 +59,15 @@
           <% end %>
 
           <% if can? :create, Task.new %>
-            <%= simple_form_for [@story.project, @story, Task.new], html: { class: "pure-form pure-form-stacked" } do |f| %>
+            <%= simple_form_for [@project, @story, Task.new], html: { class: "pure-form pure-form-stacked" } do |f| %>
               <%= f.input :label, label: false, placeholder: "Add a new task...", input_html: { autocomplete: 'off', class: "atwho" } %>
             <% end %>
           <% end %>
         </div>
         <div class="attachments">
-          <% if @story.attachments.any? %>
+          <% if @attachments.size > 0 %>
             <ul class="file-list">
-              <% @story.attachments.each do |file| %>
+              <% @attachments.each do |file| %>
                 <li><%= render file %></li>
               <% end %>
             </ul>
@@ -76,13 +75,13 @@
             <p>No attachments</p>
           <% end %>
         </div>
-        <% @story.comments.each do |comment| %>
+        <% @comments.each do |comment| %>
         <article class="comment-row" data-owner-id="<%= comment.owner_id %>">
           <header>
             <div class="actions">
-              <%= link_to "Edit", edit_project_story_comment_path(@story.project, @story, comment) if can? :edit, comment %>
+              <%= link_to "Edit", edit_project_story_comment_path(@project, @story, comment) if can? :edit, comment %>
               <% if can? :destroy, comment %>
-                | <%= link_to raw("Delete"), project_story_comment_path(@story.project, @story, comment), method: :delete, data: {confirm: "Are you sure?"} %>
+                | <%= link_to raw("Delete"), project_story_comment_path(@project, @story, comment), method: :delete, data: {confirm: "Are you sure?"} %>
               <% end %>
             </div>
             <%= present(comment.owner).avatar_link(30) %>
@@ -91,7 +90,7 @@
           <section class="body comment">
             <%= markdownify comment.content %>
             <% if comment.attachments.any? %>
-              <h5>Added <%= pluralize(comment.attachments.count, "attachment") %></h5>
+              <h5>Added <%= pluralize(comment.attachments.size, "attachment") %></h5>
               <ul class="comment-files-list">
                 <% comment.attachments.each do |file| %>
                   <li><%= render 'attachments/preview', attachment: file %></li>
@@ -105,7 +104,7 @@
           <header class="plain">
             <%= present(current_user).avatar_link(30) %> Reply to this topic
           </header>
-          <%= simple_form_for [@story.project, @story, Comment.new], html: {class: "pure-form pure-form-stacked", id: "new-attachment-form"} do |f| %>
+          <%= simple_form_for [@project, @story, Comment.new], html: {class: "pure-form pure-form-stacked", id: "new-attachment-form"} do |f| %>
             <%= f.input :attachment_ids, as: :hidden %>
             <%= render 'shared/text_box', form: f, method: :content %>
             <footer>
@@ -149,7 +148,7 @@
               </a>
             </li> %>
             <li>
-              <%= link_to [@story.project, @story], class: "icon-link link-large danger", method: :delete, data: { confirm: "Are you sure?" } do %>
+              <%= link_to [@project, @story], class: "icon-link link-large danger", method: :delete, data: { confirm: "Are you sure?" } do %>
                 <span class="icon icon-trash"></span>
                 Archive this story
               <% end %>
@@ -157,23 +156,22 @@
           </ul>
         <% end %>
 
-        <h4><%= pluralize(@story.collaborators.count, "Contributor") %></h4>
+        <h4><%= pluralize(@collaborators.size, "Contributor") %></h4>
 
         <div class="members">
-          <% present_collection(@story.collaborators).each do |user| %>
+          <% present_collection(@collaborators).each do |user| %>
             <%= user.avatar(30) %>
           <% end %>
         </div>
 
-        <% if @story.tasks.any? %>
+        <div class="overall-task-progress">
           <h4>Task progress</h4>
-
           <div class="progress-bar">
-            <span class="completion" style="width: <%= story_presenter.task_completion_width %>%;"><%= story_presenter.task_completion %>%</span>
+            <span class="completion"></span>
           </div>
-        <% end %>
+        </div>
 
-        <h4><%= pluralize(@story.attachments.count, "Attachment") %></h4>
+        <h4><%= pluralize(@attachments.size, "Attachment") %></h4>
       </aside>
     </div><%# /.pure-u-md-6-24 %>
 

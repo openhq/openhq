@@ -71,6 +71,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'rack-mini-profiler'
   gem 'quiet_assets'
   gem 'letter_opener_web'
   gem 'spring-commands-rspec'
