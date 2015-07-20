@@ -25,7 +25,9 @@ class User < ActiveRecord::Base
       case_sensitive: false
     }
 
-  scope :active, -> { not_deleted.where("users.invitation_created_at IS NULL OR users.invitation_accepted_at IS NOT NULL") }
+  scope :active, lambda {
+    not_deleted.where("users.invitation_created_at IS NULL OR users.invitation_accepted_at IS NOT NULL")
+  }
   scope :not_deleted, -> { where("deleted_at IS NULL") }
 
   # Overide devise finder to lookup by username or email
