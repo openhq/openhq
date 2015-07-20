@@ -17,9 +17,6 @@
             <span class="title noselect"><%= user.display_name %><span class="arrow"></span></span>
             <ul class="dropdown">
               <li><%= link_to(t("user.account"), edit_account_path) %></li>
-              <% if can?(:update, Settings) %>
-              <li><%= link_to(t("settings"), edit_settings_path) %></li>
-              <% end %>
               <li><%= link_to(t("auth.sign_out"), destroy_user_session_path, :method => :delete) %></li>
             </ul>
           </div>
@@ -49,7 +46,7 @@
     App.emojis = <%== MultiJson.dump(Emoji.all.map(&:name)) %>;
     <% end %>
     <% cache User.all_cache_key do %>
-    App.users = <%== MultiJson.dump(ActiveModel::ArraySerializer.new(all_other_users, each_serializer: PublicUserSerializer, root: false), pretty: true) %>;
+    App.users = <%== MultiJson.dump(ActiveModel::ArraySerializer.new(User.active, each_serializer: PublicUserSerializer, root: false), pretty: true) %>;
     <% end %>
   </script>
 

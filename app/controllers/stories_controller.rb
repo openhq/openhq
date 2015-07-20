@@ -3,6 +3,11 @@ class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :edit, :update, :destroy]
 
   def show
+    @attachments = @story.attachments.to_a
+    @tasks = @story.tasks.includes(:assignment).to_a
+    @incomplete_tasks = @tasks.reject(&:completed?)
+    @comments = @story.comments.includes(:attachments, :owner).to_a
+    @collaborators = @story.collaborators.to_a
   end
 
   def new
@@ -60,7 +65,7 @@ class StoriesController < ApplicationController
 private
 
   def set_story
-    @story = Story.friendly.find(params[:id])
+    @story = Story.includes(:owner, :users).friendly.find(params[:id])
   end
 
   def set_project

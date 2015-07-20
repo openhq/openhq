@@ -14,4 +14,8 @@ class Project < ActiveRecord::Base
     "project/all/#{max_updated_at}"
   end
 
+  def users_select_array
+    @users_select_array ||= [['unassigned', 0]].concat(users.active.pluck(:username, :id))
+  end
+
 end
