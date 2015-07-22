@@ -42,6 +42,7 @@ RSpec.describe Ability do
 
     describe "when user is a member of a project" do
       let(:project) { create(:project, owner: user) }
+      let(:story) { project.stories.create(name: "My story", owner: other) }
 
       before do
         project.users << user
@@ -49,6 +50,10 @@ RSpec.describe Ability do
 
       it "allows viewing of project" do
         assert ability.can?(:read, project)
+      end
+
+      it "allows archival of stories in that project" do
+        assert ability.can?(:destroy, story)
       end
     end
 

@@ -18,6 +18,9 @@ class Ability
       can :create, Task
       can :create, Attachment
 
+      # Can archive stories they are a member of
+      can :destroy, Story, project_id: user.projects.pluck(:id)
+
       # Can update objects they own
       can :update, Project, owner_id: user.id
       can :update, Story, owner_id: user.id

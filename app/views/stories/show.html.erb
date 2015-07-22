@@ -139,22 +139,20 @@
 
     <div class="pure-u-1 pure-u-md-6-24">
       <aside class="story-menu">
-        <% if can? :destroy, @story %>
-          <ul class="plain-list actions-list">
-            <%# <li>
-              <a href="#" class="icon-link link-large">
-                <span class="icon icon-bell"></span>
-                Disable Notifications
-              </a>
-            </li> %>
-            <li>
-              <%= link_to [@project, @story], class: "icon-link link-large danger", method: :delete, data: { confirm: "Are you sure?" } do %>
-                <span class="icon icon-trash"></span>
-                Archive this story
-              <% end %>
-            </li>
-          </ul>
-        <% end %>
+        <ul class="plain-list actions-list">
+          <%# <li>
+            <a href="#" class="icon-link link-large">
+              <span class="icon icon-bell"></span>
+              Disable Notifications
+            </a>
+          </li> %>
+          <li>
+            <%= link_to [@project, @story], class: "icon-link link-large danger", method: :delete, data: { confirm: "Are you sure?" } do %>
+              <span class="icon icon-trash"></span>
+              Archive this story
+            <% end %>
+          </li>
+        </ul>
 
         <h4><%= pluralize(@collaborators.size, "Contributor") %></h4>
 
