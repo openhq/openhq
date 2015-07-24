@@ -7,7 +7,7 @@ class Attachment < ActiveRecord::Base
 
   validates_presence_of :owner_id
 
-  after_create :create_thumbnail, if: :image?
+  after_create :process_upload
 
   def self.all_for_user(user)
     users_story_ids = Story.where("stories.project_id IN (?)", user.project_ids).pluck(:id)
@@ -35,7 +35,7 @@ class Attachment < ActiveRecord::Base
 
   private
 
-  def create_thumbnail
-    AttachmentThumbnailJob.perform_later(self)
+  def process_upload
+    ProcessAttachmentJob.perform_later(self)
   end
 end
