@@ -49,6 +49,9 @@ gem 'rinku'
 gem 'gemoji', '~> 2.1.0'
 gem 'jquery-atwho-rails' # @mention autocomplete
 
+# Imagemagick for image manipulation
+gem 'rmagick'
+
 # Pagination
 gem 'kaminari', '~> 0.16.1'
 
