@@ -7,6 +7,8 @@ class Attachment < ActiveRecord::Base
 
   validates_presence_of :owner_id
 
+  after_create :create_thumbnail, if: :image?
+
   def self.all_for_user(user)
     users_story_ids = Story.where("stories.project_id IN (?)", user.project_ids).pluck(:id)
     where("attachments.story_id IN (?)", users_story_ids).order(created_at: :desc)
@@ -29,5 +31,11 @@ class Attachment < ActiveRecord::Base
 
   def url
     S3UrlSigner.sign(file_path)
+  end
+
+  private
+
+  def create_thumbnail
+    AttachmentThumbnailJob.perform_later(self)
   end
 end
