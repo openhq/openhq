@@ -8,10 +8,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="error-page">
+  <%= render 'shared/flash_messages' %>
 
   <div class="page-container">
-    <%= render 'shared/flash_messages' %>
-
     <%= yield %>
 
     <footer>
