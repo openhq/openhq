@@ -10,6 +10,8 @@ class ProcessAttachmentJob < ActiveJob::Base
       attachment.thumbnail_sizes.each do |tag, dimensions|
         processor.resize_and_upload(width: dimensions[0], height: dimensions[1], tag: tag)
       end
+
+      processor.close
     end
   end
 end

@@ -39,6 +39,13 @@ class Attachment < ActiveRecord::Base
     THUMBNAIL_SIZES
   end
 
+  def set_process_data(key, val)
+    data = process_data
+    data[key] = val
+
+    update(process_data: data)
+  end
+
   private
 
   def process_upload
