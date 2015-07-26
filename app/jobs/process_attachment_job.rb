@@ -1,11 +1,12 @@
+require "attachment_processors/image"
+
 class ProcessAttachmentJob < ActiveJob::Base
   queue_as :default
 
   def perform(attachment)
     if attachment.image?
-      # download the image to tmp
-      # resize it and upload to s3
-      # save url in attachment
+      processor = AttachmentProcessor::Image.new(attachment)
+      processor.resize_and_upload(width: 600, height: 400, tag: "thumb")
     end
   end
 end
