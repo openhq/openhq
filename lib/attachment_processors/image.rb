@@ -25,11 +25,11 @@ module AttachmentProcessor
       img.write(resize_img.path)
 
       # upload it to s3
-      s3_path = attachment.file_path.sub(ext, "-#{tag.to_s}#{ext}")
+      s3_path = attachment.file_path.sub(ext, "-#{String(tag)}#{ext}")
       s3_file = S3Uploader.upload(resize_img.path, s3_path)
 
       # update the attachment process data json
-      attachment.set_process_data("thumbnail:#{tag.to_s}", String(s3_file.public_url))
+      attachment.set_process_data("thumbnail:#{String(tag)}", String(s3_file.public_url))
     end
 
     def close

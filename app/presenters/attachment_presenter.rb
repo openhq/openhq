@@ -2,7 +2,7 @@ class AttachmentPresenter < BasePresenter
   presents :attachment
 
   def thumbnail(size)
-    attachment.process_data["thumbnail:#{size.to_s}"]
+    attachment.process_data["thumbnail:#{String(size)}"]
   end
 
   def icon_name
