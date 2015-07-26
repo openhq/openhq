@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20150724115748) do
     t.integer  "file_size"
     t.string   "content_type"
     t.string   "file_path"
-    t.string   "thumbnail"
+    t.json     "process_data",    default: {}
   end
 
   add_index "attachments", ["attachable_id"], name: "index_attachments_on_attachable_id", using: :btree

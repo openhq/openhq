@@ -1,5 +1,5 @@
 class AddThumbnailToAttachments < ActiveRecord::Migration
   def change
-    add_column :attachments, :thumbnail, :string, default: nil
+    add_column :attachments, :process_data, :json, default: {}
   end
 end

@@ -1,6 +1,8 @@
 require_dependency 's3_url_signer'
 
 class Attachment < ActiveRecord::Base
+  THUMBNAIL_SIZES = { thumb: [600, 400], tile: [118, 154] }
+
   belongs_to :attachable, polymorphic: true
   belongs_to :story
   belongs_to :owner, class_name: "User"
@@ -31,6 +33,10 @@ class Attachment < ActiveRecord::Base
 
   def url
     S3UrlSigner.sign(file_path)
+  end
+
+  def thumbnail_sizes
+    THUMBNAIL_SIZES
   end
 
   private

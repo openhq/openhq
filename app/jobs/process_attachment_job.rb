@@ -6,7 +6,10 @@ class ProcessAttachmentJob < ActiveJob::Base
   def perform(attachment)
     if attachment.image?
       processor = AttachmentProcessor::Image.new(attachment)
-      processor.resize_and_upload(width: 600, height: 400, tag: "thumb")
+
+      attachment.thumbnail_sizes.each do |tag, dimensions|
+        processor.resize_and_upload(width: dimensions[0], height: dimensions[1], tag: tag)
+      end
     end
   end
 end
