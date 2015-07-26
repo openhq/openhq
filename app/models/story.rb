@@ -8,7 +8,7 @@ class Story < ActiveRecord::Base
   belongs_to :project, touch: true
   belongs_to :owner, class_name: "User"
   has_many :tasks, -> { order(completed: :asc, order: :asc, created_at: :asc) }
-  has_many :attachments
+  has_many :attachments, -> { where("attachable_id IS NOT NULL") }
   has_many :comments, as: :commentable
   has_many :users, -> { uniq }, through: :comments, source: :owner
 
