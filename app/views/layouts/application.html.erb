@@ -8,6 +8,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%= render 'shared/flash_messages' %>
 
   <header class="app-header">
     <div class="page-container">
@@ -36,8 +37,6 @@
 
 
   <div class="page-container">
-    <%= render 'shared/flash_messages' %>
-
     <%= yield %>
   </div>
 
