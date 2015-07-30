@@ -5,46 +5,38 @@ require 's3_uploader'
 
 module AttachmentProcessor
   class Image
-    attr_reader :attachment, :ext, :original_img, :resize_img
+    attr_reader :attachment, :ext
 
     def self.process(attachment)
       processor = new(attachment)
-
       attachment.thumbnail_sizes.each do |tag, dimensions|
         processor.resize_and_upload(width: dimensions[0], height: dimensions[1], tag: tag)
       end
-
-      processor.close
     end
 
     def initialize(attachment)
       @attachment = attachment
       @ext = ".#{attachment.extension}"
-      @original_img = Tempfile.new([SecureRandom.hex(18), ext])
-      @resize_img = Tempfile.new([SecureRandom.hex(18), ext])
-
-      open(attachment.url) do |file|
-        original_img.write(file.read.force_encoding("utf-8"))
-      end
     end
 
     def resize_and_upload(width: 600, height: 400, tag: :thumb)
+      # create a tmp file to write the resized image to
+      tmp_img = Tempfile.new([SecureRandom.hex(18), ext])
+
       # resize it
-      img = Magick::Image.read(original_img.path).first
+      img = Magick::Image.read(attachment.url).first
       img.resize_to_fill!(width, height)
-      img.write(resize_img.path)
+      img.write(tmp_img.path)
 
       # upload it to s3
       s3_path = attachment.file_path.sub(ext, "-#{String(tag)}#{ext}")
-      S3Uploader.upload(resize_img.path, s3_path)
+      S3Uploader.upload(tmp_img.path, s3_path)
 
       # update the attachment process data json
       attachment.set_process_data("thumbnail:#{String(tag)}", s3_path)
-    end
 
-    def close
-      original_img.unlink
-      resize_img.unlink
+      # delete the tmp image
+      tmp_img.unlink
     end
   end
 end
