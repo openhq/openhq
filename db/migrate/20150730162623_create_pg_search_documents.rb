@@ -6,8 +6,6 @@ class CreatePgSearchDocuments < ActiveRecord::Migration
         t.belongs_to :searchable, :polymorphic => true, :index => true
         t.timestamps null: false
       end
-
-      execute "create index pg_search_documents_content on pg_search_documents using gin(to_tsvector('english', content))"
     end
   end
 

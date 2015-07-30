@@ -51,6 +51,20 @@ CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
 COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
 
 
+--
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
+
+
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -701,13 +715,6 @@ CREATE UNIQUE INDEX index_users_on_unlock_token ON users USING btree (unlock_tok
 --
 
 CREATE UNIQUE INDEX index_users_on_username ON users USING btree (username);
-
-
---
--- Name: pg_search_documents_content; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX pg_search_documents_content ON pg_search_documents USING gin (to_tsvector('english'::regconfig, content));
 
 
 --
