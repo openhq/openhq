@@ -10,7 +10,9 @@ class S3Uploader
   end
 
   def initialize(file, path, options = {})
-    @file, @path, @options = file, path, options
+    @file = file
+    @path = path
+    @options = options
   end
 
   def upload

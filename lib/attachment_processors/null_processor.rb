@@ -1,7 +1,7 @@
 module AttachmentProcessor
   class NullProcessor
 
-    def self.process(attachment)
+    def self.process(_attachment)
       # do nothing
     end
 
