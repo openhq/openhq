@@ -21,7 +21,7 @@ $(function(){
                 }
             })
             .done(function(resp){
-                li.toggleClass('complete');
+                li.toggleClass('complete').show();
 
                 updateTaskCompletionBar();
             })
@@ -112,5 +112,13 @@ $(function(){
             $('.story-menu .overall-task-progress').show();
         }
     }
+
+    // show completed tasks
+    $(document).on('click', '.tasks a.show-completed-tasks', function(ev){
+        ev.preventDefault();
+        $(ev.currentTarget).hide();
+
+        $('.tasks li.complete').show();
+    });
 
 });
