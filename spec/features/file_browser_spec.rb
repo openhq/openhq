@@ -28,8 +28,9 @@ RSpec.feature "File browser", type: :feature do
       @attachments = []
       user.projects.each do |project|
         story = create(:story, project: project, owner: user)
-        @attachments << create(:attachment, story: story)
-        @attachments << create(:attachment, story: story)
+        comment = create(:comment)
+        @attachments << create(:attachment, story: story, attachable: comment)
+        @attachments << create(:attachment, story: story, attachable: comment)
       end
     end
 
