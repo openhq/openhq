@@ -18,8 +18,6 @@
           <section class="file-preview">
             <% if present(attachment).thumbnail(:thumb).present? %>
               <div class="image-preview" style="background-image: url(<%= present(attachment).thumbnail(:thumb) %>);"></div>
-            <% elsif attachment.image? %>
-              <div class="image-preview" style="background-image: url(<%= attachment.url %>);"></div>
             <% else %>
               <%= image_tag "file_types/#{present(attachment).icon_name}.png", width: 59 %>
             <% end %>
