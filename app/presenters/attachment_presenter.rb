@@ -2,7 +2,9 @@ class AttachmentPresenter < BasePresenter
   presents :attachment
 
   def thumbnail(size)
-    attachment.process_data["thumbnail:#{String(size)}"]
+    url = attachment.process_data["thumbnail:#{String(size)}"]
+    p "get thumbnail: #{url}"
+    S3UrlSigner.sign(url)
   end
 
   def icon_name

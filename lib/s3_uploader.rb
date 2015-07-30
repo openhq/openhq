@@ -1,21 +1,25 @@
 require 'aws-sdk'
 
 class S3Uploader
-  def self.upload(file, path)
-    s3_file = s3_bucket.objects[path].write(file: file)
-    s3_file.acl = :public_read
+  attr_reader :file, :path, :options, :s3_file
 
-    s3_file
+  def self.upload(file, path, options = {})
+    uploader = new(file, path, options)
+    uploader.upload
+    uploader
   end
 
-  def self.s3_bucket
-    bucket = s3.buckets[ENV['AWS_S3_BUCKET']]
-    bucket.acl = :public_read
-
-    bucket
+  def initialize(file, path, options = {})
+    @file, @path, @options = file, path, options
   end
 
-  def self.s3
+  def upload
+    @s3_file = s3.buckets[ENV['AWS_S3_BUCKET']].objects[path].write(file: file)
+  end
+
+  private
+
+  def s3
     @s3 ||= AWS::S3.new(access_key_id: ENV['AWS_ACCESS_KEY_ID'], secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'])
   end
 end
