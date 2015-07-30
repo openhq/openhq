@@ -3,6 +3,9 @@ class Project < ActiveRecord::Base
   friendly_id :name, use: :slugged
   acts_as_paranoid
 
+  include PgSearch
+  multisearchable against: [:name]
+
   belongs_to :owner, class_name: "User"
   has_many :stories
   has_and_belongs_to_many :users

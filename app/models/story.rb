@@ -5,6 +5,9 @@ class Story < ActiveRecord::Base
   friendly_id :name, use: :slugged
   acts_as_paranoid
 
+  include PgSearch
+  multisearchable against: [:name, :description]
+
   belongs_to :project, touch: true
   belongs_to :owner, class_name: "User"
   has_many :tasks, -> { order(completed: :asc, order: :asc, created_at: :asc) }
