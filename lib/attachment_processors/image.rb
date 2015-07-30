@@ -7,6 +7,16 @@ module AttachmentProcessor
   class Image
     attr_reader :attachment, :ext, :original_img, :resize_img
 
+    def self.process(attachment)
+      processor = new(attachment)
+
+      attachment.thumbnail_sizes.each do |tag, dimensions|
+        processor.resize_and_upload(width: dimensions[0], height: dimensions[1], tag: tag)
+      end
+
+      processor.close
+    end
+
     def initialize(attachment)
       @attachment = attachment
       @ext = ".#{attachment.extension}"
