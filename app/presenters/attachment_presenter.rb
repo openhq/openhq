@@ -3,8 +3,7 @@ class AttachmentPresenter < BasePresenter
 
   def thumbnail(size)
     url = attachment.process_data["thumbnail:#{String(size)}"]
-    p "get thumbnail: #{url}"
-    S3UrlSigner.sign(url)
+    S3UrlSigner.sign(url) if url.present?
   end
 
   def icon_name
