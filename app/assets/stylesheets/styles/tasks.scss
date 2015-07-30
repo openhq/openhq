@@ -12,6 +12,7 @@
             padding-left: 20px;
 
             &.complete {
+                display: none;
                 text-decoration: line-through;
                 opacity: 0.4;
             }
@@ -84,5 +85,9 @@
                 padding: 2px;
             }
         }
+    }
+
+    a.show-completed-tasks {
+        font-size: 14px;
     }
 }
