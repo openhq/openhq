@@ -1,4 +1,5 @@
 require "attachment_processors/image"
+require "attachment_processors/null_processor"
 
 class ProcessAttachmentJob < ActiveJob::Base
   queue_as :default
@@ -10,7 +11,7 @@ class ProcessAttachmentJob < ActiveJob::Base
     attachment.processed_at = Time.zone.now
     attachment.save!
 
-  # If the processing fails increment the process attempts
+  # If the processing fails, increment the process attempts
   #
   # if it fails the max number of times, do not raise the exception.
   # This will stop sidekiq from placing it in the retries pile
