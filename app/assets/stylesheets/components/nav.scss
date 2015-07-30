@@ -11,25 +11,23 @@ nav ul {
     &:last-child { margin-right: 0; }
 
     form.search {
-      .search_q {
-        input {
-          background-image: image-url('search-icon.png');
-          background-repeat: no-repeat;
-          background-color: $rollover-dark;
-          background-size: 16px;
-          background-position: 10px;
-          font-size: 14px;
-          border: 0;
-          padding: 5px 5px 5px 35px;
-          margin: 0;
-          width: 100px;
-          border-radius: 100px;
-          transition: 0.3s ease;
+      input {
+        background-image: image-url('search-icon.png');
+        background-repeat: no-repeat;
+        background-color: $rollover-dark;
+        background-size: 16px;
+        background-position: 10px;
+        font-size: 14px;
+        border: 0;
+        padding: 5px 5px 5px 35px;
+        margin: 0;
+        width: 100px;
+        border-radius: 100px;
+        transition: 0.3s ease;
 
-          &:focus {
-            background-color: $line-color-light;
-            width: 200px;
-          }
+        &:focus {
+          background-color: $line-color-light;
+          width: 200px;
         }
       }
     }

@@ -31,7 +31,7 @@
           <li><%= link_to t('files'), files_path %></li>
           <li><%= link_to t('team'), team_index_path %></li>
           <li>
-            <%= simple_form_for(:search) do |f| %>
+            <%= simple_form_for(:search, url: search_index_path) do |f| %>
               <%= f.input :q, label: false, placeholder: "Search", input_html: { autocomplete: "off" } %>
             <% end %>
           </li>
