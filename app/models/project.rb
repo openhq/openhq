@@ -4,7 +4,7 @@ class Project < ActiveRecord::Base
   acts_as_paranoid
 
   include PgSearch
-  multisearchable against: [:name]
+  multisearchable against: [:name], if: :live?
 
   belongs_to :owner, class_name: "User"
   has_many :stories
@@ -19,6 +19,10 @@ class Project < ActiveRecord::Base
 
   def users_select_array
     @users_select_array ||= [['unassigned', 0]].concat(users.active.pluck(:username, :id))
+  end
+
+  def live?
+    !deleted?
   end
 
 end

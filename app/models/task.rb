@@ -1,6 +1,6 @@
 class Task < ActiveRecord::Base
   include PgSearch
-  multisearchable against: [:label]
+  multisearchable against: [:label], if: :live?
 
   belongs_to :story, touch: true
   belongs_to :owner, class_name: "User"
@@ -26,5 +26,9 @@ class Task < ActiveRecord::Base
       completed_by: user.id,
       completed_on: Time.zone.now
     )
+  end
+
+  def live?
+    story.present? && story.live?
   end
 end

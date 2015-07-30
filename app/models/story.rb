@@ -6,7 +6,7 @@ class Story < ActiveRecord::Base
   acts_as_paranoid
 
   include PgSearch
-  multisearchable against: [:name, :description]
+  multisearchable against: [:name, :description], if: :live?
 
   belongs_to :project, touch: true
   belongs_to :owner, class_name: "User"
@@ -25,5 +25,9 @@ class Story < ActiveRecord::Base
     collaborator_ids << owner_id
 
     User.where("id IN (?)", collaborator_ids)
+  end
+
+  def live?
+    !deleted? && project.present? && project.live?
   end
 end
