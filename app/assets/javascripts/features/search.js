@@ -29,6 +29,7 @@ $(function(){
         if ($target && $target.length) {
             // wait for page and images etc to be loaded
             $(window).load(function(){
+                console.log('add warmdown etc.');
                 $target.addClass('warmdown');
 
                 $('html,body').animate({
