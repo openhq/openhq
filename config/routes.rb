@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   resources :files, only: :index
   resources :team, only: [:index, :show, :new, :create, :edit]
+  resources :search, only: :index
 
   resources :projects do
     get "archived", on: :collection

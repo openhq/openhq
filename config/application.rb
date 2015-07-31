@@ -15,6 +15,8 @@ module ProjectManagementApp
     # Set Active::Job backend
     config.active_job.queue_adapter = :sidekiq
 
+    config.active_record.schema_format = :sql
+
     config.active_record.raise_in_transactional_callbacks = true
 
     # Reloading of lib classes with require_dependency

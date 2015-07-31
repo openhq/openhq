@@ -14,6 +14,7 @@ psql template1 -c 'CREATE EXTENSION hstore;'
 psql template1 -c 'CREATE EXTENSION citext;'
 psql -c "CREATE DATABASE pm_app_dev;"
 psql -c "CREATE USER pm_app_dev WITH PASSWORD 'test';"
+psql -c "ALTER USER pm_app_dev WITH SUPERUSER;"
 psql -c "ALTER DATABASE pm_app_dev OWNER to pm_app_dev;"
 psql -c "GRANT ALL PRIVILEGES ON DATABASE pm_app_dev to pm_app_dev;"
 psql -c "ALTER USER pm_app_dev CREATEDB;"

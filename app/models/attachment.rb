@@ -3,6 +3,9 @@ require_dependency 's3_url_signer'
 class Attachment < ActiveRecord::Base
   THUMBNAIL_SIZES = { thumb: [600, 400], tile: [118, 154] }
 
+  include PgSearch
+  multisearchable against: [:name, :file_name, :process_data], if: :live?
+
   belongs_to :attachable, polymorphic: true
   belongs_to :story
   belongs_to :owner, class_name: "User"
@@ -44,6 +47,10 @@ class Attachment < ActiveRecord::Base
     data[key] = val
 
     update(process_data: data)
+  end
+
+  def live?
+    story.present? && story.live?
   end
 
   private

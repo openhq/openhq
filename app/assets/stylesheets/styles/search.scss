@@ -1,0 +1,53 @@
+ul.ui-search-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    border: 1px solid $line-color;
+    border-radius: 5px;
+    margin-bottom: 30px;
+
+    .title {
+      position: relative;
+      padding: 10px 20px;
+      border-bottom: 1px solid $line-color;
+      background: $rollover-color;
+
+      &::after {
+        content: " ";
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-right: 1px solid $line-color;
+        border-bottom: 1px solid $line-color;
+        background: $rollover-color;
+
+        position: absolute;
+        left: 40px;
+        bottom: -10px;
+
+        -ms-transform: rotate(45deg); /* IE 9 */
+        -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+        transform: rotate(45deg);
+      }
+    }
+
+    .content {
+      padding: 20px;
+
+      .attachment-file {
+        padding: 10px 0;
+        .file-preview {
+          margin: 0 auto 10px;
+        }
+      }
+    }
+
+    .actions {
+      border-top: 1px solid $line-color;
+      padding: 10px 20px;
+    }
+  }
+
+}
