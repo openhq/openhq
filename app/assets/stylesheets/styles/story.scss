@@ -50,6 +50,9 @@
 
     .actions {
       float: right;
+      a {
+        transition: 1s ease;
+      }
     }
 
     img {
