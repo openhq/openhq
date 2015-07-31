@@ -7,6 +7,8 @@ class SearchController < ApplicationController
   def show
     @query = params[:id]
     @results = PgSearch.multisearch(@query)
+
+    render json: @results
   end
 
   private
