@@ -7,5 +7,5 @@
 </div>
 
 <div class="actions">
-  <%= link_to "View Comment", [model.commentable.project, model.commentable] %>
+  <%= link_to "View Comment", [model.commentable.project, model.commentable, anchor: "comment:#{model.id}"] %>
 </div>

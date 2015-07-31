@@ -7,5 +7,5 @@
 </div>
 
 <div class="actions">
-  <%= link_to "View Attachment", [model.story.project, model.story] %>
+  <%= link_to "View Attachment", [model.story.project, model.story, anchor: "attachment:#{model.id}"] %>
 </div>

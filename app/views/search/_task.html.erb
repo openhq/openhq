@@ -7,5 +7,5 @@
 </div>
 
 <div class="actions">
-  <%= link_to "View Task", [model.story.project, model.story] %>
+  <%= link_to "View Task", [model.story.project, model.story, anchor: "task:#{model.id}"] %>
 </div>
