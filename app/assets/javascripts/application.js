@@ -23,6 +23,7 @@
 //= require turbolinks
 //= require highlightjs
 //= require jquery.atwho
+//= require imagesloaded.pkgd.min
 //= require_self
 //= require_tree ./features
 
@@ -37,6 +38,12 @@ var App = {
         _.each(this.onLoadFns, function(callback) {
             callback.call(this);
         }, this);
+
+        imagesLoaded('body', function(){
+            _.defer(function() {
+                $(document).trigger('page:loaded');
+            });
+        });
     }
 };
 
