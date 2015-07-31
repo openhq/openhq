@@ -26,6 +26,10 @@ $(function(){
                     $('html,body').animate({
                       scrollTop: ($target.offset().top - 100)
                     }, 300);
+
+                    setTimeout(function() {
+                        $target.removeClass('warmdown');
+                    }, 3000);
                 }
             }
 

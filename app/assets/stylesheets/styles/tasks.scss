@@ -10,6 +10,7 @@
         li {
             position: relative;
             padding-left: 20px;
+            transition: 1s ease;
 
             &.complete {
                 display: none;
@@ -20,6 +21,12 @@
                 background: $rollover-dark;
                 ul.actions {
                     display: block;
+                }
+            }
+            &.warmdown {
+                background-color: $primary-color;
+                p, a {
+                    color: #fff;
                 }
             }
             input[type=checkbox] {
@@ -56,6 +63,9 @@
                 display: inline-block;
                 margin: 0;
                 padding: 0;
+            }
+            p, a {
+                transition: 1s ease;
             }
         }
     }
