@@ -1,11 +1,18 @@
 require_dependency 's3_url_signer'
 
 class Attachment < ActiveRecord::Base
+  THUMBNAIL_SIZES = { thumb: [600, 400], tile: [118, 154] }
+
+  include PgSearch
+  multisearchable against: [:name, :file_name, :process_data], if: :live?
+
   belongs_to :attachable, polymorphic: true
   belongs_to :story
   belongs_to :owner, class_name: "User"
 
   validates_presence_of :owner_id
+
+  after_create :process_upload
 
   def self.all_for_user(user)
     users_story_ids = Story.where("stories.project_id IN (?)", user.project_ids).pluck(:id)
@@ -29,5 +36,26 @@ class Attachment < ActiveRecord::Base
 
   def url
     S3UrlSigner.sign(file_path)
+  end
+
+  def thumbnail_sizes
+    THUMBNAIL_SIZES
+  end
+
+  def set_process_data(key, val)
+    data = process_data
+    data[key] = val
+
+    update(process_data: data)
+  end
+
+  def live?
+    story.present? && story.live?
+  end
+
+  private
+
+  def process_upload
+    ProcessAttachmentJob.perform_later(self)
   end
 end

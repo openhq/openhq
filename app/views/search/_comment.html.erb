@@ -1,0 +1,11 @@
+<div class="title">
+  Comment on story <%= link_to model.commentable.name, [model.commentable.project, model.commentable] %> in <%= link_to model.commentable.project.name, model.commentable.project %>
+</div>
+
+<div class="content">
+  <%= markdownify model.content %>
+</div>
+
+<div class="actions">
+  <%= link_to "View Comment", [model.commentable.project, model.commentable, anchor: "comment:#{model.id}"] %>
+</div>

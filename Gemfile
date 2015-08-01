@@ -7,6 +7,7 @@ gem 'mime-types', '~> 2.6.1', require: 'mime/types/columnar'
 
 gem 'rails', '~> 4.2.0'
 gem 'pg'
+gem 'pg_search'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
@@ -48,6 +49,9 @@ gem 'sanitize', '~> 3.0.3'
 gem 'rinku'
 gem 'gemoji', '~> 2.1.0'
 gem 'jquery-atwho-rails' # @mention autocomplete
+
+# Imagemagick for image manipulation
+gem 'rmagick'
 
 # Pagination
 gem 'kaminari', '~> 0.16.1'

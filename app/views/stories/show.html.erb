@@ -28,7 +28,7 @@
 
               <ul class="sortable" data-update-url="<%= update_order_project_story_tasks_path(@project, @story) %>">
                 <% @tasks.each do |task| %>
-                  <li class="task <%= "complete" if task.completed? %>" id="<%= task.id %>">
+                  <li class="task <%= "complete" if task.completed? %>" id="<%= task.id %>" data-id="<%= task.id %>">
 
                     <div class="default-form">
                       <%= simple_form_for [@project, @story, task] do |f| %>
@@ -55,6 +55,10 @@
 
                   </li>
                 <% end %>
+
+                <% if @tasks.size > @incomplete_tasks.size %>
+                  <a href="#" class="show-completed-tasks">Show completed tasks</a>
+                <% end %>
               </ul>
           <% end %>
 
@@ -68,7 +72,7 @@
           <% if @attachments.size > 0 %>
             <ul class="file-list">
               <% @attachments.each do |file| %>
-                <li><%= render file %></li>
+                <li data-id="<%= file.id %>"><%= render file %></li>
               <% end %>
             </ul>
           <% else %>
@@ -76,7 +80,7 @@
           <% end %>
         </div>
         <% @comments.each do |comment| %>
-        <article class="comment-row" data-owner-id="<%= comment.owner_id %>">
+        <article class="comment-row" data-owner-id="<%= comment.owner_id %>" data-id="<%= comment.id %>">
           <header>
             <div class="actions">
               <%= link_to "Edit", edit_project_story_comment_path(@project, @story, comment) if can? :edit, comment %>

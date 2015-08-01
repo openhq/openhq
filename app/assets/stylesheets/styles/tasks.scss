@@ -8,7 +8,12 @@
         padding-left: 0;
 
         li {
+            position: relative;
+            padding-left: 20px;
+            transition: 1s ease;
+
             &.complete {
+                display: none;
                 text-decoration: line-through;
                 opacity: 0.4;
             }
@@ -17,6 +22,17 @@
                 ul.actions {
                     display: block;
                 }
+            }
+            &.warmdown {
+                background-color: $primary-color;
+                p, a {
+                    color: #fff;
+                }
+            }
+            input[type=checkbox] {
+                position: absolute;
+                left: 0;
+                top: 6px;
             }
             span.assignment {
                 font-size: 10px;
@@ -28,10 +44,10 @@
             ul.actions {
                 display: none;
                 margin: 0;
-                padding: 0 0 5px 20px;
 
                 li {
                     display: inline-block;
+                    padding-left: 0;
                     a {
                         display: inline-block;
                         font-size: 10px;
@@ -47,6 +63,9 @@
                 display: inline-block;
                 margin: 0;
                 padding: 0;
+            }
+            p, a {
+                transition: 1s ease;
             }
         }
     }
@@ -76,5 +95,9 @@
                 padding: 2px;
             }
         }
+    }
+
+    a.show-completed-tasks {
+        font-size: 14px;
     }
 }
