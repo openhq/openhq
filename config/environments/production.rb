@@ -21,7 +21,7 @@ Rails.application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
   config.serve_static_files = true
-  config.static_cache_control = "public, max-age=2592000"
+  config.static_cache_control = "public, max-age=31557600"
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
