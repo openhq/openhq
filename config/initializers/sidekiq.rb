@@ -1,6 +1,6 @@
 redis_settings = {
   namespace: "openhq_sidekiq",
-  url: Rails.applications.secrets.redis_url,
+  url: Rails.application.secrets.redis_url,
   network_timeout: 3
 }
 
