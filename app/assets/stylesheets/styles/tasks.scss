@@ -66,9 +66,9 @@
 
             &:not(.ui-sortable-helper) {
                 transition: 0.5s ease;
-                // p, a {
-                //     transition: 1s ease;
-                // }
+                p, a {
+                    transition: 0.5s ease;
+                }
             }
         }
     }
