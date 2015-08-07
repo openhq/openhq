@@ -32,6 +32,7 @@ $(function(){
 
         // rearranging a task list
         $(".tasks ul.sortable").sortable({
+            items: ".task",
             update: function(event, ui) {
                 var $this = $(this);
                 var order = $this.sortable("toArray");
@@ -40,7 +41,7 @@ $(function(){
                     type: "put",
                     url: $this.data('update-url'),
                     data: {
-                      order: order
+                      order: _.compact(order)
                     }
                 })
                 .done(function(resp){
@@ -116,7 +117,7 @@ $(function(){
     // show completed tasks
     $(document).on('click', '.tasks a.show-completed-tasks', function(ev){
         ev.preventDefault();
-        $(ev.currentTarget).hide();
+        $(ev.currentTarget).closest("li").hide();
 
         $('.tasks li.complete').show();
     });
