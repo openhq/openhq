@@ -10,7 +10,6 @@
         li {
             position: relative;
             padding-left: 20px;
-            transition: 1s ease;
 
             &.complete {
                 display: none;
@@ -64,8 +63,12 @@
                 margin: 0;
                 padding: 0;
             }
-            p, a {
-                transition: 1s ease;
+
+            &:not(.ui-sortable-helper) {
+                transition: 0.5s ease;
+                // p, a {
+                //     transition: 1s ease;
+                // }
             }
         }
     }
