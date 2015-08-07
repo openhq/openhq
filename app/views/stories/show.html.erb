@@ -57,7 +57,9 @@
                 <% end %>
 
                 <% if @tasks.size > @incomplete_tasks.size %>
+                <li class="action">
                   <a href="#" class="show-completed-tasks">Show completed tasks</a>
+                </li>
                 <% end %>
               </ul>
           <% end %>
