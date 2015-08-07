@@ -8,7 +8,7 @@
     "postdeploy": "bin/rake db:migrate db:seed"
   },
   "env": {
-    "REDIS_PROVIDER": "REDISCLOUD_URL",
+    "REDIS_PROVIDER": "REDIS_URL",
     "APPLICATION_URL": {
       "description": "Full URL to your application e.g. 'https://hq.example.org'",
       "required": true
@@ -41,6 +41,6 @@
   "addons": [
     "heroku-postgresql:hobby-dev",
     "scheduler:standard",
-    "rediscloud:30"
+    "heroku-redis:hobby-dev"
   ]
 }
