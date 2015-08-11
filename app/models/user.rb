@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :projects, -> { order(name: :asc) }
 
+  has_attached_file :avatar, styles: { thumb: "300x300#" }
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
   validates :first_name, :last_name, presence: true
   validates :role, presence: true, inclusion: {in: ROLES}
   validates :notification_frequency, presence: true, inclusion: {in: NOTIFICATION_FREQUENCIES}

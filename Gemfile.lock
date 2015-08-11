@@ -73,6 +73,10 @@ GEM
     celluloid (0.16.0)
       timers (~> 4.0.0)
     certifi (14.5.14)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.7)
+      climate_control (>= 0.0.3, < 1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -180,6 +184,11 @@ GEM
     nokogumbo (1.1.12)
       nokogiri
     orm_adapter (0.5.0)
+    paperclip (4.2.4)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
     paranoia (2.1.3)
       activerecord (~> 4.0)
     parser (2.2.2.5)
@@ -377,6 +386,7 @@ DEPENDENCIES
   mailgun_rails
   mime-types (~> 2.6.1)
   mocha
+  paperclip (~> 4.2)
   paranoia (~> 2.0)
   pg
   pg_search
@@ -406,4 +416,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.10.5
+   1.10.6
