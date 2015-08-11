@@ -405,7 +405,11 @@ CREATE TABLE users (
     job_title character varying,
     bio text,
     skype character varying,
-    phone character varying
+    phone character varying,
+    avatar_file_name character varying,
+    avatar_file_path character varying,
+    avatar_file_size integer,
+    avatar_content_type character varying
 );
 
 
@@ -786,4 +790,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150730132344');
 INSERT INTO schema_migrations (version) VALUES ('20150730162623');
 
 INSERT INTO schema_migrations (version) VALUES ('20150730170036');
+
+INSERT INTO schema_migrations (version) VALUES ('20150811135707');
 

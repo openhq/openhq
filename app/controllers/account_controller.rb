@@ -22,6 +22,7 @@ class AccountController < ApplicationController
   def user_params
     params.require(:user).permit(:first_name, :last_name, :username, :email,
       :notification_frequency, :password, :password_confirmation,
+      :avatar,
       :job_title, :phone, :skype, :bio, :current_password)
   end
 end
