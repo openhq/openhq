@@ -35,6 +35,7 @@ en:
 
   auth:
     username_or_email: "Username or Email"
+    password: "Password"
     sign_out: "Sign out"
 
   forms:
