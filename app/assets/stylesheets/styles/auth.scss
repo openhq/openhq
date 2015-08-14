@@ -40,7 +40,7 @@ html.auth {
       padding: 10px 20px;
 
       .form-inputs {
-        input {
+        input, textarea {
           background: $rollover-color;
           margin: 0;
           text-align: center;
