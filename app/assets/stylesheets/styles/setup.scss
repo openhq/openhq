@@ -1,0 +1,107 @@
+html.auth.setup {
+  body {
+    .page-container {
+      margin: 100px auto;
+      position: static;
+      max-width: 600px;
+      width: auto;
+      height: auto;
+      overflow: hidden;
+
+      .copy {
+        padding: 20px 20px 10px 20px;
+        border-top: 1px solid $line-color;
+        background: $rollover-color;
+        background: -webkit-linear-gradient($rollover-color, #fff); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient($rollover-color, #fff); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient($rollover-color, #fff); /* For Firefox 3.6 to 15 */
+        background: linear-gradient($rollover-color, #fff); /* Standard syntax */
+
+        h1 {
+          margin: 10px 0 20px;
+          text-align: center;
+        }
+        p {
+          text-align: center;
+        }
+
+        &::after {
+          content: " ";
+          display: block;
+          width: 50px;
+          margin: 30px auto 0 auto;
+          height: 0;
+          border-bottom: 1px solid $line-color;
+        }
+      }
+
+      .form-inputs {
+        .pure-g {
+          margin-bottom: 10px;
+        }
+        input, textarea {
+          text-align: left;
+          border-radius: 5px;
+          max-width: 100%;
+
+          &[type=password] {
+            border-top: 1px solid $line-color;
+          }
+        }
+        .left {
+          box-sizing: border-box;
+          padding-right: 5px;
+        }
+        .right {
+          box-sizing: border-box;
+          padding-left: 5px;
+        }
+        abbr { display: none; }
+
+        span.error {
+          display: block;
+          background-color: $danger-color;
+          padding: 5px 8px;
+          font-size: 12px;
+          color: #fff;
+          border-radius: 0 0 5px 5px;
+        }
+        .field_with_errors {
+          input, textarea {
+            border-radius: 5px 5px 0 0;
+            border-color: $danger-color;
+            border-bottom: 0;
+          }
+        }
+      }
+
+      .form-actions {
+        margin-top: 30px;
+
+        input[type=submit] {
+            max-width: 100%;
+            text-align: center;
+            margin-bottom: 10px;
+          }
+      }
+    }
+  }
+}
+
+@media(max-width: 767px) {
+  html.auth.setup {
+    body {
+      .page-container {
+        margin: 20px auto;
+        .form-inputs {
+          .left {
+            padding-right: 0;
+          }
+          .right {
+            padding-left: 0;
+          }
+        }
+      }
+    }
+  }
+}

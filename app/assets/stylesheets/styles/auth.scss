@@ -1,19 +1,24 @@
 html.auth {
-  height: 100%;
-
   body {
-    height: 100%;
-    margin: 0;
-    background: -webkit-linear-gradient($primary-deep, $primary-color); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient($primary-deep, $primary-color); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient($primary-deep, $primary-color); /* For Firefox 3.6 to 15 */
-    background: linear-gradient($primary-deep, $primary-color); /* Standard syntax */
+    &::after {
+      content: " ";
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      left: 0;
+      top: 0;
+      background: -webkit-linear-gradient(#54598f, #503e7e); /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient(#54598f, #503e7e); /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient(#54598f, #503e7e); /* For Firefox 3.6 to 15 */
+      background: linear-gradient(#54598f, #503e7e); /* Standard syntax */
+      z-index: -1;
+    }
 
     .page-container {
       width: 300px;
       height: 400px;
       background: #fff;
-      border-radius: 10px;
+      border-radius: 5px;
       padding: 0;
 
       margin: auto;
@@ -35,7 +40,7 @@ html.auth {
       padding: 10px 20px;
 
       .form-inputs {
-        input {
+        input, textarea {
           background: $rollover-color;
           margin: 0;
           text-align: center;
