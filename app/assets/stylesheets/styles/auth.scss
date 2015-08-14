@@ -1,7 +1,92 @@
-body.auth {
-  form input[type="text"],
-  form input[type="email"],
-  form input[type="password"] {
-    max-width: 340px;
+html.auth {
+  height: 100%;
+
+  body {
+    height: 100%;
+    margin: 0;
+    background: -webkit-linear-gradient($primary-deep, $primary-color); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($primary-deep, $primary-color); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($primary-deep, $primary-color); /* For Firefox 3.6 to 15 */
+    background: linear-gradient($primary-deep, $primary-color); /* Standard syntax */
+
+    .page-container {
+      width: 300px;
+      height: 400px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 0;
+
+      margin: auto;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+    }
+
+    .brand {
+      text-align: center;
+      padding: 20px;
+      a {
+        color: $strong-color;
+        font-weight: bold;
+        text-decoration: none;
+      }
+    }
+
+    form {
+      padding: 10px 20px;
+
+      .form-inputs {
+        input {
+          background: $rollover-color;
+          margin: 0;
+          text-align: center;
+          &[type=text] {
+            border-radius: 5px 5px 0 0;
+          }
+          &[type=password] {
+            border-top: 0;
+            border-radius: 0 0 5px 5px;
+          }
+        }
+
+        label.checkbox {
+          margin: 20px 0;
+          text-align: center;
+
+          input {
+            margin-right: 10px;
+          }
+        }
+      }
+
+      .form-actions {
+        margin: 20px 0 0 0;
+        padding: 0;
+        border: 0;
+        background: none;
+
+        input {
+          width: 100%;
+        }
+      }
+    }
+
+    ul.auth-alt {
+      background: $rollover-dark;
+      border-radius: 0 0 10px 10px;
+      margin: 10px 0 0 0;
+      border-top: 1px solid $line-color;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+
+      li::after {
+        border-bottom-color: $line-color;
+      }
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 16px;
+    }
   }
 }

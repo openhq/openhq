@@ -1,9 +1,7 @@
-<h2>Please Sign in</h2>
-
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :login, as: :string, label: t("auth.username_or_email"), required: false, autofocus: true, input_html: {class: "pure-u-1-1"} %>
-    <%= f.input :password, required: false, input_html: {class: "pure-u-1-1"} %>
+  <div class="form-inputs login">
+    <%= f.input :login, as: :string, label: false, placeholder: t("auth.username_or_email"), required: false, autofocus: true, input_html: {class: "pure-u-1-1"} %>
+    <%= f.input :password, required: false, label: false, placeholder: t("auth.password"), input_html: {class: "pure-u-1-1"} %>
     <%= f.input :remember_me, as: :boolean, label_html: {class: "pure-checkbox"} if devise_mapping.rememberable? %>
   </div>
 
