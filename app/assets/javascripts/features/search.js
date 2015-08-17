@@ -63,7 +63,7 @@ $(function(){
 
         // Update the title of the page with the number of results
         var num_results = $results_list.find('li').length
-        $('.page-header.search h1 span').text(num_results + (num_results > 1 ? " results" : " result"));
+        $('.page-header.search h1 span').text(num_results + (num_results == 1 ? " result" : " results"));
         $('.page-header.search').show();
     }
 });
