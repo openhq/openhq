@@ -37,7 +37,7 @@ module ProjectManagementApp
       Devise::ConfirmationsController.layout "auth"
       Devise::UnlocksController.layout "auth"
       Devise::PasswordsController.layout "auth"
-      Devise::InvitationsController.layout "auth"
+      Devise::InvitationsController.layout "setup"
     end
   end
 end
