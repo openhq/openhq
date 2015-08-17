@@ -1,13 +1,15 @@
-<li data-project-id="<%= model.project.id %>">
-  <div class="title">
-    Story in <%= link_to model.project.name, model.project %>
-  </div>
+<% if model.project.present? %>
+  <li data-project-id="<%= model.project.id %>">
+    <div class="title">
+      Story in <%= link_to model.project.name, model.project %>
+    </div>
 
-  <div class="content">
-    <%= model.name %>
-  </div>
+    <div class="content">
+      <%= model.name %>
+    </div>
 
-  <div class="actions">
-    <%= link_to "View Story", [model.project, model] %>
-  </div>
-</li>
+    <div class="actions">
+      <%= link_to "View Story", [model.project, model] %>
+    </div>
+  </li>
+<% end %>
