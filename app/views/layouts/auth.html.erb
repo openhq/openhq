@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="auth">
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -14,17 +14,8 @@
 
   <%= render 'shared/flash_messages' %>
 
-  <header class="app-header">
-    <div class="page-container">
-      <nav>
-        <ul>
-          <li class="brand"><%= link_to app_name, root_url %></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
   <div class="page-container">
+    <div class="brand"><%= link_to app_name, root_url %></div>
     <%= yield %>
   </div>
 

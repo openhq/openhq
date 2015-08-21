@@ -1,15 +1,42 @@
-<h2>Sign up</h2>
+<div class="copy">
+  <h1>Sign up to <%= app_name %></h1>
+  <p>We just need a few details, and then you'll be good to go!</p>
+</div>
 
 <%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f| %>
-  <%= devise_error_messages! %>
   <%= f.hidden_field :invitation_token %>
 
-  <%= f.input :first_name %>
-  <%= f.input :last_name %>
-  <%= f.input :username, as: :string %>
-  <%= f.input :email, as: :string, disabled: true %>
-  <%= f.input :password %>
-  <%= f.input :password_confirmation %>
+  <div class="form-inputs">
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-2 left">
+        <%= f.input :first_name, required: true, autofocus: true %>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-2 right">
+        <%= f.input :last_name, required: true %>
+      </div>
+    </div>
 
-  <%= f.button :submit, "Finish" %>
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-2 left">
+        <%= f.input :username, as: :string, required: true %>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-2 right">
+        <%= f.input :email, as: :email, required: true %>
+      </div>
+    </div>
+
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-2 left">
+        <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable) %>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-2 right">
+        <%= f.input :password_confirmation, required: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Sign up", class: "btn btn-main" %>
+  </div>
+
 <% end %>

@@ -24,12 +24,12 @@
 }
 
 .btn-main {
-  background-image: linear-gradient(-180deg, #91E384 0%, #70C76F 100%);
+  background-image: linear-gradient(-180deg, #b5e182 0%, #a2ce81 100%);
   border-radius: 4px;
   color: $strong-color;
 
   &:hover {
-    background-image: linear-gradient(-180deg, #A1EA96 0%, #7FD47D 100%);
+  background-image: linear-gradient(-180deg, #a2ce81 0%, #b5e182 100%);
     color: $strong-color;
   }
 

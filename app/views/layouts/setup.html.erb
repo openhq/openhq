@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="auth setup">
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -10,11 +10,12 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+<body>
 
-<body class="setup">
   <%= render 'shared/flash_messages' %>
 
   <div class="page-container">
+    <div class="brand"><%= link_to app_name, root_url %></div>
     <%= yield %>
   </div>
 

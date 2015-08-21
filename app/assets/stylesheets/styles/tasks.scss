@@ -6,6 +6,7 @@
     ul {
         list-style: none;
         padding-left: 0;
+        position: relative;
 
         li {
             position: relative;
@@ -16,7 +17,7 @@
                 text-decoration: line-through;
                 opacity: 0.4;
             }
-            &:hover {
+            &:hover:not(.action) {
                 background: $rollover-dark;
                 ul.actions {
                     display: block;
@@ -69,6 +70,37 @@
                 p, a {
                     transition: 0.5s ease;
                 }
+            }
+
+            &.ui-sortable-handle {
+                cursor: -webkit-grab;
+                cursor: -moz-grab;
+                cursor: grab;
+            }
+
+            // the item being dragged
+            &.ui-sortable-helper {
+                left: 0 !important;
+
+                cursor: -webkit-grabbing;
+                cursor: -moz-grabbing;
+                cursor: grabbing;
+
+                opacity: 0.7;
+                padding-top: 10px;
+                padding-bottom: 10px;
+
+                border-radius: 10px;
+
+                input { display: none; }
+            }
+
+            &.ui-sortable-placeholder {
+                visibility: visible !important;
+                border: 1px dashed $primary-color;
+                background-color: $rollover-dark;
+                border-radius: 10px;
+                margin: 10px;
             }
         }
     }

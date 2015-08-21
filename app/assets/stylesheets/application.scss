@@ -9,6 +9,7 @@ $line-color: #d7d7d7;
 $line-color-light: #e7e7e7;
 $rollover-color: #f9f9f9;
 $rollover-dark: #efefef;
+$danger-color: #d23c3c;
 
 @mixin font-smoothing($value: on) {
     @if $value == on {
@@ -51,6 +52,7 @@ $rollover-dark: #efefef;
 /* Specific CSS */
 @import "styles/icons";
 @import "styles/auth";
+@import "styles/setup";
 @import "styles/errors";
 @import "styles/header";
 @import "styles/projects";
