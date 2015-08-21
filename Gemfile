@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-ruby '2.2.0'
+ruby '2.2.2'
 
 # New mime-types uses way less memory
 gem 'mime-types', '~> 2.6.1', require: 'mime/types/columnar'
 
-gem 'rails', '~> 4.2.0'
+gem 'rails', '~> 4.2.3'
 gem 'pg'
 gem 'pg_search'
 gem 'sass-rails', '~> 4.0.3'

@@ -393,7 +393,7 @@ DEPENDENCIES
   puma
   quiet_assets
   rack-mini-profiler
-  rails (~> 4.2.0)
+  rails (~> 4.2.3)
   rails-assets-highlightjs!
   rails_12factor
   rinku
