@@ -1,38 +1,32 @@
 $(function() {
-  if ( ! App.isTouchDevice()) return;
 
-  var $menu = $(".app-header");
+  App.onPageLoad(function() {
+    if ( ! App.isTouchDevice()) return;
 
-  var hammertime = new Hammer($menu.get(0), {});
+    var $menu = $(".app-header");
 
-  hammertime.on('swipe', function(ev) {
-    console.log(ev);
+    var hammertime = new Hammer($menu.get(0), {
+      threshold: 3,
+      direction: 'swipeleft'
+    });
 
-    if ($menu.hasClass("open")) return;
+    hammertime.on('swipe', function(ev) {
+      console.log(ev);
 
-    $menu.addClass("open");
+      if ($menu.hasClass("open")) return;
+
+      $menu.addClass("open");
+    });
   });
 
-  $(document).on("click", ".app-header .close-cross", function() {
-    $menu.removeClass("open");
+  $(document).on("click", ".app-header", function() {
+    $(".app-header").addClass("open");
   });
 
-  // $(document).on("click", ".app-header a", function() {
-  //   App.slideout.close();
-  // });
+  $(document).on("click", ".app-header .close-cross", function(ev) {
+    ev.stopPropagation();
 
-  // App.slideout = new Slideout({
-  //   'panel': $('#panel').get(0),
-  //   'menu': $('#main-nav').get(0),
-  //   'padding': 380,
-  //   'tolerance': 70,
-  //   'side': 'right'
-  // });
-
-  // _.defer(function() {
-  //   App.onPageLoad(function() {
-  //     App.slideout._initTouchEvents();
-  //   });
-  // });
+    $(".app-header").removeClass("open");
+  });
 
 });
