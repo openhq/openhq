@@ -13,6 +13,7 @@
 //= require modernizr
 //= require jquery
 //= require jquery_ujs
+//= require hammer.min
 //= require jquery.timeago
 //= require s3_direct_upload
 //= require jquery-ui
@@ -29,6 +30,16 @@
 
 var App = {
     onLoadFns: [],
+
+    // Detect touch screen and enable scrollbar if necessary
+    isTouchDevice: function() {
+        try {
+            document.createEvent("TouchEvent");
+            return true;
+        } catch (e) {
+            return false;
+        }
+    },
 
     onPageLoad: function(callback) {
         this.onLoadFns.push(callback);

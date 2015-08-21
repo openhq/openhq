@@ -1,7 +1,4 @@
 .app-header {
-  border-bottom: solid 1px $line-color-light;
-  padding: 35px 0 25px;
-  margin: 0 0 40px;
   line-height: 42px;
   font-size: 17px;
 
@@ -16,16 +13,97 @@
   }
 
   menu {
+    display: none;
     margin: 0;
     padding: 0;
     line-height: 22px;
   }
 }
 
+@media only screen and (max-width: 767px) {
+  #panel {
+    background: #fff;
+  }
+
+  .app-header {
+    position: fixed;
+    top: 0;
+    left: 96%;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+    background: #645E74;
+
+    transition: left 0.5s ease;
+
+    .close-cross {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: rgba(0,0,0,0.4);
+      cursor: pointer;
+      font-size: 30px;
+      line-height: 30px;
+      width: 30px;
+      height: 30px;
+      font-weight: bold;
+    }
+
+    &.open {
+      left: 0;
+    }
+
+    .page-container {
+      padding: 15px 20px;
+    }
+
+    nav li {
+      box-sizing: border-box;
+      display: block;
+      width: 100%;
+    }
+
+    nav {
+      a {
+        color: #DDD9E5;
+
+        &:hover, &:active {
+          color: #fff;
+        }
+      }
+
+      ul > li form.search input {
+        box-sizing: border-box;
+        width: 100%;
+        background: rgba(0,0,0,0.25);
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 17px;
+        margin: 10px 0;
+
+        ::-webkit-input-placeholder { color: #645E74; }
+        :-moz-placeholder { color: #645E74; }
+        ::-moz-placeholder { color: #645E74; }
+        :-ms-input-placeholder { color: #645E74; }
+      }
+    }
+  }
+}
+
 @media only screen and (min-width: 768px) {
   .app-header {
+    border-bottom: solid 1px $line-color-light;
+    padding: 35px 0 25px;
+    margin: 0 0 40px;
+
     menu {
+      display: block;
       float: right;
+    }
+
+    .mobile-only {
+      display: none;
     }
   }
 }
