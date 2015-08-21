@@ -21,14 +21,22 @@
 }
 
 @media only screen and (max-width: 767px) {
+  #panel {
+    background: #fff;
+  }
+
   .app-header {
     position: fixed;
     top: 0;
-    left: 0;
+    // left: 98%;
     bottom: 0;
     width: 100%;
     z-index: 1000;
     background: #645E74;
+
+    &.open {
+      left: 0;
+    }
 
     .page-container {
       padding: 15px 20px;

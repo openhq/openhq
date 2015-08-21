@@ -6,8 +6,9 @@
 <body>
   <%= render 'shared/flash_messages' %>
 
-  <header class="app-header">
+  <header class="app-header" id="main-nav">
     <div class="page-container">
+      <span class="close-cross mobile-only">&times;</span>
       <menu>
         <% present current_user do |user| %>
           <div class="ui-dropdown-menu">
@@ -39,7 +40,7 @@
   </header>
 
 
-  <div class="page-container">
+  <div class="page-container" id="panel">
     <%= yield %>
   </div>
 

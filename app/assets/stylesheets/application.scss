@@ -37,31 +37,10 @@ $danger-color: #d23c3c;
 @import "pickadate/default.date";
 
 /* CSS components */
-@import "components/type";
-@import "components/buttons";
-@import "components/lists";
-@import "components/containers";
-@import "components/forms";
-@import "components/alerts";
-@import "components/nav";
-@import "components/dropdown";
-@import "components/attachments";
-@import "components/icons";
-@import "components/boxes";
+@import "components/*";
 
 /* Specific CSS */
-@import "styles/icons";
-@import "styles/auth";
-@import "styles/setup";
-@import "styles/errors";
-@import "styles/header";
-@import "styles/projects";
-@import "styles/story";
-@import "styles/users";
-@import "styles/tasks";
-@import "styles/account";
-@import "styles/files";
-@import "styles/search";
+@import "styles/*";
 
 @import "jquery.fileupload";
 @import "jquery.fileupload-ui";
