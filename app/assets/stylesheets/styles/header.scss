@@ -28,11 +28,26 @@
   .app-header {
     position: fixed;
     top: 0;
-    // left: 98%;
+    left: 98%;
     bottom: 0;
     width: 100%;
     z-index: 1000;
     background: #645E74;
+
+    transition: left 0.5s ease;
+
+    .close-cross {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: rgba(0,0,0,0.4);
+      cursor: pointer;
+      font-size: 30px;
+      line-height: 30px;
+      width: 30px;
+      height: 30px;
+      font-weight: bold;
+    }
 
     &.open {
       left: 0;

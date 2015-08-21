@@ -13,7 +13,7 @@
 //= require modernizr
 //= require jquery
 //= require jquery_ujs
-//= require slideout.min
+//= require hammer.min
 //= require jquery.timeago
 //= require s3_direct_upload
 //= require jquery-ui
