@@ -11,8 +11,6 @@ $(function() {
     });
 
     hammertime.on('swipe', function(ev) {
-      console.log(ev);
-
       if ($menu.hasClass("open")) return;
 
       $menu.addClass("open");
