@@ -26,6 +26,8 @@
           <li><%= link_to t('projects'), projects_path %></li>
           <li><%= link_to t('files'), files_path %></li>
           <li><%= link_to t('team'), team_index_path %></li>
+          <li class="mobile-only"><%= link_to(t("user.account"), edit_account_path) %></li>
+          <li class="mobile-only"><%= link_to(t("auth.sign_out"), destroy_user_session_path, :method => :delete) %></li>
           <li>
             <form action="<%= search_index_path %>" method="GET" class="search">
               <input type="text" name="q" placeholder="Search" autocomplete="off" />
