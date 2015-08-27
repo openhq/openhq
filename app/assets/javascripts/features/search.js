@@ -3,7 +3,6 @@ $(function(){
         // After clicking on a result
         // add a warmdown style to the result
         addWarmdown();
-        renderSearchResults();
     });
 
     function addWarmdown() {
@@ -42,28 +41,5 @@ $(function(){
                 }, 3000);
             });
         }
-    }
-
-    function renderSearchResults() {
-        $results_list = $('ul.ui-search-list');
-        if (!$results_list.length) return;
-
-        // loop through each result and either
-        //  - show the li if the user is part of the project
-        //  - remove the li if not not part of the project
-        _.each($results_list.find('li'), function(li){
-            var $li = $(li);
-            // if the project id is not within the users project ids
-            if (_.indexOf(user_project_ids, $li.data('project-id')) < 0) {
-                $li.remove();
-            } else {
-                $li.show();
-            }
-        });
-
-        // Update the title of the page with the number of results
-        var num_results = $results_list.find('li').length
-        $('.page-header.search h1 span').text(num_results + (num_results == 1 ? " result" : " results"));
-        $('.page-header.search').show();
     }
 });

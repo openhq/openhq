@@ -1,6 +1,9 @@
 class AttachmentPresenter < BasePresenter
   presents :attachment
 
+  delegate :story, to: :attachment
+  delegate :project, to: :story
+
   def thumbnail(size)
     url = attachment.process_data["thumbnail:#{String(size)}"]
     S3UrlSigner.sign(url) if url.present?

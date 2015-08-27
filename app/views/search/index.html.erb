@@ -7,11 +7,7 @@
 <% if @results.any? %>
   <ul class="ui-search-list">
     <% @results.each do |result| %>
-      <%= render result.searchable_type.downcase, { model: result.searchable } %>
+      <%= render result.class.to_s.downcase, { model: result } %>
     <% end %>
   </ul>
 <% end %>
-
-<script type="text/javascript">
-  var user_project_ids = <%= MultiJson.dump(current_user.projects.pluck(:id)) %>;
-</script>
