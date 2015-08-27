@@ -3,7 +3,10 @@ require 'set'
 class Story < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
+
   acts_as_paranoid
+  after_destroy :update_pg_search
+  after_restore :update_pg_search
 
   include PgSearch
   multisearchable against: [:name, :description], if: :live?
@@ -29,5 +32,15 @@ class Story < ActiveRecord::Base
 
   def live?
     !deleted? && project.present? && project.live?
+  end
+
+  def update_pg_search
+    update_pg_search_document
+
+    [tasks, attachments, comments].each do |dependants|
+      dependants.each do |dependant|
+        dependant.update_pg_search_document
+      end
+    end
   end
 end
