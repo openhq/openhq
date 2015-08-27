@@ -1,5 +1,7 @@
 $(function(){
     App.onPageLoad(function() {
+        // After clicking on a result
+        // add a warmdown style to the result
         addWarmdown();
     });
 

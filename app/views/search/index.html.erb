@@ -1,15 +1,13 @@
-<div class="page-header">
+<div class="page-header search">
   <h1>
-    <%= pluralize(@results.count, "result") %> for "<%= @query %>"
+    <span><%= pluralize(@results.count, "result") %></span> for "<%= @query %>"
   </h1>
 </div>
 
 <% if @results.any? %>
   <ul class="ui-search-list">
     <% @results.each do |result| %>
-      <li>
-        <%= render result.searchable_type.downcase, { model: result.searchable } %>
-      </li>
+      <%= render result.class.to_s.downcase, { model: result } %>
     <% end %>
   </ul>
 <% end %>

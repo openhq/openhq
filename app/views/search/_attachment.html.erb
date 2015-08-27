@@ -1,11 +1,13 @@
-<div class="title">
-  Attachment on story <%= link_to model.story.name, [model.story.project, model.story] %> in <%= link_to model.story.project.name, model.story.project %>
-</div>
+<li data-project-id="<%= model.story.project.id %>">
+  <div class="title">
+    Attachment on story <%= link_to model.story.name, [model.story.project, model.story] %> in <%= link_to model.story.project.name, model.story.project %>
+  </div>
 
-<div class="content">
-  <%= render model %>
-</div>
+  <div class="content">
+    <%= render model %>
+  </div>
 
-<div class="actions">
-  <%= link_to "View Attachment", [model.story.project, model.story, anchor: "attachment:#{model.id}"] %>
-</div>
+  <div class="actions">
+    <%= link_to "View Attachment", [model.story.project, model.story, anchor: "attachment:#{model.id}"] %>
+  </div>
+</li>

@@ -1,11 +1,13 @@
-<div class="title">
-  Task on story <%= link_to model.story.name, [model.story.project, model.story] %> in <%= link_to model.story.project.name, model.story.project %>
-</div>
+<li data-project-id="<%= model.story.project.id %>">
+  <div class="title">
+    Task on story <%= link_to model.story.name, [model.story.project, model.story] %> in <%= link_to model.story.project.name, model.story.project %>
+  </div>
 
-<div class="content">
-  <%= markdownify model.label %>
-</div>
+  <div class="content">
+    <%= markdownify model.label %>
+  </div>
 
-<div class="actions">
-  <%= link_to "View Task", [model.story.project, model.story, anchor: "task:#{model.id}"] %>
-</div>
+  <div class="actions">
+    <%= link_to "View Task", [model.story.project, model.story, anchor: "task:#{model.id}"] %>
+  </div>
+</li>

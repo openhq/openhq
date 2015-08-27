@@ -1,7 +1,10 @@
 class Project < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
+
   acts_as_paranoid
+  after_destroy :update_pg_search
+  after_restore :update_pg_search
 
   include PgSearch
   multisearchable against: [:name], if: :live?
@@ -23,6 +26,11 @@ class Project < ActiveRecord::Base
 
   def live?
     !deleted?
+  end
+
+  def update_pg_search
+    update_pg_search_document
+    stories.each(&:update_pg_search)
   end
 
 end
