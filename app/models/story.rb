@@ -36,11 +36,8 @@ class Story < ActiveRecord::Base
 
   def update_pg_search
     update_pg_search_document
-
     [tasks, attachments, comments].each do |dependants|
-      dependants.each do |dependant|
-        dependant.update_pg_search_document
-      end
+      dependants.each(&:update_pg_search_document)
     end
   end
 end

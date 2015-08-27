@@ -30,10 +30,7 @@ class Project < ActiveRecord::Base
 
   def update_pg_search
     update_pg_search_document
-
-    stories.each do |story|
-      story.update_pg_search
-    end
+    stories.each(&:update_pg_search)
   end
 
 end

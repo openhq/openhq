@@ -8,7 +8,7 @@ class SearchController < ApplicationController
   private
 
   def results_for_current_user(query)
-    results = PgSearch.multisearch(@query)
+    results = PgSearch.multisearch(query)
     project_ids = current_user.projects.pluck(:id)
 
     results = results.map do |result|
