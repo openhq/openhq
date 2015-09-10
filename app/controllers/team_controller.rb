@@ -13,7 +13,4 @@ class TeamController < ApplicationController
     @team_member = current_team.team_users.find_by!(user_id: @user.id)
     fresh_when last_modified: @team_member.updated_at
   end
-
-  def edit
-  end
 end

@@ -1,7 +1,12 @@
+require 'route_constraints/root_domain'
 require 'route_constraints/subdomain'
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+
+  constraints(RouteConstraints::RootDomain) do
+    resources :signups, only: [:new, :create]
+  end # root domain constrain
 
   constraints(RouteConstraints::Subdomain) do
     get "/" => "projects#index"
@@ -15,7 +20,7 @@ Rails.application.routes.draw do
     resource :account, only: [:edit, :update, :destroy], controller: :account
 
     resources :files, only: :index
-    resources :team, only: [:index, :show, :new, :create, :edit]
+    resources :team, only: [:index, :show]
     resources :team_invites, only: [:new, :create, :edit, :update]
     resources :search, only: :index
 
