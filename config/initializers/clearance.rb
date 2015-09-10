@@ -3,3 +3,6 @@ Clearance.configure do |config|
   config.mailer_sender = ENV["MAILGUN_FROM_EMAIL"]
   config.sign_in_guards = []
 end
+
+Clearance::PasswordsController.layout 'auth'
+Clearance::SessionsController.layout 'auth'
