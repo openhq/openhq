@@ -10,6 +10,18 @@
     <div class="page-container">
       <span class="close-cross mobile-only">&times;</span>
       <menu>
+        <%# Team switcher %>
+        <% if current_user.teams.size > 1 %>
+          <div class="ui-dropdown-menu">
+            <span class="title noselect"><%= current_team.name %><span class="arrow"></span></span>
+            <ul class="dropdown">
+              <% current_user.teams.each do |team| %>
+                <li><%= link_to(team.name, root_url(subdomain: team.subdomain)) %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
         <% present current_user do |user| %>
           <div class="ui-dropdown-menu">
             <span class="title noselect"><%= user.display_name %><span class="arrow"></span></span>
@@ -23,7 +35,7 @@
 
       <nav>
         <ul>
-          <li class="brand"><%= link_to app_name, root_url %></li>
+          <li class="brand"><%= link_to current_team.name, root_url %></li>
           <li><%= link_to t('projects'), projects_path %></li>
           <li><%= link_to t('files'), files_path %></li>
           <li><%= link_to t('team'), team_index_path %></li>
