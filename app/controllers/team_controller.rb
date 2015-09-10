@@ -14,28 +14,6 @@ class TeamController < ApplicationController
     fresh_when last_modified: @team_member.updated_at
   end
 
-  def new
-    @user = current_team.users.new
-  end
-
-  def create
-    invite_params = params.require(:user).permit(:email, project_ids: [])
-
-    # Ensure users can only invite team members to
-    # projects they have access to.
-    invite_params[:project_ids].select! do |pid|
-      current_user.project_ids.include?(Integer(pid)) unless pid.empty?
-    end
-
-    @user = current_team.invite(invite_params, current_user)
-
-    if @user.persisted?
-      redirect_to team_index_path
-    else
-      render :new
-    end
-  end
-
   def edit
   end
 end
