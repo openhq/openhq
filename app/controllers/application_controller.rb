@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   # is a member or else take them back to the root site
   def user_belongs_to_team!
     if signed_in? && current_team.present?
-      unless current_team_user
+      unless current_team_role
         redirect_to Rails.application.secrets.application_url
       end
     end
@@ -44,17 +44,17 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_team
 
-  def current_team_user
+  def current_team_role
     current_user.team_users.find_by(team_id: current_team.id)
   end
-  helper_method :current_team_user
+  helper_method :current_team_role
 
   def current_ability
-    @current_ability ||= Ability.new(current_team_user)
+    @current_ability ||= Ability.new(current_team_role)
   end
 
   def ensure_owner
-    redirect_to root_url unless current_team_user.role?(:owner)
+    redirect_to root_url unless current_team_role.role?(:owner)
   end
 
   def all_other_users
