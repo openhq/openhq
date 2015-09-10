@@ -1,7 +1,9 @@
 module SignInGuards
   class IsTeamMemberGuard < ::Clearance::SignInGuard
     def call
-      if member_of_team?
+      # current_team will be nil when signing in from the root domain
+      # on first signup
+      if current_team.nil? || member_of_team?
         next_guard
       else
         failure("You’re not a member of #{current_team.name}")

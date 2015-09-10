@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
 
   before_action :ensure_team!
   before_action :require_login
+  before_action :user_belongs_to_team!
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, alert: exception.message
@@ -30,7 +31,17 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_team!
-    redirect_to root_url(host: request.domain) unless current_team
+    redirect_to Rails.application.secrets.application_url unless current_team
+  end
+
+  # If there is a current team loaded ensure the signed in user
+  # is a member or else take them back to the root site
+  def user_belongs_to_team!
+    if signed_in? && current_team.present?
+      unless current_team_user
+        redirect_to Rails.application.secrets.application_url
+      end
+    end
   end
 
   def current_team
