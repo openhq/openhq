@@ -1,9 +1,10 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user, team_user, team)
+  def initialize(team_user)
     # Order matters!
     # Greater roles inherit lower permissions
+    user = team_user.user
 
     if team_user.role? :user
       # User can update/view themselves
@@ -37,7 +38,9 @@ class Ability
       can :assign_roles, User
 
       # Can edit users below their role
-      can :update, User, role: team_user.assignable_roles[0...-1]
+      can :update, User do |user|
+        user.team_users.find_by!(team_id: team_user.team_id).role.in? team_user.assignable_roles[0...-1]
+      end
     end
 
     if team_user.role? :owner

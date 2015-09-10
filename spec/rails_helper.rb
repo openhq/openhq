@@ -8,6 +8,7 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'capybara/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'clearance/rspec'
 
 require 'support/mail_helper'
 require 'support/feature_helper'
@@ -41,7 +42,6 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
   config.include FactoryGirl::Syntax::Methods
-  config.include Devise::TestHelpers, type: :controller
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and

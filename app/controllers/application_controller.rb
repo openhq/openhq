@@ -27,12 +27,12 @@ class ApplicationController < ActionController::Base
   helper_method :current_team
 
   def current_team_user
-    current_team.team_users.find_by(user_id: current_user.id)
+    current_user.team_users.find_by(team_id: current_team.id)
   end
   helper_method :current_team_user
 
   def current_ability
-    @current_ability ||= Ability.new(current_user, current_team_user, current_team)
+    @current_ability ||= Ability.new(current_team_user)
   end
 
   def ensure_owner
