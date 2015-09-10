@@ -14,4 +14,16 @@ class TeamUser < ActiveRecord::Base
   def assignable_roles
     ROLES[0..ROLES.index(role)]
   end
+
+  def invited_to_sign_up?
+    false
+  end
+
+  def display_role
+    if invited_to_sign_up?
+      "invited"
+    else
+      role
+    end
+  end
 end

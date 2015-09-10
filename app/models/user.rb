@@ -45,10 +45,6 @@ class User < ActiveRecord::Base
     NOTIFICATION_FREQUENCIES
   end
 
-  def active_for_authentication?
-    super && deleted_at.nil?
-  end
-
   def display_name
     full_name.presence || username.presence || email
   end

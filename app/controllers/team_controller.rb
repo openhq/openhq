@@ -1,17 +1,17 @@
 class TeamController < ApplicationController
   def index
-    fresh_when User.maximum(:updated_at)
+    fresh_when current_team.users.maximum(:updated_at)
 
-    @team_members = User.not_deleted.sort_by {|u| User::ROLES.index(u.role) }.reverse
+    @team_members = current_team.team_users.includes(:user).sort_by {|tu| TeamUser::ROLES.index(tu.role) }.reverse
   end
 
   def show
-    @team_member = User.find_by!(username: params[:id])
+    @team_member = current_team.users.find_by!(username: params[:id])
     fresh_when last_modified: @team_member.updated_at
   end
 
   def new
-    @user = User.new
+    @user = current_team.users.new
   end
 
   def create
