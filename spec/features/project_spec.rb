@@ -1,14 +1,18 @@
 require 'rails_helper'
 
 RSpec.feature "Projects", type: :feature do
-  given!(:bob) { create(:user, username: "bob", email: "bob@example.org", password: "hunter212", password_confirmation: "hunter212") }
+  given!(:team) { create(:team) }
+  given!(:bob) { create(:user, username: "bob", email: "bob@example.org", password: "hunter212") }
 
   background do
-    ui_design = bob.projects.create!(name: "UI Design", owner: bob)
-    engineering = bob.projects.create!(name: "Engineering", owner: bob)
+    create(:team_user, team: team, user: bob)
+    switch_to_subdomain(team.subdomain)
 
-    engineering.stories.create!(name: "Speed tunnel testing", owner: bob)
-    engineering.stories.create!(name: "Prototype v1.0.1", owner: bob)
+    ui_design = bob.projects.create!(name: "UI Design", owner: bob, team_id: team.id)
+    engineering = bob.projects.create!(name: "Engineering", owner: bob, team_id: team.id)
+
+    engineering.stories.create!(name: "Speed tunnel testing", owner: bob, team_id: team.id)
+    engineering.stories.create!(name: "Prototype v1.0.1", owner: bob, team_id: team.id)
   end
 
   scenario "overall projects are listed" do

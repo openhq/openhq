@@ -1,11 +1,16 @@
 require 'rails_helper'
 
 RSpec.feature "Inviting team members", type: :feature do
-  given!(:user) { create(:user, password: "hunter212", password_confirmation: "hunter212") }
+  given!(:team) { create(:team) }
+  given!(:user) { create(:user, password: "hunter212") }
+
   background do
-    user.projects.create!(name: "UI Design", owner: user)
-    user.projects.create!(name: "Engineering", owner: user)
-    Project.create(name: "Management", owner: create(:user))
+    team.team_users.create!(user: user, role: "user")
+    switch_to_subdomain(team.subdomain)
+
+    user.projects.create!(name: "UI Design", owner: user, team_id: team.id)
+    user.projects.create!(name: "Engineering", owner: user, team_id: team.id)
+    Project.create(name: "Management", owner: create(:user), team_id: team.id)
 
     reset_emails!
   end
@@ -20,7 +25,7 @@ RSpec.feature "Inviting team members", type: :feature do
 
     # Invitee is created
     invitee = User.find_by!(email: "mynewteammember@example.org")
-    expect(invitee.role).to eq("user")
+    expect(invitee.team_invites.first.role).to eq("user")
 
     # Invitee receives an invite email
     expect(last_email.to.first).to eq("mynewteammember@example.org")

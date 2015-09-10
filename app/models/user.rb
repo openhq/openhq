@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
 
   NOTIFICATION_FREQUENCIES = %w(asap hourly daily never)
 
-  has_many :team_users
+  has_many :team_users, -> { where(status: "active") }
+  has_many :team_invites, -> { where(status: "invited") }, class_name: "TeamUser"
   has_many :teams, through: :team_users
   has_many :created_projects, foreign_key: "owner_id", class_name: "Project"
   has_many :stories, foreign_key: "owner_id", class_name: "Story"

@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.feature "First time setup", type: :feature do
+  given!(:team) { create(:team) }
+
+  background do
+    switch_to_subdomain(team.subdomain)
+  end
+
   context "when app is not setup" do
     scenario "redirects to /setup" do
       visit "/"
@@ -10,23 +16,24 @@ RSpec.feature "First time setup", type: :feature do
 
   context "setting up owner" do
     scenario "sets up a user with role of owner" do
-      visit "/"
+      visit "/setup"
       fill_in "user_first_name", :with => "John"
       fill_in "user_last_name", :with => "Connor"
       fill_in "user_username", :with => "admin"
       fill_in "user_email", :with => "john.connor@example.org"
       fill_in "user_password", :with => "Password1!"
-      fill_in "user_password_confirmation", :with => "Password1!"
       click_button "Complete Setup"
 
       user = User.find_by(email: "john.connor@example.org")
-      expect(user.role).to eq("owner")
+      expect(user.team_users.find_by!(team_id: team.id).role).to eq("owner")
     end
   end
 
   context "complete setup page" do
-    given!(:owner) { create(:user, role: "owner", password: "hunter212", password_confirmation: "hunter212") }
-    given!(:std_user) { create(:user, role: "user", password: "hunter212", password_confirmation: "hunter212") }
+    given!(:owner) { create(:user, password: "hunter212") }
+    given!(:std_user) { create(:user, password: "hunter212") }
+    given!(:owner_team_user) { create(:team_user, team: team, user: owner, role: "owner") }
+    given!(:std_team_user) { create(:team_user, team: team, user: std_user, role: "user") }
 
     scenario "creates a project and invites team members" do
       sign_in_with owner.email, "hunter212"

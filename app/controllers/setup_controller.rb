@@ -1,7 +1,7 @@
 class SetupController < ApplicationController
   before_action :ensure_fresh_install, except: [:initial_setup, :complete]
   before_action :ensure_owner, only: [:initial_setup, :complete]
-  skip_before_action :authenticate_user!, only: [:new, :create]
+  skip_before_action :require_login, only: [:new, :create]
 
   layout "setup"
 
@@ -10,10 +10,11 @@ class SetupController < ApplicationController
   end
 
   def create
-    @admin = User.new(admin_user_params.merge(role: "owner"))
+    @admin = User.new(admin_user_params)
+    current_team.team_users.create(user: @admin, role: "owner")
 
     if @admin.save
-      sign_in :user, @admin
+      sign_in @admin
 
       redirect_to initial_setup_path
     else
@@ -22,11 +23,11 @@ class SetupController < ApplicationController
   end
 
   def initial_setup
-    @initial_setup = InitialSetupForm.new(current_user)
+    @initial_setup = InitialSetupForm.new(current_user, current_team)
   end
 
   def complete
-    @initial_setup = InitialSetupForm.new(current_user)
+    @initial_setup = InitialSetupForm.new(current_user, current_team)
 
     if @initial_setup.submit(initial_setup_params)
       redirect_to root_url, notice: "Setup complete!"

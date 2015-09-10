@@ -21,7 +21,7 @@ class UserPresenter < BasePresenter
   end
 
   def profile_path
-    h.team_path(user.username)
+    h.team_path(user.username) if user.username.present?
   end
 
   private

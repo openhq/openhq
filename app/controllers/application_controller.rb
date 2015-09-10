@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_owner
-    redirect_to root_url unless current_user.role?(:owner)
+    redirect_to root_url unless current_team_user.role?(:owner)
   end
 
   def all_other_users

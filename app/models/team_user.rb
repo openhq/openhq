@@ -16,7 +16,7 @@ class TeamUser < ActiveRecord::Base
   end
 
   def invited_to_sign_up?
-    false
+    status == "invited"
   end
 
   def display_role

@@ -30,5 +30,10 @@ module OpenHq
       g.javascripts false
       g.helper false
     end
+
+    config.to_prepare do
+      Clearance::PasswordsController.layout 'auth'
+      Clearance::SessionsController.layout 'auth'
+    end
   end
 end

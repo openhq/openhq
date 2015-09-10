@@ -2,7 +2,10 @@ class TeamController < ApplicationController
   def index
     fresh_when current_team.users.maximum(:updated_at)
 
-    @team_members = current_team.team_users.includes(:user).sort_by {|tu| TeamUser::ROLES.index(tu.role) }.reverse
+    members = current_team.team_users.includes(:user).sort_by {|tu| TeamUser::ROLES.index(tu.role) }.reverse
+    invites = current_team.user_invites.includes(:user).to_a
+
+    @team_members = [members, invites].flatten
   end
 
   def show
@@ -24,7 +27,7 @@ class TeamController < ApplicationController
       current_user.project_ids.include?(Integer(pid)) unless pid.empty?
     end
 
-    @user = User.invite!(invite_params)
+    @user = current_team.invite(invite_params)
 
     if @user.persisted?
       redirect_to team_index_path
