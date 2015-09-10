@@ -11,9 +11,10 @@ class SetupController < ApplicationController
 
   def create
     @admin = User.new(admin_user_params)
-    current_team.team_users.create(user: @admin, role: "owner")
 
     if @admin.save
+      current_team.team_users.create!(user: @admin, role: "owner")
+
       sign_in @admin
 
       redirect_to initial_setup_path
