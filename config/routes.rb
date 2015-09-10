@@ -6,8 +6,6 @@ Rails.application.routes.draw do
   constraints(RouteConstraints::Subdomain) do
     get "/" => "projects#index"
 
-    devise_for :users
-
     # First time setup
     get '/setup' => 'setup#new'
     post '/setup' => 'setup#create'
@@ -41,9 +39,9 @@ Rails.application.routes.draw do
   end
 
   # Use devise to ensure user is signed in as an admin
-  authenticate :user, lambda { |u| u.role?(:owner) } do
+  # authenticate :user, lambda { |u| u.role?(:owner) } do
     mount Sidekiq::Web => '/sidekiq'
-  end
+  # end
 
   # Dynamic error pages
   get "/404", to: "errors#not_found"

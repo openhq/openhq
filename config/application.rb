@@ -32,12 +32,12 @@ module ProjectManagementApp
 
     # Custom sign-in layout
     config.to_prepare do
-      Devise::SessionsController.layout "auth"
-      Devise::RegistrationsController.layout proc { user_signed_in? ? "application" : "auth" }
-      Devise::ConfirmationsController.layout "auth"
-      Devise::UnlocksController.layout "auth"
-      Devise::PasswordsController.layout "auth"
-      Devise::InvitationsController.layout "setup"
+      # Devise::SessionsController.layout "auth"
+      # Devise::RegistrationsController.layout proc { user_signed_in? ? "application" : "auth" }
+      # Devise::ConfirmationsController.layout "auth"
+      # Devise::UnlocksController.layout "auth"
+      # Devise::PasswordsController.layout "auth"
+      # Devise::InvitationsController.layout "setup"
     end
   end
 end

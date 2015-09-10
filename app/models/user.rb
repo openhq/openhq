@@ -1,13 +1,8 @@
 class User < ActiveRecord::Base
+  include Clearance::User
+
   ROLES = %w(user admin owner)
   NOTIFICATION_FREQUENCIES = %w(asap hourly daily never)
-
-  attr_accessor :login # username or email
-
-  # Include default devise modules. Others available are:
-  # :confirmable, :timeoutable, :registerable, and :omniauthable
-  devise :database_authenticatable, :invitable, :lockable,
-         :recoverable, :rememberable, :trackable, :validatable
 
   has_many :created_projects, foreign_key: "owner_id", class_name: "Project"
   has_many :stories, foreign_key: "owner_id", class_name: "Story"
@@ -36,14 +31,14 @@ class User < ActiveRecord::Base
   scope :not_deleted, -> { where("deleted_at IS NULL") }
 
   # Overide devise finder to lookup by username or email
-  def self.find_for_database_authentication(warden_conditions)
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions.to_h).where(["username = :value OR email = :value", { value: login }]).first
-    else
-      where(conditions.to_h).first
-    end
-  end
+  # def self.find_for_database_authentication(warden_conditions)
+  #   conditions = warden_conditions.dup
+  #   if login = conditions.delete(:login)
+  #     where(conditions.to_h).where(["username = :value OR email = :value", { value: login }]).first
+  #   else
+  #     where(conditions.to_h).first
+  #   end
+  # end
 
   def self.all_cache_key
     max_updated_at = maximum(:updated_at).try(:utc).try(:to_s, :number)

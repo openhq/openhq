@@ -442,28 +442,8 @@ CREATE TABLE users (
     username citext,
     email citext DEFAULT ''::citext NOT NULL,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying,
-    reset_password_sent_at timestamp without time zone,
-    remember_created_at timestamp without time zone,
-    sign_in_count integer DEFAULT 0 NOT NULL,
-    current_sign_in_at timestamp without time zone,
-    last_sign_in_at timestamp without time zone,
-    current_sign_in_ip inet,
-    last_sign_in_ip inet,
-    failed_attempts integer DEFAULT 0 NOT NULL,
-    unlock_token character varying,
-    locked_at timestamp without time zone,
-    role character varying DEFAULT 'user'::character varying NOT NULL,
-    invited_by integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    invitation_token character varying,
-    invitation_created_at timestamp without time zone,
-    invitation_sent_at timestamp without time zone,
-    invitation_accepted_at timestamp without time zone,
-    invitation_limit integer,
-    invited_by_id integer,
-    invited_by_type character varying,
     notification_frequency character varying DEFAULT 'asap'::character varying,
     last_notified_at timestamp without time zone,
     deleted_at timestamp without time zone,
@@ -474,7 +454,9 @@ CREATE TABLE users (
     avatar_file_name character varying,
     avatar_file_path character varying,
     avatar_file_size integer,
-    avatar_content_type character varying
+    avatar_content_type character varying,
+    confirmation_token character varying(128),
+    remember_token character varying(128)
 );
 
 
@@ -810,24 +792,10 @@ CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_invitation_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_remember_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_users_on_invitation_token ON users USING btree (invitation_token);
-
-
---
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
-
-
---
--- Name: index_users_on_unlock_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_users_on_unlock_token ON users USING btree (unlock_token);
+CREATE INDEX index_users_on_remember_token ON users USING btree (remember_token);
 
 
 --
@@ -928,4 +896,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150811135707');
 INSERT INTO schema_migrations (version) VALUES ('20150910113139');
 
 INSERT INTO schema_migrations (version) VALUES ('20150910113223');
+
+INSERT INTO schema_migrations (version) VALUES ('20150910115415');
 

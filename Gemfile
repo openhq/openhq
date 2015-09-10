@@ -24,8 +24,7 @@ gem 'dotenv-rails', '~> 1.0.2'
 gem "sentry-raven", git: "https://github.com/getsentry/raven-ruby.git", require: 'raven'
 
 # User authentication/authorization
-gem 'devise'
-gem 'devise_invitable', '~> 1.5.1'
+gem 'clearance'
 gem 'cancancan', '~> 1.10'
 
 # Serializers
