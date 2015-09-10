@@ -21,7 +21,7 @@ RSpec.feature "Inviting team members", type: :feature do
     perform_enqueued_jobs do
       sign_in_with user.email, "hunter212"
 
-      visit "/team/new"
+      visit "/team_invites/new"
       fill_in "user_email", :with => "mynewteammember@example.org"
       check "UI Design"
       click_button "Invite"
