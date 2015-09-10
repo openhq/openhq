@@ -15,6 +15,15 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def url_after_denied_access_when_signed_out
+    # TODO - remove this and change how setup works?
+    if current_team.users.any?
+      sign_in_url
+    else
+      setup_url
+    end
+  end
+
   def ensure_team!
     unless current_team
       redirect_to root_url(host: request.domain)
