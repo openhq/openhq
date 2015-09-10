@@ -38,10 +38,9 @@ Rails.application.routes.draw do
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
 
-  # Use devise to ensure user is signed in as an admin
-  # authenticate :user, lambda { |u| u.role?(:owner) } do
+  constraints Clearance::Constraints::SignedIn.new { |user| user.admin? } do
     mount Sidekiq::Web => '/sidekiq'
-  # end
+  end
 
   # Dynamic error pages
   get "/404", to: "errors#not_found"

@@ -15,7 +15,7 @@
             <span class="title noselect"><%= user.display_name %><span class="arrow"></span></span>
             <ul class="dropdown">
               <li><%= link_to(t("user.account"), edit_account_path) %></li>
-              <li><%= link_to(t("auth.sign_out"), destroy_user_session_path, :method => :delete) %></li>
+              <li><%= link_to(t("auth.sign_out"), sign_out_path, :method => :delete) %></li>
             </ul>
           </div>
         <% end %>
@@ -28,7 +28,7 @@
           <li><%= link_to t('files'), files_path %></li>
           <li><%= link_to t('team'), team_index_path %></li>
           <li class="mobile-only"><%= link_to(t("user.account"), edit_account_path) %></li>
-          <li class="mobile-only"><%= link_to(t("auth.sign_out"), destroy_user_session_path, :method => :delete) %></li>
+          <li class="mobile-only"><%= link_to(t("auth.sign_out"), sign_out_path, :method => :delete) %></li>
           <li>
             <form action="<%= search_index_path %>" method="GET" class="search">
               <input type="text" name="q" placeholder="Search" autocomplete="off" />

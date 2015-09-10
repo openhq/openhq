@@ -90,7 +90,8 @@ CREATE TABLE attachments (
     file_path character varying,
     process_data json DEFAULT '{}'::json,
     process_attempts integer DEFAULT 0,
-    processed_at timestamp without time zone
+    processed_at timestamp without time zone,
+    team_id integer
 );
 
 
@@ -124,7 +125,8 @@ CREATE TABLE comments (
     commentable_id integer,
     owner_id integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    team_id integer
 );
 
 
@@ -162,7 +164,8 @@ CREATE TABLE notifications (
     seen boolean DEFAULT false,
     delivered boolean DEFAULT false,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    team_id integer
 );
 
 
@@ -229,7 +232,8 @@ CREATE TABLE projects (
     owner_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    deleted_at timestamp without time zone
+    deleted_at timestamp without time zone,
+    team_id integer
 );
 
 
@@ -305,7 +309,8 @@ CREATE TABLE stories (
     owner_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    deleted_at timestamp without time zone
+    deleted_at timestamp without time zone,
+    team_id integer
 );
 
 
@@ -343,7 +348,8 @@ CREATE TABLE tasks (
     completed boolean DEFAULT false NOT NULL,
     completed_on timestamp without time zone,
     completed_by integer,
-    "order" integer
+    "order" integer,
+    team_id integer
 );
 
 
@@ -666,6 +672,13 @@ CREATE INDEX index_attachments_on_story_id ON attachments USING btree (story_id)
 
 
 --
+-- Name: index_attachments_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_attachments_on_team_id ON attachments USING btree (team_id);
+
+
+--
 -- Name: index_comments_on_commentable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -677,6 +690,20 @@ CREATE INDEX index_comments_on_commentable_id ON comments USING btree (commentab
 --
 
 CREATE INDEX index_comments_on_owner_id ON comments USING btree (owner_id);
+
+
+--
+-- Name: index_comments_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_comments_on_team_id ON comments USING btree (team_id);
+
+
+--
+-- Name: index_notifications_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_notifications_on_team_id ON notifications USING btree (team_id);
 
 
 --
@@ -715,6 +742,13 @@ CREATE UNIQUE INDEX index_projects_on_slug ON projects USING btree (slug);
 
 
 --
+-- Name: index_projects_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_projects_on_team_id ON projects USING btree (team_id);
+
+
+--
 -- Name: index_projects_users_on_user_id_and_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -743,6 +777,13 @@ CREATE UNIQUE INDEX index_stories_on_slug ON stories USING btree (slug);
 
 
 --
+-- Name: index_stories_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_stories_on_team_id ON stories USING btree (team_id);
+
+
+--
 -- Name: index_tasks_on_assigned_to; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -761,6 +802,13 @@ CREATE INDEX index_tasks_on_owner_id ON tasks USING btree (owner_id);
 --
 
 CREATE INDEX index_tasks_on_story_id ON tasks USING btree (story_id);
+
+
+--
+-- Name: index_tasks_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_tasks_on_team_id ON tasks USING btree (team_id);
 
 
 --
@@ -898,4 +946,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150910113139');
 INSERT INTO schema_migrations (version) VALUES ('20150910113223');
 
 INSERT INTO schema_migrations (version) VALUES ('20150910115415');
+
+INSERT INTO schema_migrations (version) VALUES ('20150910121953');
 

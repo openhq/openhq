@@ -6,6 +6,8 @@ class Attachment < ActiveRecord::Base
   include PgSearch
   multisearchable against: [:name, :file_name, :process_data], if: :live?
 
+  acts_as_tenant(:team)
+
   belongs_to :attachable, polymorphic: true
   belongs_to :story
   belongs_to :owner, class_name: "User"

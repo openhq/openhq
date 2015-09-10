@@ -26,6 +26,15 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_team
 
+  def current_team_user
+    current_team.team_users.find_by(user_id: current_user.id)
+  end
+  helper_method :current_team_user
+
+  def current_ability
+    @current_ability ||= Ability.new(current_user, current_team_user, current_team)
+  end
+
   def ensure_owner
     redirect_to root_url unless current_user.role?(:owner)
   end

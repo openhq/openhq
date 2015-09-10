@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   include Clearance::User
 
-  ROLES = %w(user admin owner)
   NOTIFICATION_FREQUENCIES = %w(asap hourly daily never)
 
   has_many :created_projects, foreign_key: "owner_id", class_name: "Project"
@@ -16,7 +15,6 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: %r{^image\/}
 
   validates :first_name, :last_name, presence: true
-  validates :role, presence: true, inclusion: {in: ROLES}
   validates :notification_frequency, presence: true, inclusion: {in: NOTIFICATION_FREQUENCIES}
   validates :username,
     username: true,
@@ -25,9 +23,7 @@ class User < ActiveRecord::Base
       case_sensitive: false
     }
 
-  scope :active, lambda {
-    not_deleted.where("users.invitation_created_at IS NULL OR users.invitation_accepted_at IS NOT NULL")
-  }
+  scope :active, -> { not_deleted }
   scope :not_deleted, -> { where("deleted_at IS NULL") }
 
   # Overide devise finder to lookup by username or email
@@ -59,14 +55,6 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{first_name} #{last_name}".strip
-  end
-
-  def role?(base_role)
-    ROLES.index(base_role.to_s) <= ROLES.index(role)
-  end
-
-  def assignable_roles
-    ROLES[0..ROLES.index(role)]
   end
 
   def due_email_notification?
