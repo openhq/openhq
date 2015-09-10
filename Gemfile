@@ -14,6 +14,9 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'turbolinks'
 
+# Multitennate subdomains
+gem 'acts_as_tenant'
+
 # Load environment variables
 gem 'dotenv-rails', '~> 1.0.2'
 

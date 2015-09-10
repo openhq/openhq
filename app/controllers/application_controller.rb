@@ -1,8 +1,11 @@
 class ApplicationController < ActionController::Base
+  set_current_tenant_by_subdomain(:team, :subdomain)
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_action :ensure_team!
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -11,6 +14,17 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def ensure_team!
+    unless current_team
+      redirect_to root_url(host: request.domain)
+    end
+  end
+
+  def current_team
+    ActsAsTenant.current_tenant
+  end
+  helper_method :current_team
 
   def ensure_owner
     redirect_to root_url unless current_user.role?(:owner)

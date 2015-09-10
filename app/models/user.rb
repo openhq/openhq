@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :created_projects, foreign_key: "owner_id", class_name: "Project"
   has_many :stories, foreign_key: "owner_id", class_name: "Story"
   has_many :notifications, -> { order(created_at: :asc) }
+  has_many :team_users
+  has_many :teams, through: :team_users
 
   has_and_belongs_to_many :projects, -> { order(name: :asc) }
 

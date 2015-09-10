@@ -1,34 +1,40 @@
+require 'route_constraints/subdomain'
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  devise_for :users
+  constraints(RouteConstraints::Subdomain) do
+    get "/" => "projects#index"
 
-  # First time setup
-  get '/setup' => 'setup#new'
-  post '/setup' => 'setup#create'
-  get '/setup/complete' => 'setup#initial_setup', as: :initial_setup
-  post '/setup/complete' => 'setup#complete'
+    devise_for :users
 
-  resource :account, only: [:edit, :update, :destroy], controller: :account
+    # First time setup
+    get '/setup' => 'setup#new'
+    post '/setup' => 'setup#create'
+    get '/setup/complete' => 'setup#initial_setup', as: :initial_setup
+    post '/setup/complete' => 'setup#complete'
 
-  resources :files, only: :index
-  resources :team, only: [:index, :show, :new, :create, :edit]
-  resources :search, only: :index
+    resource :account, only: [:edit, :update, :destroy], controller: :account
 
-  resources :projects do
-    get "archived", on: :collection
-    get "restore", on: :member
-    resources :stories do
+    resources :files, only: :index
+    resources :team, only: [:index, :show, :new, :create, :edit]
+    resources :search, only: :index
+
+    resources :projects do
       get "archived", on: :collection
       get "restore", on: :member
-      resources :comments
-      resources :tasks do
-        put "update-order", on: :collection
+      resources :stories do
+        get "archived", on: :collection
+        get "restore", on: :member
+        resources :comments
+        resources :tasks do
+          put "update-order", on: :collection
+        end
+        resources :attachments
       end
-      resources :attachments
     end
-  end
+
+  end # subdomain constraint
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
@@ -44,6 +50,6 @@ Rails.application.routes.draw do
   get "/422", to: "errors#unacceptable"
   get "/500", to: "errors#internal_error"
 
-  root to: "projects#index"
+  root to: "public#index"
 
 end

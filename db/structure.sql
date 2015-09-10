@@ -367,6 +367,71 @@ ALTER SEQUENCE tasks_id_seq OWNED BY tasks.id;
 
 
 --
+-- Name: team_users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE team_users (
+    id integer NOT NULL,
+    team_id integer,
+    user_id integer,
+    role character varying DEFAULT 'user'::character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: team_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE team_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: team_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE team_users_id_seq OWNED BY team_users.id;
+
+
+--
+-- Name: teams; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE teams (
+    id integer NOT NULL,
+    name character varying,
+    subdomain character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: teams_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE teams_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teams_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE teams_id_seq OWNED BY teams.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -492,6 +557,20 @@ ALTER TABLE ONLY tasks ALTER COLUMN id SET DEFAULT nextval('tasks_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY team_users ALTER COLUMN id SET DEFAULT nextval('team_users_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY teams ALTER COLUMN id SET DEFAULT nextval('teams_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
@@ -557,6 +636,22 @@ ALTER TABLE ONLY stories
 
 ALTER TABLE ONLY tasks
     ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: team_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY team_users
+    ADD CONSTRAINT team_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY teams
+    ADD CONSTRAINT teams_pkey PRIMARY KEY (id);
 
 
 --
@@ -687,6 +782,27 @@ CREATE INDEX index_tasks_on_story_id ON tasks USING btree (story_id);
 
 
 --
+-- Name: index_team_users_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_team_users_on_team_id ON team_users USING btree (team_id);
+
+
+--
+-- Name: index_team_users_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_team_users_on_user_id ON team_users USING btree (user_id);
+
+
+--
+-- Name: index_teams_on_subdomain; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_teams_on_subdomain ON teams USING btree (subdomain);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -733,6 +849,22 @@ CREATE INDEX pg_search_documents_content ON pg_search_documents USING gin (to_ts
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: fk_rails_6a8dc6a6fc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY team_users
+    ADD CONSTRAINT fk_rails_6a8dc6a6fc FOREIGN KEY (team_id) REFERENCES teams(id);
+
+
+--
+-- Name: fk_rails_8b0a3daf0d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY team_users
+    ADD CONSTRAINT fk_rails_8b0a3daf0d FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -792,4 +924,8 @@ INSERT INTO schema_migrations (version) VALUES ('20150730162623');
 INSERT INTO schema_migrations (version) VALUES ('20150730170036');
 
 INSERT INTO schema_migrations (version) VALUES ('20150811135707');
+
+INSERT INTO schema_migrations (version) VALUES ('20150910113139');
+
+INSERT INTO schema_migrations (version) VALUES ('20150910113223');
 
