@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
     resources :files, only: :index
     resources :team, only: [:index, :show, :new, :create, :edit]
+    resources :team_invites, only: [:edit, :update]
     resources :search, only: :index
 
     resources :projects do

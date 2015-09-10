@@ -27,7 +27,7 @@ class TeamController < ApplicationController
       current_user.project_ids.include?(Integer(pid)) unless pid.empty?
     end
 
-    @user = current_team.invite(invite_params)
+    @user = current_team.invite(invite_params, current_user)
 
     if @user.persisted?
       redirect_to team_index_path

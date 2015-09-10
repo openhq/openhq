@@ -10,4 +10,12 @@ class UserMailer < ApplicationMailer
     mail to: user.email, subject: "OpenHQ Notification Update"
   end
 
+  def team_invite(team_invite, inviter)
+    @team = team_invite.team
+    @user = team_invite.user
+    @team_invite = team_invite
+    @inviter = inviter
+    mail to: @user.email, subject: "You have been invited to join a team on Open HQ"
+  end
+
 end

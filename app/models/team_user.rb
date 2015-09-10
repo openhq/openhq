@@ -19,6 +19,10 @@ class TeamUser < ActiveRecord::Base
     status == "invited"
   end
 
+  def accept_invite!
+    update!(status: "active", invite_accepted_at: Time.zone.now)
+  end
+
   def display_role
     if invited_to_sign_up?
       "invited"

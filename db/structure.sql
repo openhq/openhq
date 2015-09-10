@@ -386,7 +386,8 @@ CREATE TABLE team_users (
     invite_accepted_at timestamp without time zone,
     invited_at timestamp without time zone,
     invited_by integer,
-    status character varying DEFAULT 'active'::character varying NOT NULL
+    status character varying DEFAULT 'active'::character varying NOT NULL,
+    invitation_code character varying
 );
 
 
@@ -816,6 +817,13 @@ CREATE INDEX index_tasks_on_team_id ON tasks USING btree (team_id);
 
 
 --
+-- Name: index_team_users_on_invitation_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_team_users_on_invitation_code ON team_users USING btree (invitation_code);
+
+
+--
 -- Name: index_team_users_on_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -961,4 +969,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150910115415');
 INSERT INTO schema_migrations (version) VALUES ('20150910121953');
 
 INSERT INTO schema_migrations (version) VALUES ('20150910155220');
+
+INSERT INTO schema_migrations (version) VALUES ('20150910161337');
 

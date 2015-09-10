@@ -22,7 +22,7 @@ class InitialSetupForm
         project.users << owner
 
         String(team_members).split(",").each do |email|
-          current_team.invite(email: email.strip, project_ids: [project.id])
+          current_team.invite({email: email.strip, project_ids: [project.id]}, owner)
         end
 
         true
