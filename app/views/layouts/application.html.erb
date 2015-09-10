@@ -10,27 +10,8 @@
     <div class="page-container">
       <span class="close-cross mobile-only">&times;</span>
       <menu>
-        <%# Team switcher %>
-        <% if current_user.teams.size > 1 %>
-          <div class="ui-dropdown-menu">
-            <span class="title noselect"><%= current_team.name %><span class="arrow"></span></span>
-            <ul class="dropdown">
-              <% current_user.teams.each do |team| %>
-                <li><%= link_to(team.name, root_url(subdomain: team.subdomain)) %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-
-        <% present current_user do |user| %>
-          <div class="ui-dropdown-menu">
-            <span class="title noselect"><%= user.display_name %><span class="arrow"></span></span>
-            <ul class="dropdown">
-              <li><%= link_to(t("user.account"), edit_account_path) %></li>
-              <li><%= link_to(t("auth.sign_out"), sign_out_path, :method => :delete) %></li>
-            </ul>
-          </div>
-        <% end %>
+        <%= render "shared/team_switcher" %>
+        <%= render "shared/signed_in_menu" %>
       </menu>
 
       <nav>

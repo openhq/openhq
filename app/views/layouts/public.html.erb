@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= render partial: "layouts/html_head" %>
+</head>
+<body>
+  <%= render 'shared/flash_messages' %>
+
+  <header class="app-header">
+    <div class="page-container">
+      <span class="close-cross mobile-only">&times;</span>
+      <menu>
+        <% if signed_in? %>
+          <%= render "shared/team_switcher" %>
+          <%= render "shared/signed_in_menu" %>
+        <% else %>
+          <ul class="h-list">
+            <li><%= link_to("Sign up", "#") %></li>
+          </ul>
+        <% end %>
+      </menu>
+
+      <nav>
+        <ul>
+          <li class="brand"><%= link_to app_name, root_url %></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+  <div class="page-container">
+    <%= yield %>
+  </div>
+
+</body>
+</html>

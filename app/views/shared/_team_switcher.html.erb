@@ -1,0 +1,10 @@
+<% if current_user.teams.size > 1 %>
+  <div class="ui-dropdown-menu">
+    <span class="title noselect"><%= current_team.present? ? current_team.name : "Switch team" %><span class="arrow"></span></span>
+    <ul class="dropdown">
+      <% current_user.teams.each do |team| %>
+        <li><%= link_to(team.name, root_url(subdomain: team.subdomain)) %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
