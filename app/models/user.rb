@@ -45,6 +45,15 @@ class User < ActiveRecord::Base
     NOTIFICATION_FREQUENCIES
   end
 
+  def update_with_password(user_params)
+    if authenticated?(user_params[:current_password])
+      update(user_params.except(:current_password))
+    else
+      errors.add(:base, "Your current password was incorrect")
+      false
+    end
+  end
+
   def display_name
     full_name.presence || username.presence || email
   end
