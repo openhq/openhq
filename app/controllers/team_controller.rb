@@ -6,7 +6,8 @@ class TeamController < ApplicationController
   end
 
   def show
-    @team_member = current_team.users.find_by!(username: params[:id])
+    @user = current_team.users.find_by!(username: params[:id])
+    @team_member = current_team.team_users.find_by!(user_id: @user.id)
     fresh_when last_modified: @team_member.updated_at
   end
 

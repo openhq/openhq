@@ -1,10 +1,10 @@
-<% present(@team_member) do |user| %>
-  <div class="account-profile <%= user.display_role %>">
+<% present(@user) do |user| %>
+  <div class="account-profile <%= @team_member.display_role %>">
     <h1 class="<%= 'job-title' if user.user.job_title.present? %>">
       <%= user.avatar %>
       <%= user.display_name %>
 
-      <small>(<%= user.display_role %>)</small>
+      <small>(<%= @team_member.display_role %>)</small>
 
       <% if user.user.job_title.present? %>
         <span><%= user.user.job_title %></span>
