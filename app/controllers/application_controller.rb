@@ -25,9 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_team!
-    unless current_team
-      redirect_to root_url(host: request.domain)
-    end
+    redirect_to root_url(host: request.domain) unless current_team
   end
 
   def current_team

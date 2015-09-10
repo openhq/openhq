@@ -38,8 +38,8 @@ class Ability
       can :assign_roles, User
 
       # Can edit users below their role
-      can :update, User do |user|
-        user.team_users.find_by!(team_id: team_user.team_id).role.in? team_user.assignable_roles[0...-1]
+      can :update, User do |u|
+        u.team_users.find_by!(team_id: team_user.team_id).role.in? team_user.assignable_roles[0...-1]
       end
     end
 
