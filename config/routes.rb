@@ -4,6 +4,8 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
+  resource :account, only: [:edit, :update, :destroy], controller: :account
+
   constraints(RouteConstraints::RootDomain) do
     resources :signups, only: [:new, :create]
   end # root domain constrain
@@ -16,8 +18,6 @@ Rails.application.routes.draw do
     post '/setup' => 'setup#create'
     get '/setup/complete' => 'setup#initial_setup', as: :initial_setup
     post '/setup/complete' => 'setup#complete'
-
-    resource :account, only: [:edit, :update, :destroy], controller: :account
 
     resources :files, only: :index
     resources :team, only: [:index, :show]

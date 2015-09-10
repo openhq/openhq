@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_action :ensure_team!
   before_action :require_login
   before_action :user_belongs_to_team!
 
@@ -28,10 +27,6 @@ class ApplicationController < ActionController::Base
     else
       setup_url
     end
-  end
-
-  def ensure_team!
-    redirect_to Rails.application.secrets.application_url unless current_team
   end
 
   # If there is a current team loaded ensure the signed in user

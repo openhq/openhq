@@ -1,5 +1,4 @@
 class SignupsController < ApplicationController
-  layout "public"
   skip_before_action :ensure_team!
   skip_before_action :require_login
 

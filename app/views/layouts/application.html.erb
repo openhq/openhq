@@ -10,12 +10,19 @@
     <div class="page-container">
       <span class="close-cross mobile-only">&times;</span>
       <menu>
-        <%= render "shared/team_switcher" %>
-        <%= render "shared/signed_in_menu" %>
+        <% if signed_in? %>
+          <%= render "shared/team_switcher" %>
+          <%= render "shared/signed_in_menu" %>
+        <% else %>
+          <ul class="h-list">
+            <li><%= link_to("Sign up", new_signup_path) %></li>
+          </ul>
+        <% end %>
       </menu>
 
       <nav>
         <ul>
+          <% if current_team.present? %>
           <li class="brand"><%= link_to current_team.name, root_url %></li>
           <li><%= link_to t('projects'), projects_path %></li>
           <li><%= link_to t('files'), files_path %></li>
@@ -27,6 +34,9 @@
               <input type="text" name="q" placeholder="Search" autocomplete="off" />
             </form>
           </li>
+          <% else %>
+          <li class="brand"><%= link_to app_name, root_url %></li>
+          <% end %>
         </ul>
       </nav>
     </div>
@@ -41,8 +51,10 @@
     <% cache :all_emojis_list do %>
     App.emojis = <%== MultiJson.dump(Emoji.all.map(&:name)) %>;
     <% end %>
-    <% cache User.all_cache_key do %>
-    App.users = <%== MultiJson.dump(ActiveModel::ArraySerializer.new(User.active, each_serializer: PublicUserSerializer, root: false), pretty: true) %>;
+    <% if current_team.present? %>
+      <% cache current_team.users.all_cache_key do %>
+      App.users = <%== MultiJson.dump(ActiveModel::ArraySerializer.new(current_team.users.active, each_serializer: PublicUserSerializer, root: false), pretty: true) %>;
+      <% end %>
     <% end %>
   </script>
 
