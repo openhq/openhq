@@ -1,5 +1,10 @@
 class ApplicationController < ActionController::Base
   include Clearance::Controller
+
+  # Will first lookup tenant by subdomain column, if that doesn’t
+  # match it will fallback to looking up via the custom domain column
+  # set_current_tenant_by_subdomain_or_domain(:team, :subdomain, :custom_domain)
+  # TODO - enable custom domains
   set_current_tenant_by_subdomain(:team, :subdomain)
 
   # Prevent CSRF attacks by raising an exception.
