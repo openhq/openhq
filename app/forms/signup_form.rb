@@ -35,6 +35,8 @@ class SignupForm
       false
     end
   rescue ActiveRecord::RecordInvalid => e
+    Rails.logger.error(e)
+
     errors.add(:base, @team.errors.full_messages.first) if @team.errors.any?
     errors.add(:base, @user.errors.full_messages.first) if @user.errors.any?
 
