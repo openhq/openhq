@@ -1,5 +1,6 @@
 class TeamInvitesController < ApplicationController
   skip_before_action :require_login, only: [:edit, :update]
+  skip_before_action :user_belongs_to_team!, only: [:edit, :update]
   before_action :set_team_user, only: [:edit, :update]
 
   def new
