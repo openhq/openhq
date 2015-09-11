@@ -3,7 +3,11 @@ module Searchable
 
   included do
     has_one :search_document, as: :searchable
-    after_save :index_search_document
+    after_commit :index_search_document
+    after_destroy :delete_search_document
+
+    # Paranoia
+    after_restore :index_search_document
   end
 
   # runs after save to update the searchable table
@@ -26,8 +30,11 @@ module Searchable
   end
 
   def create_search_document
-    p "CREATING SEARCH DOCUMENT"
     SearchDocument.create(searchable: self)
+  end
+
+  def delete_search_document
+    search_document.delete if search_document.present?
   end
 
   def searchable_content
