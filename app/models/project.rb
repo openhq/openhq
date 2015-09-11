@@ -5,7 +5,7 @@ class Project < ActiveRecord::Base
   acts_as_paranoid
 
   include Searchable
-  searchable against: [:name], if: :live?
+  searchable against: [:name], if: :live?, with_fields: [:project_id, :team_id]
 
   belongs_to :owner, class_name: "User"
   has_many :stories
@@ -25,6 +25,12 @@ class Project < ActiveRecord::Base
 
   def live?
     !deleted?
+  end
+
+  private
+
+  def project_id
+    id
   end
 
 end

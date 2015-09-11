@@ -6,27 +6,26 @@ module Searchable
     after_save :index_search_document
   end
 
-  # An array of fields to include in the searchable content
-  def searchable_against
-    []
-  end
-
   # runs after save to update the searchable table
   def index_search_document
+    searchable = search_document
+
     # make sure the search document exists
-    create_search_document if search_document.nil?
+    searchable = create_search_document if searchable.nil?
+
     # update the content
-    search_document.update(content: searchable_content)
+    searchable.content = searchable_content
+    # update any extra fields
+    Array(search_options[:with_fields]).each do |extra_field|
+      searchable[extra_field] = self.send(extra_field)
+    end
+    # save the document
+    searchable.save
   end
 
   def create_search_document
-    presenter = present(self)
-    SearchDocument.create(
-      searchable: self,
-      team_id: presenter.project.team_id,
-      project_id: presenter.project.id,
-      story_id: presenter.story.present? ? present.story.id : nil
-    )
+    p "CREATING SEARCH DOCUMENT"
+    SearchDocument.create(searchable: self)
   end
 
   def searchable_content
