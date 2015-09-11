@@ -1,17 +1,17 @@
-<ul class="plain-list actions-list">
-  <li>Personal Settings</li>
-  <li>
+<ul class="plain-list actions-list actions-margin-bottom">
+  <li class="title">Personal Settings</li>
+  <li class="<%= "active" if local_assigns[:page] == "profile" %>">
     <%= link_to "My Profile", edit_settings_account_path, class: "link-large" %>
   </li>
-  <li>
+  <li class="<%= "active" if local_assigns[:page] == "change_password" %>">
     <%= link_to "Change Password", settings_password_path, class: "link-large" %>
   </li>
 </ul>
 
 <ul class="plain-list actions-list">
-  <li>My Teams</li>
+  <li class="title">My Teams</li>
   <% current_user.teams.each do |team| %>
-  <li>
+  <li class="<%= "active" if team == @team %>">
     <%= link_to team.name, settings_team_path(id: team.subdomain), class: "link-large" %>
   </li>
   <% end %>

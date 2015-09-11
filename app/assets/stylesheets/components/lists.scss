@@ -50,15 +50,37 @@
   border: solid 1px #d7d7d7;
   border-radius: 4px;
 
+  .title {
+    border-radius: 5px 5px 0 0;
+    padding: 6px 15px;
+    font-size: 0.875em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: $body-light-color;
+  }
+
   a {
     display: block;
+    text-decoration: none;
     padding: 12px 15px;
+  }
+
+  .active {
+    background: #f9f9f9;
+
+    a {
+      color: $strong-color;
+    }
   }
 
   li {
     border-bottom: solid 1px #d7d7d7;
 
     &:last-child { border-bottom: none; }
+  }
+
+  &.actions-margin-bottom {
+    margin-bottom: 30px;
   }
 }
 
