@@ -1,4 +1,5 @@
 require "route_constraints/subdomain"
+
 class ApplicationController < ActionController::Base
   include Clearance::Controller
 
