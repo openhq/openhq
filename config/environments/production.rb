@@ -1,6 +1,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  app_url = Rails.application.secrets.application_url
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -55,7 +57,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.action_controller.asset_host = "http://assets.example.com"
+  config.action_controller.asset_host = Rails.application.secrets.cdn_url.presence || app_url
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -78,10 +80,9 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Setup default mailer urls and asset hosts
-  app_url = Rails.application.secrets.application_url
   config.action_mailer.default_url_options = { host: URI.parse(app_url).host, protocol: URI.parse(app_url).scheme }
   config.roadie.url_options = { host: URI.parse(app_url).host }
-  config.action_mailer.asset_host = app_url
+  config.action_mailer.asset_host = Rails.application.secrets.cdn_url.presence || app_url
 
   # Deliver emails with mailgun
   config.action_mailer.delivery_method = :mailgun
