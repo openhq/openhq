@@ -4,6 +4,8 @@ class Notification < ActiveRecord::Base
   belongs_to :story
   belongs_to :notifiable, polymorphic: true
 
+  acts_as_tenant(:team)
+
   scope :undelivered, -> { where(delivered: false) }
 
   def delivered!

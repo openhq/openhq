@@ -4,6 +4,8 @@ class Comment < ActiveRecord::Base
   include PgSearch
   multisearchable against: [:content], if: :live?
 
+  acts_as_tenant(:team)
+
   belongs_to :commentable, polymorphic: true, touch: true
   belongs_to :owner, class_name: "User"
   has_many :attachments, as: :attachable

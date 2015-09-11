@@ -7,7 +7,5 @@ FactoryGirl.define do
     sequence(:username) {|n| "fake_user_#{n}" }
     email { Faker::Internet.email }
     password "testpassword1"
-    password_confirmation "testpassword1"
-    role { ["user", "admin", "owner"].sample }
   end
 end

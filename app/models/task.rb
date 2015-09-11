@@ -2,6 +2,8 @@ class Task < ActiveRecord::Base
   include PgSearch
   multisearchable against: [:label], if: :live?
 
+  acts_as_tenant(:team)
+
   belongs_to :story, touch: true
   belongs_to :owner, class_name: "User"
   belongs_to :assignment, class_name: "User", foreign_key: "assigned_to"

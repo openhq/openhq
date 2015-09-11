@@ -1,0 +1,3 @@
+<h1><%= @inviter.display_name %> has invited you to join the <%= @team.name %> team on Open HQ</h1>
+
+<%= link_to "Join #{@team.name}", edit_team_invite_url(id: @team_invite.invitation_code, subdomain: @team.subdomain) %>

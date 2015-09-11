@@ -1,13 +1,14 @@
 class InitialSetupForm
   include ActiveModel::Model
 
-  attr_reader :owner
+  attr_reader :owner, :current_team
   attr_accessor :project_name, :team_members
 
   validates :project_name, :team_members, presence: true
 
-  def initialize(owner)
+  def initialize(owner, current_team)
     @owner = owner
+    @current_team = current_team
   end
 
   def submit(params)
@@ -21,7 +22,7 @@ class InitialSetupForm
         project.users << owner
 
         String(team_members).split(",").each do |email|
-          User.invite!(email: email.strip, project_ids: [project.id])
+          current_team.invite({email: email.strip, project_ids: [project.id]}, owner)
         end
 
         true

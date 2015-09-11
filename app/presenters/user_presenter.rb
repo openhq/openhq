@@ -20,20 +20,8 @@ class UserPresenter < BasePresenter
     h.image_tag(url, alt: user.username, class: "avatar", width: size)
   end
 
-  def display_role
-    if user.invited_to_sign_up?
-      "invited"
-    else
-      user.role
-    end
-  end
-
   def profile_path
-    h.team_path(user.username) unless pending?
-  end
-
-  def pending?
-    user.invited_to_sign_up?
+    h.team_path(user.username) if user.username.present?
   end
 
   private

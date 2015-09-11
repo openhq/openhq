@@ -3,6 +3,7 @@ require 'set'
 class Story < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
+  acts_as_tenant(:team)
   acts_as_paranoid
 
   include PgSearch

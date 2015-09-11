@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module ProjectManagementApp
+module OpenHq
   class Application < Rails::Application
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -23,6 +23,7 @@ module ProjectManagementApp
     config.watchable_dirs['lib'] = [:rb]
 
     config.generators do |g|
+      g.test_framework :rspec
       g.skip_routes true
       g.controller_specs false
       g.stylesheets false
@@ -30,14 +31,9 @@ module ProjectManagementApp
       g.helper false
     end
 
-    # Custom sign-in layout
     config.to_prepare do
-      Devise::SessionsController.layout "auth"
-      Devise::RegistrationsController.layout proc { user_signed_in? ? "application" : "auth" }
-      Devise::ConfirmationsController.layout "auth"
-      Devise::UnlocksController.layout "auth"
-      Devise::PasswordsController.layout "auth"
-      Devise::InvitationsController.layout "setup"
+      Clearance::PasswordsController.layout 'auth'
+      Clearance::SessionsController.layout 'auth'
     end
   end
 end

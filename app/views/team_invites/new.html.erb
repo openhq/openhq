@@ -1,6 +1,6 @@
 <h2>Inviting a team member</h2>
 
-<%= simple_form_for @user, url: team_index_path, html: { method: :post} do |f| %>
+<%= simple_form_for @user, url: team_invites_path do |f| %>
   <%= render 'shared/form_errors', object: f.object %>
 
 

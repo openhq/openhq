@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
+  acts_as_tenant(:team)
   acts_as_paranoid
 
   include PgSearch
@@ -11,6 +12,7 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :users
 
   validates_presence_of :name, :owner_id
+  validates_uniqueness_to_tenant :name
 
   def self.all_cache_key
     max_updated_at = maximum(:updated_at).try(:utc).try(:to_s, :number)

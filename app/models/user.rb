@@ -1,14 +1,11 @@
 class User < ActiveRecord::Base
-  ROLES = %w(user admin owner)
+  include Clearance::User
+
   NOTIFICATION_FREQUENCIES = %w(asap hourly daily never)
 
-  attr_accessor :login # username or email
-
-  # Include default devise modules. Others available are:
-  # :confirmable, :timeoutable, :registerable, and :omniauthable
-  devise :database_authenticatable, :invitable, :lockable,
-         :recoverable, :rememberable, :trackable, :validatable
-
+  has_many :team_users, -> { where(status: "active") }
+  has_many :team_invites, -> { where(status: "invited") }, class_name: "TeamUser"
+  has_many :teams, through: :team_users
   has_many :created_projects, foreign_key: "owner_id", class_name: "Project"
   has_many :stories, foreign_key: "owner_id", class_name: "Story"
   has_many :notifications, -> { order(created_at: :asc) }
@@ -19,7 +16,6 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: %r{^image\/}
 
   validates :first_name, :last_name, presence: true
-  validates :role, presence: true, inclusion: {in: ROLES}
   validates :notification_frequency, presence: true, inclusion: {in: NOTIFICATION_FREQUENCIES}
   validates :username,
     username: true,
@@ -28,20 +24,18 @@ class User < ActiveRecord::Base
       case_sensitive: false
     }
 
-  scope :active, lambda {
-    not_deleted.where("users.invitation_created_at IS NULL OR users.invitation_accepted_at IS NOT NULL")
-  }
+  scope :active, -> { not_deleted }
   scope :not_deleted, -> { where("deleted_at IS NULL") }
 
   # Overide devise finder to lookup by username or email
-  def self.find_for_database_authentication(warden_conditions)
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions.to_h).where(["username = :value OR email = :value", { value: login }]).first
-    else
-      where(conditions.to_h).first
-    end
-  end
+  # def self.find_for_database_authentication(warden_conditions)
+  #   conditions = warden_conditions.dup
+  #   if login = conditions.delete(:login)
+  #     where(conditions.to_h).where(["username = :value OR email = :value", { value: login }]).first
+  #   else
+  #     where(conditions.to_h).first
+  #   end
+  # end
 
   def self.all_cache_key
     max_updated_at = maximum(:updated_at).try(:utc).try(:to_s, :number)
@@ -52,8 +46,13 @@ class User < ActiveRecord::Base
     NOTIFICATION_FREQUENCIES
   end
 
-  def active_for_authentication?
-    super && deleted_at.nil?
+  def update_with_password(user_params)
+    if authenticated?(user_params[:current_password])
+      update(user_params.except(:current_password))
+    else
+      errors.add(:base, "Your current password was incorrect")
+      false
+    end
   end
 
   def display_name
@@ -62,14 +61,6 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{first_name} #{last_name}".strip
-  end
-
-  def role?(base_role)
-    ROLES.index(base_role.to_s) <= ROLES.index(role)
-  end
-
-  def assignable_roles
-    ROLES[0..ROLES.index(role)]
   end
 
   def due_email_notification?

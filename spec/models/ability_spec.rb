@@ -1,12 +1,24 @@
 require "rails_helper"
 
 RSpec.describe Ability do
-  let(:ability) { Ability.new(user) }
-  let(:other) { create(:user, role: "user", username: "alfred") }
-  let(:other_admin) { create(:user, role: "admin", username: "frank") }
+  let!(:team) { create(:team) }
+  let(:ability) { Ability.new(team_user) }
+
+  let(:other) do
+    user = create(:user, username: "alfred")
+    create(:team_user, role: "user", user: user, team: team)
+    user
+  end
+
+  let(:other_admin) do
+    user = create(:user, username: "frank")
+    create(:team_user, role: "admin", user: user, team: team)
+    user
+  end
 
   describe "users" do
-    let(:user) { create(:user, role: "user", username: "john") }
+    let(:user) { create(:user, username: "john") }
+    let(:team_user) { create(:team_user, role: "user", user: user, team: team) }
 
     it "allows interacting with self" do
       assert ability.can?(:read, user)
@@ -71,7 +83,8 @@ RSpec.describe Ability do
   end
 
   describe "admins" do
-    let(:user) { create(:user, role: "admin", username: "charlie") }
+    let(:user) { create(:user, username: "charlie") }
+    let(:team_user) { create(:team_user, role: "admin", user: user, team: team) }
 
     it "allows assignment of roles" do
       assert ability.can?(:assign_roles, other)
@@ -90,13 +103,14 @@ RSpec.describe Ability do
     end
 
     it "cannot create an owner" do
-      owner = create(:user, role: "owner")
+      owner = build(:team_user, role: "owner")
       assert ability.cannot?(:create, owner)
     end
   end
 
   describe "owner" do
-    let(:user) { create(:user, role: "owner", username: "dennis") }
+    let(:user) { create(:user, username: "dennis") }
+    let(:team_user) { create(:team_user, role: "owner", user: user, team: team) }
 
     it "can do all the things" do
       assert ability.can?(:manage, :all)
