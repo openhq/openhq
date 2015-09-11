@@ -1,10 +1,10 @@
 namespace :search do
-  desc "Reindexes the pg_search_documents table"
+  desc "Reindexes the search_documents table"
   task reindex: :environment do
-    PgSearch::Multisearch.rebuild(Project)
-    PgSearch::Multisearch.rebuild(Story)
-    PgSearch::Multisearch.rebuild(Task)
-    PgSearch::Multisearch.rebuild(Comment)
-    PgSearch::Multisearch.rebuild(Attachment)
+    Project.search_reindex
+    Story.search_reindex
+    Task.search_reindex
+    Comment.search_reindex
+    Attachment.search_reindex
   end
 end

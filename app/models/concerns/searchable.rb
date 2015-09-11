@@ -3,11 +3,12 @@ module Searchable
 
   included do
     has_one :search_document, as: :searchable
-    after_commit :index_search_document
+    after_save :index_search_document
     after_destroy :delete_search_document
 
     # Paranoia
     after_restore :index_search_document
+    after_real_destroy :delete_search_document
   end
 
   # runs after save to update the searchable table
@@ -60,6 +61,18 @@ module Searchable
     def searchable(options = {})
       class_attribute :search_options
       self.search_options = options
+    end
+
+    def search_reindex
+      all.each(&:index_search_document)
+    end
+
+    def after_restore(*args)
+      super(args) if defined?(super)
+    end
+
+    def after_real_destroy(*args)
+      super(args) if defined?(super)
     end
   end
 end
