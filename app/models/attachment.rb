@@ -4,7 +4,7 @@ class Attachment < ActiveRecord::Base
   THUMBNAIL_SIZES = { thumb: [600, 400], tile: [118, 154] }
 
   include Searchable
-  searchable against: [:name, :file_name, :process_data], if: :live?
+  searchable against: [:name, :file_name, :process_data], if: :live?, with_fields: [:project_id, :story_id, :team_id]
 
   acts_as_tenant(:team)
 
@@ -53,6 +53,10 @@ class Attachment < ActiveRecord::Base
 
   def live?
     story.present? && story.live?
+  end
+
+  def project_id
+    story.project_id
   end
 
   private

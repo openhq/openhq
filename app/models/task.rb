@@ -1,6 +1,6 @@
 class Task < ActiveRecord::Base
   include Searchable
-  searchable against: [:label], if: :live?
+  searchable against: [:label], if: :live?, with_fields: [:project_id, :story_id, :team_id]
 
   acts_as_tenant(:team)
 
@@ -32,5 +32,9 @@ class Task < ActiveRecord::Base
 
   def live?
     story.present? && story.live?
+  end
+
+  def project_id
+    story.project_id
   end
 end

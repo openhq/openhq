@@ -15,10 +15,12 @@ module Searchable
 
     # update the content
     searchable.content = searchable_content
+
     # update any extra fields
     Array(search_options[:with_fields]).each do |extra_field|
       searchable[extra_field] = self.send(extra_field)
     end
+
     # save the document
     searchable.save
   end
