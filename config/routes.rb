@@ -20,12 +20,6 @@ Rails.application.routes.draw do
   constraints(RouteConstraints::Subdomain) do
     get "/" => "projects#index"
 
-    # First time setup
-    get '/setup' => 'setup#new'
-    post '/setup' => 'setup#create'
-    get '/setup/complete' => 'setup#initial_setup', as: :initial_setup
-    post '/setup/complete' => 'setup#complete'
-
     resources :files, only: :index
     resources :team, only: [:index, :show]
     resources :team_invites, only: [:new, :create, :edit, :update]
