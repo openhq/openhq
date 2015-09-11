@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     namespace :settings do
       resource :password, only: [:show, :create]
       resource :account, only: [:edit, :update, :destroy], controller: :account
-      resources :teams, only: [:show, :update] do
+      resources :teams, only: [:show, :new, :create, :update] do
         delete "leave", on: :member
       end
     end

@@ -5,6 +5,22 @@ module Settings
     def show
     end
 
+    def new
+      @team = Team.new
+    end
+
+    def create
+      @team = Team.new(team_params)
+
+      if @team.save
+        @team.team_users.create!(user: current_user, role: "owner")
+
+        redirect_to root_url(subdomain: @team.subdomain)
+      else
+        render :new
+      end
+    end
+
     def update
       @team.update(team_params)
     end
