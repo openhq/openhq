@@ -4,8 +4,8 @@ class Project < ActiveRecord::Base
   acts_as_tenant(:team)
   acts_as_paranoid
 
-  include PgSearch
-  multisearchable against: [:name], if: :live?
+  include Searchable
+  searchable against: [:name], if: :live?
 
   belongs_to :owner, class_name: "User"
   has_many :stories

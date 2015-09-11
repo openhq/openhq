@@ -297,6 +297,42 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: search_documents; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE search_documents (
+    id integer NOT NULL,
+    searchable_id integer,
+    searchable_type character varying,
+    team_id integer,
+    project_id integer,
+    story_id integer,
+    content text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: search_documents_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE search_documents_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: search_documents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE search_documents_id_seq OWNED BY search_documents.id;
+
+
+--
 -- Name: stories; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -536,6 +572,13 @@ ALTER TABLE ONLY projects_users ALTER COLUMN id SET DEFAULT nextval('projects_us
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY search_documents ALTER COLUMN id SET DEFAULT nextval('search_documents_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY stories ALTER COLUMN id SET DEFAULT nextval('stories_id_seq'::regclass);
 
 
@@ -613,6 +656,14 @@ ALTER TABLE ONLY projects
 
 ALTER TABLE ONLY projects_users
     ADD CONSTRAINT projects_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: search_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY search_documents
+    ADD CONSTRAINT search_documents_pkey PRIMARY KEY (id);
 
 
 --
@@ -761,6 +812,34 @@ CREATE UNIQUE INDEX index_projects_users_on_user_id_and_project_id ON projects_u
 
 
 --
+-- Name: index_search_documents_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_search_documents_on_project_id ON search_documents USING btree (project_id);
+
+
+--
+-- Name: index_search_documents_on_searchable_type_and_searchable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_search_documents_on_searchable_type_and_searchable_id ON search_documents USING btree (searchable_type, searchable_id);
+
+
+--
+-- Name: index_search_documents_on_story_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_search_documents_on_story_id ON search_documents USING btree (story_id);
+
+
+--
+-- Name: index_search_documents_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_search_documents_on_team_id ON search_documents USING btree (team_id);
+
+
+--
 -- Name: index_stories_on_deleted_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -880,6 +959,13 @@ CREATE INDEX pg_search_documents_content ON pg_search_documents USING gin (to_ts
 
 
 --
+-- Name: search_documents_content; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX search_documents_content ON search_documents USING gin (to_tsvector('english'::regconfig, content));
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -971,4 +1057,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150910121953');
 INSERT INTO schema_migrations (version) VALUES ('20150910155220');
 
 INSERT INTO schema_migrations (version) VALUES ('20150910161337');
+
+INSERT INTO schema_migrations (version) VALUES ('20150911135806');
 

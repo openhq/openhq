@@ -1,6 +1,6 @@
 class Task < ActiveRecord::Base
-  include PgSearch
-  multisearchable against: [:label], if: :live?
+  include Searchable
+  searchable against: [:label], if: :live?
 
   acts_as_tenant(:team)
 

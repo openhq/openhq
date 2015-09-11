@@ -1,8 +1,8 @@
 class Comment < ActiveRecord::Base
   attr_reader :attachment_ids
 
-  include PgSearch
-  multisearchable against: [:content], if: :live?
+  include Searchable
+  searchable against: [:content], if: :live?
 
   acts_as_tenant(:team)
 
