@@ -12,13 +12,11 @@ class Comment < ActiveRecord::Base
 
   validates_presence_of :content, :owner_id
 
+  # This will need to change if we ever add comments to anything other than stories
+  delegate :project_id, to: :commentable
+
   def live?
     commentable.present? && commentable.live?
-  end
-
-  # This will need to change if we ever add comments to anything other than stories
-  def project_id
-    commentable.project_id
   end
 
   # This will need to change if we ever add comments to anything other than stories

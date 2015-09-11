@@ -23,7 +23,7 @@ module Searchable
 
     # update any extra fields
     Array(search_options[:with_fields]).each do |extra_field|
-      searchable[extra_field] = self.send(extra_field)
+      searchable[extra_field] = send(extra_field)
     end
 
     # save the document
@@ -64,7 +64,7 @@ module Searchable
     end
 
     def search_reindex
-      all.each(&:index_search_document)
+      find_each(&:index_search_document)
     end
 
     def after_restore(*args)

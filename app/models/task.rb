@@ -14,6 +14,8 @@ class Task < ActiveRecord::Base
   scope :complete, -> { where(completed: true) }
   scope :incomplete, -> { where(completed: false) }
 
+  delegate :project_id, to: :story
+
   def assignment_name
     if assignment.present?
       assignment.username
@@ -32,9 +34,5 @@ class Task < ActiveRecord::Base
 
   def live?
     story.present? && story.live?
-  end
-
-  def project_id
-    story.project_id
   end
 end

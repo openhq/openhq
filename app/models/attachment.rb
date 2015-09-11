@@ -16,6 +16,8 @@ class Attachment < ActiveRecord::Base
 
   after_create :process_upload
 
+  delegate :project_id, to: :story
+
   def self.all_for_user(user)
     users_story_ids = Story.where("stories.project_id IN (?)", user.project_ids).pluck(:id)
     where("attachments.story_id IN (?)", users_story_ids).order(created_at: :desc)
@@ -53,10 +55,6 @@ class Attachment < ActiveRecord::Base
 
   def live?
     story.present? && story.live?
-  end
-
-  def project_id
-    story.project_id
   end
 
   private
