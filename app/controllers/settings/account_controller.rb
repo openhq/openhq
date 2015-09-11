@@ -5,7 +5,7 @@ module Settings
 
     def update
       if current_user.update_with_password(user_params)
-        redirect_to "/", notice: "Account updated."
+        redirect_to settings_path, notice: "Account updated."
       else
         render :edit
       end
@@ -22,8 +22,7 @@ module Settings
 
     def user_params
       params.require(:user).permit(:first_name, :last_name, :username, :email,
-        :notification_frequency, :password, :password_confirmation,
-        :avatar,
+        :notification_frequency, :avatar,
         :job_title, :phone, :skype, :bio, :current_password)
     end
   end
