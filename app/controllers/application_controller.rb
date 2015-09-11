@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_action :ensure_team_on_subdomain!
+  before_action :ensure_team_exists_for_subdomain!
   before_action :require_login
   before_action :user_belongs_to_team!
 
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     Rails.application.secrets.application_url
   end
 
-  def ensure_team_on_subdomain!
+  def ensure_team_exists_for_subdomain!
     if RouteConstraints::Subdomain.matches?(request)
       redirect_to root_app_url unless current_team
     end
@@ -46,9 +46,7 @@ class ApplicationController < ActionController::Base
   # is a member or else take them back to the root site
   def user_belongs_to_team!
     if signed_in? && current_team.present?
-      unless current_team_role
-        redirect_to root_app_url
-      end
+      redirect_to root_app_url unless current_team_role
     end
   end
 
