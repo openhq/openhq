@@ -503,7 +503,8 @@ CREATE TABLE users (
     avatar_file_size integer,
     avatar_content_type character varying,
     confirmation_token character varying(128),
-    remember_token character varying(128)
+    remember_token character varying(128),
+    admin boolean DEFAULT false NOT NULL
 );
 
 
@@ -1059,4 +1060,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150910155220');
 INSERT INTO schema_migrations (version) VALUES ('20150910161337');
 
 INSERT INTO schema_migrations (version) VALUES ('20150911135806');
+
+INSERT INTO schema_migrations (version) VALUES ('20150914140555');
 

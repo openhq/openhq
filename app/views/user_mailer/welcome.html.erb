@@ -1,5 +1,6 @@
-<h1><strong><%= @inviter.display_name %></strong> has invited you to join the <strong><%= @team.name %></strong> team on Open HQ</h1>
-
+<h1>Hi <%= @user.display_name %>,</h1>
+<p>Thanks for signing up for Open HQ. We’re very excited to have you on board.</p>
+<p>To get started using Open HQ, please confirm your account below:</p>
 <!-- Action -->
 <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
   <tr>
@@ -10,20 +11,20 @@
         <w:anchorlock/>
         <center style="color:#ffffff;font-family:sans-serif;font-size:15px;">Confirm your account</center>
       </v:roundrect><![endif]-->
-        <%= link_to "Join #{@team.name}", edit_team_invite_url(id: @team_invite.invitation_code, subdomain: @team.subdomain), class: "button button--green" %>
+        <a href="{{action_url}}" class="button button--green">Confirm your account</a>
       </div>
     </td>
   </tr>
 </table>
 <p>Thanks,<br>The Open HQ Team</p>
-
+<p><strong>P.S.</strong> Need help getting started? Reply to this email with any questions or issues you have, we’re happy to help!</p>
 <!-- Sub copy -->
 <table class="body-sub">
   <tr>
     <td>
       <p class="sub">If you’re having trouble clicking the confirm account button, copy and paste the URL below into your web browser.
       </p>
-      <p class="sub"><%= edit_team_invite_url(id: @team_invite.invitation_code, subdomain: @team.subdomain) %></p>
+      <p class="sub"><a href="{{action_url}}">{{action_url}}</a></p>
     </td>
   </tr>
 </table>

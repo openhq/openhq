@@ -27,16 +27,6 @@ class User < ActiveRecord::Base
   scope :active, -> { not_deleted }
   scope :not_deleted, -> { where("deleted_at IS NULL") }
 
-  # Overide devise finder to lookup by username or email
-  # def self.find_for_database_authentication(warden_conditions)
-  #   conditions = warden_conditions.dup
-  #   if login = conditions.delete(:login)
-  #     where(conditions.to_h).where(["username = :value OR email = :value", { value: login }]).first
-  #   else
-  #     where(conditions.to_h).first
-  #   end
-  # end
-
   def self.all_cache_key
     max_updated_at = maximum(:updated_at).try(:utc).try(:to_s, :number)
     "user/all/#{max_updated_at}"
@@ -44,6 +34,13 @@ class User < ActiveRecord::Base
 
   def self.notification_frequencies
     NOTIFICATION_FREQUENCIES
+  end
+
+  # Overide clearance method to notify user of password change
+  def update_password(new_password)
+    super(new_password).tap do |status|
+      UserMailer.password_changed(self).deliver_later if status
+    end
   end
 
   def update_with_password(user_params)

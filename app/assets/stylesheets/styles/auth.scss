@@ -1,4 +1,15 @@
 html.auth {
+  .brand {
+    text-align: center;
+    padding: 20px;
+
+    a {
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
+
   body {
     &::after {
       content: " ";
@@ -16,40 +27,51 @@ html.auth {
 
     .page-container {
       width: 300px;
-      height: 400px;
       background: #fff;
       border-radius: 5px;
-      padding: 0;
+      padding: 20px 0;
+      position: relative;
 
-      margin: auto;
-      position: absolute;
-      top: 0; left: 0; bottom: 0; right: 0;
-    }
+      margin: 0 auto;
 
-    .brand {
-      text-align: center;
-      padding: 20px;
-      a {
-        color: $strong-color;
-        font-weight: bold;
-        text-decoration: none;
+      &.with-footer {
+        padding-bottom: 60px;
       }
     }
 
     form {
       padding: 10px 20px;
 
+      img.avatar {
+        max-width: 90%;
+      }
+
+      input[type=file] {
+        color: transparent;
+      }
+
       .form-inputs {
         input, textarea {
+          border-radius: 0;
+          border: 0;
           background: $rollover-color;
           margin: 0;
           text-align: center;
-          &[type=text] {
-            border-radius: 5px 5px 0 0;
+        }
+
+        .input {
+          overflow: hidden;
+          border: solid 1px $line-color;
+          border-bottom: none;
+
+          &:first-child {
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
           }
-          &[type=password] {
-            border-top: 0;
-            border-radius: 0 0 5px 5px;
+          &:last-child {
+            border-bottom: solid 1px $line-color;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
           }
         }
 
@@ -89,9 +111,35 @@ html.auth {
       }
     }
 
+    h2, p {
+      padding: 0 20px;
+    }
+
     h2 {
+      margin-top: 0;
       text-align: center;
       font-size: 16px;
+    }
+
+    p {
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+}
+
+@media only screen and (min-height: 640px) {
+  html.auth {
+    .brand {
+      margin-top: 100px;
+    }
+  }
+}
+
+@media only screen and (min-height: 840px) {
+  html.auth {
+    .brand {
+      margin-top: 150px;
     }
   }
 }
