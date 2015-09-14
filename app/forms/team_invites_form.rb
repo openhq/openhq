@@ -3,15 +3,16 @@ class TeamInvitesForm
 
   EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 
-  attr_reader :team, :owner
+  attr_reader :team, :owner, :project_ids
   attr_accessor :members
 
   validates :members, presence: true
   validate :valid_members_emails
 
-  def initialize(team, owner)
+  def initialize(team, owner, project_ids: [])
     @team = team
     @owner = owner
+    @project_ids = project_ids
   end
 
   def submit(params)
@@ -20,7 +21,7 @@ class TeamInvitesForm
     if valid?
       # Do the inviting
       members.each_line do |email|
-        team.invite({email: email.strip}, owner) unless email.strip.empty?
+        team.invite({email: email.strip, project_ids: project_ids}, owner) unless email.strip.empty?
       end
 
       true

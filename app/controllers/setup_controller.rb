@@ -39,7 +39,7 @@ class SetupController < ApplicationController
   end
 
   def send_invites
-    @team_invites = TeamInvitesForm.new(current_team, current_user)
+    @team_invites = TeamInvitesForm.new(current_team, current_user, project_ids: current_team.project_ids)
 
     if @team_invites.submit(invite_params)
       flash[:notice] = "Your team members have been invited!"

@@ -2,6 +2,7 @@ class Team < ActiveRecord::Base
   has_many :team_users, -> { where(status: "active") }
   has_many :user_invites, -> { where(status: "invited") }, class_name: "TeamUser"
   has_many :users, through: :team_users
+  has_many :projects
 
   validates :name, :subdomain, presence: true
   validates_uniqueness_of :subdomain

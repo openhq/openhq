@@ -9,8 +9,6 @@ class SignupsController < ApplicationController
     @signup = SignupForm.new
 
     if @signup.submit(signup_params)
-      sign_in @signup.user
-
       redirect_to success_signups_path
     else
       render :new
