@@ -2,7 +2,7 @@
   <div class="ui-dropdown-menu">
     <span class="title noselect"><%= user.display_name %><span class="arrow"></span></span>
     <ul class="dropdown">
-      <li><%= link_to(t("user.account"), edit_account_path) %></li>
+      <li><%= link_to("Settings", settings_url(host: root_app_host)) %></li>
       <li><%= link_to(t("auth.sign_out"), sign_out_path, :method => :delete) %></li>
     </ul>
   </div>

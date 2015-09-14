@@ -4,20 +4,21 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  resource :account, only: [:edit, :update, :destroy], controller: :account
-
   constraints(RouteConstraints::RootDomain) do
     resources :signups, only: [:new, :create]
-  end # root domain constrain
+
+    get "/settings", to: redirect('/settings/account/edit'), as: :settings
+    namespace :settings do
+      resource :password, only: [:show, :create]
+      resource :account, only: [:edit, :update, :destroy], controller: :account
+      resources :teams, only: [:show, :new, :create, :update] do
+        delete "leave", on: :member
+      end
+    end
+  end # root domain constraint
 
   constraints(RouteConstraints::Subdomain) do
     get "/" => "projects#index"
-
-    # First time setup
-    get '/setup' => 'setup#new'
-    post '/setup' => 'setup#create'
-    get '/setup/complete' => 'setup#initial_setup', as: :initial_setup
-    post '/setup/complete' => 'setup#complete'
 
     resources :files, only: :index
     resources :team, only: [:index, :show]

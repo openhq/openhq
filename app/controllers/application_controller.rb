@@ -26,19 +26,16 @@ class ApplicationController < ActionController::Base
   def root_app_url
     Rails.application.secrets.application_url
   end
+  helper_method :root_app_url
+
+  def root_app_host
+    URI.parse(root_app_url).host
+  end
+  helper_method :root_app_host
 
   def ensure_team_exists_for_subdomain!
     if RouteConstraints::Subdomain.matches?(request)
       redirect_to root_app_url unless current_team
-    end
-  end
-
-  def url_after_denied_access_when_signed_out
-    # TODO - remove this and change how setup works?
-    if current_team.users.any?
-      sign_in_url
-    else
-      setup_url
     end
   end
 

@@ -1,10 +1,9 @@
-<% if current_user.teams.size > 1 %>
-  <div class="ui-dropdown-menu">
-    <span class="title noselect"><%= current_team.present? ? current_team.name : "Switch team" %><span class="arrow"></span></span>
-    <ul class="dropdown">
-      <% current_user.teams.each do |team| %>
-        <li><%= link_to(team.name, root_url(subdomain: team.subdomain)) %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<div class="ui-dropdown-menu">
+  <span class="title noselect">Teams<span class="arrow"></span></span>
+  <ul class="dropdown">
+    <% current_user.teams.each do |team| %>
+      <li class="<%= "active" if current_team == team %>"><%= link_to(team.name, root_url(subdomain: team.subdomain)) %></li>
+    <% end %>
+    <li class="create-new"><%= link_to "Create new team", new_settings_team_url(host: root_app_host) %></li>
+  </ul>
+</div>
