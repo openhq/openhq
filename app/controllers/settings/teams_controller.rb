@@ -1,6 +1,6 @@
 module Settings
   class TeamsController < ApplicationController
-    before_action :set_team
+    before_action :set_team, except: [:new, :create]
 
     def show
     end
@@ -33,7 +33,7 @@ module Settings
     private
 
     def set_team
-      @team = current_user.teams.find_by(subdomain: params[:id])
+      @team = current_user.teams.find_by!(subdomain: params[:id])
     end
 
     def team_params
