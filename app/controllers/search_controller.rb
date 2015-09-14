@@ -2,7 +2,7 @@ class SearchController < ApplicationController
 
   def index
     @query = params[:q]
-    @results = PgSearch.multisearch(@query)
+    @results = SearchDocument.search(@query, current_team.id)
   end
 
 end

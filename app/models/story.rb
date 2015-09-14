@@ -6,8 +6,8 @@ class Story < ActiveRecord::Base
   acts_as_tenant(:team)
   acts_as_paranoid
 
-  include PgSearch
-  multisearchable against: [:name, :description], if: :live?
+  include Searchable
+  searchable against: [:name, :description], if: :live?, with_fields: [:project_id, :story_id, :team_id]
 
   belongs_to :project, touch: true
   belongs_to :owner, class_name: "User"
@@ -30,5 +30,9 @@ class Story < ActiveRecord::Base
 
   def live?
     !deleted? && project.present? && project.live?
+  end
+
+  def story_id
+    id
   end
 end

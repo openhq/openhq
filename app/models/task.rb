@@ -1,6 +1,6 @@
 class Task < ActiveRecord::Base
-  include PgSearch
-  multisearchable against: [:label], if: :live?
+  include Searchable
+  searchable against: [:label], if: :live?, with_fields: [:project_id, :story_id, :team_id]
 
   acts_as_tenant(:team)
 
@@ -13,6 +13,8 @@ class Task < ActiveRecord::Base
 
   scope :complete, -> { where(completed: true) }
   scope :incomplete, -> { where(completed: false) }
+
+  delegate :project_id, to: :story
 
   def assignment_name
     if assignment.present?

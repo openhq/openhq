@@ -3,8 +3,8 @@ require_dependency 's3_url_signer'
 class Attachment < ActiveRecord::Base
   THUMBNAIL_SIZES = { thumb: [600, 400], tile: [118, 154] }
 
-  include PgSearch
-  multisearchable against: [:name, :file_name, :process_data], if: :live?
+  include Searchable
+  searchable against: [:name, :file_name, :process_data], if: :live?, with_fields: [:project_id, :story_id, :team_id]
 
   acts_as_tenant(:team)
 
@@ -15,6 +15,8 @@ class Attachment < ActiveRecord::Base
   validates_presence_of :owner_id
 
   after_create :process_upload
+
+  delegate :project_id, to: :story
 
   def self.all_for_user(user)
     users_story_ids = Story.where("stories.project_id IN (?)", user.project_ids).pluck(:id)

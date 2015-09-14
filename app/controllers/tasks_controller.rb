@@ -46,7 +46,7 @@ class TasksController < ApplicationController
     task = Task.find(params[:id])
     authorize! :read, task.story.project
 
-    task.delete
+    task.destroy
 
     redirect_to :back, notice: "Task has been deleted"
   end
