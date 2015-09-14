@@ -44,4 +44,5 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: URI.parse(app_url).host, protocol: URI.parse(app_url).scheme }
   config.action_mailer.asset_host = app_url
   config.roadie.url_options = { host: URI.parse(app_url).host }
+  config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
 end

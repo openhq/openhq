@@ -2,12 +2,17 @@ class UserMailer < ApplicationMailer
   add_template_helper(PresenterHelper)
   add_template_helper(TagHelper)
 
+  def welcome(user)
+    @user = user
+    mail to: user.email, subject: "Welcome to Open HQ"
+  end
+
   def notification_update(user)
     @user = user
     @notifications = user.notifications.undelivered
     @notifications.each(&:delivered!)
 
-    mail to: user.email, subject: "OpenHQ Notification Update"
+    mail to: user.email, subject: "Open HQ Notification Update"
   end
 
   def team_invite(team_invite, inviter)

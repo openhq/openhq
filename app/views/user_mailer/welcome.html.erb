@@ -1,0 +1,31 @@
+<h1>Hi <%= @user.display_name %>,</h1>
+<p>Thanks for signing up for Open HQ. We’re very excited to have you on board.</p>
+<p>To get started using Open HQ, please confirm your account below:</p>
+<!-- Action -->
+<table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center">
+      <div>
+        <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{action_url}}" style="height:45px;v-text-anchor:middle;width:200px;" arcsize="7%" stroke="f" fill="t">
+        <v:fill type="tile" color="#22BC66" />
+        <w:anchorlock/>
+        <center style="color:#ffffff;font-family:sans-serif;font-size:15px;">Confirm your account</center>
+      </v:roundrect><![endif]-->
+        <a href="{{action_url}}" class="button button--green">Confirm your account</a>
+      </div>
+    </td>
+  </tr>
+</table>
+<p>For your reference, your username is <strong><%= @user.username %></strong> for logging in.</p>
+<p>Thanks,<br>The Open HQ Team</p>
+<p><strong>P.S.</strong> Need help getting started? Check out our help documentation. Or, just reply to this email with any questions or issues you have. Our support team is always excited to help you.</p>
+<!-- Sub copy -->
+<table class="body-sub">
+  <tr>
+    <td>
+      <p class="sub">If you’re having trouble clicking the confirm account button, copy and paste the URL below into your web browser.
+      </p>
+      <p class="sub"><a href="{{action_url}}">{{action_url}}</a></p>
+    </td>
+  </tr>
+</table>
