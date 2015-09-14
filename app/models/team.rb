@@ -6,6 +6,8 @@ class Team < ActiveRecord::Base
   validates :name, :subdomain, presence: true
   validates_uniqueness_of :subdomain
 
+  before_create :generate_setup_code
+
   def invite(user_params, inviter)
     # TODO - Add the user to the projects if they already exist or have a callback
     #        to add them if they accept the invitation.
@@ -28,5 +30,11 @@ class Team < ActiveRecord::Base
     end
 
     user
+  end
+
+  private
+
+  def generate_setup_code
+    self.setup_code = SecureRandom.urlsafe_base64
   end
 end

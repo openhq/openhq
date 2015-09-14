@@ -2,32 +2,28 @@ class SignupForm
   include ActiveModel::Model
 
   attr_reader :team, :user
-  attr_accessor :team_name, :subdomain, :first_name, :last_name, :username, :email, :password
+  attr_accessor :team_name, :subdomain, :email
 
   validates :subdomain, subdomain: true, presence: true
-  validates :team_name, :first_name, :last_name, presence: true
+  validates :team_name, presence: true
   validates :email, email: true, presence: true
-  validates :username, username: true, presence: true
-  validates :password, presence: true, length: { minimum: 8 }
   validate :unique_attributes
 
   def submit(params)
     self.team_name = params[:team_name]
     self.subdomain = params[:subdomain]
-    self.first_name = params[:first_name]
-    self.last_name = params[:last_name]
-    self.username = params[:username]
     self.email = params[:email]
-    self.password = params[:password]
 
     @team = Team.new(name: team_name, subdomain: subdomain)
-    @user = User.new(first_name: first_name, last_name: last_name, username: username, email: email, password: password)
+    @user = User.new(email: email, password: SecureRandom.hex(16))
 
     if valid?
       ActiveRecord::Base.transaction do
         @team.save!
-        @user.save!
+        @user.save!(validate: false)
         @team.team_users.create!(user: @user, role: "owner")
+
+        TeamMailer.setup(@team, @user).deliver_later
       end
 
       true
@@ -52,9 +48,6 @@ class SignupForm
     end
     if User.where(email: email).count > 0
       errors.add(:email, "has already been taken")
-    end
-    if User.where(username: username).count > 0
-      errors.add(:username, "has already been taken")
     end
   end
 end

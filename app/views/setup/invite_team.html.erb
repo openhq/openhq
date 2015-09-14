@@ -1,0 +1,29 @@
+<ul class="steps h-list">
+  <li class="step complete">
+    <span class="number">1</span> Your account
+  </li>
+  <li class="step complete">
+    <span class="number">2</span> First Project
+  </li>
+  <li class="step active">
+    <span class="number">3</span> Invite your team
+  </li>
+</ul>
+<div class="page-container">
+  <h2>Invite your team</h2>
+
+  <%= simple_form_for(@team_invites, url: setup_invite_team_path) do |f| %>
+    <%= render 'shared/form_errors', object: f.object %>
+
+    <div class="pure-g pure-g-padded">
+      <div class="pure-u-1">
+        <%= f.input :members, as: :text, hint: "Put each Email on a new line", required: true, autofocus: true, label: "Members emails" %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, "Invite team", class: "btn btn-main" %>
+      <span>or <%= link_to "Skip this step", project_path(Project.first) %></span>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,56 @@
+<ul class="steps h-list">
+  <li class="step active">
+    <span class="number">1</span> Your account
+  </li>
+  <li class="step">
+    <span class="number">2</span> First Project
+  </li>
+  <li class="step">
+    <span class="number">3</span> Invite your team
+  </li>
+</ul>
+<div class="page-container">
+  <h2>Complete your account</h2>
+
+  <%= simple_form_for(current_user, url: setup_user_path, method: :put) do |f| %>
+    <%= render 'shared/form_errors', object: f.object %>
+
+    <div>
+      <div class="pure-g pure-g-padded">
+        <div class="pure-u-1 pure-u-md-1-2">
+          <%= f.input :first_name, required: true, autofocus: true %>
+        </div>
+        <div class="pure-u-1 pure-u-md-1-2">
+          <%= f.input :last_name, required: true %>
+        </div>
+      </div>
+
+      <div class="pure-g pure-g-padded">
+        <div class="pure-u-1 pure-u-md-1-2">
+          <%= f.input :username, as: :string, required: true %>
+        </div>
+        <div class="pure-u-1 pure-u-md-1-2">
+          <%= f.input :email, as: :email, required: true %>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="pure-g pure-g-padded">
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
+          <% present(current_user) do |user_presenter| %>
+            <%= user_presenter.avatar %>
+          <% end %>
+        </div>
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-2-3">
+          <%= f.input :avatar, label: "Upload a new avatar:" %>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, "Save changes", class: "btn btn-main" %>
+    </div>
+  <% end %>
+</div>

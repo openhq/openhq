@@ -26,7 +26,9 @@ Rails.application.routes.draw do
   # end Clearance routes
 
   constraints(RouteConstraints::RootDomain) do
-    resources :signups, only: [:new, :create]
+    resources :signups, only: [:new, :create] do
+      get "success", on: :collection
+    end
 
     get "/settings", to: redirect('/settings/account/edit'), as: :settings
     namespace :settings do
@@ -40,6 +42,14 @@ Rails.application.routes.draw do
 
   constraints(RouteConstraints::Subdomain) do
     get "/" => "projects#index"
+
+    # First time setup flow
+    get "/setup/start/:code", to: "setup#index", as: :setup
+    put "/setup/user", to: "setup#update_user", as: :setup_user
+    get "/setup/first_project", to: "setup#first_project", as: :setup_first_project
+    post "/setup/first_project", to: "setup#create_project"
+    get "/setup/invite_team", to: "setup#invite_team", as: :setup_invite_team
+    post "/setup/invite_team", to: "setup#send_invites"
 
     resources :files, only: :index
     resources :team, only: [:index, :show]
