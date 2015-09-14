@@ -15,7 +15,7 @@ module Settings
       current_user.update(deleted_at: Time.zone.now)
       sign_out :user
       flash[:notice] = "Your account has been deleted"
-      redirect_to Rails.application.secrets.application_url
+      redirect_to root_app_url
     end
 
     private
