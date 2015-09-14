@@ -35,7 +35,7 @@ class TeamInvitesController < ApplicationController
       sign_in @user
       redirect_to root_url, notice: "You are now signed up"
     else
-      render :edit
+      render :edit, layout: "auth"
     end
   end
 

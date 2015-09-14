@@ -1,22 +1,23 @@
-<h1>Join <%= current_team.name %></h1>
+<div class="page-container">
+  <h2>Join <%= current_team.name %></h2>
 
-<%= simple_form_for(@user, url: team_invite_path(id: @team_user.invitation_code), html: { method: :put }) do |f| %>
-  <%= render 'shared/form_errors', object: f.object %>
+  <%= simple_form_for(@user, url: team_invite_path(id: @team_user.invitation_code), html: { method: :put }) do |f| %>
+    <%= render 'shared/form_errors', object: f.object %>
 
-
-  <div class="form-inputs">
 
     <% unless @user.username.present? %>
-      <%# User is new %>
-      <%= f.input :first_name, required: true, autofocus: true %>
+      <div class="form-inputs">
+        <%# User is new %>
+        <%= f.input :first_name, required: true, autofocus: true, label: false, placeholder: "First name" %>
 
-      <%= f.input :last_name, required: true %>
+        <%= f.input :last_name, required: true, label: false, placeholder: "Last name" %>
 
-      <%= f.input :username, as: :string, required: true %>
+        <%= f.input :username, as: :string, required: true, label: false, placeholder: "Username" %>
 
-      <%= f.input :email, as: :email, required: true %>
+        <%= f.input :email, as: :email, required: true, label: false, placeholder: "Email" %>
 
-      <%= f.input :password, autocomplete: "off" %>
+        <%= f.input :password, autocomplete: "off", label: false, placeholder: "Password" %>
+      </div>
 
       <hr>
 
@@ -28,7 +29,7 @@
             <%= user_presenter.avatar %>
           <% end %>
         </div>
-        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-2-3">
           <%= f.input :avatar, label: "Upload a new avatar:" %>
         </div>
       </div>
@@ -41,7 +42,7 @@
             <%= user_presenter.avatar %>
           <% end %>
         </div>
-        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
+        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-2-3">
           <p>Hey <%= @user.display_name %></p>
           <%# we need to post off some user value %>
           <%= f.input :username, as: :hidden %>
@@ -49,9 +50,8 @@
       </div>
     <% end %>
 
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Accept invite", class: "btn btn-main" %>
-  </div>
-<% end %>
+    <div class="form-actions">
+      <%= f.button :submit, "Accept invite", class: "btn btn-main" %>
+    </div>
+  <% end %>
+</div>

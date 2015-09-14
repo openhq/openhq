@@ -7,10 +7,9 @@
 
   <%= render 'shared/flash_messages' %>
 
-  <div class="page-container">
-    <div class="brand"><%= link_to app_name, root_url %></div>
-    <%= yield %>
-  </div>
+  <div class="brand"><%= link_to app_name, root_url %></div>
+
+  <%= yield %>
 
 </body>
 </html>
