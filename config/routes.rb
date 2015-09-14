@@ -4,6 +4,27 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
+  # Clearance routes for authentication
+  resources :passwords,
+    controller: 'reset_passwords',
+    only: [:create, :new]
+
+  resource :session,
+    controller: 'clearance/sessions',
+    only: [:create]
+
+  resources :users,
+    controller: 'clearance/users',
+    only: Clearance.configuration.user_actions do
+      resource :password,
+        controller: 'clearance/passwords',
+        only: [:create, :edit, :update]
+    end
+
+  get '/sign_in' => 'clearance/sessions#new', as: 'sign_in'
+  delete '/sign_out' => 'clearance/sessions#destroy', as: 'sign_out'
+  # end Clearance routes
+
   constraints(RouteConstraints::RootDomain) do
     resources :signups, only: [:new, :create]
 

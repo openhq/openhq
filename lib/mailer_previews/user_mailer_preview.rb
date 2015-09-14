@@ -13,4 +13,8 @@ class UserMailerPreview < ActionMailer::Preview
     invite = TeamUser.find_by!(status: "invited")
     UserMailer.team_invite(invite, User.first)
   end
+
+  def change_password
+    UserMailer.change_password(User.first)
+  end
 end

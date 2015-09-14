@@ -23,4 +23,16 @@ class UserMailer < ApplicationMailer
     mail to: @user.email, subject: "You have been invited to join a team on Open HQ"
   end
 
+  def change_password(user)
+    @user = user
+    mail(
+      to: @user.email,
+      subject: I18n.t(
+        :change_password,
+        scope: [:clearance, :models, :clearance_mailer],
+        default: "Change your password"
+      )
+    )
+  end
+
 end
