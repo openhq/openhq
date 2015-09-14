@@ -3,7 +3,7 @@ class SearchDocument < ActiveRecord::Base
 
   # cant quite believe that sql is working...
   def self.search(query, team_id)
-    query.gsub!(%r{[^a-z0-9\s]}, "")
+    query.gsub!(/[^a-z0-9\s]/i, "")
 
     sql = ActiveRecord::Base.sanitize_sql_array(['
       INNER JOIN (SELECT
