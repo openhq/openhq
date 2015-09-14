@@ -1,3 +1,29 @@
-<h1><%= @inviter.display_name %> has invited you to join the <%= @team.name %> team on Open HQ</h1>
+<h1><strong><%= @inviter.display_name %></strong> has invited you to join the <strong><%= @team.name %></strong> team on Open HQ</h1>
 
-<%= link_to "Join #{@team.name}", edit_team_invite_url(id: @team_invite.invitation_code, subdomain: @team.subdomain) %>
+<!-- Action -->
+<table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center">
+      <div>
+        <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{action_url}}" style="height:45px;v-text-anchor:middle;width:200px;" arcsize="7%" stroke="f" fill="t">
+        <v:fill type="tile" color="#22BC66" />
+        <w:anchorlock/>
+        <center style="color:#ffffff;font-family:sans-serif;font-size:15px;">Confirm your account</center>
+      </v:roundrect><![endif]-->
+        <%= link_to "Join #{@team.name}", edit_team_invite_url(id: @team_invite.invitation_code, subdomain: @team.subdomain), class: "button button--green" %>
+      </div>
+    </td>
+  </tr>
+</table>
+<p>Thanks,<br>The Open HQ Team</p>
+
+<!-- Sub copy -->
+<table class="body-sub">
+  <tr>
+    <td>
+      <p class="sub">If you’re having trouble clicking the confirm account button, copy and paste the URL below into your web browser.
+      </p>
+      <p class="sub"><%= edit_team_invite_url(id: @team_invite.invitation_code, subdomain: @team.subdomain) %></p>
+    </td>
+  </tr>
+</table>
