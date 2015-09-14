@@ -17,4 +17,8 @@ class UserMailerPreview < ActionMailer::Preview
   def change_password
     UserMailer.change_password(User.first)
   end
+
+  def password_changed
+    UserMailer.password_changed(User.first)
+  end
 end

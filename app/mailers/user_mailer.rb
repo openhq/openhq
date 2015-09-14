@@ -35,4 +35,9 @@ class UserMailer < ApplicationMailer
     )
   end
 
+  def password_changed(user)
+    @user = user
+    mail to: @user.email, subject: "Your Open HQ password has been changed"
+  end
+
 end
