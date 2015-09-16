@@ -455,7 +455,10 @@ CREATE TABLE teams (
     name character varying,
     subdomain character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    setup_code character varying,
+    setup_completed_at timestamp without time zone,
+    setup_completed_by integer
 );
 
 
@@ -925,6 +928,13 @@ CREATE INDEX index_team_users_on_user_id ON team_users USING btree (user_id);
 
 
 --
+-- Name: index_teams_on_setup_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_teams_on_setup_code ON teams USING btree (setup_code);
+
+
+--
 -- Name: index_teams_on_subdomain; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1062,4 +1072,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150910161337');
 INSERT INTO schema_migrations (version) VALUES ('20150911135806');
 
 INSERT INTO schema_migrations (version) VALUES ('20150914140555');
+
+INSERT INTO schema_migrations (version) VALUES ('20150914170620');
 

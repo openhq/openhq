@@ -9,17 +9,18 @@ class SignupsController < ApplicationController
     @signup = SignupForm.new
 
     if @signup.submit(signup_params)
-      sign_in @signup.user
-
-      redirect_to root_url(subdomain: @signup.team.subdomain)
+      redirect_to success_signups_path
     else
       render :new
     end
   end
 
+  def success
+  end
+
   private
 
   def signup_params
-    params.require(:signup_form).permit(:team_name, :subdomain, :first_name, :last_name, :username, :email, :password)
+    params.require(:signup_form).permit(:team_name, :subdomain, :email)
   end
 end

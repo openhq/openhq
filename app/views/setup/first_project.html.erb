@@ -1,0 +1,28 @@
+<ul class="steps h-list">
+  <li class="step complete">
+    <span class="number">1</span> Your account
+  </li>
+  <li class="step active">
+    <span class="number">2</span> First Project
+  </li>
+  <li class="step">
+    <span class="number">3</span> Invite your team
+  </li>
+</ul>
+<div class="page-container">
+  <h2>Create your first project</h2>
+
+  <%= simple_form_for(@project, url: setup_first_project_path) do |f| %>
+    <%= render 'shared/form_errors', object: f.object %>
+
+    <div class="pure-g pure-g-padded">
+      <div class="pure-u-1">
+        <%= f.input :name, required: true, autofocus: true, label: "Project name" %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, "Create Project", class: "btn btn-main" %>
+    </div>
+  <% end %>
+</div>

@@ -8,7 +8,7 @@
   <div class="pure-u-1 pure-u-md-15-24 pure-u-lg-17-24">
     <h1>My Profile</h1>
 
-    <%= simple_form_for(current_user, url: settings_account_path, html: { method: :put }) do |f| %>
+    <%= simple_form_for(current_user, url: settings_account_path, method: :put) do |f| %>
       <%= render 'shared/form_errors', object: f.object %>
 
       <div class="form-inputs account-settings">
