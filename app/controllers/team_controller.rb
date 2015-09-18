@@ -15,11 +15,13 @@ class TeamController < ApplicationController
   end
 
   def update
+    authorize! :update, @team_member
     @team_member.update(team_user_params)
     redirect_to team_path(@user.username), notice: "User has been updated"
   end
 
   def destroy
+    authorize! :destroy, @team_member
     @team_member.destroy
     redirect_to team_index_path, notice: "#{@user.username} has been removed from the team"
   end
