@@ -11,11 +11,19 @@ module Settings
       end
     end
 
+    def delete # confirm destroy page
+    end
+
     def destroy
-      current_user.update(deleted_at: Time.zone.now)
-      sign_out :user
-      flash[:notice] = "Your account has been deleted"
-      redirect_to root_app_url
+      if current_user.authenticated?(destroy_params[:current_password])
+        current_user.update(deleted_at: Time.zone.now)
+        sign_out
+        flash[:notice] = "Your account has been deleted"
+        redirect_to root_app_url
+      else
+        current_user.errors.add(:current_password, "Incorrect Password")
+        render :delete
+      end
     end
 
     private
@@ -24,6 +32,10 @@ module Settings
       params.require(:user).permit(:first_name, :last_name, :username, :email,
         :notification_frequency, :avatar,
         :job_title, :phone, :skype, :bio, :current_password)
+    end
+
+    def destroy_params
+      params.require(:user).permit(:current_password)
     end
   end
 end
