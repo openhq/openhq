@@ -33,7 +33,9 @@ Rails.application.routes.draw do
     get "/settings", to: redirect('/settings/account/edit'), as: :settings
     namespace :settings do
       resource :password, only: [:show, :create]
-      resource :account, only: [:edit, :update, :destroy], controller: :account
+      resource :account, only: [:edit, :update, :destroy], controller: :account do
+        get "delete"
+      end
       resources :teams, only: [:show, :new, :create, :update] do
         delete "leave", on: :member
       end
