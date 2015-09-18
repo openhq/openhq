@@ -21,7 +21,7 @@ module Settings
         flash[:notice] = "Your account has been deleted"
         redirect_to root_app_url
       else
-        current_user.errors.add(:base, "Your password was incorrect")
+        current_user.errors.add(:current_password, "Incorrect Password")
         render :delete
       end
     end
