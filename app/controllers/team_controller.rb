@@ -19,6 +19,11 @@ class TeamController < ApplicationController
     redirect_to team_path(@user.username), notice: "User has been updated"
   end
 
+  def destroy
+    @team_member.destroy
+    redirect_to team_index_path, notice: "#{@user.username} has been removed from the team"
+  end
+
   private
 
   def set_user_and_team_member
