@@ -28,3 +28,10 @@
     <% end %>
   </div>
 <% end %>
+
+<% if can?(:update, @user) && (@user != current_user) %>
+  <%= simple_form_for @team_member, url: team_path(@user.username), method: :put do |f| %>
+    <%= f.input :role, as: :select, collection: TeamUser.roles %>
+    <%= f.submit %>
+  <% end %>
+<% end %>
