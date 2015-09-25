@@ -1,9 +1,15 @@
 <% present current_user do |user| %>
   <div class="ui-dropdown-menu">
-    <span class="title noselect"><%= user.display_name %><span class="arrow"></span></span>
-    <ul class="dropdown">
-      <li><%= link_to("Settings", settings_url(host: root_app_host)) %></li>
-      <li><%= link_to(t("auth.sign_out"), sign_out_path, :method => :delete) %></li>
-    </ul>
+    <span class="icon profile"><%= user.avatar(40) %></span>
+    <div class="dropdown">
+      <p>Hi <%= user.display_name %>,</p>
+      <ul>
+        <li><%= link_to("My Settings", settings_url(host: root_app_host)) %></li>
+      </ul>
+      <ul class="actions">
+        <li><%= link_to "Help & Support", "#" %></li>
+        <li><%= link_to(t("auth.sign_out"), sign_out_path, :method => :delete) %></li>
+      </ul>
+    </div>
   </div>
 <% end %>

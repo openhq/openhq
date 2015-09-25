@@ -5,6 +5,7 @@ menu .ui-dropdown-menu {
 .ui-dropdown-menu {
   position: relative;
   width: 40px;
+  margin-left: 10px;
 
   .dropdown {
     display: none;
@@ -91,8 +92,11 @@ menu .ui-dropdown-menu {
       padding: 10px 20px;
       font-size: 14px;
 
-      li a:hover {
-        color: $primary-color;
+      li a {
+        padding: 5px 0;
+        &:hover {
+          color: $primary-color;
+        }
       }
     }
   }
