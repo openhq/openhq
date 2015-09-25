@@ -13,6 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'turbolinks'
+gem "autoprefixer-rails"
 
 # Multitennate subdomains
 gem 'acts_as_tenant'
