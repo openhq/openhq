@@ -1,9 +1,15 @@
 <div class="ui-dropdown-menu">
-  <span class="title noselect">Teams<span class="arrow"></span></span>
-  <ul class="dropdown">
-    <% current_user.teams.each do |team| %>
-      <li class="<%= "active" if current_team == team %>"><%= link_to(team.name, root_url(subdomain: team.subdomain)) %></li>
-    <% end %>
-    <li class="create-new"><%= link_to "Create new team", new_settings_team_url(host: root_app_host) %></li>
-  </ul>
+  <span class="icon teams"></span>
+  <div class="dropdown">
+    <p>Switch Team</p>
+    <ul>
+      <% current_user.teams.each do |team| %>
+        <li class="<%= "active" if current_team == team %>"><%= link_to(team.name, root_url(subdomain: team.subdomain)) %></li>
+      <% end %>
+    </ul>
+    <ul class="actions">
+      <li><%= link_to "Manage my teams", "#" %></li>
+      <li><%= link_to "Create new team", new_settings_team_url(host: root_app_host) %></li>
+    </ul>
+  </div>
 </div>
