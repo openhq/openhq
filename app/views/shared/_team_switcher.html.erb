@@ -8,7 +8,7 @@
       <% end %>
     </ul>
     <ul class="actions">
-      <li><%= link_to "Manage my teams", "#" %></li>
+      <li><%= link_to "Manage my teams", settings_url(host: root_app_host) %></li>
       <li><%= link_to "Create new team", new_settings_team_url(host: root_app_host) %></li>
     </ul>
   </div>
