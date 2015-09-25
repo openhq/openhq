@@ -86,3 +86,13 @@ body.confirm-dialog-open {
     }
   }
 }
+
+@media only screen and (max-width: 420px) {
+  .confirm-dialog-wrapper {
+    background: #fff;
+
+    a.button.confirm {
+      margin: 50px 0 10px 0;
+    }
+  }
+}
