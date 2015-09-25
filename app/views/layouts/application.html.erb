@@ -44,6 +44,8 @@
     <%= yield %>
   </div>
 
+  <%= render "shared/confirm_dialog" %>
+
   <script type="text/javascript">
     <% cache :all_emojis_list do %>
     App.emojis = <%== MultiJson.dump(Emoji.all.map(&:name)) %>;
