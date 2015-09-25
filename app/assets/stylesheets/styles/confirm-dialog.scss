@@ -1,7 +1,18 @@
+body.confirm-dialog-open {
+
+  .app-header, .page-container {
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
+  }
+}
+
 .confirm-dialog-wrapper {
   display: none;
   position: fixed;
-  z-index: 999;
+  z-index: 990;
   top: 0; right: 0; bottom: 0; left: 0;
   background: rgba(255,255,255,0.9);
 
@@ -28,6 +39,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 991;
   }
 
   h4.confirm-title {
@@ -42,6 +54,15 @@
 
   .actions {
     height: 30px;
+    position: relative;
+    vertical-align: middle;
+
+    .bar {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      left: 50%;
+    }
   }
 
   a.button {
@@ -53,12 +74,9 @@
     color: #fff;
     font-weight: 600;
     transition: 0.3s;
-    margin-top: 4px;
 
     &:hover {
       background: $body-color;
-      margin-top: 0;
-      margin-left: -4px;
       padding: 10px 24px;
     }
 

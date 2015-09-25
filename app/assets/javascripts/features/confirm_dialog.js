@@ -1,6 +1,8 @@
 $(function(){
   $(document).on('click', '.confirm-dialog-wrapper .close-dialog', function(ev){
-    $(this).closest('.confirm-dialog-wrapper').fadeOut(100);
+    $(this).closest('.confirm-dialog-wrapper').fadeOut(100, function() {
+      $("body").removeClass("confirm-dialog-open");
+    });
   });
 });
 
@@ -9,6 +11,7 @@ $.rails.allowAction = function(link){
   if (link.data("confirm") == undefined){
     return true;
   }
+
   $.rails.showConfirmationDialog(link);
   return false;
 }
@@ -19,6 +22,8 @@ $.rails.showConfirmationDialog = function(link){
       title = link.data("confirm-title"),
       $confirm_dialog = $('.confirm-dialog-wrapper');
 
+  $("body").addClass("confirm-dialog-open");
+
   if (title) {
     $confirm_dialog.find('h4.confirm-title').show().html(title);
   } else {
@@ -27,6 +32,7 @@ $.rails.showConfirmationDialog = function(link){
   $confirm_dialog.find('p.confirm-message').html(message);
   $confirm_dialog.find('a.button.confirm').off().on('click', function(ev){
     $.rails.confirmed(link);
+    $("body").removeClass("confirm-dialog-open");
   });
   $confirm_dialog.fadeIn(100);
 }
