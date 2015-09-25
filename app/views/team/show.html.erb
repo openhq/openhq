@@ -28,3 +28,22 @@
     <% end %>
   </div>
 <% end %>
+
+<% if can?(:update, @team_member) && (@user != current_user) %>
+
+  <hr>
+
+  <%= simple_form_for @team_member, url: team_path(@user.username), method: :put do |f| %>
+    <%= f.input :role, as: :select, collection: TeamUser.roles %>
+    <div class="form-actions">
+      <%= f.submit class: "btn btn-main" %>
+    </div>
+  <% end %>
+
+  <hr>
+
+  <%= link_to team_path(@user.username), class: "icon-link link-large danger", method: :delete, data: { confirm: "Are you sure?" } do %>
+    <span class="icon icon-trash"></span>
+    Remove user from team
+  <% end %>
+<% end %>

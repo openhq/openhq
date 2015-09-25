@@ -4,72 +4,124 @@ menu .ui-dropdown-menu {
 
 .ui-dropdown-menu {
   position: relative;
-  min-width: 140px;
+  width: 40px;
+  margin-left: 10px;
+  z-index: 100;
 
   .dropdown {
     display: none;
     position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
+    top: 60px;
+    right: -20px;
+    width: 250px;
     background: #fff;
     list-style: none;
     margin: 0;
     padding: 0;
     border: solid 1px $line-color;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
+    border-radius: 4px;
 
-    a {
+    &::before {
+      content: " ";
       display: block;
-      padding: 10px 15px;
-      text-decoration: none;
+      background: #fff;
+      border-left: 1px solid $line-color;
+      border-top: 1px solid $line-color;
+      position: absolute;
+      right: 28px;
+      top: -11px;
+      width: 20px;
+      height: 20px;
+      transform: rotate(45deg);
+    }
+  }
+
+  span.icon {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-size: 40px;
+    background-position: center;
+    border-radius: 40px;
+    border: 1px solid #000;
+    opacity: 0.4;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
     }
 
-    &>li {
-      margin: 0;
-      padding: 0;
-      border-bottom: solid 1px $line-color;
-      &:last-child { border: none; }
-      &:hover { background: $rollover-color; }
+    &.teams { background-image: image-url('icons/teams.png') }
+    &.notifications { background-image: image-url('icons/notifications.png') }
+    &.search { background-image: image-url('icons/search.png') }
+    &.profile {
+      opacity: 1;
+      border-color: rgba(0,0,0,0.4);
+      &:hover {
+        border-color: rgba(0,0,0,0.7);
+      }
     }
   }
 
-  span.title {
-    position: relative;
-    display: block;
-    padding: 10px 40px 10px 15px;
-    cursor: pointer;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+  p {
+    margin: 0;
+    padding: 15px 20px 10px;
+    font-size: 12px;
   }
 
-  span.arrow {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    width: 20px;
-    height: 20px;
-    background-image: image-url("arrow-down.png");
-    background-size: 20px;
-    opacity: 0.2;
-    transform:translate(0,-50%);
+  form input {
+    border: 0;
+    padding: 10px;
   }
 
-  &:hover {
-    span.arrow { opacity: 0.25; }
+  ul {
+    list-style: none;
+    margin: 0 0 15px 0;
+    padding: 0 15px;
+    font-size: 16px;
+
+    li {
+      a {
+        display: block;
+        padding: 5px;
+        text-decoration: none;
+        color: $body-color;
+
+        &:hover {
+          background: $rollover-color;
+        }
+      }
+
+      &.active a {
+        font-weight: 600;
+        color: $primary-color;
+      }
+    }
+
+    &.actions {
+      background-color: $rollover-color;
+      margin-bottom: 0;
+      padding: 10px 20px;
+      font-size: 14px;
+      border-radius: 0 0 4px 4px;
+
+      li a {
+        padding: 5px 0;
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
   }
 
   &.open {
-    span.title {
-      border: solid 1px $line-color;
-      border-bottom-width: 0;
+    span.icon {
+      opacity: 0.7;
+      &.profile {
+        opacity: 1;
+        border-color: rgba(0,0,0,0.7);
+      }
     }
-    span.arrow {
-      background-image: image-url("arrow-up.png");
-    }
-
     .dropdown { display: block; }
   }
 }

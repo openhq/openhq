@@ -11,6 +11,8 @@
       <span class="close-cross mobile-only">&times;</span>
       <menu>
         <% if signed_in? %>
+          <%= render "shared/search_dropdown" %>
+          <%= render "shared/notifications_dropdown" %>
           <%= render "shared/team_switcher" %>
           <%= render "shared/signed_in_menu" %>
         <% else %>
@@ -29,11 +31,6 @@
           <li><%= link_to t('team'), team_index_path %></li>
           <li class="mobile-only"><%= link_to("Settings", settings_url(host: root_app_host)) %></li>
           <li class="mobile-only"><%= link_to(t("auth.sign_out"), sign_out_path, :method => :delete) %></li>
-          <li>
-            <form action="<%= search_index_path %>" method="GET" class="search">
-              <input type="text" name="q" placeholder="Search" autocomplete="off" />
-            </form>
-          </li>
           <% else %>
           <li class="brand"><%= link_to app_name, root_url %></li>
           <% end %>

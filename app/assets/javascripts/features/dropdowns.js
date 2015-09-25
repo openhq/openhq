@@ -1,7 +1,9 @@
 $(function() {
-    $(document).on("click", ".ui-dropdown-menu .title", function() {
-        var $menu = $(this).closest(".ui-dropdown-menu");
+    $(document).on("click", ".ui-dropdown-menu .icon", function() {
+        var $menu = $(this).closest(".ui-dropdown-menu"),
+            is_open = $menu.hasClass("open");
 
-        $menu.toggleClass("open");
+        $('.ui-dropdown-menu.open').removeClass('open');
+        if (!is_open) $menu.addClass('open');
     });
 });
