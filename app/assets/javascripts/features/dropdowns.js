@@ -4,9 +4,6 @@ $(function() {
             is_open = $menu.hasClass("open");
 
         $('.ui-dropdown-menu.open').removeClass('open');
-
-        if (!is_open) {
-          $menu.addClass('open');
-        }
+        if (!is_open) $menu.addClass('open');
     });
 });
