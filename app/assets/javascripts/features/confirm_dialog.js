@@ -15,9 +15,15 @@ $.rails.allowAction = function(link){
 
 // Display the confirmation dialog
 $.rails.showConfirmationDialog = function(link){
-  var message = link.data("confirm");
-  var $confirm_dialog = $('.confirm-dialog-wrapper');
+  var message = link.data("confirm"),
+      title = link.data("confirm-title"),
+      $confirm_dialog = $('.confirm-dialog-wrapper');
 
+  if (title) {
+    $confirm_dialog.find('h4.confirm-title').show().html(title);
+  } else {
+    $confirm_dialog.find('h4.confirm-title').hide();
+  }
   $confirm_dialog.find('p.confirm-message').html(message);
   $confirm_dialog.find('a.button.confirm').off().on('click', function(ev){
     $.rails.confirmed(link);

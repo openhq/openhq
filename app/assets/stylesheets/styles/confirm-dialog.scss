@@ -9,10 +9,14 @@
     position: absolute;
     right: 20px;
     top: 10px;
-    color: #000;
+    color: $body-light-color;
     font-size: 32px;
     text-decoration: none;
     font-weight: 600;
+
+    &:hover {
+      color: $body-color;
+    }
   }
 
   .confirm-dialog {
@@ -26,22 +30,47 @@
     transform: translate(-50%, -50%);
   }
 
+  h4.confirm-title {
+    font-size: 32px;
+    margin: 0;
+  }
+
   p.confirm-message {
     font-size: 24px;
+    padding: 0 0 10px;
+  }
+
+  .actions {
+    height: 30px;
   }
 
   a.button {
     display: inline-block;
-    background: #ccc;
+    background: $body-light-color;
     padding: 6px 20px;
-    border-radius: 20px;
+    border-radius: 100px;
     text-decoration: none;
     color: #fff;
     font-weight: 600;
+    transition: 0.3s;
+    margin-top: 4px;
+
+    &:hover {
+      background: $body-color;
+      margin-top: 0;
+      margin-left: -4px;
+      padding: 10px 24px;
+    }
 
     &.confirm {
       background-color: $primary-color;
       margin-right: 10px;
+
+      &:hover {
+        background-color: $primary-deep;
+        margin-right: 6px;
+        margin-left: 0;
+      }
     }
   }
 }
