@@ -1,10 +1,6 @@
 .ui-notification {
   overflow-y: hidden;
   max-height: 56px;
-
-  -webkit-transition: max-height 0.25s ease-in-out;
-  -moz-transition: max-height 0.25s ease-in-out;
-  -o-transition: max-height 0.25s ease-in-out;
   transition: max-height 0.25s ease-in-out;
 
   &.dismiss {

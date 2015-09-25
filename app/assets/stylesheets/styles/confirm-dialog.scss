@@ -1,10 +1,6 @@
 body.confirm-dialog-open {
   overflow: hidden;
   .app-header, .page-container {
-    -webkit-filter: blur(2px);
-    -moz-filter: blur(2px);
-    -o-filter: blur(2px);
-    -ms-filter: blur(2px);
     filter: blur(2px);
   }
 }
@@ -37,7 +33,6 @@ body.confirm-dialog-open {
     left: 5%;
     text-align: center;
     transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
     z-index: 991;
   }
 
@@ -61,7 +56,6 @@ body.confirm-dialog-open {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
     }
   }
 

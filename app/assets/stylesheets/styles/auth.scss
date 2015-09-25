@@ -18,9 +18,6 @@ html.auth {
       position: fixed;
       left: 0;
       top: 0;
-      background: -webkit-linear-gradient(#54598f, #503e7e); /* For Safari 5.1 to 6.0 */
-      background: -o-linear-gradient(#54598f, #503e7e); /* For Opera 11.1 to 12.0 */
-      background: -moz-linear-gradient(#54598f, #503e7e); /* For Firefox 3.6 to 15 */
       background: linear-gradient(#54598f, #503e7e); /* Standard syntax */
       z-index: -1;
     }
