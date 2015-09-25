@@ -153,7 +153,7 @@
             </a>
           </li> %>
           <li>
-            <%= link_to [@project, @story], class: "icon-link link-large danger", method: :delete, data: { confirm: "Are you sure?" } do %>
+            <%= link_to [@project, @story], class: "icon-link link-large danger", method: :delete, data: { confirm_title: "Archive Story", confirm: "Are you sure?" } do %>
               <span class="icon icon-trash"></span>
               Archive this story
             <% end %>
