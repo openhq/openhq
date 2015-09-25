@@ -1,5 +1,6 @@
 $(function(){
   $(document).on('click', '.confirm-dialog-wrapper .close-dialog', function(ev){
+    ev.preventDefault();
     $(this).closest('.confirm-dialog-wrapper').fadeOut(100, function() {
       $("body").removeClass("confirm-dialog-open");
     });
