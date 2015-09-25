@@ -6,6 +6,7 @@ menu .ui-dropdown-menu {
   position: relative;
   width: 40px;
   margin-left: 10px;
+  z-index: 100;
 
   .dropdown {
     display: none;
@@ -18,8 +19,7 @@ menu .ui-dropdown-menu {
     margin: 0;
     padding: 0;
     border: solid 1px $line-color;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
+    border-radius: 4px;
 
     &::before {
       content: " ";
@@ -28,7 +28,7 @@ menu .ui-dropdown-menu {
       border-left: 1px solid $line-color;
       border-top: 1px solid $line-color;
       position: absolute;
-      right: 27px;
+      right: 28px;
       top: -11px;
       width: 20px;
       height: 20px;
@@ -46,20 +46,32 @@ menu .ui-dropdown-menu {
     border: 1px solid #000;
     opacity: 0.4;
 
-    &.teams { background-image: image-url('icons/teams.png') }
-    &.notifications { background-image: image-url('icons/notifications.png') }
-    &.search { background-image: image-url('icons/search.png') }
-
     &:hover {
       cursor: pointer;
       opacity: 0.7;
+    }
+
+    &.teams { background-image: image-url('icons/teams.png') }
+    &.notifications { background-image: image-url('icons/notifications.png') }
+    &.search { background-image: image-url('icons/search.png') }
+    &.profile {
+      opacity: 1;
+      border-color: rgba(0,0,0,0.4);
+      &:hover {
+        border-color: rgba(0,0,0,0.7);
+      }
     }
   }
 
   p {
     margin: 0;
-    padding: 15px 20px;
+    padding: 15px 20px 10px;
     font-size: 12px;
+  }
+
+  form input {
+    border: 0;
+    padding: 10px;
   }
 
   ul {
@@ -91,6 +103,7 @@ menu .ui-dropdown-menu {
       margin-bottom: 0;
       padding: 10px 20px;
       font-size: 14px;
+      border-radius: 0 0 4px 4px;
 
       li a {
         padding: 5px 0;
@@ -102,7 +115,13 @@ menu .ui-dropdown-menu {
   }
 
   &.open {
-    span.icon { opacity: 0.7; }
+    span.icon {
+      opacity: 0.7;
+      &.profile {
+        opacity: 1;
+        border-color: rgba(0,0,0,0.7);
+      }
+    }
     .dropdown { display: block; }
   }
 }
