@@ -7,6 +7,10 @@ class TeamUser < ActiveRecord::Base
   validates :user, :team, presence: true
   validates :role, presence: true, inclusion: {in: ROLES}
 
+  def self.roles
+    ROLES
+  end
+
   def role?(base_role)
     ROLES.index(base_role.to_s) <= ROLES.index(role)
   end

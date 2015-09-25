@@ -54,7 +54,7 @@ Rails.application.routes.draw do
     post "/setup/invite_team", to: "setup#send_invites"
 
     resources :files, only: :index
-    resources :team, only: [:index, :show]
+    resources :team, only: [:index, :show, :update, :destroy]
     resources :team_invites, only: [:new, :create, :edit, :update]
     resources :search, only: :index
 
