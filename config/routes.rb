@@ -88,5 +88,6 @@ Rails.application.routes.draw do
   get "/500", to: "errors#internal_error"
 
   root to: "public#index"
+  get "help", to: "public#help"
 
 end
