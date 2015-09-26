@@ -1,1 +1,11 @@
-story.jst.ejs
+<div class="title">
+  Story in <%= result.project.name %>
+</div>
+
+<div class="content">
+  <%= result.searchable.name %>
+</div>
+
+<div class="actions">
+  <a href="<%= result.url %>">View Story</a>
+</div>

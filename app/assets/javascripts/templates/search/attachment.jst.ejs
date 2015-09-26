@@ -1,1 +1,11 @@
-attachment.jst.ejs
+<div class="title">
+  Attachment on story <%= result.story.name %> in <%= result.project.name %>
+</div>
+
+<div class="content">
+  <img src="<%= result.attachment_details.image %>" />
+</div>
+
+<div class="actions">
+  <a href="<%= result.url %>">View Attachment</a>
+</div>

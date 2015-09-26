@@ -1,1 +1,11 @@
-comment.jst.ejs
+<div class="title">
+  Comment on story <%= result.story.name %> in <%= result.project.name %>
+</div>
+
+<div class="content">
+  <%= result.searchable.content %>
+</div>
+
+<div class="actions">
+  <a href="<%= result.url %>">View Comment</a>
+</div>

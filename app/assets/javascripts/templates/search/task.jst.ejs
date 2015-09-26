@@ -1,1 +1,11 @@
-task.jst.ejs
+<div class="title">
+  Task on story <%= result.story.name %> in <%= result.project.name %>
+</div>
+
+<div class="content">
+  <%= result.label %>
+</div>
+
+<div class="actions">
+  <a href="<%= result.url %>">View Task</a>
+</div>
