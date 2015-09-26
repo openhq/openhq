@@ -26,7 +26,7 @@ $(function(){
   // do the search when typing in the search field
   $(document).on('keyup', '#search-sidebar input[name=q]', function(){
     $('#search-sidebar').addClass('searching');
-    $('#search-sidebar .search-results').html('');
+    $('#search-sidebar .search-results ul').html('');
 
     clearTimeout(search_timeout);
     search_timeout = setTimeout(function() {
@@ -63,7 +63,6 @@ $(function(){
 
     .done(function(resp){
       _.each(resp.search, function(result){
-        console.log(result);
         addSearchResult(result);
       });
     })
@@ -102,6 +101,6 @@ $(function(){
       break;
     }
 
-    $('#search-sidebar .search-results').append(result_html);
+    $('#search-sidebar .search-results ul').append("<li>"+result_html+"</li>");
   }
 });

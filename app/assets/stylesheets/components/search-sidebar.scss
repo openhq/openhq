@@ -7,7 +7,6 @@
   right: -400px;
   top: 0;
   background-color: $body-light-color;
-  color: #fff;
   z-index: 100;
 
   form {
@@ -26,6 +25,7 @@
   .loading {
     display: none;
     text-align: center;
+    color: #fff;
   }
 
   .search-results {
