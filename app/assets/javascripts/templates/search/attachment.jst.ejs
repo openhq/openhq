@@ -3,7 +3,13 @@
 </div>
 
 <div class="content">
-  <img src="<%= result.attachment_details.image %>" />
+  <div class="attachment-file">
+    <div class="file-preview">
+      <img src="<%= result.attachment_image %>" alt="<%= result.searchable.name %>" width="59">
+    </div>
+    <span class="file-name"><%= result.searchable.name %></span>
+    <span class="file-size"><%= result.searchable.file_size %></span>
+  </div>
 </div>
 
 <div class="actions">

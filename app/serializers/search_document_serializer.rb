@@ -1,5 +1,5 @@
 class SearchDocumentSerializer < ActiveModel::Serializer
-  attributes :searchable_id, :searchable_type, :searchable, :project, :story, :url, :attachment_details
+  attributes :searchable_id, :searchable_type, :searchable, :project, :story, :url, :attachment_image
 
   def project
     searchable.respond_to?(:project) ? searchable.project : nil
@@ -24,13 +24,14 @@ class SearchDocumentSerializer < ActiveModel::Serializer
     end
   end
 
-  def attachment_details
+  def attachment_image
     return unless searchable_type == "Attachment"
 
     image_url = searchable.process_data["thumbnail:tile"]
-
-    {
-      image: image_url.present? ? S3UrlSigner.sign(image_url) : "/assets/file_types/#{searchable.extension}.png"
-    }
+    if image_url.present?
+      S3UrlSigner.sign(image_url)
+    else
+      "/assets/file_types/#{searchable.extension}.png"
+    end
   end
 end
