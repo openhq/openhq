@@ -1,0 +1,43 @@
+#search-sidebar {
+  box-sizing: border-box;
+  height: 100%;
+  width: 400px;
+  padding: 10px;
+  position: fixed;
+  right: -400px;
+  top: 0;
+  background-color: $body-light-color;
+  color: #fff;
+  z-index: 100;
+
+  form {
+    padding-bottom: 10px;
+    background: $body-light-color;
+
+    input[type=text] {
+      width: 100%;
+      max-width: 100%;
+      border: 1px solid $line-color;
+      border-radius: 0;
+      margin: 0;
+    }
+  }
+
+  .loading {
+    display: none;
+    text-align: center;
+  }
+
+  .search-results {
+    display: block;
+  }
+
+  &.searching {
+    .loading {
+      display: block;
+    }
+    .search-results {
+      display: none;
+    }
+  }
+}

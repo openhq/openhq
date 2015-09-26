@@ -7,7 +7,7 @@ $(function() {
         ev.stopPropagation();
     });
 
-    $(document).on("click", ".ui-dropdown-menu .icon", function() {
+    $(document).on("click", ".ui-dropdown-menu:not(.search) .icon", function() {
         var $menu = $(this).closest(".ui-dropdown-menu"),
             is_open = $menu.hasClass("open");
 
