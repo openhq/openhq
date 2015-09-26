@@ -43,6 +43,21 @@ $(function(){
   }
 
   function performSearch(){
-    $('#search-sidebar').removeClass('searching');
+    $form = $('#search-sidebar form');
+    $.ajax({
+      dataType: "json",
+      url: $form.attr('action'),
+      method: "GET",
+      data: $form.serialize()
+    })
+    .done(function(resp){
+      console.log(resp);
+    })
+    .fail(function(){
+      console.error('something went wrong with the search');
+    })
+    .always(function(){
+      $('#search-sidebar').removeClass('searching');
+    });
   }
 });
