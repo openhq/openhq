@@ -39,6 +39,7 @@ $(function(){
 
     } else {
       $('#search-sidebar').addClass('searching');
+      $('#search-sidebar .no-results').hide();
       $('#search-sidebar .search-results ul').html('');
 
       clearTimeout(search_timeout);
@@ -77,9 +78,16 @@ $(function(){
     })
 
     .done(function(resp){
-      _.each(resp.search, function(result){
-        addSearchResult(result);
-      });
+      if (resp.search.length) {
+        $('#search-sidebar .search-results').show();
+
+        _.each(resp.search, function(result){
+          addSearchResult(result);
+        });
+
+      } else {
+        $('#search-sidebar .no-results').show();
+      }
     })
 
     .fail(function(){

@@ -1,12 +1,12 @@
 <div id="search-sidebar">
   <form method="post" action="/search">
-    <input type="text" name="q" placeholder="Search Term">
+    <input type="text" name="q" placeholder="Search Term" autocomplete="off">
   </form>
-  <div class="loading">
-    Searching...
-  </div>
+
+  <div class="loading">Searching...</div>
+  <div class="no-results">No results found</div>
+
   <div class="search-results">
-    <ul class="ui-search-list">
-    </ul>
+    <ul class="ui-search-list"></ul>
   </div>
 </div>
