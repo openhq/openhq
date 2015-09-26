@@ -10,6 +10,8 @@ class Comment < ActiveRecord::Base
   belongs_to :owner, class_name: "User"
   has_many :attachments, as: :attachable
 
+  delegate :project, to: :commentable
+
   validates_presence_of :content, :owner_id
 
   def live?
@@ -27,9 +29,5 @@ class Comment < ActiveRecord::Base
 
   def story
     commentable
-  end
-
-  def project
-    commentable.project
   end
 end
