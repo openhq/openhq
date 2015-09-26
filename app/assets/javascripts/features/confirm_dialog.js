@@ -1,10 +1,18 @@
 $(function(){
+  $(document).on('dialogs:close', function(){
+    closeConfirmDialog();
+  });
+
   $(document).on('click', '.confirm-dialog-wrapper .close-dialog', function(ev){
     ev.preventDefault();
-    $(this).closest('.confirm-dialog-wrapper').fadeOut(100, function() {
+    closeConfirmDialog();
+  });
+
+  function closeConfirmDialog(){
+    $('.confirm-dialog-wrapper').fadeOut(100, function() {
       $("body").removeClass("confirm-dialog-open");
     });
-  });
+  }
 });
 
 // Override the default confirm dialog by rails
