@@ -22,16 +22,30 @@ $(function(){
   $(document).on('click', '.ui-dropdown-menu.search', function(ev){
     openSearchSidebar();
   });
+  $(document).on('search:open', function(){
+    openSearchSidebar();
+  });
+
+  // pressing esc key
+  $(document).on('dialogs:close', function(){
+    closeSearchSidebar();
+  });
 
   // do the search when typing in the search field
-  $(document).on('keyup', '#search-sidebar input[name=q]', function(){
-    $('#search-sidebar').addClass('searching');
-    $('#search-sidebar .search-results ul').html('');
+  $(document).on('keyup', '#search-sidebar input[name=q]', function(ev){
+    // esc key
+    if (ev.keyCode == 27) {
+      closeSearchSidebar();
 
-    clearTimeout(search_timeout);
-    search_timeout = setTimeout(function() {
-      performSearch();
-    }, 500);
+    } else {
+      $('#search-sidebar').addClass('searching');
+      $('#search-sidebar .search-results ul').html('');
+
+      clearTimeout(search_timeout);
+      search_timeout = setTimeout(function() {
+        performSearch();
+      }, 500);
+    }
   });
 
   // do not actually submit the form
@@ -51,6 +65,7 @@ $(function(){
     });
   }
 
+  // does the actual search
   function performSearch(){
     $form = $('#search-sidebar form');
 
@@ -76,6 +91,7 @@ $(function(){
     });
   }
 
+  // generates the html and adds it to the search results
   function addSearchResult(result) {
     var result_html;
 
