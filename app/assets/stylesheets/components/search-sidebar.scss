@@ -58,7 +58,7 @@ body.search-sidebar-open {
   }
 
   .search-results {
-    display: block;
+    display: none;
     position: absolute;
     max-height: 100%;
     width: 100%;
@@ -68,6 +68,19 @@ body.search-sidebar-open {
     box-sizing: border-box;
     z-index: 1;
     overflow-y: auto;
+
+    p {
+      color: #fff;
+      margin: 0 0 20px 0;
+      text-align: center;
+      span {
+        font-weight: 600;
+        &.term {
+          border-bottom: 1px solid #fff;
+          font-style: italic;
+        }
+      }
+    }
 
     ul.ui-search-list li {
       margin-bottom: 15px;

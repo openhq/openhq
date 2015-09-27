@@ -40,6 +40,7 @@ $(function(){
     } else {
       $('#search-sidebar').addClass('searching');
       $('#search-sidebar .no-results').hide();
+      $('#search-sidebar .search-results').hide();
       $('#search-sidebar .search-results ul').html('');
 
       clearTimeout(search_timeout);
@@ -83,6 +84,8 @@ $(function(){
 
       .done(function(resp){
         if (resp.search.length) {
+          $('#search-sidebar .search-results span.count').html(resp.search.length);
+          $('#search-sidebar .search-results span.term').html(term);
           $('#search-sidebar .search-results').show();
 
           _.each(resp.search, function(result){

@@ -1,4 +1,8 @@
 $(function() {
+
+    $(document).on("dialogs:close", function() {
+        $(".ui-dropdown-menu.open").removeClass("open");
+    });
     $(document).on("click", function() {
         $(".ui-dropdown-menu.open").removeClass("open");
     });
