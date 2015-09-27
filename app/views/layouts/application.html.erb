@@ -4,46 +4,47 @@
   <%= render partial: "layouts/html_head" %>
 </head>
 <body>
-  <%= render 'shared/flash_messages' %>
+  <div id="main-content">
+    <%= render 'shared/flash_messages' %>
 
-  <header class="app-header">
-    <div class="page-container">
-      <span class="close-cross mobile-only">&times;</span>
-      <menu>
-        <% if signed_in? %>
-          <%= render "shared/search_dropdown" %>
-          <%= render "shared/notifications_dropdown" %>
-          <%= render "shared/team_switcher" %>
-          <%= render "shared/signed_in_menu" %>
-        <% else %>
-          <ul class="h-list">
-            <li><%= link_to("Sign up", new_signup_path) %></li>
-          </ul>
-        <% end %>
-      </menu>
-
-      <nav>
-        <ul>
-          <% if current_team.present? %>
-          <li class="brand"><%= link_to current_team.name, root_url %></li>
-          <li><%= link_to t('projects'), projects_path %></li>
-          <li><%= link_to t('files'), files_path %></li>
-          <li><%= link_to t('team'), team_index_path %></li>
-          <li class="mobile-only"><%= link_to("Settings", settings_url(host: root_app_host)) %></li>
-          <li class="mobile-only"><%= link_to(t("auth.sign_out"), sign_out_path, :method => :delete) %></li>
+    <header class="app-header">
+      <div class="page-container">
+        <span class="close-cross mobile-only">&times;</span>
+        <menu>
+          <% if signed_in? %>
+            <%= render "shared/search_dropdown" %>
+            <%= render "shared/notifications_dropdown" %>
+            <%= render "shared/team_switcher" %>
+            <%= render "shared/signed_in_menu" %>
           <% else %>
-          <li class="brand"><%= link_to app_name, root_url %></li>
+            <ul class="h-list">
+              <li><%= link_to("Sign up", new_signup_path) %></li>
+            </ul>
           <% end %>
-        </ul>
-      </nav>
+        </menu>
+
+        <nav>
+          <ul>
+            <% if current_team.present? %>
+            <li class="brand"><%= link_to current_team.name, root_url %></li>
+            <li><%= link_to t('projects'), projects_path %></li>
+            <li><%= link_to t('files'), files_path %></li>
+            <li><%= link_to t('team'), team_index_path %></li>
+            <li class="mobile-only"><%= link_to("Settings", settings_url(host: root_app_host)) %></li>
+            <li class="mobile-only"><%= link_to(t("auth.sign_out"), sign_out_path, :method => :delete) %></li>
+            <% else %>
+            <li class="brand"><%= link_to app_name, root_url %></li>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+
+    <div class="page-container">
+      <%= yield %>
     </div>
-  </header>
-
-
-  <div class="page-container">
-    <%= yield %>
-  </div>
-
+  </div><!-- #main-content -->
   <%= render "shared/confirm_dialog" %>
 
   <script type="text/javascript">

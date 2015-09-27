@@ -3,6 +3,11 @@ body {
   margin: 0;
 }
 
+#main-content {
+  width: 100%;
+  transition: margin 0.5s ease;
+}
+
 .center {
   text-align: center;
 }

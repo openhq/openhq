@@ -1,3 +1,9 @@
+body.search-sidebar-open {
+  #main-content {
+    margin-left: -400px;
+  }
+}
+
 #search-sidebar {
   box-sizing: border-box;
   height: 100%;
@@ -6,12 +12,15 @@
   position: fixed;
   right: -400px;
   top: 0;
-  background-color: $body-light-color;
+  background-color: $primary-color;
   z-index: 100;
+  overflow: hidden;
+  border-left: 1px solid $primary-deep;
 
   form {
-    padding: 10px;
-    background: $body-light-color;
+    height: 103px;
+    padding: 35px 20px;
+    background: $primary-deep;
     position: absolute;
     top: 0;
     left: 0;
@@ -22,7 +31,7 @@
     input[type=text] {
       width: 100%;
       max-width: 100%;
-      border: 1px solid $line-color;
+      border: 1px solid $body-light-color;
       border-radius: 0;
       margin: 0;
     }
@@ -32,14 +41,20 @@
     display: none;
     text-align: center;
     color: #fff;
-    padding-top: 65px;
+    padding-top: 125px;
   }
 
   .no-results {
     display: none;
     text-align: center;
     color: #fff;
-    padding-top: 65px;
+    padding-top: 125px;
+    font-weight: 600;
+
+    span {
+      font-style: italic;
+      border-bottom: 1px solid #fff;
+    }
   }
 
   .search-results {
@@ -49,13 +64,15 @@
     width: 100%;
     top: 0;
     left: 0;
-    padding: 65px 10px 10px;
+    padding: 125px 20px 20px;
     box-sizing: border-box;
     z-index: 1;
     overflow-y: auto;
 
     ul.ui-search-list li {
       margin-bottom: 15px;
+      border-radius: 5px;
+      overflow: hidden;
     }
   }
 

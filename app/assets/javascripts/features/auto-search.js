@@ -55,12 +55,14 @@ $(function(){
   });
 
   function openSearchSidebar(){
+    $('body').addClass('search-sidebar-open');
     $('body').append(search_sidebar_template());
     $('#search-sidebar input').focus();
     $('#search-sidebar').animate({right: 0}, search_animation_speed);
   }
 
   function closeSearchSidebar(){
+    $('body').removeClass('search-sidebar-open');
     $('#search-sidebar').animate({right: '-400px'}, search_animation_speed, function(){
       $('#search-sidebar').remove();
     });
@@ -68,35 +70,43 @@ $(function(){
 
   // does the actual search
   function performSearch(){
-    $form = $('#search-sidebar form');
+    var $form = $('#search-sidebar form'),
+        term = $form.find('input[name=q]').val();
 
-    $.ajax({
-      dataType: "json",
-      url: $form.attr('action'),
-      method: "GET",
-      data: $form.serialize()
-    })
+    if (term.length) {
+      $.ajax({
+        dataType: "json",
+        url: $form.attr('action'),
+        method: "GET",
+        data: $form.serialize()
+      })
 
-    .done(function(resp){
-      if (resp.search.length) {
-        $('#search-sidebar .search-results').show();
+      .done(function(resp){
+        if (resp.search.length) {
+          $('#search-sidebar .search-results').show();
 
-        _.each(resp.search, function(result){
-          addSearchResult(result);
-        });
+          _.each(resp.search, function(result){
+            addSearchResult(result);
+          });
 
-      } else {
-        $('#search-sidebar .no-results').show();
-      }
-    })
+        } else {
+          $('#search-sidebar .no-results span').html(term);
+          $('#search-sidebar .no-results').show();
+        }
+      })
 
-    .fail(function(){
-      console.error('something went wrong with the search');
-    })
+      .fail(function(){
+        console.error('something went wrong with the search');
+      })
 
-    .always(function(){
+      .always(function(){
+        $('#search-sidebar').removeClass('searching');
+      });
+    } else {
       $('#search-sidebar').removeClass('searching');
-    });
+      $('#search-sidebar .no-results').hide();
+      $('#search-sidebar .search-results').hide();
+    }
   }
 
   // generates the html and adds it to the search results
