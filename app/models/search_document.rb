@@ -6,7 +6,7 @@ class SearchDocument < ActiveRecord::Base
   belongs_to :story
 
   # cant quite believe that sql is working...
-  def self.search(query, team_id)
+  def self.search(query, team_id, project_ids)
     query.gsub!(/[^a-z0-9\s]/i, "")
 
     sql = ActiveRecord::Base.sanitize_sql_array(['
@@ -21,6 +21,9 @@ class SearchDocument < ActiveRecord::Base
       "search_documents"."id" = search_search_documents.search_id
     ', query: query])
 
-    where(team_id: team_id).joins(sql).order('search_search_documents.rank DESC, updated_at DESC').includes(:project, :story)
+    where('team_id = ? AND project_id in (?)', team_id, project_ids)
+      .joins(sql)
+      .order('search_search_documents.rank DESC, updated_at DESC')
+      .includes(:project, :story)
   end
 end
