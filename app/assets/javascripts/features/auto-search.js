@@ -87,7 +87,7 @@ $(function(){
 
       current_search_xhr.done(function(resp){
         if (resp.search.length) {
-          $('#search-sidebar .search-results span.count').html(resp.search.length);
+          $('#search-sidebar .search-results span.count').html(resp.meta.total);
           $('#search-sidebar .search-results span.term').html(term);
           $('#search-sidebar .search-results').show();
 
