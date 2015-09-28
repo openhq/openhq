@@ -40,8 +40,6 @@ class Story < ActiveRecord::Base
   end
 
   def reindex_children
-    [tasks, attachments, comments].flatten.each do |child|
-      child.index_search_document
-    end
+    [tasks, attachments, comments].flatten.each(&:index_search_document)
   end
 end
