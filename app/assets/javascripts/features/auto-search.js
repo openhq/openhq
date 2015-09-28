@@ -69,7 +69,7 @@ $(function(){
 
     $('#search-sidebar').addClass('searching');
     $('#search-sidebar .no-results').hide();
-    $('#search-sidebar .search-results').hide();
+    $('#search-sidebar .search-results').scrollTop(0).hide();
     $('#search-sidebar .search-results ul').html('');
 
     var $form = $('#search-sidebar form'),
