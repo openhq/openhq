@@ -7,6 +7,9 @@ class Project < ActiveRecord::Base
   include Searchable
   searchable against: [:name], if: :live?, with_fields: [:project_id, :team_id]
 
+  after_destroy :reindex_children
+  after_restore :reindex_children
+
   belongs_to :owner, class_name: "User"
   has_many :stories
   has_and_belongs_to_many :users
@@ -31,6 +34,13 @@ class Project < ActiveRecord::Base
 
   def project_id
     id
+  end
+
+  def reindex_children
+    stories.each do |story|
+      story.index_search_document
+      story.reindex_children
+    end
   end
 
 end

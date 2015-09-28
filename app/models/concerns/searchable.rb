@@ -18,16 +18,24 @@ module Searchable
     # make sure the search document exists
     searchable = create_search_document if searchable.nil?
 
-    # update the content
-    searchable.content = searchable_content
+    # if an 'if:' was passed to the options,
+    # make sure it passes before adding any more content
+    if search_options[:if].present? && !send(search_options[:if])
+      searchable.content = ""
+      searchable.save
 
-    # update any extra fields
-    Array(search_options[:with_fields]).each do |extra_field|
-      searchable[extra_field] = send(extra_field)
+    else
+      # update the content
+      searchable.content = searchable_content
+
+      # update any extra fields
+      Array(search_options[:with_fields]).each do |extra_field|
+        searchable[extra_field] = send(extra_field)
+      end
+
+      # save the document
+      searchable.save
     end
-
-    # save the document
-    searchable.save
   end
 
   def create_search_document

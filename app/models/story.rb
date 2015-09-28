@@ -9,6 +9,9 @@ class Story < ActiveRecord::Base
   include Searchable
   searchable against: [:name, :description], if: :live?, with_fields: [:project_id, :story_id, :team_id]
 
+  after_destroy :reindex_children
+  after_restore :reindex_children
+
   belongs_to :project, touch: true
   belongs_to :owner, class_name: "User"
   has_many :tasks, -> { order(completed: :asc, order: :asc, created_at: :asc) }
@@ -34,5 +37,9 @@ class Story < ActiveRecord::Base
 
   def story_id
     id
+  end
+
+  def reindex_children
+    [tasks, attachments, comments].flatten.each(&:index_search_document)
   end
 end
