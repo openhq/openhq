@@ -19,7 +19,7 @@ $(function(){
   });
 
   // open the sidebar
-  $(document).on('click', '.ui-dropdown-menu.search', function(ev){
+  $(document).on('click', '.main-menu-item.search', function(ev){
     openSearchSidebar();
   });
   $(document).on('search:open', function(){
@@ -92,19 +92,22 @@ $(function(){
             addSearchResult(result);
           });
 
+        // no results found
         } else {
           $('#search-sidebar .no-results span').html(term);
           $('#search-sidebar .no-results').show();
         }
-      })
+      });
 
       current_search_xhr.fail(function(){
-        console.error('something went wrong with the search');
-      })
+        // failed or aborted
+      });
 
       current_search_xhr.always(function(){
         $('#search-sidebar').removeClass('searching');
       });
+
+    // term field is empty
     } else {
       $('#search-sidebar').removeClass('searching');
       $('#search-sidebar .no-results').hide();

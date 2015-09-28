@@ -7,11 +7,11 @@ $(function() {
         $(".ui-dropdown-menu.open").removeClass("open");
     });
 
-    $(document).on("click", ".ui-dropdown-menu", function(ev) {
+    $(document).on("click", ".main-menu-item", function(ev) {
         ev.stopPropagation();
     });
 
-    $(document).on("click", ".ui-dropdown-menu:not(.search) .icon", function() {
+    $(document).on("click", ".ui-dropdown-menu .icon", function() {
         var $menu = $(this).closest(".ui-dropdown-menu"),
             is_open = $menu.hasClass("open");
 
