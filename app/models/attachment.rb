@@ -10,6 +10,7 @@ class Attachment < ActiveRecord::Base
 
   belongs_to :attachable, polymorphic: true
   belongs_to :story
+  has_one :project, through: :story
   belongs_to :owner, class_name: "User"
 
   validates_presence_of :owner_id

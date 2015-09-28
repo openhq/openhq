@@ -13,7 +13,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'turbolinks'
-gem "autoprefixer-rails"
+gem "autoprefixer-rails" # scss prefixer
+gem 'ejs' # client side templates
 
 # Multitennate subdomains
 gem 'acts_as_tenant'

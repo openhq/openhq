@@ -5,6 +5,7 @@ class Task < ActiveRecord::Base
   acts_as_tenant(:team)
 
   belongs_to :story, touch: true
+  has_one :project, through: :story
   belongs_to :owner, class_name: "User"
   belongs_to :assignment, class_name: "User", foreign_key: "assigned_to"
   belongs_to :completer, class_name: "User", foreign_key: "completed_by"

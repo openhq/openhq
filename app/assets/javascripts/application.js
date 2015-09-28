@@ -25,7 +25,9 @@
 //= require highlightjs
 //= require jquery.atwho
 //= require imagesloaded.pkgd.min
+//= require mousetrap.min
 //= require_self
+//= require_tree ./templates
 //= require_tree ./features
 
 var App = {

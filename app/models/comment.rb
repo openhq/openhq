@@ -10,6 +10,8 @@ class Comment < ActiveRecord::Base
   belongs_to :owner, class_name: "User"
   has_many :attachments, as: :attachable
 
+  delegate :project, to: :commentable
+
   validates_presence_of :content, :owner_id
 
   def live?
@@ -20,7 +22,7 @@ class Comment < ActiveRecord::Base
     commentable.project_id if commentable.present? && commentable.live?
   end
 
-  # This will need to change if we ever add comments to anything other than stories
+  # these will need to change if we ever add comments to anything other than stories
   def story_id
     commentable_id
   end

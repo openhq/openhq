@@ -114,6 +114,7 @@ GEM
     dotenv (1.0.2)
     dotenv-rails (1.0.2)
       dotenv (= 1.0.2)
+    ejs (1.1.1)
     email_validator (1.6.0)
       activemodel
     erubis (2.7.0)
@@ -371,6 +372,7 @@ DEPENDENCIES
   coveralls
   database_cleaner
   dotenv-rails (~> 1.0.2)
+  ejs
   factory_girl_rails
   faker
   friendly_id (~> 5.0.4)
