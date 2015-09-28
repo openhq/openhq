@@ -1,5 +1,13 @@
 class SearchDocumentSerializer < ActiveModel::Serializer
-  attributes :searchable_id, :searchable_type, :searchable, :project, :story, :url, :attachment_image
+  attributes :searchable_id, :searchable_type, :searchable, :url, :project, :project_url, :story, :story_url, :attachment_image
+
+  def project_url
+    project.present? ? project_path(project) : nil
+  end
+
+  def story_url
+    story.present? ? project_story_path(project, story) : nil
+  end
 
   def url
     case searchable_type
