@@ -1,10 +1,10 @@
 $(function() {
 
     $(document).on("dialogs:close", function() {
-        $(".ui-dropdown-menu.open").removeClass("open");
+        closeAllMenuDropdowns();
     });
     $(document).on("click", function() {
-        $(".ui-dropdown-menu.open").removeClass("open");
+        closeAllMenuDropdowns();
     });
 
     $(document).on("click", ".main-menu-item", function(ev) {
@@ -15,7 +15,11 @@ $(function() {
         var $menu = $(this).closest(".ui-dropdown-menu"),
             is_open = $menu.hasClass("open");
 
-        $('.ui-dropdown-menu.open').removeClass('open');
+        closeAllMenuDropdowns();
         if (!is_open) $menu.addClass('open');
     });
+
+    function closeAllMenuDropdowns(){
+        $(".ui-dropdown-menu.open").removeClass("open");
+    }
 });
