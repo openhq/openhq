@@ -26,8 +26,4 @@ class Comment < ActiveRecord::Base
   def story_id
     commentable_id
   end
-
-  def story
-    commentable
-  end
 end
