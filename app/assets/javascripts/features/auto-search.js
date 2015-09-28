@@ -8,7 +8,7 @@ $(function(){
       search_attachment_template = JST['templates/search/attachment'],
 
       search_animation_speed = 500,
-      search_timeout = false;
+      search_xhr, current_search_xhr;
 
   // clicking outside the search sidebar closes it
   $(document).on("click", function() {
@@ -36,17 +36,8 @@ $(function(){
     // esc key
     if (ev.keyCode == 27) {
       closeSearchSidebar();
-
     } else {
-      $('#search-sidebar').addClass('searching');
-      $('#search-sidebar .no-results').hide();
-      $('#search-sidebar .search-results').hide();
-      $('#search-sidebar .search-results ul').html('');
-
-      clearTimeout(search_timeout);
-      search_timeout = setTimeout(function() {
-        performSearch();
-      }, 500);
+      performSearch();
     }
   });
 
@@ -71,18 +62,27 @@ $(function(){
 
   // does the actual search
   function performSearch(){
+    if (current_search_xhr) current_search_xhr.abort();
+
+    $('#search-sidebar').addClass('searching');
+    $('#search-sidebar .no-results').hide();
+    $('#search-sidebar .search-results').hide();
+    $('#search-sidebar .search-results ul').html('');
+
     var $form = $('#search-sidebar form'),
         term = $form.find('input[name=q]').val();
 
     if (term.length) {
-      $.ajax({
+      search_xhr = $.ajax({
         dataType: "json",
         url: $form.attr('action'),
         method: "GET",
         data: $form.serialize()
-      })
+      });
 
-      .done(function(resp){
+      current_search_xhr = search_xhr;
+
+      current_search_xhr.done(function(resp){
         if (resp.search.length) {
           $('#search-sidebar .search-results span.count').html(resp.search.length);
           $('#search-sidebar .search-results span.term').html(term);
@@ -98,11 +98,11 @@ $(function(){
         }
       })
 
-      .fail(function(){
+      current_search_xhr.fail(function(){
         console.error('something went wrong with the search');
       })
 
-      .always(function(){
+      current_search_xhr.always(function(){
         $('#search-sidebar').removeClass('searching');
       });
     } else {
