@@ -1,14 +1,6 @@
 class SearchDocumentSerializer < ActiveModel::Serializer
   attributes :searchable_id, :searchable_type, :searchable, :project, :story, :url, :attachment_image
 
-  def project
-    searchable.respond_to?(:project) ? searchable.project : nil
-  end
-
-  def story
-    searchable.respond_to?(:story) ? searchable.story : nil
-  end
-
   def url
     case searchable_type
     when "Project"
