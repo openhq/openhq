@@ -5,6 +5,5 @@ $(function(){
   Mousetrap.bind('esc', function(ev) {
     ev.preventDefault();
     $(document).trigger('dialogs:close');
-    console.log('triggered close');
   });
 });
