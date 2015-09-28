@@ -34,6 +34,6 @@ class Task < ActiveRecord::Base
   end
 
   def live?
-    story.present? && story.live? && project.present? && project.live?
+    story.present? && story.live?
   end
 end
