@@ -49,5 +49,10 @@ ul.ui-search-list {
       background: #fff;
     }
   }
+}
 
+.search.actions {
+  height: 40px;
+  a.prev { float: left; }
+  a.next { float: right; }
 }

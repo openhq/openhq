@@ -13,5 +13,8 @@
     <% end %>
   </ul>
 
-  <%= paginate @results %>
+  <div class="search actions">
+    <%= link_to_next_page @results, 'Next Page', params: { q: @query }, class: "next btn btn-secondary" %>
+    <%= link_to_previous_page @results, 'Previous Page', params: { q: @query }, class: "prev btn btn-secondary" %>
+  </div>
 <% end %>
