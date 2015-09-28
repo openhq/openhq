@@ -2,6 +2,9 @@ body.search-sidebar-open {
   #main-content {
     margin-left: -400px;
   }
+  #search-sidebar {
+    right: 0px;
+  }
 }
 
 #search-sidebar {
@@ -11,6 +14,7 @@ body.search-sidebar-open {
   padding: 10px;
   position: fixed;
   right: -400px;
+  transition: 0.5s ease;
   top: 0;
   background-color: $primary-color;
   z-index: 100;

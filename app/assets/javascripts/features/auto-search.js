@@ -7,7 +7,6 @@ $(function(){
       search_comment_template = JST['templates/search/comment'],
       search_attachment_template = JST['templates/search/attachment'],
 
-      search_animation_speed = 500,
       search_xhr, current_search_xhr;
 
   // clicking outside the search sidebar closes it
@@ -47,17 +46,21 @@ $(function(){
   });
 
   function openSearchSidebar(){
-    $('body').addClass('search-sidebar-open');
     $('body').append(search_sidebar_template());
     $('#search-sidebar input').focus();
-    $('#search-sidebar').animate({right: 0}, search_animation_speed);
+    // need to give the append a second to add the sidebar
+    // or the css transition doesn't work
+    setTimeout(function() {
+      $('body').addClass('search-sidebar-open');
+    }, 10);
   }
 
   function closeSearchSidebar(){
     $('body').removeClass('search-sidebar-open');
-    $('#search-sidebar').animate({right: '-400px'}, search_animation_speed, function(){
+    // using a timeout to allow the css animation to finish
+    setTimeout(function() {
       $('#search-sidebar').remove();
-    });
+    }, 500);
   }
 
   // does the actual search
