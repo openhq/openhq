@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
   def index
     page = (params[:page] || 1).to_i
-    @notifications = current_user.notifications.page(page).per(20)
+    @notifications = current_user.notifications.page(page).per(5)
   end
 
   def unseen
