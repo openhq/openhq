@@ -1,1 +1,9 @@
-<a href="#">project created</a>
+<a href="<%= link_to %>">
+  <div class="owner-details">
+    <img src="<%= owner_avatar_url %>" class="avatar" alt="<%= owner_name %>" /> <%= owner_name %>
+  </div>
+
+  <div class="details">
+    created the project: <em><%= notifiable.name %></em>
+  </div>
+</a>

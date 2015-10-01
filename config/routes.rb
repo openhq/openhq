@@ -72,6 +72,10 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :notifications, only: [:index] do
+      get "unseen", on: :collection
+    end
+
   end # subdomain constraint
 
   if Rails.env.development?

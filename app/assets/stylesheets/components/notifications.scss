@@ -1,0 +1,29 @@
+.main-menu-item.notifications .notification-list {
+  max-height: 150px;
+  overflow: auto;
+
+  li {
+    border-top: 1px solid $line-color-light;
+    &:last-child {
+      border-bottom: 1px solid $line-color-light;
+    }
+  }
+
+  .details {
+    font-size: 12px;
+  }
+
+  .owner-details {
+    position: relative;
+    height: 15px;
+    font-size: 11px;
+    padding: 0 0 5px 20px;
+    img {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 15px;
+    }
+  }
+
+}

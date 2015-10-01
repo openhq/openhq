@@ -56,9 +56,6 @@
       App.users = <%== MultiJson.dump(ActiveModel::ArraySerializer.new(current_team.users.active, each_serializer: PublicUserSerializer, root: false), pretty: true) %>;
       <% end %>
     <% end %>
-    <% if current_user.present? %>
-      App.user_notifications = <%== MultiJson.dump(current_user.notifications.unseen, pretty: true) %>
-    <% end %>
   </script>
 
 </body>

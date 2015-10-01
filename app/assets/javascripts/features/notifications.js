@@ -1,10 +1,19 @@
-$(function(){
+App.onPageLoad(function() {
   var $notification_menu_item = $('.main-menu-item.notifications'),
       no_notifications_template = JST['templates/notifications/no_notifications'];
 
-  // When the page if first loaded, all any unseen notifications to the menu
-  $(document).ready(function(){
-    addAllNotifications(App.user_notifications);
+  // When the page loads,
+  // add any unseen notifications to the menu
+  $.ajax({
+    method: "GET",
+    url: "/notifications/unseen",
+  })
+  .done(function(resp){
+    addAllNotifications(resp.notifications);
+  })
+  .fail(function(resp){
+    console.error('something went wrong getting the notifications', resp);
+    addAllNotifications([]);
   });
 
   // Adds an array of notifications to the dropdown menu
@@ -31,10 +40,10 @@ $(function(){
     var template_filename = (n.notifiable_type+'_'+n.action_performed).toLowerCase(),
         template = JST['templates/notifications/'+template_filename];
 
-    console.log(template_filename);
+    console.log('add notification', n);
 
     $notification_menu_item.find('ul.notification-list').append(
-      '<li>'+template()+'</li>'
+      '<li>'+template(n)+'</li>'
     );
   }
 });
