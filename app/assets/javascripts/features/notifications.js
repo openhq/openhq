@@ -25,13 +25,17 @@ App.onPageLoad(function() {
 
     // add all the notifications
     if (notifications.length > 0) {
+      $notification_menu_item.addClass('has-unseen');
+
       _.each(notifications, function(n){
         addNotification(n);
       });
 
     // no new notifications
     } else {
-      $notification_menu_item.find('ul.notification-list').append('<li>'+no_notifications_template()+'</li>');
+      $notification_menu_item.find('ul.notification-list').append(
+        '<li class="no-new">'+no_notifications_template()+'</li>'
+      );
     }
   }
 
@@ -40,10 +44,21 @@ App.onPageLoad(function() {
     var template_filename = (n.notifiable_type+'_'+n.action_performed).toLowerCase(),
         template = JST['templates/notifications/'+template_filename];
 
-    console.log('add notification', n);
-
     $notification_menu_item.find('ul.notification-list').append(
-      '<li>'+template(n)+'</li>'
+      '<li class="unseen">'+template(n)+'</li>'
     );
   }
+
+
+  $(document).on("click", ".ui-dropdown-menu.notifications .icon", function() {
+    // if there are any unseen notifications, mark them all as read and
+    // remove the unseen class from the menu icon
+    if ($notification_menu_item.hasClass('has-unseen')) {
+      $notification_menu_item.removeClass('has-unseen');
+      $.ajax({
+        url: "/notifications/mark_all_seen",
+        method: "PUT"
+      });
+    }
+  });
 });

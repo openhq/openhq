@@ -12,4 +12,8 @@ class Notification < ActiveRecord::Base
   def delivered!
     update(delivered: true)
   end
+
+  def mark_as_seen
+    update(seen: true)
+  end
 end
