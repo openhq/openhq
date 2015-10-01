@@ -1,0 +1,11 @@
+<h1>Notifications</h1>
+
+<table>
+  <% @notifications.each do |n| %>
+    <tr>
+      <%= render "user_mailer/notification_partials/#{n.notifiable.class.to_s.underscore}_#{n.action_performed}", { model: n.notifiable } %>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate @notifications %>
