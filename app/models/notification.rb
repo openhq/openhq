@@ -7,6 +7,7 @@ class Notification < ActiveRecord::Base
   acts_as_tenant(:team)
 
   scope :undelivered, -> { where(delivered: false) }
+  scope :unseen, -> { where(seen: false) }
 
   def delivered!
     update(delivered: true)
