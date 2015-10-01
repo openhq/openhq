@@ -70,6 +70,7 @@ $(function(){
     $('#search-sidebar').addClass('searching');
     $('#search-sidebar .no-results').hide();
     $('#search-sidebar .search-results').scrollTop(0).hide();
+    $('#search-sidebar .view-more a').hide();
     $('#search-sidebar .search-results ul').html('');
 
     var $form = $('#search-sidebar form'),
@@ -87,13 +88,17 @@ $(function(){
 
       current_search_xhr.done(function(resp){
         if (resp.search.length) {
-          $('#search-sidebar .search-results span.count').html(resp.search.length);
-          $('#search-sidebar .search-results span.term').html(term);
+          $('#search-sidebar .search-results span.count').html(resp.meta.total);
+          $('#search-sidebar .search-results span.term').html(resp.meta.query);
           $('#search-sidebar .search-results').show();
 
           _.each(resp.search, function(result){
             addSearchResult(result);
           });
+
+          if (resp.meta.has_more) {
+            $('#search-sidebar .view-more a').attr('href', resp.meta.view_more_link).show();
+          }
 
         // no results found
         } else {

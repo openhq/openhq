@@ -100,4 +100,18 @@ body.search-sidebar-open {
       display: none;
     }
   }
+
+  .view-more {
+    text-align: center;
+    a {
+      display: none;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        border-bottom: 1px solid #fff;
+      }
+    }
+  }
 }
