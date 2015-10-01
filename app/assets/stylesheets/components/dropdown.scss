@@ -4,15 +4,15 @@ menu .main-menu-item {
 
 .main-menu-item {
   position: relative;
-  width: 40px;
-  margin-left: 10px;
+  width: 30px;
+  margin-left: 8px;
   z-index: 100;
 
   .dropdown {
     display: none;
     position: absolute;
-    top: 60px;
-    right: -20px;
+    top: 45px;
+    right: -25px;
     width: 250px;
     background: #fff;
     list-style: none;
@@ -28,21 +28,21 @@ menu .main-menu-item {
       border-left: 1px solid $line-color;
       border-top: 1px solid $line-color;
       position: absolute;
-      right: 28px;
-      top: -11px;
-      width: 20px;
-      height: 20px;
+      right: 31px;
+      top: -8px;
+      width: 15px;
+      height: 15px;
       transform: rotate(45deg);
     }
   }
 
   span.icon {
     display: block;
-    width: 40px;
-    height: 40px;
-    background-size: 40px;
+    width: 30px;
+    height: 30px;
+    background-size: 30px;
     background-position: center;
-    border-radius: 40px;
+    border-radius: 30px;
     border: 1px solid #000;
     opacity: 0.4;
 
