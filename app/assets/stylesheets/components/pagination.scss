@@ -23,11 +23,15 @@
     margin: 0 2px;
 
     &.next {
-      margin-left: 20px;
+      float: right;
     }
 
     &.prev {
-      margin-right: 20px;
+      float: left;
+    }
+
+    &.first, &.last {
+      display: none;
     }
 
     &.page.current {
