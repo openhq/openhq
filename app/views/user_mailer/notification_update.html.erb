@@ -62,7 +62,7 @@
         <tbody>
           <% @notifications.each do |n| %>
             <tr>
-              <%= render "/user_mailer/notification_partials/#{n.notifiable.class.to_s.underscore}_#{n.action_performed}", { n: n } %>
+              <%= render "/notifications/#{n.notifiable.class.to_s.underscore}_#{n.action_performed}", { n: n } %>
             </tr>
           <% end %>
         </tbody>
