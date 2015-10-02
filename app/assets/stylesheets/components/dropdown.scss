@@ -8,6 +8,10 @@ menu .main-menu-item {
   margin-left: 8px;
   z-index: 100;
 
+  &:last-child {
+    margin-right: 18px;
+  }
+
   .dropdown {
     display: none;
     position: absolute;
