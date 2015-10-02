@@ -1,0 +1,11 @@
+<td class="avatar">
+  <%= present(n.actioner).avatar(30) %>
+</td>
+
+<td class="content">
+  <p><strong><%= n.actioner.display_name %></strong> assigned a task to you on the story <%= link_to n.story.name, [n.project, n.story] %>, in <%= link_to n.project.name, n.project %>:</p>
+
+  <div class="details">
+    <p><%= markdownify n.notifiable.label %></p>
+  </div>
+</td>

@@ -1,0 +1,7 @@
+<td class="avatar">
+  <%= present(n.actioner).avatar(30) %>
+</td>
+
+<td class="content">
+  <p><strong><%= n.actioner.display_name %></strong> created the project: <%= link_to n.project.name, n.project %></p>
+</td>

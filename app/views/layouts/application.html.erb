@@ -13,7 +13,7 @@
         <menu>
           <% if signed_in? %>
             <%= render "shared/search_dropdown" if current_team.present? %>
-            <%= render "shared/notifications_dropdown" %>
+            <%= render "shared/notifications_dropdown" if current_team.present? %>
             <%= render "shared/team_switcher" %>
             <%= render "shared/signed_in_menu" %>
           <% else %>

@@ -1,0 +1,45 @@
+.pagination {
+  text-align: center;
+  border-top: 1px solid $line-color-light;
+  padding-top: 30px;
+
+  a {
+    border-radius: 5px;
+    background-color: $line-color-light;
+    display: block;
+    padding: 5px 10px;
+    color: $body-color;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      background-color: $primary-deep;
+      color: #fff;
+    }
+  }
+
+  span {
+    display: inline-block;
+    margin: 0 2px;
+
+    &.next {
+      float: right;
+    }
+
+    &.prev {
+      float: left;
+    }
+
+    &.first, &.last {
+      display: none;
+    }
+
+    &.page.current {
+      padding: 5px 10px;
+      background-color: $primary-color;
+      font-weight: 600;
+      color: #fff;
+      border-radius: 5px;
+    }
+  }
+}

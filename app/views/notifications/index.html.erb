@@ -1,0 +1,11 @@
+<h1>Notifications</h1>
+
+<table class="notifications-table">
+  <% @notifications.each do |n| %>
+    <tr>
+      <%= render "#{n.notifiable.class.to_s.underscore}_#{n.action_performed}", { n: n } %>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate @notifications %>

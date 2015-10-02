@@ -1,0 +1,78 @@
+.main-menu-item.notifications {
+  span.notification-count {
+    position: absolute;
+    right: -10px;
+    top: -5px;
+    background: $danger-color;
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 100px;
+    font-size: 10px;
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    line-height: 20px;
+    display: none;
+  }
+
+  .notification-list {
+    max-height: 150px;
+    overflow: auto;
+
+    li:not(.no-new) {
+      border-top: 1px solid $line-color-light;
+      &:last-child {
+        border-bottom: 1px solid $line-color-light;
+      }
+    }
+
+    .details {
+      font-size: 12px;
+    }
+
+    .owner-details {
+      position: relative;
+      height: 15px;
+      font-size: 11px;
+      padding: 0 0 5px 20px;
+      img {
+        position: absolute;
+        left: 0;
+        top: 4px;
+        width: 15px;
+      }
+    }
+  }
+}
+
+.notifications-table {
+  width: 100%;
+
+  tr td {
+    border-bottom: 1px solid $line-color-light;
+    vertical-align: top;
+
+    &.avatar {
+      width: 40px;
+    }
+
+    img.avatar {
+      margin-top: 12px;
+    }
+
+    .details {
+      background-color: $rollover-dark;
+      border-radius: 5px;
+      margin-bottom: 20px;
+
+      p {
+        padding: 2px 10px;
+        margin: 0;
+      }
+    }
+  }
+  tr:last-child td {
+    border-bottom: 0;
+  }
+}
