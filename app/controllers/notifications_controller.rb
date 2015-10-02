@@ -9,7 +9,7 @@ class NotificationsController < ApplicationController
   end
 
   def mark_all_seen
-    current_user.notifications.unseen.each(&:mark_as_seen)
+    current_user.notifications.unseen.each(&:seen!)
     render nothing: true
   end
 end

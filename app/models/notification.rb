@@ -14,7 +14,9 @@ class Notification < ActiveRecord::Base
     update(delivered: true)
   end
 
-  def mark_as_seen
-    update(seen: true)
+  def seen!
+    # mark as delievered also, to stop the user being emailed about it
+    # if they have already been notified on the website
+    update(seen: true, delivered: true)
   end
 end
