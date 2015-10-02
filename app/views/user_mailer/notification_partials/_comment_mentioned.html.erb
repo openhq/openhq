@@ -1,16 +1,16 @@
 <td class="avatar">
-  <%= present(model.owner).avatar(30) %>
+  <%= present(n.actioner).avatar(30) %>
 </td>
 
 <td class="content">
-  <p><strong><%= model.owner.username %></strong> mentioned you in a comment on <%= link_to model.commentable.name, [model.commentable.project, model.commentable] %>, in <%= link_to model.commentable.project.name, model.commentable.project %>:</p>
+  <p><strong><%= n.actioner.display_name %></strong> mentioned you in a comment on <%= link_to n.story.name, [n.project, n.story] %>, in <%= link_to n.project.name, n.project %>:</p>
 
   <div class="details">
-    <%= markdownify model.content %>
+    <%= markdownify n.notifiable.content %>
 
-    <% if model.attachments.any? %>
+    <% if n.notifiable.attachments.any? %>
       <ul>
-        <% model.attachments.each do |a| %>
+        <% n.notifiable.attachments.each do |a| %>
           <li><%= link_to a.file_name, a.url %></li>
         <% end %>
       </ul>

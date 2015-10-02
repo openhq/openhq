@@ -18,7 +18,6 @@ App.onPageLoad(function() {
 
   // Adds an array of notifications to the dropdown menu
   function addAllNotifications(notifications) {
-
     // notification count title
     $notification_menu_item.find('p.notification-count').text(
       notifications.length+" Notification"+(notifications.length == 1 ? "" : "s")

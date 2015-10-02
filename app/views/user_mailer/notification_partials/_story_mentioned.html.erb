@@ -1,11 +1,11 @@
 <td class="avatar">
-  <%= present(model.owner).avatar(30) %>
+  <%= present(n.actioner).avatar(30) %>
 </td>
 
 <td class="content">
-  <p><strong><%= model.owner.username %></strong> mentioned you in a story: <%= link_to model.name, [model.project, model] %>, in <%= link_to model.project.name, model.project %></p>
+  <p><strong><%= n.actioner.display_name %></strong> mentioned you in a story: <%= link_to n.story.name, [n.project, n.story] %>, in <%= link_to n.project.name, n.project %></p>
 
   <div class="details">
-    <%= markdownify model.description %>
+    <%= markdownify n.notifiable.description %>
   </div>
 </td>

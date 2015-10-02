@@ -1,11 +1,11 @@
 <td class="avatar">
-  <%= present(model.completer).avatar(30) %>
+  <%= present(n.actioner).avatar(30) %>
 </td>
 
 <td class="content">
-  <p><strong><%= model.completer.username %></strong> completed a task on the story <%= link_to model.story.name, [model.story.project, model.story] %>, in <%= link_to model.story.project.name, model.story.project %>:</p>
+  <p><strong><%= n.notifiable.completer.display_name %></strong> completed a task on the story <%= link_to n.story.name, [n.project, n.story] %>, in <%= link_to n.project.name, n.project %>:</p>
 
   <div class="details">
-    <p><%= markdownify model.label %></p>
+    <p><%= markdownify n.notifiable.label %></p>
   </div>
 </td>
