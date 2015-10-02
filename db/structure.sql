@@ -165,7 +165,8 @@ CREATE TABLE notifications (
     delivered boolean DEFAULT false,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    team_id integer
+    team_id integer,
+    actioner_id integer
 );
 
 
@@ -1074,4 +1075,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150911135806');
 INSERT INTO schema_migrations (version) VALUES ('20150914140555');
 
 INSERT INTO schema_migrations (version) VALUES ('20150914170620');
+
+INSERT INTO schema_migrations (version) VALUES ('20151002105613');
 

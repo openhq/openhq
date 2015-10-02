@@ -1,12 +1,13 @@
 class NotificationService
   include PresenterHelper
 
-  attr_reader :notifiable, :presenter, :action_performed
+  attr_reader :notifiable, :presenter, :action_performed, :actioner
 
-  def initialize(notifiable, action_performed)
+  def initialize(notifiable, action_performed, actioner)
     @notifiable = notifiable
     @presenter = present(notifiable)
     @action_performed = action_performed
+    @actioner = actioner
   end
 
   def notify
@@ -21,7 +22,8 @@ class NotificationService
         project: presenter.project,
         story: presenter.story,
         notifiable: notifiable,
-        action_performed: action_performed
+        action_performed: action_performed,
+        actioner: actioner
       )
     end
   end
