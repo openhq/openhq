@@ -18,6 +18,7 @@ App.onPageLoad(function() {
 
   // Adds an array of notifications to the dropdown menu
   function addAllNotifications(notifications) {
+
     // notification count title
     $notification_menu_item.find('p.notification-count').text(
       notifications.length+" Notification"+(notifications.length == 1 ? "" : "s")
@@ -25,6 +26,9 @@ App.onPageLoad(function() {
 
     // add all the notifications
     if (notifications.length > 0) {
+      // notification count icon
+      $notification_menu_item.find('span.notification-count').text(notifications.length).show();
+
       $notification_menu_item.addClass('has-unseen');
 
       _.each(notifications, function(n){
@@ -55,6 +59,7 @@ App.onPageLoad(function() {
     // remove the unseen class from the menu icon
     if ($notification_menu_item.hasClass('has-unseen')) {
       $notification_menu_item.removeClass('has-unseen');
+      $notification_menu_item.find('span.notification-count').hide();
       $.ajax({
         url: "/notifications/mark_all_seen",
         method: "PUT"

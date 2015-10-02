@@ -1,9 +1,19 @@
 .main-menu-item.notifications {
-  &.has-unseen {
-    span.icon {
-      background-color: $primary-color;
-      opacity: 1;
-    }
+  span.notification-count {
+    position: absolute;
+    right: -10px;
+    top: -5px;
+    background: $danger-color;
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 100px;
+    font-size: 10px;
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    line-height: 20px;
+    display: none;
   }
 
   .notification-list {
