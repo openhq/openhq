@@ -7,30 +7,6 @@ $(function(){
             updateTaskCompletionBar();
         }
 
-        // setting a task as complete / incomplete
-        $('.tasks li input[type=checkbox]').on('change', function(e){
-            var $this = $(this);
-            var li = $this.closest('li');
-            var url = $this.closest('form').attr('action');
-            var completed = $this.is(':checked');
-
-            $.ajax({
-                type: "put",
-                url: url,
-                data: {
-                  completed: completed
-                }
-            })
-            .done(function(resp){
-                li.toggleClass('complete').show();
-
-                updateTaskCompletionBar();
-            })
-            .fail(function(resp){
-                console.log('error', resp.error);
-            });
-        });
-
         // rearranging a task list
         $(".tasks ul.sortable").sortable({
             items: ".task",
@@ -70,7 +46,6 @@ $(function(){
             _.each(resp.tasks, function(task){
                 tasks_html += task_template(task);
                 if (!task.completed) incomplete_count++;
-                console.log(task);
             });
 
             $container.prepend(container_template({
@@ -80,6 +55,30 @@ $(function(){
             }));
         });
     }
+
+    // setting a task as complete / incomplete
+    $(document).on('change', '.tasks li input[type=checkbox]', function(e){
+        var $this = $(this),
+            li = $this.closest('li'),
+            url = $this.closest('form').attr('action'),
+            completed = $this.is(':checked');
+
+        $.ajax({
+            type: "put",
+            url: url,
+            data: {
+              completed: completed
+            }
+        })
+        .done(function(resp){
+            li.toggleClass('complete').show();
+
+            updateTaskCompletionBar();
+        })
+        .fail(function(resp){
+            console.log('error', resp.error);
+        });
+    });
 
     // clicking the edit button
     $(document).on('click', '.tasks ul li ul.actions a.edit', function(ev){
