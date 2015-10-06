@@ -1,4 +1,6 @@
 $(function(){
+    var tasks_container_template = JST['templates/tasks/container'],
+        task_template = JST['templates/tasks/task'];
 
     App.onPageLoad(function() {
         // Add tasks if there are any
@@ -8,9 +10,7 @@ $(function(){
     });
 
     function addAllTasks() {
-        var $container = $('.tasks'),
-            container_template = JST['templates/tasks/container'],
-            task_template = JST['templates/tasks/task'];
+        var $container = $('.tasks');
 
         $.ajax({
             url: $container.attr('data-url'),
@@ -28,7 +28,7 @@ $(function(){
             });
 
             // the overall html including incomplete count etc.
-            $container.prepend(container_template({
+            $container.prepend(tasks_container_template({
                 incomplete_count: incomplete_count,
                 order_url: $container.attr('data-url') + '/update-order',
                 tasks_html: tasks_html
@@ -173,8 +173,8 @@ $(function(){
         })
 
         .done(function(resp){
-            console.log('success', resp);
             $form.find('.task_label input').val('');
+            $('.tasks ul li.action').before(task_template(resp.task));
         })
 
         .fail(function(resp){
