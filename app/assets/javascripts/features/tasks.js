@@ -3,6 +3,7 @@ $(function(){
     App.onPageLoad(function() {
         // If we’re on a story update task completion status
         if ($(".ui-story").find(".tasks").length > 0) {
+            setTasks();
             updateTaskCompletionBar();
         }
 
@@ -51,6 +52,19 @@ $(function(){
         });
 
     });
+
+    function setTasks() {
+        var $container = $('.tasks');
+
+        $.ajax({
+            url: $container.attr('data-url'),
+            method: "GET",
+            dataType: "json"
+        })
+        .done(function(resp){
+            console.log(resp);
+        });
+    }
 
     // clicking the edit button
     $(document).on('click', '.tasks ul li ul.actions a.edit', function(ev){

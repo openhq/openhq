@@ -20,49 +20,43 @@
             <%= markdownify @story.description %>
           </section>
         </article>
-        <div class="tasks">
-          <% if @tasks.size < 1 %>
-            <p>No tasks</p>
-          <% else %>
-            <h4><%= pluralize(@incomplete_tasks.size, "Incomplete Task") %></h4>
+        <div class="tasks" data-url="<%= project_story_tasks_path(@project, @story) %>">
+          <h4><%= pluralize(@incomplete_tasks.size, "Incomplete Task") %></h4>
 
-              <ul class="sortable" data-update-url="<%= update_order_project_story_tasks_path(@project, @story) %>">
-                <% @tasks.each do |task| %>
-                  <li class="task <%= "complete" if task.completed? %>" id="<%= task.id %>" data-id="<%= task.id %>">
+          <ul class="sortable" data-update-url="<%= update_order_project_story_tasks_path(@project, @story) %>">
+            <% @tasks.each do |task| %>
+              <li class="task <%= "complete" if task.completed? %>" id="<%= task.id %>" data-id="<%= task.id %>">
 
-                    <div class="default-form">
-                      <%= simple_form_for [@project, @story, task] do |f| %>
-                        <input type="checkbox" <%= "checked" if task.completed? %>><%= markdownify task.label %>
+                <div class="default-form">
+                  <%= simple_form_for [@project, @story, task] do |f| %>
+                    <input type="checkbox" <%= "checked" if task.completed? %>><%= markdownify task.label %>
 
-                        <span class="assignment"><%= task.assignment_name %></span>
+                    <span class="assignment"><%= task.assignment_name %></span>
 
-                        <ul class="actions">
-                          <li><%= link_to "Edit", "#", class: "edit" %></li>
-                          <li><%= link_to "Delete", project_story_task_path(@project, @story, task), method: :delete, class: "delete", data: { confirm: "Are you sure?" } %></li>
-                        </ul>
-                      <% end %>
-                    </div>
+                    <ul class="actions">
+                      <li><%= link_to "Edit", "#", class: "edit" %></li>
+                      <li><%= link_to "Delete", project_story_task_path(@project, @story, task), method: :delete, class: "delete", data: { confirm: "Are you sure?" } %></li>
+                    </ul>
+                  <% end %>
+                </div>
 
-                    <div class="edit-form">
-                      <%= simple_form_for [@project, @story, task] do |f| %>
-                        <%= f.input :label, label: false, input_html: { autocomplete: 'off' } %>
-                        <%= f.input :assignment, collection: @project.users_select_array, selected: task.assigned_to, label: false %>
-                        <hr>
-                        <%= f.submit "Update", class: "btn btn-main btn-small" %>
-                        <%= link_to "Cancel", "#", class: "cancel" %>
-                      <% end %>
-                    </div>
+                <div class="edit-form">
+                  <%= simple_form_for [@project, @story, task] do |f| %>
+                    <%= f.input :label, label: false, input_html: { autocomplete: 'off' } %>
+                    <%= f.input :assignment, collection: @project.users_select_array, selected: task.assigned_to, label: false %>
+                    <hr>
+                    <%= f.submit "Update", class: "btn btn-main btn-small" %>
+                    <%= link_to "Cancel", "#", class: "cancel" %>
+                  <% end %>
+                </div>
 
-                  </li>
-                <% end %>
+              </li>
+            <% end %>
 
-                <% if @tasks.size > @incomplete_tasks.size %>
-                <li class="action">
-                  <a href="#" class="show-completed-tasks">Show completed tasks</a>
-                </li>
-                <% end %>
-              </ul>
-          <% end %>
+            <li class="action">
+              <a href="#" class="show-completed-tasks">Show completed tasks</a>
+            </li>
+          </ul>
 
           <% if can? :create, Task.new %>
             <%= simple_form_for [@project, @story, Task.new], html: { class: "pure-form pure-form-stacked" } do |f| %>

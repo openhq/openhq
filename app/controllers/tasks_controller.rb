@@ -1,5 +1,12 @@
 class TasksController < ApplicationController
 
+  def index
+    story = Story.friendly.find(params[:story_id])
+    tasks = story.tasks.includes(:assignment, :story, :project)
+
+    render json: tasks, status: 200
+  end
+
   def create
     @task = Task.new(
       story: Story.friendly.find(params[:story_id]),
