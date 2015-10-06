@@ -1,0 +1,35 @@
+<li class="task <%= completed ? "complete" : "" %>" id="<%= id %>" data-id="<%= id %>">
+  <div class="default-form">
+    <form novalidate="novalidate" class="edit_task" id="edit_task_<%= id %>" action="<%= url %>" method="post">
+      <input type="checkbox" <%= completed ? "checked=\"\"" : "" %>>
+      <p><%= label %></p>
+
+      <span class="assignment"><%= assignment_name %></span>
+
+      <ul class="actions">
+        <li><a class="edit" href="#">Edit</a></li>
+        <li><a class="delete" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="<%= url %>">Delete</a></li>
+      </ul>
+    </form>
+  </div>
+
+  <div class="edit-form">
+    <form novalidate="novalidate" class="edit_task" id="edit_task_<%= id %>" action="<%= url %>" method="post">
+      <div class="input string required task_label">
+        <input autocomplete="off" class="string required" type="text" value="<%= label %>" name="task[label]" id="task_label">
+      </div>
+      <div class="input select optional task_assignment">
+        <select class="select optional" name="task[assignment]" id="task_assignment">
+          <% _.each(project_users, function(user) { %>
+            <option value="<%= user[1] %>" <%= user[0] == assignment_name ? "selected" : "" %>><%= user[0] %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <hr>
+
+      <input type="submit" name="commit" value="Update" class="btn btn-main btn-small">
+      <a class="cancel" href="#">Cancel</a>
+    </form>
+  </div>
+</li>

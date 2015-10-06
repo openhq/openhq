@@ -3,7 +3,7 @@ $(function(){
     App.onPageLoad(function() {
         // If we’re on a story update task completion status
         if ($(".ui-story").find(".tasks").length > 0) {
-            setTasks();
+            addAllTasks();
             updateTaskCompletionBar();
         }
 
@@ -53,8 +53,10 @@ $(function(){
 
     });
 
-    function setTasks() {
-        var $container = $('.tasks');
+    function addAllTasks() {
+        var $container = $('.tasks'),
+            container_template = JST['templates/tasks/container'],
+            task_template = JST['templates/tasks/task'];
 
         $.ajax({
             url: $container.attr('data-url'),
@@ -62,7 +64,20 @@ $(function(){
             dataType: "json"
         })
         .done(function(resp){
-            console.log(resp);
+            var tasks_html = "",
+                incomplete_count = 0;
+
+            _.each(resp.tasks, function(task){
+                tasks_html += task_template(task);
+                if (!task.completed) incomplete_count++;
+                console.log(task);
+            });
+
+            $container.prepend(container_template({
+                incomplete_count: incomplete_count,
+                order_url: $container.attr('data-url') + '/update-order',
+                tasks_html: tasks_html
+            }));
         });
     }
 
