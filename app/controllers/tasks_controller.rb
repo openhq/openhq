@@ -11,10 +11,19 @@ class TasksController < ApplicationController
 
     if @task.save
       notify(@task, %w(created mentioned))
-      redirect_to :back, notice: "Your task has been added"
+      respond_to do |format|
+        format.html { redirect_to :back, notice: "Your task has been added" }
+        format.json { render json: @task, status: 200 }
+      end
     else
-      flash[:error] = get_first_error(@task)
-      redirect_to :back
+      respond_to do |format|
+        format.html do
+          flash[:error] = get_first_error(@task)
+          redirect_to :back
+        end
+        format.json { render json: @task.errors, status: 400 }
+      end
+
     end
   end
 

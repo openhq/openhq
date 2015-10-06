@@ -122,4 +122,33 @@ $(function(){
         $('.tasks li.complete').show();
     });
 
+    // submitting a new task
+    $(document).on('submit', '#new_task', function(ev){
+        ev.preventDefault();
+        $form = $(ev.currentTarget);
+
+        if ($form.hasClass('submitting')) return;
+        $form.addClass('submitting');
+
+        $.ajax({
+            url: $form.attr('action'),
+            method: "POST",
+            data: $form.serialize(),
+            dataType: "json"
+        })
+
+        .done(function(resp){
+            console.log('success', resp);
+            $form.find('.task_label input').val('');
+        })
+
+        .fail(function(resp){
+            console.error('fail', resp.responseJSON);
+        })
+
+        .always(function(){
+            $form.removeClass('submitting');
+        });
+    });
+
 });
