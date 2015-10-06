@@ -3,6 +3,11 @@
         margin-top: 0;
     }
 
+    .no-tasks,
+    .tasks-list-container {
+        display: none;
+    }
+
     ul {
         list-style: none;
         padding-left: 0;

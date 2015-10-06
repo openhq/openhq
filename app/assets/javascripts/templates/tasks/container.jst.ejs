@@ -1,9 +1,13 @@
-<h4><%= incomplete_count %> Incomplete Task<%= incomplete_count == 1 ? "" : "s" %></h4>
+<div class="tasks-list-container">
+  <h4 class="incomplete-tasks-title">
+    <%= incomplete_count %> Incomplete Task<%= incomplete_count == 1 ? "" : "s" %>
+  </h4>
 
-<ul class="sortable" data-update-url="<%= order_url %>">
-  <%= tasks_html %>
+  <ul class="sortable" data-update-url="<%= order_url %>">
+    <%= tasks_html %>
 
-  <li class="action">
-    <a href="#" class="show-completed-tasks">Show completed tasks</a>
-  </li>
-</ul>
+    <li class="action">
+      <a href="#" class="show-completed-tasks">Show completed tasks</a>
+    </li>
+  </ul>
+</div>

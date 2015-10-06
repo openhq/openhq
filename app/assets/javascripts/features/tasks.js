@@ -29,10 +29,20 @@ $(function(){
 
             // the overall html including incomplete count etc.
             $container.prepend(tasks_container_template({
+                count: resp.tasks.length,
                 incomplete_count: incomplete_count,
                 order_url: $container.attr('data-url') + '/update-order',
                 tasks_html: tasks_html
             }));
+
+            $container.find('.loading').remove();
+            if (!resp.tasks.length) {
+                $('.tasks .no-tasks').show();
+                $('.tasks .tasks-list-container').hide();
+            } else {
+                $('.tasks .no-tasks').hide();
+                $('.tasks .tasks-list-container').show();
+            }
 
             // make the tasks sortable
             setTasksAsSortable();
@@ -40,6 +50,25 @@ $(function(){
             // update the task completion percentage
             updateTaskCompletionBar();
         });
+    }
+
+    function updateTaskCompletionBar() {
+        var $task_list = $(".ui-story").find(".tasks"),
+            overall = $task_list.find('li.task').length,
+            complete = $task_list.find('li.task:not(.complete)').length,
+            pct_complete = (100 - Math.round((complete/overall) * 100)) + "%";
+
+        $task_list.find('h4.incomplete-tasks-title').html(
+            complete + " Incomplete Task" + (complete == 1 ? "" : "s")
+        );
+
+        if (overall < 1) {
+            $('.story-menu .overall-task-progress').hide();
+        }
+        else {
+            $('.story-menu .progress-bar span.completion').html(pct_complete).css({width: pct_complete});
+            $('.story-menu .overall-task-progress').show();
+        }
     }
 
     function setTasksAsSortable(){
@@ -130,25 +159,6 @@ $(function(){
         $edit_form.toggle();
     }
 
-    function updateTaskCompletionBar() {
-        var $task_list = $(".ui-story").find(".tasks"),
-            overall = $task_list.find('li.task').length,
-            complete = $task_list.find('li.task:not(.complete)').length,
-            pct_complete = (100 - Math.round((complete/overall) * 100)) + "%";
-
-        $task_list.find('h4').html(
-            complete + " Incomplete Task" + (complete == 1 ? "" : "s")
-        );
-
-        if (overall < 1) {
-            $('.story-menu .overall-task-progress').hide();
-        }
-        else {
-            $('.story-menu .progress-bar span.completion').html(pct_complete).css({width: pct_complete});
-            $('.story-menu .overall-task-progress').show();
-        }
-    }
-
     // show completed tasks
     $(document).on('click', '.tasks a.show-completed-tasks', function(ev){
         ev.preventDefault();
@@ -177,6 +187,10 @@ $(function(){
             $('.tasks ul li.action').before(task_template(resp.task));
 
             updateTaskCompletionBar();
+
+            // make sure the task list is visible
+            $('.tasks .no-tasks').hide();
+            $('.tasks .tasks-list-container').show();
         })
 
         .fail(function(resp){
