@@ -2,7 +2,7 @@
   <div class="default-form">
     <form novalidate="novalidate" class="edit_task" id="edit_task_<%= id %>" action="<%= url %>" method="post">
       <input type="checkbox" <%= completed ? "checked=\"\"" : "" %>>
-      <p><%= label %></p>
+      <p class="label"><%= label %></p>
 
       <span class="assignment"><%= assignment_name %></span>
 

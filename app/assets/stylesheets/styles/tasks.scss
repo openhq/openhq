@@ -11,6 +11,7 @@
         li {
             position: relative;
             padding-left: 20px;
+            cursor: grab;
 
             &.complete {
                 display: none;
@@ -72,10 +73,6 @@
                 }
             }
 
-            &.ui-sortable-handle {
-                cursor: grab;
-            }
-
             // the item being dragged
             &.ui-sortable-helper {
                 left: 0 !important;
@@ -106,6 +103,11 @@
         input[type="text"] {
             width: 100%;
             max-width: 100%;
+        }
+        &.submitting {
+            input[type="text"] {
+                opacity: 0.6;
+            }
         }
     }
 

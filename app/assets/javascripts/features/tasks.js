@@ -111,7 +111,7 @@ $(function(){
                 data: $this.serialize()
             })
             .done(function(resp){
-                $this.closest('li.task').find('span.label').html(resp.task.label);
+                $this.closest('li.task').find('p.label').html(resp.task.label);
                 $this.closest('li.task').find('span.assignment').html(resp.task.assignment_name);
                 toggleEditTaskForm(ev);
             })
