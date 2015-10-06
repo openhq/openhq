@@ -3,6 +3,19 @@
         margin-top: 0;
     }
 
+    .no-tasks,
+    .tasks-list-container {
+        display: none;
+    }
+
+    .loader {
+        margin: 0 auto 20px;
+    }
+
+    span.assignment {
+        color: #fff;
+    }
+
     ul {
         list-style: none;
         padding-left: 0;
@@ -11,6 +24,7 @@
         li {
             position: relative;
             padding-left: 20px;
+            cursor: grab;
 
             &.complete {
                 display: none;
@@ -72,10 +86,6 @@
                 }
             }
 
-            &.ui-sortable-handle {
-                cursor: grab;
-            }
-
             // the item being dragged
             &.ui-sortable-helper {
                 left: 0 !important;
@@ -106,6 +116,11 @@
         input[type="text"] {
             width: 100%;
             max-width: 100%;
+        }
+        &.submitting {
+            input[type="text"] {
+                opacity: 0.6;
+            }
         }
     }
 

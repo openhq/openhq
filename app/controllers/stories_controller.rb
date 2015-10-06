@@ -4,8 +4,6 @@ class StoriesController < ApplicationController
 
   def show
     @attachments = @story.attachments.to_a
-    @tasks = @story.tasks.includes(:assignment).to_a
-    @incomplete_tasks = @tasks.reject(&:completed?)
     @comments = @story.comments.includes(:attachments, :owner).to_a
     @collaborators = @story.collaborators.to_a
   end
