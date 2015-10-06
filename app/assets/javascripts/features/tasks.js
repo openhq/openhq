@@ -1,13 +1,48 @@
 $(function(){
 
     App.onPageLoad(function() {
-        // If we’re on a story update task completion status
+        // Add tasks if there are any
         if ($(".ui-story").find(".tasks").length > 0) {
             addAllTasks();
-            updateTaskCompletionBar();
         }
+    });
 
-        // rearranging a task list
+    function addAllTasks() {
+        var $container = $('.tasks'),
+            container_template = JST['templates/tasks/container'],
+            task_template = JST['templates/tasks/task'];
+
+        $.ajax({
+            url: $container.attr('data-url'),
+            method: "GET",
+            dataType: "json"
+        })
+        .done(function(resp){
+            var tasks_html = "",
+                incomplete_count = 0;
+
+            // build up html of all the tasks
+            _.each(resp.tasks, function(task){
+                tasks_html += task_template(task);
+                if (!task.completed) incomplete_count++;
+            });
+
+            // the overall html including incomplete count etc.
+            $container.prepend(container_template({
+                incomplete_count: incomplete_count,
+                order_url: $container.attr('data-url') + '/update-order',
+                tasks_html: tasks_html
+            }));
+
+            // make the tasks sortable
+            setTasksAsSortable();
+
+            // update the task completion percentage
+            updateTaskCompletionBar();
+        });
+    }
+
+    function setTasksAsSortable(){
         $(".tasks ul.sortable").sortable({
             items: ".task",
             update: function(event, ui) {
@@ -25,34 +60,6 @@ $(function(){
                     console.log('order updated');
                 });
             }
-        });
-
-    });
-
-    function addAllTasks() {
-        var $container = $('.tasks'),
-            container_template = JST['templates/tasks/container'],
-            task_template = JST['templates/tasks/task'];
-
-        $.ajax({
-            url: $container.attr('data-url'),
-            method: "GET",
-            dataType: "json"
-        })
-        .done(function(resp){
-            var tasks_html = "",
-                incomplete_count = 0;
-
-            _.each(resp.tasks, function(task){
-                tasks_html += task_template(task);
-                if (!task.completed) incomplete_count++;
-            });
-
-            $container.prepend(container_template({
-                incomplete_count: incomplete_count,
-                order_url: $container.attr('data-url') + '/update-order',
-                tasks_html: tasks_html
-            }));
         });
     }
 
