@@ -175,6 +175,8 @@ $(function(){
         .done(function(resp){
             $form.find('.task_label input').val('');
             $('.tasks ul li.action').before(task_template(resp.task));
+
+            updateTaskCompletionBar();
         })
 
         .fail(function(resp){
