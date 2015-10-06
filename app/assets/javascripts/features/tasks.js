@@ -35,7 +35,7 @@ $(function(){
                 tasks_html: tasks_html
             }));
 
-            $container.find('.loading').remove();
+            $container.find('.loader').remove();
             if (!resp.tasks.length) {
                 $('.tasks .no-tasks').show();
                 $('.tasks .tasks-list-container').hide();
