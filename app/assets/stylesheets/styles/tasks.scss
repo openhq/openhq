@@ -25,7 +25,6 @@
             position: relative;
             padding-left: 20px;
             cursor: grab;
-            transition: none;
 
             &.complete {
                 display: none;
@@ -61,8 +60,10 @@
 
             &:not(.ui-sortable-helper) {
                 transition: 0.5s ease;
+                transition: padding 0s;
                 p, a {
                     transition: 0.5s ease;
+                    transition: padding 0s;
                 }
             }
 
@@ -112,7 +113,7 @@
     .edit-form {
         form {
             display: none;
-            padding: 5px 8px;
+            padding: 15px;
             background: $rollover-dark;
 
             hr {
