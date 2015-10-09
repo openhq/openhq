@@ -32,9 +32,7 @@ App.onPageLoad(function() {
 
     // no new notifications
     } else {
-      $notification_menu_item.find('ul.notification-list').append(
-        '<li class="no-new">'+no_notifications_template()+'</li>'
-      );
+      $notification_menu_item.find('ul.notification-list').append(no_notifications_template());
     }
 
     // notification count icon
