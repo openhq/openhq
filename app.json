@@ -24,22 +24,15 @@
       "description": "Your Amazon AWS secret access key",
       "required": true
     },
-    "MAILGUN_API_KEY": {
-      "description": "Your mailgun.com API Key (sign up at mailgun.com)",
-      "required": true
-    },
-    "MAILGUN_DOMAIN": {
-      "description": "Your mailgun.com DOMAIN e.g. mg.mydomain.com",
-      "required": true
-    },
-    "MAILGUN_FROM_EMAIL": {
-      "description": "The address emails will be delivered from e.g. hello@mg.mydomain.com",
+    "DEFAULT_FROM_EMAIL": {
+      "description": "The address emails will be delivered from e.g. hello@mydomain.com",
       "required": true
     }
   },
   "addons": [
     "heroku-postgresql:hobby-dev",
     "scheduler:standard",
-    "heroku-redis:hobby-dev"
+    "heroku-redis:hobby-dev",
+    "sendgrid:starter"
   ]
 }

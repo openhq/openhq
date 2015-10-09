@@ -84,11 +84,16 @@ Rails.application.configure do
   config.roadie.url_options = { host: URI.parse(app_url).host }
   config.action_mailer.asset_host = Rails.application.secrets.cdn_url.presence || app_url
 
-  # Deliver emails with mailgun
-  config.action_mailer.delivery_method = :mailgun
-  config.action_mailer.mailgun_settings = {
-          api_key: ENV['MAILGUN_API_KEY'],
-          domain: ENV['MAILGUN_DOMAIN']
+  # Deliver emails with sendgrid
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => 'herokuapp.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
   }
 
   # Use dynamic error pages
