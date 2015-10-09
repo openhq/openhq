@@ -4,7 +4,9 @@
       <input type="checkbox" <%= completed ? "checked=\"\"" : "" %>>
       <p class="label"><%= label %></p>
 
-      <span class="assignment"><%= assignment_name %></span>
+      <% if (assignment_name !== "unassigned") { %>
+        <span class="assignment"><%= assignment_name %></span>
+      <% } %>
     </form>
   </div>
 

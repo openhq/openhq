@@ -150,9 +150,9 @@ $(function(){
                 data: $this.serialize()
             })
             .done(function(resp){
-                $this.closest('li.task').find('p.label').html(resp.task.label);
-                $this.closest('li.task').find('span.assignment').html(resp.task.assignment_name);
-                toggleEditTaskForm(ev);
+                var $li = $this.closest('li.task');
+                $li.after(task_template(resp.task));
+                $li.remove();
             })
             .fail(function(resp){
                 console.log('error', resp.error);
