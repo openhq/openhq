@@ -25,6 +25,7 @@
             position: relative;
             padding-left: 20px;
             cursor: grab;
+            transition: none;
 
             &.complete {
                 display: none;
@@ -88,6 +89,7 @@
                 margin: 10px;
             }
             &.edit-open {
+                padding-left: 0;
                 .default-form form { display: none; }
                 .edit-form form { display: block; }
             }
