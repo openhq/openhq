@@ -124,7 +124,7 @@ $(function(){
         toggleEditTaskForm($li);
     });
 
-    $(document).on('dblclick', '.tasks li.task .default-form', function(ev){
+    $(document).on('dblclick', '.tasks li.task:not(.complete) .default-form', function(ev){
         var $label = $(ev.currentTarget)
             $li = $label.closest('li.task');
         toggleEditTaskForm($li);
