@@ -6,10 +6,10 @@ class NotificationsController < ApplicationController
         @notifications = current_user.notifications.page(page).per(20)
       end
       format.json do
-        notifications = current_user.notifications.unseen
-        if notifications.length < 10
+        notifications = ActiveModel::ArraySerializer.new(current_user.notifications.unseen).as_json
+        if notifications.count < 10
           seen = current_user.notifications.seen.limit(10 - notifications.count)
-          seen.each { |n| notifications << n }
+          notifications += ActiveModel::ArraySerializer.new(seen).as_json
         end
         render json: notifications
       end
