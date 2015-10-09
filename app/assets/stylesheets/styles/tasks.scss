@@ -87,6 +87,10 @@
                 border-radius: 10px;
                 margin: 10px;
             }
+            &.edit-open {
+                .default-form form { display: none; }
+                .edit-form form { display: block; }
+            }
         }
     }
 

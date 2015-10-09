@@ -160,11 +160,12 @@ $(function(){
     });
 
     function toggleEditTaskForm($li) {
-        var $default_form = $li.find('.default-form form'),
-            $edit_form = $li.find('.edit-form form');
-
-        $default_form.toggle();
-        $edit_form.toggle();
+        if ($li.hasClass('edit-open')) {
+            $li.removeClass('edit-open');
+        } else {
+            $li.parent().find('li').removeClass('edit-open');
+            $li.addClass('edit-open');
+        }
     }
 
     // show completed tasks
