@@ -65,7 +65,6 @@ gem 'kaminari', '~> 0.16.1'
 gem "paranoia", "~> 2.0"
 
 # Sending emails
-gem 'mailgun_rails'
 gem 'roadie-rails', '~> 1.0.4'
 
 gem 'puma'

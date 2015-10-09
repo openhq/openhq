@@ -10,7 +10,7 @@ Open source project management app.
 
 ## Deploy to Heroku
 
-To make using Open HQ as easy as possible we have optimised it for usage on Heroku with the 1 click deploy button, however for now we still require you to have a mailgun and amazon s3 account.
+To make using Open HQ as easy as possible we have optimised it for usage on Heroku with the 1 click deploy button, however for now we still require you to have an amazon s3 account.
 
 ### Prerequisites
 
@@ -29,8 +29,6 @@ To make using Open HQ as easy as possible we have optimised it for usage on Hero
         </CORSRule>
     </CORSConfiguration>
     ```
-
-3. **Sending Email** - Sign up for [Mailgun](https://mailgun.com) and have your API key, mailgun domain and from address ready.
 
 Once you have these setup click the magic deploy button, enter your details and get started with Open HQ!
 
