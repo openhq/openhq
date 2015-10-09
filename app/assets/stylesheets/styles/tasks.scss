@@ -33,9 +33,6 @@
             }
             &:hover:not(.action) {
                 background: $rollover-dark;
-                ul.actions {
-                    display: block;
-                }
             }
             &.warmdown {
                 background-color: $primary-color;
@@ -54,24 +51,6 @@
                 color: #fff;
                 padding: 2px 5px;
                 border-radius: 10px;
-            }
-            ul.actions {
-                display: none;
-                margin: 0;
-
-                li {
-                    display: inline-block;
-                    padding-left: 0;
-                    a {
-                        display: inline-block;
-                        font-size: 10px;
-                        background: $body-light-color;
-                        color: #fff;
-                        text-decoration: none;
-                        padding: 1px 7px;
-                        border-radius: 10px;
-                    }
-                }
             }
             p {
                 display: inline-block;
