@@ -6,7 +6,8 @@ App.onPageLoad(function() {
   // add any unseen notifications to the menu
   $.ajax({
     method: "GET",
-    url: "/notifications/unseen",
+    url: "/notifications",
+    dataType: "json"
   })
   .done(function(resp){
     addAllNotifications(resp.notifications);
@@ -18,20 +19,15 @@ App.onPageLoad(function() {
 
   // Adds an array of notifications to the dropdown menu
   function addAllNotifications(notifications) {
-    // notification count title
-    $notification_menu_item.find('p.notification-count').text(
-      notifications.length+" Notification"+(notifications.length == 1 ? "" : "s")
-    );
+    var new_count = 0;
 
     // add all the notifications
     if (notifications.length > 0) {
-      // notification count icon
-      $notification_menu_item.find('span.notification-count').text(notifications.length).show();
-
       $notification_menu_item.addClass('has-unseen');
 
       _.each(notifications, function(n){
         addNotification(n);
+        if (!n.seen) new_count++;
       });
 
     // no new notifications
@@ -40,6 +36,16 @@ App.onPageLoad(function() {
         '<li class="no-new">'+no_notifications_template()+'</li>'
       );
     }
+
+    // notification count icon
+    if (new_count > 0) {
+      $notification_menu_item.find('span.notification-count').text(new_count).show();
+    }
+
+    // notification count title
+    $notification_menu_item.find('p.notification-count').text(
+      new_count+" new notification"+(new_count == 1 ? "" : "s")
+    );
   }
 
   // appends a single notification to the menu
@@ -48,10 +54,9 @@ App.onPageLoad(function() {
         template = JST['templates/notifications/'+template_filename];
 
     $notification_menu_item.find('ul.notification-list').append(
-      '<li class="unseen">'+template(n)+'</li>'
+      '<li '+(n.seen ? '' : 'class="unseen"')+'>'+template(n)+'</li>'
     );
   }
-
 
   $(document).on("click", ".ui-dropdown-menu.notifications .icon", function() {
     // if there are any unseen notifications, mark them all as read and
