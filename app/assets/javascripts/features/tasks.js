@@ -119,13 +119,23 @@ $(function(){
     // clicking the edit button
     $(document).on('click', '.tasks ul li ul.actions a.edit', function(ev){
         ev.preventDefault();
-        toggleEditTaskForm(ev);
+        var $this = $(ev.currentTarget),
+            $li = $this.closest('li.task');
+        toggleEditTaskForm($li);
+    });
+
+    $(document).on('dblclick', '.tasks li.task:not(.complete) .default-form', function(ev){
+        var $label = $(ev.currentTarget)
+            $li = $label.closest('li.task');
+        toggleEditTaskForm($li);
     });
 
     // clicking the cancel edit button
     $(document).on('click', '.tasks .edit-form a.cancel', function(ev){
         ev.preventDefault();
-        toggleEditTaskForm(ev);
+        var $this = $(ev.currentTarget),
+            $li = $this.closest('li.task');
+        toggleEditTaskForm($li);
     });
 
     // submitting the edit form
@@ -140,23 +150,22 @@ $(function(){
                 data: $this.serialize()
             })
             .done(function(resp){
-                $this.closest('li.task').find('p.label').html(resp.task.label);
-                $this.closest('li.task').find('span.assignment').html(resp.task.assignment_name);
-                toggleEditTaskForm(ev);
+                var $li = $this.closest('li.task');
+                $li.after(task_template(resp.task));
+                $li.remove();
             })
             .fail(function(resp){
                 console.log('error', resp.error);
             });
     });
 
-    function toggleEditTaskForm(ev) {
-        var $this = $(ev.currentTarget),
-            $li = $this.closest('li.task'),
-            $default_form = $li.find('.default-form form'),
-            $edit_form = $li.find('.edit-form form');
-
-        $default_form.toggle();
-        $edit_form.toggle();
+    function toggleEditTaskForm($li) {
+        if ($li.hasClass('edit-open')) {
+            $li.removeClass('edit-open');
+        } else {
+            $li.parent().find('li').removeClass('edit-open');
+            $li.addClass('edit-open');
+        }
     }
 
     // show completed tasks

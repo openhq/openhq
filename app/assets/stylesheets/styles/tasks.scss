@@ -33,9 +33,6 @@
             }
             &:hover:not(.action) {
                 background: $rollover-dark;
-                ul.actions {
-                    display: block;
-                }
             }
             &.warmdown {
                 background-color: $primary-color;
@@ -55,24 +52,6 @@
                 padding: 2px 5px;
                 border-radius: 10px;
             }
-            ul.actions {
-                display: none;
-                margin: 0;
-
-                li {
-                    display: inline-block;
-                    padding-left: 0;
-                    a {
-                        display: inline-block;
-                        font-size: 10px;
-                        background: $body-light-color;
-                        color: #fff;
-                        text-decoration: none;
-                        padding: 1px 7px;
-                        border-radius: 10px;
-                    }
-                }
-            }
             p {
                 display: inline-block;
                 margin: 0;
@@ -81,8 +60,10 @@
 
             &:not(.ui-sortable-helper) {
                 transition: 0.5s ease;
+                transition: padding 0s;
                 p, a {
                     transition: 0.5s ease;
+                    transition: padding 0s;
                 }
             }
 
@@ -108,6 +89,11 @@
                 border-radius: 10px;
                 margin: 10px;
             }
+            &.edit-open {
+                padding-left: 0;
+                .default-form form { display: none; }
+                .edit-form form { display: block; }
+            }
         }
     }
 
@@ -127,7 +113,7 @@
     .edit-form {
         form {
             display: none;
-            padding: 5px 8px;
+            padding: 15px;
             background: $rollover-dark;
 
             hr {
@@ -138,7 +124,7 @@
                 float: right;
                 font-size: 12px;
                 display: block;
-                padding: 2px;
+                padding: 7px 2px;
             }
         }
     }
