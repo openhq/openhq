@@ -16,10 +16,6 @@ class NotificationsController < ApplicationController
     end
   end
 
-  def unseen
-    render json: current_user.notifications.unseen
-  end
-
   def mark_all_seen
     current_user.notifications.unseen.each(&:seen!)
     render nothing: true
