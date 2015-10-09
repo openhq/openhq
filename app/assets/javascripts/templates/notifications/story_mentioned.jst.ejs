@@ -1,9 +1,11 @@
-<a href="<%= link_to %>">
-  <div class="owner-details">
-    <img src="<%= actioner_avatar_url %>" class="avatar" alt="<%= actioner_name %>" /> <%= actioner_name %>
-  </div>
+<li <%= seen ? '' : 'class="unseen"' %>>
+    <a href="<%= link_to %>">
+      <div class="owner-details">
+        <img src="<%= actioner_avatar_url %>" class="avatar" alt="<%= actioner_name %>" /> <%= actioner_name %>
+      </div>
 
-  <div class="details">
-    mentioned you in the story: <em><%= story.name %></em>
-  </div>
-</a>
+      <div class="details">
+        mentioned you in the story: <em><%= story.name %></em>
+      </div>
+    </a>
+</li>

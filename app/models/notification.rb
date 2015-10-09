@@ -9,6 +9,7 @@ class Notification < ActiveRecord::Base
 
   scope :undelivered, -> { where(delivered: false) }
   scope :unseen, -> { where(seen: false) }
+  scope :seen, -> { where(seen: true) }
 
   def delivered!
     update(delivered: true)

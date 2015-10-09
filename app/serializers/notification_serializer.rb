@@ -1,5 +1,5 @@
 class NotificationSerializer < ActiveModel::Serializer
-  attributes :notifiable_type, :notifiable_id, :action_performed, :actioner, :project, :story, :team, :actioner_name, :actioner_avatar_url, :link_to
+  attributes :notifiable_type, :notifiable_id, :action_performed, :seen, :actioner, :project, :story, :team, :actioner_name, :actioner_avatar_url, :link_to
 
   def actioner_name
     actioner.display_name

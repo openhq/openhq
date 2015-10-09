@@ -73,7 +73,6 @@ Rails.application.routes.draw do
     end
 
     resources :notifications, only: [:index] do
-      get "unseen", on: :collection
       put "mark_all_seen", on: :collection
     end
 
