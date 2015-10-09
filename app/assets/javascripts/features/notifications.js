@@ -53,9 +53,7 @@ App.onPageLoad(function() {
     var template_filename = (n.notifiable_type+'_'+n.action_performed).toLowerCase(),
         template = JST['templates/notifications/'+template_filename];
 
-    $notification_menu_item.find('ul.notification-list').append(
-      '<li '+(n.seen ? '' : 'class="unseen"')+'>'+template(n)+'</li>'
-    );
+    $notification_menu_item.find('ul.notification-list').append(template(n));
   }
 
   $(document).on("click", ".ui-dropdown-menu.notifications .icon", function() {
