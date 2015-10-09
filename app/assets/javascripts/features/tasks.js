@@ -119,13 +119,22 @@ $(function(){
     // clicking the edit button
     $(document).on('click', '.tasks ul li ul.actions a.edit', function(ev){
         ev.preventDefault();
-        toggleEditTaskForm(ev);
+        var $this = $(ev.currentTarget),
+            $li = $this.closest('li.task');
+        toggleEditTaskForm($li);
+    });
+
+    $(document).on('dblclick', '.tasks li.task', function(ev){
+        var $li = $(ev.currentTarget);
+        toggleEditTaskForm($li);
     });
 
     // clicking the cancel edit button
     $(document).on('click', '.tasks .edit-form a.cancel', function(ev){
         ev.preventDefault();
-        toggleEditTaskForm(ev);
+        var $this = $(ev.currentTarget),
+            $li = $this.closest('li.task');
+        toggleEditTaskForm($li);
     });
 
     // submitting the edit form
@@ -149,10 +158,8 @@ $(function(){
             });
     });
 
-    function toggleEditTaskForm(ev) {
-        var $this = $(ev.currentTarget),
-            $li = $this.closest('li.task'),
-            $default_form = $li.find('.default-form form'),
+    function toggleEditTaskForm($li) {
+        var $default_form = $li.find('.default-form form'),
             $edit_form = $li.find('.edit-form form');
 
         $default_form.toggle();
