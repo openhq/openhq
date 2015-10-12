@@ -7,7 +7,7 @@
     <%= link_to "Change Password", settings_password_path, class: "link-large" %>
   </li>
 </ul>
-<% if multisite_install %>
+<% if multisite_install? %>
 <ul class="plain-list actions-list">
   <li class="title">My Teams</li>
   <% current_user.teams.each do |team| %>

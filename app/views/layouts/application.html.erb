@@ -14,7 +14,7 @@
           <% if signed_in? %>
             <%= render "shared/search_dropdown" if current_team.present? %>
             <%= render "shared/notifications_dropdown" if current_team.present? %>
-            <%= render "shared/team_switcher" if multisite_install %>
+            <%= render "shared/team_switcher" if multisite_install? %>
             <%= render "shared/signed_in_menu" %>
           <% else %>
             <ul class="h-list">

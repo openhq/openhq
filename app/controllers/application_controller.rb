@@ -20,10 +20,10 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def multisite_install
+  def multisite_install?
     Rails.application.config.multisite
   end
-  helper_method :multisite_install
+  helper_method :multisite_install?
 
   def root_app_url
     Rails.application.secrets.application_url
@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   helper_method :root_app_host
 
   def set_current_team
-    if multisite_install
+    if multisite_install?
       if request.subdomain.present?
         team = Team.find_by!(subdomain: request.subdomain)
         set_current_tenant(team)
