@@ -11,11 +11,7 @@ class Team < ActiveRecord::Base
 
   def self.only_team
     team = Team.first
-
-    unless team
-      team = create!(name: "Open HQ")
-    end
-
+    team = create!(name: "Open HQ") unless team
     team
   end
 
