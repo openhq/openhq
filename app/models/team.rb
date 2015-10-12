@@ -9,6 +9,16 @@ class Team < ActiveRecord::Base
 
   before_create :generate_setup_code
 
+  def self.only_team
+    team = Team.first
+
+    unless team
+      team = create!(name: "Open HQ")
+    end
+
+    team
+  end
+
   def invite(user_params, inviter)
     # TODO - Add the user to the projects if they already exist or have a callback
     #        to add them if they accept the invitation.
