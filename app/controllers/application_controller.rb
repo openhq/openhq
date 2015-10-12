@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   set_current_tenant_through_filter
   before_action :set_current_team
 
-
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
