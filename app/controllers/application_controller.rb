@@ -3,11 +3,8 @@ require "route_constraints/subdomain"
 class ApplicationController < ActionController::Base
   include Clearance::Controller
 
-  # Will first lookup tenant by subdomain column, if that doesn’t
-  # match it will fallback to looking up via the custom domain column
-  # set_current_tenant_by_subdomain_or_domain(:team, :subdomain, :custom_domain)
-  # TODO - enable custom domains
-  set_current_tenant_by_subdomain(:team, :subdomain)
+  set_current_tenant_through_filter
+  before_action :set_current_team
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -23,6 +20,11 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def multisite_install?
+    Rails.application.config.multisite
+  end
+  helper_method :multisite_install?
+
   def root_app_url
     Rails.application.secrets.application_url
   end
@@ -32,6 +34,18 @@ class ApplicationController < ActionController::Base
     URI.parse(root_app_url).host
   end
   helper_method :root_app_host
+
+  def set_current_team
+    if multisite_install?
+      if request.subdomain.present?
+        team = Team.find_by!(subdomain: request.subdomain)
+        set_current_tenant(team)
+      end
+    else
+      team = Team.only_team
+      set_current_tenant(team)
+    end
+  end
 
   def ensure_team_exists_for_subdomain!
     if RouteConstraints::Subdomain.matches?(request)
