@@ -1,5 +1,7 @@
 require 'route_constraints/root_domain'
 require 'route_constraints/subdomain'
+require 'route_constraints/single_site'
+require 'route_constraints/multi_site'
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
@@ -45,9 +47,18 @@ Rails.application.routes.draw do
   constraints(RouteConstraints::Subdomain) do
     get "/" => "projects#index"
 
-    # First time setup flow
-    get "/setup/start/:code", to: "setup#index", as: :setup
-    put "/setup/user", to: "setup#update_user", as: :setup_user
+    constraints(RouteConstraints::SingleSite) do
+      # First time setup flow
+      get "/setup", to: "setup#first_time_user", as: :setup_first_time_user
+      post "/setup", to: "setup#create_first_user", as: :setup_create_first_user
+    end
+
+    constraints(RouteConstraints::MultiSite) do
+      # First time setup flow
+      get "/setup/start/:code", to: "setup#index", as: :setup
+      put "/setup/user", to: "setup#update_user", as: :setup_user
+    end
+
     get "/setup/first_project", to: "setup#first_project", as: :setup_first_project
     post "/setup/first_project", to: "setup#create_project"
     get "/setup/invite_team", to: "setup#invite_team", as: :setup_invite_team
