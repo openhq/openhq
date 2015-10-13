@@ -5,7 +5,15 @@ RSpec.feature "First user setup", type: :feature do
 
   given!(:team) { create(:team) }
 
+  after do
+    Rails.application.config.multisite = false
+  end
+
   context "when single site install" do
+    background do
+      Rails.application.config.multisite = false
+    end
+
     context "when users exist" do
       given!(:user) { create(:user) }
       given!(:team_user) { create(:team_user, user: user, team: team) }
@@ -63,10 +71,16 @@ RSpec.feature "First user setup", type: :feature do
   end
 
   context "when multisite install" do
+    background do
+      Rails.application.config.multisite = true
+    end
+
     context "when setup code is invalid" do
+      scenario "doesn’t allow access"
     end
 
     context "when setup code is valid" do
+      scenario "runs first time setup"
     end
   end
 end
