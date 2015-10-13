@@ -24,9 +24,7 @@ class ApplicationController < ActionController::Base
   def run_first_time_setup
     return if multisite_install?
 
-    if current_team.users.count < 1
-      redirect_to setup_first_time_user_path
-    end
+    redirect_to setup_first_time_user_path unless current_team.users.any?
   end
 
   def multisite_install?
