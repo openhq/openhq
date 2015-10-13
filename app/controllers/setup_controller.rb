@@ -2,45 +2,6 @@ class SetupController < ApplicationController
   layout "setup"
   skip_before_action :require_login
   skip_before_action :run_first_time_setup
-  before_action :ensure_single_site_install, only: [:first_time_user, :create_first_user]
-  before_action :ensure_no_users, only: [:first_time_user, :create_first_user]
-
-  # Multisite setup
-  def index
-    # Ensure the setup code is valid
-    team = Team.find_by!(setup_code: params[:code])
-
-    # Sign in the first and only user
-    sign_in team.users.first
-  end
-
-  def update_user
-    if current_user.update(user_params)
-      redirect_to setup_first_project_path
-    else
-      render :index
-    end
-  end
-  # End Multisite Setup
-
-  # Single site setup
-  def first_time_user
-    @user = User.new
-  end
-
-  def create_first_user
-    @user = User.new(user_params)
-
-    if @user.save
-      current_team.team_users.create!(user: @user, role: "owner")
-      sign_in @user
-
-      redirect_to setup_first_project_path
-    else
-      render :first_time_user
-    end
-  end
-  # End single site setup
 
   def first_project
     @project = Project.new
@@ -74,18 +35,6 @@ class SetupController < ApplicationController
   end
 
   private
-
-  def ensure_single_site_install
-    redirect_to root_url if multisite_install?
-  end
-
-  def ensure_no_users
-    redirect_to root_url if current_team.users.count > 0
-  end
-
-  def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :username, :avatar)
-  end
 
   def project_params
     params.require(:project).permit(:name)
