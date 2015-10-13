@@ -11,7 +11,7 @@
         <w:anchorlock/>
         <center style="color:#ffffff;font-family:sans-serif;font-size:15px;">Confirm your account</center>
       </v:roundrect><![endif]-->
-        <a href="<%= setup_url(code: @team.setup_code, subdomain: @team.subdomain) %>" class="button button--green">Get Started</a>
+        <a href="<%= setup_url(mailer_url_params(code: @team.setup_code)) %>" class="button button--green">Get Started</a>
       </div>
     </td>
   </tr>
@@ -24,7 +24,7 @@
     <td>
       <p class="sub">If you’re having trouble clicking the confirm account button, copy and paste the URL below into your web browser.
       </p>
-      <p class="sub"><%= setup_url(code: @team.setup_code, subdomain: @team.subdomain) %></p>
+      <p class="sub"><%= setup_url(mailer_url_params(code: @team.setup_code)) %></p>
     </td>
   </tr>
 </table>
