@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_action :run_first_time_setup
   before_action :ensure_team_exists_for_subdomain!
   before_action :require_login
   before_action :user_belongs_to_team!
@@ -19,6 +20,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def run_first_time_setup
+    return if multisite_install?
+
+    redirect_to setup_first_time_user_path unless current_team.users.any?
+  end
 
   def multisite_install?
     Rails.application.config.multisite
