@@ -10,7 +10,7 @@
         <w:anchorlock/>
         <center style="color:#ffffff;font-family:sans-serif;font-size:15px;">Confirm your account</center>
       </v:roundrect><![endif]-->
-        <%= link_to "Join #{@team.name}", edit_team_invite_url(id: @team_invite.invitation_code, subdomain: @team.subdomain), class: "button button--green" %>
+        <%= link_to "Join #{@team.name}", edit_team_invite_url(mailer_url_params(id: @team_invite.invitation_code)), class: "button button--green" %>
       </div>
     </td>
   </tr>
@@ -23,7 +23,7 @@
     <td>
       <p class="sub">If you’re having trouble clicking the confirm account button, copy and paste the URL below into your web browser.
       </p>
-      <p class="sub"><%= edit_team_invite_url(id: @team_invite.invitation_code, subdomain: @team.subdomain) %></p>
+      <p class="sub"><%= edit_team_invite_url(mailer_url_params(id: @team_invite.invitation_code)) %></p>
     </td>
   </tr>
 </table>
