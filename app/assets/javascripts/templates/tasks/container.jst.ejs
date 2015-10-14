@@ -9,5 +9,9 @@
     <li class="action" <%= incomplete_count == count ? "style=\"display:none\"" : "" %>>
       <a href="#" class="show-completed-tasks">Show completed tasks</a>
     </li>
+
+    <li class="action" style="display:none">
+      <a href="<%= delete_url %>" data-method="delete" class="delete-all-completed-tasks btn btn-small btn-danger" data-confirm="Are you sure?" data-confirm-title="Delete all completed tasks">Delete all completed tasks</a>
+    </li>
   </ul>
 </div>

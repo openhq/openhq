@@ -32,6 +32,7 @@ $(function(){
                 count: resp.tasks.length,
                 incomplete_count: incomplete_count,
                 order_url: $container.attr('data-url') + '/update-order',
+                delete_url: $container.attr('data-url') + '/delete-completed',
                 tasks_html: tasks_html
             }));
 
@@ -175,8 +176,10 @@ $(function(){
     $(document).on('click', '.tasks a.show-completed-tasks', function(ev){
         ev.preventDefault();
         $(ev.currentTarget).closest("li").hide();
-
         $('.tasks li.complete').show();
+
+        // show the delete all completed link
+        $('a.delete-all-completed-tasks').closest('li').show();
     });
 
     // submitting a new task

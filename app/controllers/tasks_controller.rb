@@ -69,6 +69,16 @@ class TasksController < ApplicationController
     redirect_to :back, notice: "Task has been deleted"
   end
 
+  def delete_completed
+    project = Project.friendly.find(params[:project_id])
+    authorize! :read, project
+
+    story = project.stories.friendly.find(params[:story_id])
+    story.tasks.complete.destroy_all
+
+    redirect_to :back, notice: "Completed tasks have been deleted"
+  end
+
 private
 
   def task_params
