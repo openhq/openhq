@@ -1,10 +1,11 @@
-<h1>My upcoming tasks</h1>
+<h1>My Tasks</h1>
 
 <% if @tasks.any? %>
     <ul>
     <% @tasks.each do |task| %>
         <li>
-            <%= task.label %> in <%= link_to task.story.name, [task.project, task.story] %> / <%= link_to task.project.name, task.project %>
+            <%= task.label %><br>
+            <%= link_to task.story.name, [task.project, task.story] %> / <%= link_to task.project.name, task.project %>
         </li>
     <% end %>
     </ul>
