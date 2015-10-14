@@ -1,5 +1,5 @@
 <% if @overdue_tasks.any? %>
-    <h1>Overdue tasks</h1>
+    <h1 class="danger">Overdue tasks</h1>
     <%= render "tasks", { tasks: @overdue_tasks } %>
     <hr>
 <% end %>

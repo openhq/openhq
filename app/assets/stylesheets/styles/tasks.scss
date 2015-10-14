@@ -17,18 +17,21 @@
         padding-left: 0;
         position: relative;
 
+        &.sortable li {
+            cursor: grab;
+
+            &:hover:not(.action) {
+                background: $rollover-dark;
+            }
+        }
         li {
             position: relative;
             padding-left: 20px;
-            cursor: grab;
 
             &.complete {
                 display: none;
                 text-decoration: line-through;
                 opacity: 0.4;
-            }
-            &:hover:not(.action) {
-                background: $rollover-dark;
             }
             &.warmdown {
                 background-color: $primary-color;
