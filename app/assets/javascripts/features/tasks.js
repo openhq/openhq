@@ -32,8 +32,11 @@ $(function(){
                 count: resp.tasks.length,
                 incomplete_count: incomplete_count,
                 order_url: $container.attr('data-url') + '/update-order',
+                delete_url: $container.attr('data-url') + '/delete-completed',
                 tasks_html: tasks_html
             }));
+
+            setupDatepickers();
 
             $container.find('.loader').remove();
             if (!resp.tasks.length) {
@@ -152,6 +155,7 @@ $(function(){
             .done(function(resp){
                 var $li = $this.closest('li.task');
                 $li.after(task_template(resp.task));
+                setupDatepickers();
                 $li.remove();
             })
             .fail(function(resp){
@@ -172,8 +176,10 @@ $(function(){
     $(document).on('click', '.tasks a.show-completed-tasks', function(ev){
         ev.preventDefault();
         $(ev.currentTarget).closest("li").hide();
-
         $('.tasks li.complete').show();
+
+        // show the delete all completed link
+        $('a.delete-all-completed-tasks').closest('li').show();
     });
 
     // submitting a new task
@@ -192,9 +198,12 @@ $(function(){
         })
 
         .done(function(resp){
-            $form.find('.task_label input').val('');
-            $('.tasks ul li.action').before(task_template(resp.task));
+            // reset the form to the defaults
+            $form.find('.task_label input, .task_due_at input').val('');
+            $form.find('select').val(0);
 
+            $('.tasks ul li.action').before(task_template(resp.task));
+            setupDatepickers();
             updateTaskCompletionBar();
 
             // make sure the task list is visible
@@ -210,5 +219,11 @@ $(function(){
             $form.removeClass('submitting');
         });
     });
+
+    function setupDatepickers() {
+        $("input.task_due_at").datepicker({
+            dateFormat: "d M, yy"
+        });
+    }
 
 });

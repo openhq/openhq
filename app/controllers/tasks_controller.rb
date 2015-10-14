@@ -11,7 +11,9 @@ class TasksController < ApplicationController
     @task = Task.new(
       story: Story.friendly.find(params[:story_id]),
       owner: current_user,
-      label: task_params[:label]
+      label: task_params[:label],
+      assigned_to: task_params[:assignment].to_i,
+      due_at: task_params[:due_at].to_date
     )
 
     authorize! :create, @task
@@ -67,10 +69,20 @@ class TasksController < ApplicationController
     redirect_to :back, notice: "Task has been deleted"
   end
 
+  def delete_completed
+    project = Project.friendly.find(params[:project_id])
+    authorize! :read, project
+
+    story = project.stories.friendly.find(params[:story_id])
+    story.tasks.complete.destroy_all
+
+    redirect_to :back, notice: "Completed tasks have been deleted"
+  end
+
 private
 
   def task_params
-    params.require(:task).permit(:label, :assignment)
+    params.require(:task).permit(:label, :assignment, :due_at)
   end
 
   def update_completion_status(task)
@@ -84,6 +96,7 @@ private
     originally_assigned_to = task.assigned_to
     task.label = task_params[:label]
     task.assigned_to = task_params[:assignment].to_i
+    task.due_at = task_params[:due_at].to_date
 
     if task.save
       # assignment has been updated, and it wasn't to the current user

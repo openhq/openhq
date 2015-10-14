@@ -386,7 +386,8 @@ CREATE TABLE tasks (
     completed_on timestamp without time zone,
     completed_by integer,
     "order" integer,
-    team_id integer
+    team_id integer,
+    due_at timestamp without time zone
 );
 
 
@@ -1077,4 +1078,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150914140555');
 INSERT INTO schema_migrations (version) VALUES ('20150914170620');
 
 INSERT INTO schema_migrations (version) VALUES ('20151002105613');
+
+INSERT INTO schema_migrations (version) VALUES ('20151014104537');
 
