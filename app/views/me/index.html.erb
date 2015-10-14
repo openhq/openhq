@@ -1,0 +1,13 @@
+<h1>My upcoming tasks</h1>
+
+<% if @tasks.any? %>
+    <ul>
+    <% @tasks.each do |task| %>
+        <li>
+            <%= task.label %> in <%= link_to task.story.name, [task.project, task.story] %> / <%= link_to task.project.name, task.project %>
+        </li>
+    <% end %>
+    </ul>
+<% else %>
+    There are no tasks assigned to you.
+<% end %>

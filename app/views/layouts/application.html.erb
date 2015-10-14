@@ -30,6 +30,7 @@
             <li><%= link_to t('projects'), projects_path %></li>
             <li><%= link_to t('files'), files_path %></li>
             <li><%= link_to t('team'), team_index_path %></li>
+            <li><%= link_to t('me'), me_index_path %></li>
             <li class="mobile-only"><%= link_to("Settings", settings_url(host: root_app_host)) %></li>
             <li class="mobile-only"><%= link_to(t("auth.sign_out"), sign_out_path, :method => :delete) %></li>
             <% else %>
