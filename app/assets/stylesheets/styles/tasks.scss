@@ -41,18 +41,6 @@
                 left: 0;
                 top: 6px;
             }
-            span.assignment,
-            span.due_at {
-                font-size: 10px;
-                background-color: $primary-color;
-                color: #fff;
-                padding: 2px 5px;
-                border-radius: 10px;
-            }
-            span.due_at {
-                background-color: $line-color;
-                color: $body-color;
-            }
             p {
                 display: inline-block;
                 margin: 0;
@@ -154,4 +142,17 @@
             margin-top: 10px;
         }
     }
+}
+
+span.assignment,
+span.due_at {
+    font-size: 10px;
+    background-color: $primary-color;
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 10px;
+}
+span.due_at {
+    background-color: $line-color;
+    color: $body-color;
 }

@@ -1,14 +1,26 @@
-<h1>My Tasks</h1>
+<% if @overdue_tasks.any? %>
+    <h1>Overdue tasks</h1>
+    <%= render "tasks", { tasks: @overdue_tasks } %>
+    <hr>
+<% end %>
 
-<% if @tasks.any? %>
-    <ul>
-    <% @tasks.each do |task| %>
-        <li>
-            <%= task.label %><br>
-            <%= link_to task.story.name, [task.project, task.story] %> / <%= link_to task.project.name, task.project %>
-        </li>
-    <% end %>
-    </ul>
+<h1>Todays tasks</h1>
+<% if @todays_tasks.any? %>
+    <%= render "tasks", { tasks: @todays_tasks } %>
 <% else %>
-    There are no tasks assigned to you.
+    There are no tasks assigned to you for today.
+<% end %>
+<hr>
+
+<% if @weeks_tasks.any? %>
+    <h1>This weeks tasks</h1>
+    <%= render "tasks", { tasks: @weeks_tasks } %>
+    <hr>
+<% end %>
+
+<h1>All other tasks</h1>
+<% if @other_tasks.any? %>
+    <%= render "tasks", { tasks: @other_tasks } %>
+<% else %>
+    There are no other tasks assigned to you.
 <% end %>
