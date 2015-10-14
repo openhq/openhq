@@ -12,10 +12,6 @@
         margin: 0 auto 20px;
     }
 
-    span.assignment {
-        color: #fff;
-    }
-
     ul {
         list-style: none;
         padding-left: 0;
@@ -45,12 +41,17 @@
                 left: 0;
                 top: 6px;
             }
-            span.assignment {
+            span.assignment,
+            span.due_at {
                 font-size: 10px;
-                background-color: #ccc;
+                background-color: $primary-color;
                 color: #fff;
                 padding: 2px 5px;
                 border-radius: 10px;
+            }
+            span.due_at {
+                background-color: $line-color;
+                color: $body-color;
             }
             p {
                 display: inline-block;

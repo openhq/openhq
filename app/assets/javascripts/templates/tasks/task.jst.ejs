@@ -7,6 +7,10 @@
       <% if (assignment_name !== "unassigned") { %>
         <span class="assignment"><%= assignment_name %></span>
       <% } %>
+
+      <% if (due_at_pretty) { %>
+        <span class="due_at"><%= due_at_pretty %></span>
+      <% } %>
     </form>
   </div>
 
