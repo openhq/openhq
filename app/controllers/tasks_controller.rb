@@ -70,7 +70,7 @@ class TasksController < ApplicationController
 private
 
   def task_params
-    params.require(:task).permit(:label, :assignment)
+    params.require(:task).permit(:label, :assignment, :due_at)
   end
 
   def update_completion_status(task)
@@ -84,6 +84,7 @@ private
     originally_assigned_to = task.assigned_to
     task.label = task_params[:label]
     task.assigned_to = task_params[:assignment].to_i
+    task.due_at = task_params[:due_at].to_date
 
     if task.save
       # assignment has been updated, and it wasn't to the current user

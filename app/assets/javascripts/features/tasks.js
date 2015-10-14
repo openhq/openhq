@@ -35,6 +35,8 @@ $(function(){
                 tasks_html: tasks_html
             }));
 
+            setupDatepickers();
+
             $container.find('.loader').remove();
             if (!resp.tasks.length) {
                 $('.tasks .no-tasks').show();
@@ -152,6 +154,7 @@ $(function(){
             .done(function(resp){
                 var $li = $this.closest('li.task');
                 $li.after(task_template(resp.task));
+                setupDatepickers();
                 $li.remove();
             })
             .fail(function(resp){
@@ -194,7 +197,7 @@ $(function(){
         .done(function(resp){
             $form.find('.task_label input').val('');
             $('.tasks ul li.action').before(task_template(resp.task));
-
+            setupDatepickers();
             updateTaskCompletionBar();
 
             // make sure the task list is visible
@@ -210,5 +213,11 @@ $(function(){
             $form.removeClass('submitting');
         });
     });
+
+    function setupDatepickers() {
+        $("input.task_due_at").datepicker({
+            dateFormat: "d M, yy"
+        });
+    }
 
 });

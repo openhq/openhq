@@ -1,5 +1,5 @@
 class TaskSerializer < ActiveModel::Serializer
-  attributes :id, :label, :assignment_name, :project, :story, :url, :project_users, :completed
+  attributes :id, :label, :assignment_name, :project, :story, :url, :project_users, :completed, :due_at, :due_at_pretty
 
   def url
     project_story_task_path(project, story, id)
@@ -7,5 +7,11 @@ class TaskSerializer < ActiveModel::Serializer
 
   def project_users
     project.users_select_array
+  end
+
+  def due_at_pretty
+    return unless due_at.present?
+
+    due_at.to_date.strftime('%e %b, %Y')
   end
 end

@@ -132,4 +132,16 @@
     a.show-completed-tasks {
         font-size: 14px;
     }
+
+    .due-label {
+        box-sizing: border-box;
+        text-align: right;
+        padding: 7px;
+        font-size: 12px;
+    }
+
+    input.task_due_at {
+        font-size: 12px;
+        padding: 4px;
+    }
 }
