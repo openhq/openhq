@@ -1,11 +1,13 @@
-<li <%= seen ? '' : 'class="unseen"' %>>
-    <a href="<%= link_to %>">
-      <div class="owner-details">
-        <img src="<%= actioner_avatar_url %>" class="avatar" alt="<%= actioner_name %>" /> <%= actioner_name %>
-      </div>
+<% if (project && story) { %>
+    <li <%= seen ? '' : 'class="unseen"' %>>
+        <a href="<%= link_to %>">
+          <div class="owner-details">
+            <img src="<%= actioner_avatar_url %>" class="avatar" alt="<%= actioner_name %>" /> <%= actioner_name %>
+          </div>
 
-      <div class="details">
-        completed a task in: <em><%= story.name %></em>
-      </div>
-    </a>
-</li>
+          <div class="details">
+            completed a task in: <em><%= story.name %></em>
+          </div>
+        </a>
+    </li>
+<% } %>
