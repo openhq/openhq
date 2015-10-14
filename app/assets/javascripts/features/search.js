@@ -1,5 +1,11 @@
 $(function(){
-    App.onPageLoad(function() {
+
+    $(document).on('tasks:loaded', function(){
+        addWarmdown();
+    });
+
+    $(window).on('hashchange', function() {
+        $(document).trigger('dialogs:close');
         addWarmdown();
     });
 
@@ -27,17 +33,15 @@ $(function(){
         }
 
         if ($target && $target.length) {
-            $(document).on('page:loaded', function(){
-                $target.addClass('warmdown');
+            $target.addClass('warmdown');
 
-                $('html,body').animate({
-                  scrollTop: ($target.offset().top - 100)
-                }, 300);
+            $('html,body').animate({
+              scrollTop: ($target.offset().top - 100)
+            }, 300);
 
-                setTimeout(function() {
-                    $target.removeClass('warmdown');
-                }, 3000);
-            });
+            setTimeout(function() {
+                $target.removeClass('warmdown');
+            }, 3000);
         }
     }
 });

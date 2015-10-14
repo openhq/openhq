@@ -3,7 +3,11 @@
 <table class="notifications-table">
   <% @notifications.each do |n| %>
     <tr>
-      <%= render "#{n.notifiable.class.to_s.underscore}_#{n.action_performed}", { n: n } %>
+      <% if n.notifiable.present? %>
+        <%= render "#{n.notifiable_type.underscore}_#{n.action_performed}", { n: n } %>
+      <% else %>
+        <%= render "deleted_item", { n: n } %>
+      <% end %>
     </tr>
   <% end %>
 </table>

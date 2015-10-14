@@ -33,5 +33,8 @@ class NotificationSerializer < ActiveModel::Serializer
     when "Comment"
       project_story_path(project, story) + "#comment:#{notifiable_id}"
     end
+
+  rescue ActionController::UrlGenerationError
+    "#"
   end
 end
