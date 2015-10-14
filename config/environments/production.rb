@@ -98,4 +98,12 @@ Rails.application.configure do
 
   # Use dynamic error pages
   config.exceptions_app = self.routes
+
+  # Exception tracking so we know what errors happen in the wild
+  config.middleware.use ExceptionNotification::Rack,
+    :email => {
+      :email_prefix => "[OPEN HQ] ",
+      :sender_address => ENV["DEFAULT_FROM_EMAIL"],
+      :exception_recipients => %w{errors@openhq.io}
+    }
 end

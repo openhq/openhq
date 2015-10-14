@@ -23,7 +23,7 @@ gem 'acts_as_tenant'
 gem 'dotenv-rails', '~> 1.0.2'
 
 # Error tracking
-gem "sentry-raven", git: "https://github.com/getsentry/raven-ruby.git", require: 'raven'
+gem 'exception_notification'
 
 # User authentication/authorization
 gem 'clearance'
