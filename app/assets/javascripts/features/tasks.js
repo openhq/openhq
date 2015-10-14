@@ -195,7 +195,10 @@ $(function(){
         })
 
         .done(function(resp){
-            $form.find('.task_label input').val('');
+            // reset the form to the defaults
+            $form.find('.task_label input, .task_due_at input').val('');
+            $form.find('select').val(0);
+
             $('.tasks ul li.action').before(task_template(resp.task));
             setupDatepickers();
             updateTaskCompletionBar();

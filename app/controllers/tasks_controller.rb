@@ -11,7 +11,9 @@ class TasksController < ApplicationController
     @task = Task.new(
       story: Story.friendly.find(params[:story_id]),
       owner: current_user,
-      label: task_params[:label]
+      label: task_params[:label],
+      assigned_to: task_params[:assignment].to_i,
+      due_at: task_params[:due_at].to_date
     )
 
     authorize! :create, @task

@@ -145,4 +145,13 @@
         font-size: 12px;
         padding: 4px;
     }
+
+    form#new_task {
+        padding: 10px;
+        background: $rollover-dark;
+
+        input[type=submit] {
+            margin-top: 10px;
+        }
+    }
 }

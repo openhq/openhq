@@ -3,7 +3,8 @@
     border: 1px solid $line-color;
     border-radius: 4px;
     text-align: center;
-    margin-top: 5px;
+    box-shadow: 0 0 0 6px rgba(0,0,0,0.1);
+    display:none;
 }
 
 .ui-datepicker-header {
