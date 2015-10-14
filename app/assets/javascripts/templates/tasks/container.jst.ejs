@@ -6,8 +6,12 @@
   <ul class="sortable" data-update-url="<%= order_url %>">
     <%= tasks_html %>
 
-    <li class="action" <%= incomplete_count > 0 ? "style=\"display:none\"" : "" %>>
+    <li class="action" <%= incomplete_count == count ? "style=\"display:none\"" : "" %>>
       <a href="#" class="show-completed-tasks">Show completed tasks</a>
+    </li>
+
+    <li class="action" style="display:none">
+      <a href="<%= delete_url %>" data-method="delete" class="delete-all-completed-tasks danger" data-confirm="Are you sure?" data-confirm-title="Delete all completed tasks">Delete all completed tasks</a>
     </li>
   </ul>
 </div>
