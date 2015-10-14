@@ -1,13 +1,10 @@
 $(function(){
-    var search_hash_changed = false;
 
-    App.onPageLoad(function() {
+    $(document).on('tasks:loaded', function(){
         addWarmdown();
     });
 
     $(window).on('hashchange', function() {
-        search_hash_changed = true;
-
         $(document).trigger('dialogs:close');
         addWarmdown();
     });
@@ -36,25 +33,15 @@ $(function(){
         }
 
         if ($target && $target.length) {
-            if (search_hash_changed) {
-                performWarmdown($target);
-            } else {
-                $(document).on('page:loaded', function(){
-                    performWarmdown($target);
-                });
-            }
+            $target.addClass('warmdown');
+
+            $('html,body').animate({
+              scrollTop: ($target.offset().top - 100)
+            }, 300);
+
+            setTimeout(function() {
+                $target.removeClass('warmdown');
+            }, 3000);
         }
-    }
-
-    function performWarmdown($target) {
-        $target.addClass('warmdown');
-
-        $('html,body').animate({
-          scrollTop: ($target.offset().top - 100)
-        }, 300);
-
-        setTimeout(function() {
-            $target.removeClass('warmdown');
-        }, 3000);
     }
 });

@@ -52,6 +52,8 @@ $(function(){
 
             // update the task completion percentage
             updateTaskCompletionBar();
+
+            $(document).trigger('tasks:loaded');
         });
     }
 
