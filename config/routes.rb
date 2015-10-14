@@ -81,6 +81,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :me, only: :index
+
     resources :notifications, only: [:index] do
       put "mark_all_seen", on: :collection
     end

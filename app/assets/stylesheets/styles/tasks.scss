@@ -17,18 +17,21 @@
         padding-left: 0;
         position: relative;
 
+        &.sortable li {
+            cursor: grab;
+
+            &:hover:not(.action) {
+                background: $rollover-dark;
+            }
+        }
         li {
             position: relative;
             padding-left: 20px;
-            cursor: grab;
 
             &.complete {
                 display: none;
                 text-decoration: line-through;
                 opacity: 0.4;
-            }
-            &:hover:not(.action) {
-                background: $rollover-dark;
             }
             &.warmdown {
                 background-color: $primary-color;
@@ -40,18 +43,6 @@
                 position: absolute;
                 left: 0;
                 top: 6px;
-            }
-            span.assignment,
-            span.due_at {
-                font-size: 10px;
-                background-color: $primary-color;
-                color: #fff;
-                padding: 2px 5px;
-                border-radius: 10px;
-            }
-            span.due_at {
-                background-color: $line-color;
-                color: $body-color;
             }
             p {
                 display: inline-block;
@@ -154,4 +145,17 @@
             margin-top: 10px;
         }
     }
+}
+
+span.assignment,
+span.due_at {
+    font-size: 10px;
+    background-color: $primary-color;
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 10px;
+}
+span.due_at {
+    background-color: $line-color;
+    color: $body-color;
 }

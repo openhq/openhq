@@ -1,0 +1,26 @@
+<% if @overdue_tasks.any? %>
+    <h1 class="danger">Overdue tasks</h1>
+    <%= render "tasks", { tasks: @overdue_tasks } %>
+    <hr>
+<% end %>
+
+<h1>Todays tasks</h1>
+<% if @todays_tasks.any? %>
+    <%= render "tasks", { tasks: @todays_tasks } %>
+<% else %>
+    There are no tasks assigned to you for today.
+<% end %>
+<hr>
+
+<% if @weeks_tasks.any? %>
+    <h1>This weeks tasks</h1>
+    <%= render "tasks", { tasks: @weeks_tasks } %>
+    <hr>
+<% end %>
+
+<h1>All other tasks</h1>
+<% if @other_tasks.any? %>
+    <%= render "tasks", { tasks: @other_tasks } %>
+<% else %>
+    There are no other tasks assigned to you.
+<% end %>
