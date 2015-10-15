@@ -26,7 +26,7 @@ class NotificationService
         actioner: actioner
       )
 
-      MessageBus.publish "/user/#{user.id}/notifications", { id: n.id }
+      MessageBus.publish "/user/#{user.id}/notifications", id: n.id
     end
   end
 
