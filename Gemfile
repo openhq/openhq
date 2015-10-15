@@ -68,6 +68,7 @@ gem "paranoia", "~> 2.0"
 gem 'roadie-rails', '~> 1.0.4'
 
 gem 'puma'
+gem 'message_bus'
 
 group :development, :test do
   gem 'spring'

@@ -35,5 +35,6 @@ module OpenHq
       Clearance::PasswordsController.layout 'auth'
       Clearance::SessionsController.layout 'auth'
     end
+
   end
 end
