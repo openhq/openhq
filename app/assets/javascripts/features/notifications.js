@@ -85,6 +85,7 @@ $(document).on("click", ".ui-dropdown-menu.notifications .icon", function() {
       method: "PUT"
     });
 
+    // TODO: do this when the notification dropdown is closed?
     setTimeout(function() {
       $notification_menu_item.find('li.unseen').removeClass('unseen');
       updateNotificationCount();
