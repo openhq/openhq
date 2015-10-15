@@ -18,13 +18,15 @@ class NotificationService
     users.each do |user|
       next if user.notification_frequency == "never"
 
-      user.notifications.create(
+      n = user.notifications.create(
         project: presenter.project,
         story: presenter.story,
         notifiable: notifiable,
         action_performed: action_performed,
         actioner: actioner
       )
+
+      MessageBus.publish "/user/#{user.id}/notifications", { id: n.id }
     end
   end
 

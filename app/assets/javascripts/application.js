@@ -26,6 +26,7 @@
 //= require jquery.atwho
 //= require imagesloaded.pkgd.min
 //= require mousetrap.min
+//= require message-bus
 //= require_self
 //= require_tree ./templates
 //= require_tree ./features

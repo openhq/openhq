@@ -89,6 +89,11 @@ Rails.application.routes.draw do
 
   end # subdomain constraint
 
+  namespace :api do
+    resources :user, only: :index
+    resources :notification, only: :show
+  end
+
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
