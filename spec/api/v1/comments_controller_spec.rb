@@ -28,11 +28,18 @@ RSpec.describe "Comments API", type: :api do
 
   describe "POST /api/v1/projects/:project_id/stories/:story_id/comments" do
     context "when input is valid" do
-      it "creates a comment" do
-        comment_params = { comment: { content: "Hello world" } }
+      before do
+        comment_params = { comment: { content: "**Hello** world" } }
         post "/api/v1/projects/#{project.slug}/stories/#{story.slug}/comments", comment_params, api_token_header(user)
+      end
+
+      it "creates a comment" do
         expect(last_response.status).to eq(201)
-        expect(response_json[:comment][:content]).to eq("Hello world")
+        expect(response_json[:comment][:content]).to eq("**Hello** world")
+      end
+
+      it "supports markdown" do
+        expect(response_json[:comment][:markdown]).to eq("<p><strong>Hello</strong> world</p>")
       end
     end
 
