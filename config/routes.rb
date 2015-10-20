@@ -89,9 +89,22 @@ Rails.application.routes.draw do
 
   end # subdomain constraint
 
-  namespace :api do
+  namespace :api, format: "json" do
     resources :user, only: :index
     resources :notification, only: :show
+
+    namespace :v1 do
+      resources :projects do
+        resources :stories do
+          resources :comments
+          resources :tasks do
+            put "update-order", on: :collection
+            delete "delete-completed", on: :collection
+          end
+          resources :attachments
+        end
+      end
+    end
   end
 
   if Rails.env.development?
