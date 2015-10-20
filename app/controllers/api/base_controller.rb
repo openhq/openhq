@@ -22,16 +22,16 @@ module Api
     end
 
     def current_token
-      ApiToken.find_by(token: api_token_value)
+      @current_token ||= ApiToken.find_by(token: api_token_value)
     end
 
     def current_user
-      current_token.user
+      @current_user ||= current_token.user
     end
     helper_method :current_user
 
     def current_team
-      current_token.team
+      @current_team ||= current_token.team
     end
     helper_method :current_team
 
