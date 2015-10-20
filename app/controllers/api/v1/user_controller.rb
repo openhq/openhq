@@ -2,7 +2,7 @@ module Api
   module V1
     class UserController < BaseController
       def show
-        render json: current_user
+        render json: current_user, serializer: CurrentUserSerializer, root: :user
       end
 
       def create
