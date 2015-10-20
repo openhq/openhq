@@ -70,7 +70,7 @@ module Api
         render nothing: true, status: 204
       end
 
-      def delete_completed
+      def destroy_completed
         @story.tasks.complete.destroy_all
 
         render nothing: true, status: 204

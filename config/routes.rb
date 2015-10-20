@@ -101,8 +101,8 @@ Rails.application.routes.draw do
         resources :stories, except: [:new, :edit] do
           resources :comments, except: [:new, :edit]
           resources :tasks, except: [:new, :edit] do
-            put "update-order", on: :collection
-            delete "delete-completed", on: :collection
+            put "order", on: :collection, to: "tasks#update_order"
+            delete "completed", on: :collection, to: "tasks#destroy_completed"
           end
           resources :attachments, except: [:new, :edit]
         end

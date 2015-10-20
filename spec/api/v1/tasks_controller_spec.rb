@@ -90,4 +90,12 @@ RSpec.describe "Tasks API", type: :api do
       expect(last_response.body).to be_blank
     end
   end
+
+  describe "PUT /api/v1/projects/:project_id/stories/:story_id/tasks/order" do
+    it "sets the order of tasks"
+  end
+
+  describe "DELETE /api/v1/projects/:project_id/stories/:story_id/tasks/completed" do
+    it "deletes all completed tasks"
+  end
 end
