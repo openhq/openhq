@@ -12,7 +12,7 @@ describe "Projects API", type: :api do
       it "returns auth failed" do
         get "/api/v1/projects"
         expect(last_response.status).to eq(401)
-        expect(response_json[:message]).to eq("Authentication Required")
+        expect(last_response.body).to include("Access denied")
       end
     end
 

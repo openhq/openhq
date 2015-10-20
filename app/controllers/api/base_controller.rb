@@ -22,11 +22,14 @@ module Api
     end
 
     def require_api_token
-      halt_authentication_failed unless current_token
+      request_http_token_authentication unless current_token
     end
 
     def current_token
-      @current_token ||= ApiToken.find_by(token: api_token_value)
+      @current_token ||=
+        authenticate_with_http_token do |token, _options|
+          ApiToken.find_by(token: token)
+        end
     end
 
     def current_user
@@ -41,14 +44,6 @@ module Api
 
     def set_current_team
       set_current_tenant(current_team)
-    end
-
-    def api_token_value
-      request.headers["HTTP_X_API_TOKEN"].presence || params[:api_token].presence
-    end
-
-    def halt_authentication_failed
-      render json: {message: "Authentication Required", errors: ["API token invalid"]}, status: 401
     end
   end
 end

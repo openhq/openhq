@@ -12,7 +12,7 @@ module ApiHelper
   def api_token_header(user)
     team = user.teams.first
     token = ApiToken.for(user, team)
-    { "HTTP_X_API_TOKEN" => token.token }
+    { "HTTP_AUTHORIZATION" => ActionController::HttpAuthentication::Token.encode_credentials(token.token) }
   end
 end
 
