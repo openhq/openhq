@@ -5,6 +5,11 @@ module Api
         render json: current_user.projects.all
       end
 
+      def show
+        project = current_user.projects.friendly.find(params[:id])
+        render json: project, root: :project
+      end
+
       def create
         project = current_user.created_projects.build(project_params)
         authorize! :create, project

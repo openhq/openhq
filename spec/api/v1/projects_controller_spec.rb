@@ -25,6 +25,23 @@ describe "GET /api/v1/projects", type: :api do
   end
 end
 
+describe "GET /api/v1/projects/:slug", type: :api do
+  context "when user has access to project" do
+    let!(:user) { create(:user_with_team) }
+    let!(:project) { create(:project, team: user.teams.first) }
+
+    before do
+      project.users << user
+    end
+
+    it "returns the users projects" do
+      get "/api/v1/projects/#{project.slug}", {}, api_token_header(user)
+      expect(last_response.status).to eq(200)
+      expect(response_json[:project][:name]).to eq(project.name)
+    end
+  end
+end
+
 describe "POST /api/v1/projects", type: :api do
   context "when params are valid" do
     let!(:user) { create(:user_with_team) }
