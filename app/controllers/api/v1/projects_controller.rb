@@ -24,6 +24,30 @@ module Api
         end
       end
 
+      def update
+        project = current_user.projects.friendly.find(params[:id])
+        authorize! :update, project
+
+        if project.update(project_params)
+          # TODO bugfix:
+          # after updating a project params[:user_ids] won’t include
+          # the current_user anymore
+          project.users << current_user unless project.users.exists?(current_user.id)
+          render json: project, root: :project
+        else
+          render_errors(project)
+        end
+      end
+
+      def destroy
+        project = current_user.projects.friendly.find(params[:id])
+        authorize! :destroy, project
+
+        project.destroy
+
+        render nothing: true, status: 204
+      end
+
       private
 
       def project_params
