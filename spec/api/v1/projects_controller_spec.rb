@@ -102,3 +102,20 @@ describe "PATCH /api/v1/projects/:slug", type: :api do
     end
   end
 end
+
+describe "DELETE /api/v1/projects/:slug", type: :api do
+  let!(:user) { create(:user_with_team) }
+  let!(:project) { create(:project, team: user.teams.first) }
+
+  before do
+    project.users << user
+  end
+
+  it "deletes a new project" do
+    delete "/api/v1/projects/#{project.slug}", {}, api_token_header(user)
+    expect(last_response.status).to eq(204)
+    expect(last_response.body).to be_empty
+
+    expect { Project.find(project.id) }.to raise_error(ActiveRecord::RecordNotFound)
+  end
+end
