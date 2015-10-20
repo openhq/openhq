@@ -1,5 +1,6 @@
 class TaskSerializer < ActiveModel::Serializer
   attributes :id, :label, :assignment_name, :project, :story, :url, :project_users, :completed, :due_at, :due_at_pretty
+  has_one :assignment
 
   def url
     project_story_task_path(project, story, id)
