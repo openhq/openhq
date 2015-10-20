@@ -7,7 +7,7 @@ module Api
 
       def show
         project = current_user.projects.friendly.find(params[:id])
-        render json: project, root: :project
+        render json: project
       end
 
       def create
@@ -18,7 +18,7 @@ module Api
           notify(project, 'created')
 
           project.users << current_user
-          render json: project, status: 201, root: :project
+          render json: project, status: 201
         else
           render_errors(project)
         end
@@ -33,7 +33,7 @@ module Api
           # after updating a project params[:user_ids] won’t include
           # the current_user anymore
           project.users << current_user unless project.users.exists?(current_user.id)
-          render json: project, root: :project
+          render json: project
         else
           render_errors(project)
         end
