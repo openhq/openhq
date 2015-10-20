@@ -113,7 +113,7 @@ describe "DELETE /api/v1/projects/:slug", type: :api do
     project.users << user
   end
 
-  it "deletes a new project" do
+  it "deletes a project" do
     delete "/api/v1/projects/#{project.slug}", {}, api_token_header(user)
     expect(last_response.status).to eq(204)
     expect(last_response.body).to be_empty
