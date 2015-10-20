@@ -1,5 +1,6 @@
 require 'rails_helper'
-describe "Projects API", type: :api do
+
+RSpec.describe "Projects API", type: :api do
   let!(:user) { create(:user_with_team) }
   let!(:project) { create(:project, team: user.teams.first) }
 
