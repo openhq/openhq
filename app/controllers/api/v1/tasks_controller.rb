@@ -14,13 +14,7 @@ module Api
       end
 
       def create
-        @task = Task.new(
-          story: @story,
-          owner: current_user,
-          label: task_params[:label],
-          assigned_to: task_params[:assignment].to_i,
-          due_at: String(task_params[:due_at]).to_date
-        )
+        @task = @story.tasks.build(task_params.merge(owner: current_user))
 
         authorize! :create, @task
 
