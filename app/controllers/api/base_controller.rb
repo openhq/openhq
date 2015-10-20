@@ -35,6 +35,10 @@ module Api
     end
     helper_method :current_team
 
+    def set_current_team
+      set_current_tenant(current_team)
+    end
+
     def api_token_value
       request.headers["HTTP_X_API_TOKEN"].presence || params[:api_token].presence
     end
