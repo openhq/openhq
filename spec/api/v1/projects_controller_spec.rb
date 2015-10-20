@@ -24,3 +24,32 @@ describe "GET /api/v1/projects", type: :api do
     end
   end
 end
+
+describe "POST /api/v1/projects", type: :api do
+  context "when params are valid" do
+    let!(:user) { create(:user_with_team) }
+
+    it "creates a new project" do
+      project_params = {
+        project: {
+          name: "Accounting"
+        }
+      }
+      post "/api/v1/projects", project_params, api_token_header(user)
+      expect(last_response.status).to eq(201)
+      expect(response_json[:project][:name]).to eq("Accounting")
+    end
+  end
+
+  context "when params are invalid" do
+    let!(:user) { create(:user_with_team) }
+
+    it "creates a new project" do
+      project_params = { project: { name: "" } }
+      post "/api/v1/projects", project_params, api_token_header(user)
+      expect(last_response.status).to eq(422)
+      expect(response_json[:message]).to eq("Validation Failed")
+      expect(response_json[:errors].first).to eq("Name can't be blank")
+    end
+  end
+end

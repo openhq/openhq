@@ -94,14 +94,14 @@ Rails.application.routes.draw do
     resources :notification, only: :show
 
     namespace :v1 do
-      resources :projects do
-        resources :stories do
-          resources :comments
-          resources :tasks do
+      resources :projects, except: [:new, :edit] do
+        resources :stories, except: [:new, :edit] do
+          resources :comments, except: [:new, :edit]
+          resources :tasks, except: [:new, :edit] do
             put "update-order", on: :collection
             delete "delete-completed", on: :collection
           end
-          resources :attachments
+          resources :attachments, except: [:new, :edit]
         end
       end
     end

@@ -13,6 +13,10 @@ module Api
 
     private
 
+    def render_errors(object)
+      render json: {message: "Validation Failed", errors: object.errors.full_messages}, status: 422
+    end
+
     def require_api_token
       halt_authentication_failed unless current_token
     end
