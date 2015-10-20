@@ -14,7 +14,11 @@ module Api
     private
 
     def render_errors(object)
-      render json: {message: "Validation Failed", errors: object.errors.full_messages}, status: 422
+      errors = object.errors.messages.map do |field, error_messages|
+        {field: field, errors: error_messages}
+      end
+
+      render json: {message: "Validation Failed", errors: errors}, status: 422
     end
 
     def require_api_token
@@ -44,7 +48,7 @@ module Api
     end
 
     def halt_authentication_failed
-      render json: {message: "Authentication Required", error: "API token invalid"}, status: 401
+      render json: {message: "Authentication Required", errors: ["API token invalid"]}, status: 401
     end
   end
 end
