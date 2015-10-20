@@ -12,7 +12,7 @@ module ApiHelper
   def api_token_header(user)
     team = user.teams.first
     token = ApiToken.for(user, team)
-    { "X_API_TOKEN" => token.token }
+    { "HTTP_X_API_TOKEN" => token.token }
   end
 end
 

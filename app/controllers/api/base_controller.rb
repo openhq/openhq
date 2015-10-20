@@ -32,7 +32,7 @@ module Api
     helper_method :current_team
 
     def api_token_value
-      request.headers["X_API_TOKEN"].presence || params[:api_token].presence
+      request.headers["HTTP_X_API_TOKEN"].presence || params[:api_token].presence
     end
 
     def halt_authentication_failed
