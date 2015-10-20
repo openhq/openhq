@@ -72,6 +72,40 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: api_tokens; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE api_tokens (
+    id integer NOT NULL,
+    user_id integer,
+    team_id integer,
+    revoked_at timestamp without time zone,
+    token character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: api_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE api_tokens_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: api_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE api_tokens_id_seq OWNED BY api_tokens.id;
+
+
+--
 -- Name: attachments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -536,6 +570,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY api_tokens ALTER COLUMN id SET DEFAULT nextval('api_tokens_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY attachments ALTER COLUMN id SET DEFAULT nextval('attachments_id_seq'::regclass);
 
 
@@ -614,6 +655,14 @@ ALTER TABLE ONLY teams ALTER COLUMN id SET DEFAULT nextval('teams_id_seq'::regcl
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: api_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY api_tokens
+    ADD CONSTRAINT api_tokens_pkey PRIMARY KEY (id);
 
 
 --
@@ -710,6 +759,27 @@ ALTER TABLE ONLY teams
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_api_tokens_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_api_tokens_on_team_id ON api_tokens USING btree (team_id);
+
+
+--
+-- Name: index_api_tokens_on_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_api_tokens_on_token ON api_tokens USING btree (token);
+
+
+--
+-- Name: index_api_tokens_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_api_tokens_on_user_id ON api_tokens USING btree (user_id);
 
 
 --
@@ -986,6 +1056,14 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: fk_rails_3026241273; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY api_tokens
+    ADD CONSTRAINT fk_rails_3026241273 FOREIGN KEY (team_id) REFERENCES teams(id);
+
+
+--
 -- Name: fk_rails_6a8dc6a6fc; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -999,6 +1077,14 @@ ALTER TABLE ONLY team_users
 
 ALTER TABLE ONLY team_users
     ADD CONSTRAINT fk_rails_8b0a3daf0d FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_f16b5e0447; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY api_tokens
+    ADD CONSTRAINT fk_rails_f16b5e0447 FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -1080,4 +1166,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150914170620');
 INSERT INTO schema_migrations (version) VALUES ('20151002105613');
 
 INSERT INTO schema_migrations (version) VALUES ('20151014104537');
+
+INSERT INTO schema_migrations (version) VALUES ('20151020153443');
 

@@ -41,7 +41,7 @@ class ProjectsController < ApplicationController
       # TODO bugfix:
       # after updating a project params[:user_ids] won’t include
       # the current_user anymore
-      @project.users << current_user
+      @project.users << current_user unless @project.users.exists?(current_user.id)
       redirect_to @project, notice: "Project saved"
     else
       render :edit

@@ -13,6 +13,7 @@ require 'clearance/rspec'
 require 'support/subdomain_helper'
 require 'support/mail_helper'
 require 'support/feature_helper'
+require 'support/api_helper'
 
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
