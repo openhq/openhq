@@ -54,7 +54,7 @@ module Api
           @story.tasks.find(task_id.to_i).update(order: i + 1)
         end
 
-        render nothing: true
+        render nothing: true, status: 204
       end
 
       def destroy
