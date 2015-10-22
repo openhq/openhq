@@ -5,10 +5,10 @@
           <div class="info-box project-box">
             <section class="info">
               <h3>
-                <a href="#">
+                {{#link-to 'project' project}}
                   {{ project.name }}
                   <small>Last updated {{human-time time=project.updatedAt }}</small>
-                </a>
+                {{/link-to}}
               </h3>
 
               <ul class="recent-stories">
