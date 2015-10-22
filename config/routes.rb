@@ -104,7 +104,9 @@ Rails.application.routes.draw do
             put "order", on: :collection, to: "tasks#update_order"
             delete "completed", on: :collection, to: "tasks#destroy_completed"
           end
-          resources :attachments, except: [:new, :edit]
+          resources :attachments, except: [:new, :edit] do
+            get "presigned_upload_url", on: :collection
+          end
         end
       end
     end
