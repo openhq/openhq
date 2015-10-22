@@ -94,6 +94,7 @@ Rails.application.routes.draw do
     resources :notification, only: :show
 
     namespace :v1 do
+      resources :auth, only: [:create]
       resource :user, except: [:new, :edit], controller: :user
       resources :team_invites, except: [:new, :edit]
 
