@@ -4,6 +4,14 @@ module Api
       skip_before_action :require_api_token
       skip_before_action :set_current_team
 
+      resource_description do
+        short "Authenticating with the API"
+        formats ["json"]
+      end
+
+      api! "Get an API token"
+      param :email, String, "Your email address", required: true
+      param :password, String, "Your password", required: true
       def create
         user = Clearance.configuration.user_model.authenticate(
           params[:email], params[:password]
