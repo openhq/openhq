@@ -112,6 +112,9 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :notifications, only: [:index, :show] do
+        get "mark_all_seen", on: :collection
+      end
       resources :search, only: [:create]
     end
   end
