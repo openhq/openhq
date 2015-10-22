@@ -21,6 +21,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active-model-adapter-source (2.0.2)
+      ember-data-source (>= 1.13, < 3.0)
     active_model_serializers (0.9.3)
       activemodel (>= 3.2)
     activejob (4.2.3)
@@ -57,6 +59,9 @@ GEM
     aws-sdk-v1 (1.64.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
+    barber (0.9.2)
+      ember-source (>= 1.0, < 3)
+      execjs (>= 1.2, < 3)
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -112,6 +117,21 @@ GEM
     ejs (1.1.1)
     email_validator (1.6.0)
       activemodel
+    ember-data-source (2.1.0)
+      ember-source (>= 1.8, < 3.0)
+    ember-handlebars-template (0.3.4)
+      barber (>= 0.9.0)
+      sprockets (>= 2.1, < 3.5)
+      tilt
+    ember-rails (0.19.2)
+      active-model-adapter-source (>= 1.13.0)
+      active_model_serializers
+      ember-data-source (>= 1.13.0)
+      ember-handlebars-template (>= 0.1.1, < 1.0)
+      ember-source (>= 1.8.0)
+      jquery-rails (>= 1.0.17)
+      railties (>= 3.1)
+    ember-source (1.13.10)
     erubis (2.7.0)
     exception_notification (4.1.1)
       actionmailer (>= 3.0.4)
@@ -376,6 +396,8 @@ DEPENDENCIES
   database_cleaner
   dotenv-rails (~> 1.0.2)
   ejs
+  ember-rails
+  ember-source (~> 1.13.7)
   exception_notification
   factory_girl_rails
   faker
