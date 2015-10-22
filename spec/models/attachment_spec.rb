@@ -7,7 +7,9 @@ RSpec.describe Attachment do
   it { should belong_to(:story) }
   it { should belong_to(:owner) }
 
-  it { should validate_presence_of(:owner_id) }
+  it { should validate_presence_of(:owner) }
+  it { should validate_presence_of(:file_name) }
+  it { should validate_presence_of(:file_path) }
 
   it "must be valid" do
     expect(attachment).to be_valid
