@@ -4,7 +4,7 @@ module Api
       skip_before_action :require_api_token
       skip_before_action :set_current_team
 
-      def index
+      def create
         user = Clearance.configuration.user_model.authenticate(
           params[:email], params[:password]
         )
