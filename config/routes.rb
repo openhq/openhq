@@ -2,6 +2,7 @@ require 'route_constraints/root_domain'
 require 'route_constraints/subdomain'
 require 'route_constraints/single_site'
 require 'route_constraints/multi_site'
+require 'route_constraints/non_api'
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
@@ -134,6 +135,6 @@ Rails.application.routes.draw do
 
   root to: "ember#index"
 
-  match "*path", to: "ember#index", via: :all
+  match "*path", to: "ember#index", via: :all, constraints: RouteConstraints::NonApi
 
 end
