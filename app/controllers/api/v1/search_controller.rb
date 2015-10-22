@@ -3,6 +3,12 @@ module Api
     class SearchController < BaseController
       def create
         term = params[:term]
+
+        # Make sure a term is provided
+        if term.nil?
+          return render json: { message: "Validation Failed", errors: [{ field: "term", errors: ["is required"] }] }, status: 422
+        end
+
         page = (params[:page] || 1).to_i
         limit = (params[:limit] || 20).to_i
 
