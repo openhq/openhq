@@ -9,6 +9,7 @@ require 'shoulda/matchers'
 require 'capybara/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'clearance/rspec'
+require 'webmock/rspec'
 
 require 'support/subdomain_helper'
 require 'support/mail_helper'

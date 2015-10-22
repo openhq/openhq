@@ -99,6 +99,8 @@ group :test do
   gem 'database_cleaner'
   gem 'mocha'
   gem 'coveralls', require: false
+  gem 'vcr', require: false
+  gem 'webmock'
 end
 
 group :production do
