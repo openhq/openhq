@@ -9,8 +9,7 @@ RSpec.describe "Auth API", type: :api do
       it "returns api token" do
         params = {
           email: user.email,
-          password: "Password1!",
-          subdomain: team.subdomain
+          password: "Password1!"
         }
 
         post "/api/v1/auth", params
@@ -23,8 +22,7 @@ RSpec.describe "Auth API", type: :api do
       it "returns auth failed" do
         params = {
           email: user.email,
-          password: "incorrect-password",
-          subdomain: team.subdomain
+          password: "incorrect-password"
         }
 
         post "/api/v1/auth", params

@@ -8,10 +8,9 @@ module Api
         user = Clearance.configuration.user_model.authenticate(
           params[:email], params[:password]
         )
-        team = Team.find_by(subdomain: params[:subdomain])
 
-        if user.present? && team.present? && user.team_ids.include?(team.id)
-          render json: ApiToken.for(user, team), scope: nil
+        if user.present? && user.teams.any?
+          render json: ApiToken.for(user, user.teams.first), scope: nil
         else
           render json: "Credentials invalid: Access denied.", status: 401
         end
