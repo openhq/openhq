@@ -1,0 +1,56 @@
+<div class="page-container">
+  <div class="ui-projects-list pure-g">
+    {{#each project in model}}
+      <div class="pure-u-1 pure-u-md-1-2">
+          <div class="info-box project-box">
+            <section class="info">
+              <h3>
+                <a href="#">
+                  {{ project.name }}
+                  <small>Last updated {{human-time time=project.updatedAt }}</small>
+                </a>
+              </h3>
+
+              <ul class="recent-stories">
+                  <li>No recent stories</li>
+                  <li>
+                    <span class="when">Today</span>
+                    <a href="#">Story name</a>
+                  </li>
+              </ul>
+            </section>
+
+            <footer>
+              <div class="members">
+                #
+              </div>
+            </footer>
+          </div>
+        </div>
+    {{/each}}
+
+
+    <div class="pure-u-1 pure-u-md-1-2">
+      <div class="info-box project-box">
+        <form class="pure-form pure-form-stacked">
+          <section class="info">
+            <label for="project_name">Project Name</label>
+            <input type="text" name="project[name]" id="project_name">
+          </section>
+
+          <footer>
+            <input type="submit" value="Create Project" class="btn btn-main">
+          </footer>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="center archive-link">
+    <a href="#" class="btn btn-secondary btn-with-icon">
+      <span class="icon icon-archive"></span>
+      View archived projects (0)
+    </a>
+  </div>
+</div>

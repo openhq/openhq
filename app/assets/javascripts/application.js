@@ -4,7 +4,7 @@
 //= require ember
 //= require ember-data
 //= require active-model-adapter
-//# require jquery.timeago
+//= require jquery.timeago
 //# require jquery-ui
 //# require chosen.jquery
 //# require pickadate/picker
