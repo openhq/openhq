@@ -1,12 +1,6 @@
 module Api
-  class BaseController < ApplicationController
+  class BaseController < ActionController::Base
     protect_from_forgery with: :null_session
-
-    skip_before_action :set_current_team
-    skip_before_action :run_first_time_setup
-    skip_before_action :ensure_team_exists_for_subdomain!
-    skip_before_action :require_login
-    skip_before_action :user_belongs_to_team!
 
     before_action :require_api_token
     before_action :set_current_team
