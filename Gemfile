@@ -70,6 +70,10 @@ gem 'roadie-rails', '~> 1.0.4'
 gem 'puma'
 gem 'message_bus'
 
+# API Docs
+gem 'maruku'
+gem 'apipie-rails'
+
 group :development, :test do
   gem 'spring'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
