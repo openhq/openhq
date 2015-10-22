@@ -3,16 +3,23 @@ module Api
     class CommentsController < BaseController
       before_action :set_story
 
+      api! "Fetch all comments"
       def index
         comments = @story.comments.includes(:owner).all
         render json: comments
       end
 
+      api! "Fetch a single comment"
       def show
         comment = @story.comments.find(params[:id])
         render json: comment
       end
 
+      api! "Create new comment"
+      param :comment, Hash, desc: "Comment info" do
+        param :content, String, desc: "Comment body", required: true
+        param :attachment_ids, Array, desc: "Array of attachment ids to attach to the comment", required: false
+      end
       def create
         comment = Comment.new(
           commentable: @story,
@@ -34,6 +41,11 @@ module Api
         end
       end
 
+      api! "Update comment"
+      param :comment, Hash, desc: "Comment info" do
+        param :content, String, desc: "Comment body", required: true
+        param :attachment_ids, Array, desc: "Array of attachment ids to attach to the comment", required: false
+      end
       def update
         comment = @story.comments.find(params[:id])
         authorize! :update, comment
@@ -44,6 +56,7 @@ module Api
         end
       end
 
+      api! "Delete a comment"
       def destroy
         comment = @story.comments.find(params[:id])
         authorize! :destroy, comment

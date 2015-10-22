@@ -3,16 +3,29 @@ module Api
     class TasksController < BaseController
       before_action :set_story
 
+      resource_description do
+        formats ["json"]
+      end
+
+      api! "Fetch all tasks"
       def index
         tasks = @story.tasks.includes(:assignment, :story, :project)
         render json: tasks
       end
 
+      api! "Fetch a single task"
       def show
         task = @story.tasks.includes(:assignment, :story, :project).find(params[:id])
         render json: task
       end
 
+      api! "Create new task"
+      param :task, Hash, desc: "Task info" do
+        param :label, String, desc: "Task description", required: true
+        param :assigned_to, Integer, desc: "User to assign the task to", required: false
+        param :due_at, DateTime, desc: "Schedule a time for the task to be due", required: false
+        param :completed, true.class, desc: "Whether the task is complete or not", required: false
+      end
       def create
         @task = @story.tasks.build(task_params.merge(owner: current_user))
 
@@ -26,6 +39,13 @@ module Api
         end
       end
 
+      api! "Update a task"
+      param :task, Hash, desc: "Task info" do
+        param :label, String, desc: "Task description", required: true
+        param :assigned_to, Integer, desc: "User to assign the task to", required: false
+        param :due_at, DateTime, desc: "Schedule a time for the task to be due", required: false
+        param :completed, true.class, desc: "Whether the task is complete or not", required: false
+      end
       def update
         task = @story.tasks.find(params[:id])
 
@@ -49,6 +69,8 @@ module Api
         end
       end
 
+      api! "Update task order"
+      param :order, Array, desc: "Task IDs in new order", required: true
       def update_order
         params[:order].each_with_index do |task_id, i|
           @story.tasks.find(task_id.to_i).update(order: i + 1)
@@ -57,6 +79,7 @@ module Api
         render nothing: true, status: 204
       end
 
+      api! "Delete task"
       def destroy
         task = @story.tasks.find(params[:id])
         task.destroy
@@ -64,6 +87,7 @@ module Api
         render nothing: true, status: 204
       end
 
+      api! "Delete all completed tasks"
       def destroy_completed
         @story.tasks.complete.destroy_all
 
