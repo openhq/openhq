@@ -15,7 +15,8 @@ module Api
 
         # Make sure a term is provided
         if term.nil?
-          return render json: { message: "Validation Failed", errors: [{ field: "term", errors: ["is required"] }] }, status: 422
+          errors = [{ field: "term", errors: ["is required"] }]
+          return render json: { message: "Validation Failed", errors: errors }, status: 422
         end
 
         page = (params[:page] || 1).to_i
@@ -24,7 +25,7 @@ module Api
         results = SearchDocument.search(term, current_team.id, current_user.project_ids).page(page).per(limit)
 
         has_more_results = (page * limit) < results.total_count
-        next_url = api_v1_search_index_path(term: term, page: page+1, limit: limit) if has_more_results
+        next_url = api_v1_search_index_path(term: term, page: page + 1, limit: limit) if has_more_results
 
         meta = {
           term: term,
