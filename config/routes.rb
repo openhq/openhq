@@ -113,6 +113,7 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :stories, except: [:new, :edit]
 
       resources :search, only: [:create]
     end

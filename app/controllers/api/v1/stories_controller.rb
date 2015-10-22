@@ -1,7 +1,7 @@
 module Api
   module V1
     class StoriesController < BaseController
-      before_action :set_project
+      before_action :set_project, only: [:index, :create]
 
       resource_description do
         formats ["json"]
@@ -21,7 +21,7 @@ module Api
 
       api! "Fetch a single story"
       def show
-        story = @project.stories.friendly.find(params[:id])
+        story = Story.friendly.find(params[:id])
         render json: story
       end
 
