@@ -15,8 +15,9 @@ gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem "autoprefixer-rails" # scss prefixer
 gem 'ejs' # client side templates
+gem 'active-model-adapter-source', '~> 1.13.0'
 gem 'ember-rails'
-gem 'ember-source', '~> 1.13.7' # or the version you need
+gem 'ember-source', '~> 1.13.10' # or the version you need
 
 # Multitennate subdomains
 gem 'acts_as_tenant'
@@ -86,7 +87,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'rack-mini-profiler'
   gem 'quiet_assets'
   gem 'letter_opener_web'
   gem 'spring-commands-rspec'
