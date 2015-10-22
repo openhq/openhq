@@ -13,7 +13,7 @@ class Attachment < ActiveRecord::Base
   has_one :project, through: :story
   belongs_to :owner, class_name: "User"
 
-  validates_presence_of :owner_id
+  validates :file_name, :file_path, :owner, presence: true
 
   after_create :process_upload
 
