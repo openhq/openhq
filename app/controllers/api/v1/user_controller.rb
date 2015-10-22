@@ -6,7 +6,7 @@ module Api
         formats ["json"]
       end
 
-      api :GET, "/v1/user", "Fetch the current user"
+      api! "Fetch the current user"
       def show
         render json: current_user, serializer: CurrentUserSerializer, root: :user
       end
