@@ -2,6 +2,8 @@ require "route_constraints/subdomain"
 
 class ApplicationController < ActionController::Base
   include Clearance::Controller
+  include NotifyConcern
+  include CurrentTeamAbilityConcern
 
   set_current_tenant_through_filter
   before_action :set_current_team
@@ -54,6 +56,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_team
+    ActsAsTenant.current_tenant
+  end
+  helper_method :current_team
+
   def ensure_team_exists_for_subdomain!
     if RouteConstraints::Subdomain.matches?(request)
       redirect_to root_app_url unless current_team
@@ -68,20 +75,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def current_team
-    ActsAsTenant.current_tenant
-  end
-  helper_method :current_team
-
-  def current_team_role
-    current_user.team_users.find_by(team_id: current_team.id)
-  end
-  helper_method :current_team_role
-
-  def current_ability
-    @current_ability ||= Ability.new(current_team_role)
-  end
-
   def ensure_owner
     redirect_to root_url unless current_team_role.role?(:owner)
   end
@@ -93,12 +86,6 @@ class ApplicationController < ActionController::Base
 
   def get_first_error(object)
     object.errors.full_messages.first
-  end
-
-  def notify(subject, actions_performed)
-    Array(actions_performed).each do |action|
-      NotificationService.new(subject, action, current_user).notify
-    end
   end
 
 end

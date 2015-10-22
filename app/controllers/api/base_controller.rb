@@ -1,9 +1,14 @@
 module Api
   class BaseController < ActionController::Base
+    include NotifyConcern
+    include CurrentTeamAbilityConcern
+
     protect_from_forgery with: :null_session
 
     before_action :require_api_token
     before_action :set_current_team
+
+    set_current_tenant_through_filter
 
     private
 
