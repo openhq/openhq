@@ -24,12 +24,13 @@ module Api
 
         results = SearchDocument.search(term, current_team.id, current_user.project_ids).page(page).per(limit)
 
-        has_more_results = (page * limit) < results.total_count
-        next_url = api_v1_search_index_path(term: term, page: page + 1, limit: limit) if has_more_results
+        has_more = (page * limit) < results.total_count
+        next_url = api_v1_search_index_path(term: term, page: page + 1, limit: limit) if has_more
 
         meta = {
           term: term,
           total: results.total_count,
+          has_more: has_more,
           next_url: next_url
         }
 
