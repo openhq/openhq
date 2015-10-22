@@ -70,7 +70,9 @@ gem 'roadie-rails', '~> 1.0.4'
 gem 'puma'
 gem 'message_bus'
 
-gem 'apipie-rails' # API Docs
+# API Docs
+gem 'maruku'
+gem 'apipie-rails'
 
 group :development, :test do
   gem 'spring'

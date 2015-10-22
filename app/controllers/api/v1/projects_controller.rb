@@ -5,6 +5,13 @@ module Api
         formats ["json"]
       end
 
+      def_param_group :project do
+        param :project, Hash, desc: "Project info" do
+          param :name, String, desc: "Project name", required: true
+          param :user_ids, Array, of: Integer, desc: "Users to add to the project", required: false
+        end
+      end
+
       api! "Fetch all projects"
       def index
         render json: current_user.projects.all
@@ -17,10 +24,7 @@ module Api
       end
 
       api! "Create a project"
-      param :project, Hash, desc: "Project info" do
-        param :name, String, desc: "Project name", required: true
-        param :user_ids, Array, desc: "Users to add to the project", required: false
-      end
+      param_group :project
       def create
         project = current_user.created_projects.build(project_params)
         authorize! :create, project
@@ -36,10 +40,7 @@ module Api
       end
 
       api! "Update a project"
-      param :project, Hash, desc: "Project info" do
-        param :name, String, desc: "Project name", required: true
-        param :user_ids, Array, desc: "Users to add to the project", required: false
-      end
+      param_group :project
       def update
         project = current_user.projects.friendly.find(params[:id])
         authorize! :update, project

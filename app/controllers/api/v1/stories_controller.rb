@@ -7,6 +7,13 @@ module Api
         formats ["json"]
       end
 
+      def_param_group :story do
+        param :project, Hash, desc: "Project info" do
+          param :name, String, desc: "Project name", required: true
+          param :user_ids, Array, of: Integer, desc: "Users to add to the project", required: false
+        end
+      end
+
       api! "Fetch all stories"
       def index
         render json: @project.stories.includes(:owner)
@@ -19,10 +26,7 @@ module Api
       end
 
       api! "Create a new story"
-      param :story, Hash, desc: "Story info" do
-        param :name, String, desc: "Story name", required: true
-        param :description, String, desc: "Description of the story (displayed like a discussion)", required: false
-      end
+      param_group :story
       def create
         story = current_user.stories.build(story_params)
         authorize! :create, story
@@ -37,10 +41,7 @@ module Api
       end
 
       api! "Update a story"
-      param :story, Hash, desc: "Story info" do
-        param :name, String, desc: "Story name", required: true
-        param :description, String, desc: "Description of the story (displayed like a discussion)", required: false
-      end
+      param_group :story
       def update
         story = current_user.stories.friendly.find(params[:id])
         authorize! :update, story

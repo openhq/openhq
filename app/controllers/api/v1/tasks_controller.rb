@@ -7,6 +7,15 @@ module Api
         formats ["json"]
       end
 
+      def_param_group :task do
+        param :task, Hash, desc: "Task info" do
+          param :label, String, desc: "Task description", required: true
+          param :assigned_to, Integer, desc: "User to assign the task to", required: false
+          param :due_at, DateTime, desc: "Schedule a time for the task to be due", required: false
+          param :completed, [true, false], desc: "Whether the task is complete or not", required: false
+        end
+      end
+
       api! "Fetch all tasks"
       def index
         tasks = @story.tasks.includes(:assignment, :story, :project)
@@ -20,12 +29,7 @@ module Api
       end
 
       api! "Create new task"
-      param :task, Hash, desc: "Task info" do
-        param :label, String, desc: "Task description", required: true
-        param :assigned_to, Integer, desc: "User to assign the task to", required: false
-        param :due_at, DateTime, desc: "Schedule a time for the task to be due", required: false
-        param :completed, true.class, desc: "Whether the task is complete or not", required: false
-      end
+      param_group :task
       def create
         @task = @story.tasks.build(task_params.merge(owner: current_user))
 
@@ -40,12 +44,7 @@ module Api
       end
 
       api! "Update a task"
-      param :task, Hash, desc: "Task info" do
-        param :label, String, desc: "Task description", required: true
-        param :assigned_to, Integer, desc: "User to assign the task to", required: false
-        param :due_at, DateTime, desc: "Schedule a time for the task to be due", required: false
-        param :completed, true.class, desc: "Whether the task is complete or not", required: false
-      end
+      param_group :task
       def update
         task = @story.tasks.find(params[:id])
 
