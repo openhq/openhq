@@ -108,6 +108,8 @@ Rails.application.routes.draw do
           resources :attachments, except: [:new, :edit]
         end
       end
+
+      resources :search, only: [:create]
     end
   end
 
