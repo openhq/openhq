@@ -11,8 +11,7 @@ module Api
         team = Team.find_by(subdomain: params[:subdomain])
 
         if user.present? && team.present? && user.team_ids.include?(team.id)
-          api_token = ApiToken.for(user, team)
-          render json: api_token, scope: nil
+          render json: ApiToken.for(user, team), scope: nil
         else
           render json: "Credentials invalid: Access denied.", status: 401
         end
