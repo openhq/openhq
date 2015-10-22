@@ -6,6 +6,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
+  apipie
   # Clearance routes for authentication
   resources :passwords,
     controller: 'reset_passwords',

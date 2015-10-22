@@ -1,15 +1,30 @@
 module Api
   module V1
     class ProjectsController < BaseController
+      resource_description do
+        formats ["json"]
+      end
+
+      def_param_group :project do
+        param :project, Hash, desc: "Project info" do
+          param :name, String, desc: "Project name", required: true
+          param :user_ids, Array, of: Integer, desc: "Users to add to the project", required: false
+        end
+      end
+
+      api! "Fetch all projects"
       def index
         render json: current_user.projects.all
       end
 
+      api! "Fetch a single project"
       def show
         project = current_user.projects.friendly.find(params[:id])
         render json: project
       end
 
+      api! "Create a project"
+      param_group :project
       def create
         project = current_user.created_projects.build(project_params)
         authorize! :create, project
@@ -24,6 +39,8 @@ module Api
         end
       end
 
+      api! "Update a project"
+      param_group :project
       def update
         project = current_user.projects.friendly.find(params[:id])
         authorize! :update, project
@@ -39,6 +56,7 @@ module Api
         end
       end
 
+      api! "Delete a project"
       def destroy
         project = current_user.projects.friendly.find(params[:id])
         authorize! :destroy, project
