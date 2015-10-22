@@ -1,6 +1,15 @@
 module Api
   module V1
     class SearchController < BaseController
+
+      resource_description do
+        formats ["json"]
+      end
+
+      api! "Fetchs search results"
+      param :term, String, desc: "The search term", required: true
+      param :limit, Integer, desc: "The number of results you want returned (default: 20)", required: false
+      param :page, Integer, desc: "The page number you want returned (default: 1)", required: false
       def create
         term = params[:term]
 
