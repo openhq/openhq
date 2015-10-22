@@ -20,6 +20,10 @@ RSpec.describe "Search API", type: :api do
       post "/api/v1/search", { term: "Test", limit: 1 }, api_token_header(user)
       expect(last_response.status).to eq(200)
       expect(response_json[:search].count).to be(1)
+    end
+
+    it "includes meta data" do
+      post "/api/v1/search", { term: "Test", limit: 1, page: 1 }, api_token_header(user)
       expect(response_json[:meta][:next_url]).to include('page=2')
       expect(response_json[:meta][:next_url]).to include('term=Test')
       expect(response_json[:meta][:next_url]).to include('limit=1')
@@ -39,7 +43,7 @@ RSpec.describe "Search API", type: :api do
       expect(response_json[:search].count).to be(0)
     end
 
-    it "returns errors when there is no term" do
+    it "returns an error when there is no term" do
       post "/api/v1/search", {}, api_token_header(user)
       expect(last_response.status).to eq(422)
     end
