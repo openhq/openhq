@@ -3,7 +3,6 @@ require 'vcr_helper'
 
 RSpec.describe "Attachments API", type: :api do
   let!(:user) { create(:user_with_team) }
-  let!(:assigned_user) { create(:user) }
   let(:team) { user.teams.first }
   let!(:project) { create(:project, team: team) }
   let!(:story) { create(:story, project: project, team: team, owner: user) }
