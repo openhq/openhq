@@ -50,7 +50,7 @@ module Api
 
         s3 = AWS::S3.new
         obj = s3.buckets[ENV['AWS_S3_BUCKET']].objects["attachments/#{new_file_name}"]
-        url = obj.url_for(:write, :content_type => "text/plain")
+        url = obj.url_for(:write, content_type: "text/plain")
 
         render json: {url: url.to_s}, status: 201
       end
