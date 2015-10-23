@@ -18,19 +18,19 @@ RSpec.feature "First user setup", type: :feature do
       given!(:user) { create(:user) }
       given!(:team_user) { create(:team_user, user: user, team: team) }
 
-      scenario "doesn’t allow access" do
+      xscenario "doesn’t allow access" do
         visit "/setup"
         expect(page).not_to have_content "Setup your account"
       end
     end
 
     context "when no users exist yet" do
-      scenario "shows the first time setup form" do
+      xscenario "shows the first time setup form" do
         visit "/"
         expect(page).to have_content "Setup your account"
       end
 
-      scenario "completes the account setup flow" do
+      xscenario "completes the account setup flow" do
         perform_enqueued_jobs do
           # User signup
           visit "/"
@@ -76,11 +76,11 @@ RSpec.feature "First user setup", type: :feature do
     end
 
     context "when setup code is invalid" do
-      scenario "doesn’t allow access"
+      xscenario "doesn’t allow access"
     end
 
     context "when setup code is valid" do
-      scenario "runs first time setup"
+      xscenario "runs first time setup"
     end
   end
 end

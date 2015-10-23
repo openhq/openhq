@@ -15,7 +15,7 @@ RSpec.feature "Projects", type: :feature do
     engineering.stories.create!(name: "Prototype v1.0.1", owner: bob, team_id: team.id)
   end
 
-  scenario "overall projects are listed" do
+  xscenario "overall projects are listed" do
     sign_in_with bob.email, "hunter212"
 
     visit "/projects"
@@ -24,7 +24,7 @@ RSpec.feature "Projects", type: :feature do
     expect(page).to have_content "Engineering"
   end
 
-  scenario "projects load and display stories" do
+  xscenario "projects load and display stories" do
     sign_in_with bob.email, "hunter212"
 
     # Page loads
