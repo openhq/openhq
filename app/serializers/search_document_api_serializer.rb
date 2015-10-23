@@ -6,7 +6,7 @@ class SearchDocumentApiSerializer < ActiveModel::Serializer
   end
 
   def story_url
-    story.present? ? api_v1_project_story_path(project, story) : nil
+    story.present? ? api_v1_story_path(story) : nil
   end
 
   def url
