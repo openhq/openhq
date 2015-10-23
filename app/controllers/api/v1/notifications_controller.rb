@@ -5,16 +5,41 @@ module Api
         formats ["json"]
       end
 
-      api! "Fetches all unseen notifications, and appends seen notifications if unseen is less than the limit"
-      param :limit, Integer, desc: "The least number of results you want returned, will always return all unseen (default: 10)", required: false
+      api! "Fetches all notifications"
+      param :limit, Integer, desc: "The number of results you want returned (default: 20)", required: false
+      param :page, Integer, desc: "The page you want returned (default: 1)", required: false
       def index
-        limit = (params[:limit] || 10).to_i
+        limit = (params[:limit] || 20).to_i
+        page = (params[:page] || 1).to_i
+
+        notifications = current_user.notifications.page(page).per(limit)
+
+        has_more = (page * limit) < notifications.total_count
+        next_url = api_v1_notifications_path(page: page + 1, limit: limit) if has_more
+
+        meta = {
+          total: notifications.total_count,
+          has_more: has_more,
+          next_url: next_url
+        }
+
+        render json: notifications, meta: meta, each_serializer: NotificationApiSerializer
+      end
+
+      api! "Fetches all unseen notifications"
+      param :include_seen, Integer, desc: "Includes seen notifications up to the min_limit, if there are not enough unseen notifications (default: 0)", required: false
+      param :min_limit, Integer, desc: "The least number of results you want returned, will always return all unseen (default: 10)", required: false
+      def unseen
+        include_seen = params[:include_seen].to_i === 1
+        min_limit = (params[:min_limit] || 10).to_i
+
         notifications = current_user.notifications.unseen
 
-        if notifications.count < limit
-          seen = current_user.notifications.seen.limit(limit - notifications.count)
+        if include_seen && notifications.count < min_limit
+          seen = current_user.notifications.seen.limit(min_limit - notifications.count)
           notifications += seen
         end
+
         render json: notifications, each_serializer: NotificationApiSerializer
       end
 
