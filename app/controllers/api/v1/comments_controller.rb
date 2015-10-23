@@ -1,7 +1,7 @@
 module Api
   module V1
     class CommentsController < BaseController
-      before_action :set_story
+      before_action :set_story, only: [:index, :create]
 
       def_param_group :comment do
         param :comment, Hash, desc: "Comment info" do
@@ -18,7 +18,7 @@ module Api
 
       api! "Fetch a single comment"
       def show
-        comment = @story.comments.find(params[:id])
+        comment = Comment.find(params[:id])
         render json: comment
       end
 
@@ -48,7 +48,7 @@ module Api
       api! "Update comment"
       param_group :comment
       def update
-        comment = @story.comments.find(params[:id])
+        comment = Comment.find(params[:id])
         authorize! :update, comment
         if comment.update(comment_params)
           render json: comment
@@ -59,7 +59,7 @@ module Api
 
       api! "Delete a comment"
       def destroy
-        comment = @story.comments.find(params[:id])
+        comment = Comment.find(params[:id])
         authorize! :destroy, comment
         comment.destroy
         render nothing: true, status: 204
@@ -68,10 +68,10 @@ module Api
       private
 
       def set_story
-        @project = current_team.projects.friendly.find(params[:project_id])
-        @story = @project.stories.friendly.find(params[:story_id])
+        @story = Story.friendly.find(params[:story_id])
+        project = @story.project
 
-        authorize! :read, @project
+        authorize! :read, project
       end
 
       def comment_params

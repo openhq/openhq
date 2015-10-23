@@ -103,7 +103,6 @@ Rails.application.routes.draw do
 
       resources :projects, except: [:new, :edit] do
         resources :stories, except: [:new, :edit] do
-          resources :comments, except: [:new, :edit]
           resources :tasks, except: [:new, :edit] do
             put "order", on: :collection, to: "tasks#update_order"
             delete "completed", on: :collection, to: "tasks#destroy_completed"
@@ -114,6 +113,7 @@ Rails.application.routes.draw do
         end
       end
       resources :stories, except: [:new, :edit]
+      resources :comments, except: [:new, :edit]
 
       resources :search, only: [:create]
     end

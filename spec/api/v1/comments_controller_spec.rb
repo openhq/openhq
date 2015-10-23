@@ -8,9 +8,9 @@ RSpec.describe "Comments API", type: :api do
   let!(:story) { create(:story, project: project, team: team, owner: user) }
   let!(:comment) { create(:comment, commentable: story, team: team, owner: user) }
 
-  describe "GET /api/v1/projects/:project_id/stories/:story_id/comments" do
+  describe "GET /api/v1/comments" do
     it "shows all comments" do
-      get "/api/v1/projects/#{project.slug}/stories/#{story.slug}/comments", {}, api_token_header(user)
+      get "/api/v1/comments", { story_id: story.slug }, api_token_header(user)
       expect(last_response.status).to eq(200)
       expect(response_json[:comments].first[:content]).to eq(comment.content)
     end
@@ -18,19 +18,19 @@ RSpec.describe "Comments API", type: :api do
     it "paginates and filters comments"
   end
 
-  describe "GET /api/v1/projects/:project_id/stories/:story_id/comments/:id" do
+  describe "GET /api/v1/comments/:id" do
     it "returns a single comment" do
-      get "/api/v1/projects/#{project.slug}/stories/#{story.slug}/comments/#{comment.id}", {}, api_token_header(user)
+      get "/api/v1/comments/#{comment.id}", {}, api_token_header(user)
       expect(last_response.status).to eq(200)
       expect(response_json[:comment][:content]).to eq(comment.content)
     end
   end
 
-  describe "POST /api/v1/projects/:project_id/stories/:story_id/comments" do
+  describe "POST /api/v1/comments" do
     context "when input is valid" do
       before do
-        comment_params = { comment: { content: "**Hello** world" } }
-        post "/api/v1/projects/#{project.slug}/stories/#{story.slug}/comments", comment_params, api_token_header(user)
+        comment_params = { story_id: story.slug, comment: { content: "**Hello** world" } }
+        post "/api/v1/comments", comment_params, api_token_header(user)
       end
 
       it "creates a comment" do
@@ -45,18 +45,18 @@ RSpec.describe "Comments API", type: :api do
 
     context "when input is invalid" do
       it "returns errors" do
-        comment_params = { comment: { content: "" } }
-        post "/api/v1/projects/#{project.slug}/stories/#{story.slug}/comments", comment_params, api_token_header(user)
+        comment_params = { comment: { content: "" }, story_id: story.slug }
+        post "/api/v1/comments", comment_params, api_token_header(user)
         expect(last_response.status).to eq(422)
       end
     end
   end
 
-  describe "PATCH /api/v1/projects/:project_id/stories/:story_id/comments/:id" do
+  describe "PATCH /api/v1/comments/:id" do
     context "when input is valid" do
       it "updates the comment" do
-        comment_params = { comment: { content: "Hello world" } }
-        patch "/api/v1/projects/#{project.slug}/stories/#{story.slug}/comments/#{comment.id}", comment_params, api_token_header(user)
+        comment_params = { story_id: story.slug, comment: { content: "Hello world" } }
+        patch "/api/v1/comments/#{comment.id}", comment_params, api_token_header(user)
         expect(last_response.status).to eq(200)
         expect(response_json[:comment][:content]).to eq("Hello world")
       end
@@ -64,16 +64,16 @@ RSpec.describe "Comments API", type: :api do
 
     context "when input is invalid" do
       it "returns errors" do
-        comment_params = { comment: { content: "" } }
-        patch "/api/v1/projects/#{project.slug}/stories/#{story.slug}/comments/#{comment.id}", comment_params, api_token_header(user)
+        comment_params = { comment: { content: "" }, story_id: story.slug }
+        patch "/api/v1/comments/#{comment.id}", comment_params, api_token_header(user)
         expect(last_response.status).to eq(422)
       end
     end
   end
 
-  describe "DELETE /api/v1/projects/:project_id/stories/:story_id/comments/:id" do
+  describe "DELETE /api/v1/comments/:id" do
     it "deletes the comment" do
-      delete "/api/v1/projects/#{project.slug}/stories/#{story.slug}/comments/#{comment.id}", {}, api_token_header(user)
+      delete "/api/v1/comments/#{comment.id}", {}, api_token_header(user)
       expect(last_response.status).to eq(204)
       expect(last_response.body).to be_blank
     end
