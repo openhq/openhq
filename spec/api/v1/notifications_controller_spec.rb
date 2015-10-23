@@ -4,12 +4,8 @@ RSpec.describe "Notifications API", type: :api do
   let!(:user) { create(:user_with_team) }
   let(:team) { user.teams.first }
 
-  let!(:notification_1) { create(:notification, user: user, team: team, action_performed: "created", seen: false) }
-  let!(:notification_2) { create(:notification, user: user, team: team, seen: false) }
-  let!(:notification_3) { create(:notification, user: user, team: team, seen: false) }
-  let!(:notification_4) { create(:notification, user: user, team: team, seen: true) }
-  let!(:notification_5) { create(:notification, user: user, team: team, seen: true) }
-  let!(:notification_6) { create(:notification, user: user, team: team, seen: true) }
+  let!(:unseen_notifications) { create_list(:notification, 3, user: user, team: team, action_performed: "created", seen: false) }
+  let!(:seen_notifications) { create_list(:notification, 3, user: user, team: team, seen: true) }
 
   describe "GET /api/v1/notifications" do
     it "shows all notifications" do
@@ -62,7 +58,7 @@ RSpec.describe "Notifications API", type: :api do
 
   describe "GET /api/v1/notifications/:id" do
     it "can get a single notification" do
-      get "/api/v1/notifications/#{notification_1.id}", {}, api_token_header(user)
+      get "/api/v1/notifications/#{unseen_notifications.first.id}", {}, api_token_header(user)
       expect(last_response.status).to eq(200)
       expect(response_json[:notification][:action_performed]).to eq("created")
     end
