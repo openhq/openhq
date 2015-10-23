@@ -73,6 +73,8 @@ RSpec.describe "Notifications API", type: :api do
     end
 
     it "marks all notifications as seen" do
+      get "/api/v1/notifications/unseen", {}, api_token_header(user)
+      expect(response_json[:notifications].count).to eq(3)
       get "/api/v1/notifications/mark_all_seen", {}, api_token_header(user)
       get "/api/v1/notifications/unseen", {}, api_token_header(user)
       expect(response_json[:notifications].count).to eq(0)
