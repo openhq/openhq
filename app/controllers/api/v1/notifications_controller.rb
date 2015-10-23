@@ -27,15 +27,14 @@ module Api
       end
 
       api! "Fetches all unseen notifications"
-      param :include_seen, Integer, desc: "Includes seen notifications up to the min_limit, if there are not enough unseen notifications (default: 0)", required: false
+      param :include_seen, [true, false], desc: "Includes seen notifications up to the min_limit, if there are not enough unseen notifications (default: 0)", required: false
       param :min_limit, Integer, desc: "The least number of results you want returned, will always return all unseen (default: 10)", required: false
       def unseen
-        include_seen = params[:include_seen].to_i === 1
         min_limit = (params[:min_limit] || 10).to_i
 
         notifications = current_user.notifications.unseen
 
-        if include_seen && notifications.count < min_limit
+        if params[:include_seen] && notifications.count < min_limit
           seen = current_user.notifications.seen.limit(min_limit - notifications.count)
           notifications += seen
         end
@@ -46,9 +45,7 @@ module Api
       api! "Fetch a single notification"
       def show
         notification = current_user.notifications.find(params[:id])
-        notification.seen!
-
-        render json: notification, serializer: NotificationApiSerializer
+        render json: notification, serializer: NotificationApiSerializer, root: :notification
       end
 
       api! "Marks all notifications as seen"
