@@ -17,6 +17,7 @@ module Api
       end
 
       api! "Fetch all tasks"
+      param :story_id, String, desc: "Story ID or slug", required: true
       def index
         tasks = @story.tasks.includes(:assignment, :story, :project)
         render json: tasks
@@ -29,6 +30,7 @@ module Api
       end
 
       api! "Create new task"
+      param :story_id, String, desc: "Story ID or slug", required: true
       param_group :task
       def create
         @task = @story.tasks.build(task_params.merge(owner: current_user))

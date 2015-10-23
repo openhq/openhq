@@ -11,6 +11,7 @@ module Api
       end
 
       api! "Fetch all comments"
+      param :story_id, String, desc: "Story ID or slug", required: true
       def index
         comments = @story.comments.includes(:owner).all
         render json: comments
@@ -23,6 +24,7 @@ module Api
       end
 
       api! "Create new comment"
+      param :story_id, String, desc: "Story ID or slug", required: true
       param_group :comment
       def create
         comment = Comment.new(
