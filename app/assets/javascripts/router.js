@@ -4,7 +4,7 @@ Ember.Router.reopen({
 });
 
 OpenHq.Router.map(function() {
-  this.resource('projects', {path: "/"});
-  this.route('project', {path: "/projects/:slug"})
-  this.route('story', {path: "/projects/:project_slug/stories/:slug"})
+  this.route('projects', {path: "/"});
+  this.route('project', {path: "/projects/:slug"});
+  this.route('story', {path: "/stories/:slug"});
 });
