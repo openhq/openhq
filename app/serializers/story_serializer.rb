@@ -5,6 +5,6 @@ class StorySerializer < ActiveModel::Serializer
   def owner
     # if the story has been archived - object will be nil
     # this is a quick fix to stop the owner method blowing up
-    return object.nil? ? nil : object.owner
+    object.nil? ? nil : object.owner
   end
 end

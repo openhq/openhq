@@ -6,6 +6,7 @@ class NotificationSerializer < ActiveModel::Serializer
   has_one :story, serializer: StorySerializer
   has_one :project, serializer: ProjectSerializer
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def link_to
     case notifiable_type
     when "Project"
