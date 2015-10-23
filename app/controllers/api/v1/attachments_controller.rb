@@ -4,7 +4,7 @@ require 'securerandom'
 module Api
   module V1
     class AttachmentsController < BaseController
-      before_action :set_story
+      before_action :set_story, only: [:index, :create]
 
       resource_description do
         short "Uploading and attaching files"
@@ -29,7 +29,7 @@ module Api
 
       api! "Fetch a single attachment"
       def show
-        attachment = @story.attachments.find(params[:id])
+        attachment = Attachment.find(params[:id])
         render json: attachment
       end
 
@@ -51,7 +51,7 @@ module Api
       api! "Update an attachment"
       param_group :attachment
       def update
-        attachment = @story.attachments.find(params[:id])
+        attachment = Attachment.find(params[:id])
 
         if attachment.update(attachment_params)
           render json: attachment
@@ -62,14 +62,14 @@ module Api
 
       api! "Delete an attachment"
       def destroy
-        attachment = @story.attachments.find(params[:id])
+        attachment = Attachment.find(params[:id])
         attachment.destroy
         render nothing: true, status: 204
       end
 
       api! "Get a presigned S3 URL to upload your file to"
       def presigned_upload_url
-        new_file_name = "attachment_#{@project.id}_#{@story.id}_#{SecureRandom.uuid}"
+        new_file_name = "attachment_#{SecureRandom.uuid}"
 
         s3 = AWS::S3.new
         obj = s3.buckets[ENV['AWS_S3_BUCKET']].objects["attachments/#{new_file_name}"]
@@ -81,8 +81,8 @@ module Api
       private
 
       def set_story
-        @project = current_team.projects.friendly.find(params[:project_id])
-        @story = @project.stories.friendly.find(params[:story_id])
+        @story = Story.friendly.find(params[:story_id])
+        project = @story.project
 
         authorize! :read, @project
       end
