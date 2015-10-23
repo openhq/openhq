@@ -2,11 +2,13 @@ require 'route_constraints/root_domain'
 require 'route_constraints/subdomain'
 require 'route_constraints/single_site'
 require 'route_constraints/multi_site'
+require 'route_constraints/non_api'
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
   apipie
+
   # Clearance routes for authentication
   resources :passwords,
     controller: 'reset_passwords',
@@ -33,20 +35,20 @@ Rails.application.routes.draw do
       get "success", on: :collection
     end
 
-    get "/settings", to: redirect('/settings/account/edit'), as: :settings
-    namespace :settings do
-      resource :password, only: [:show, :create]
-      resource :account, only: [:edit, :update, :destroy], controller: :account do
-        get "delete"
-      end
-      resources :teams, only: [:show, :new, :create, :update] do
-        delete "leave", on: :member
-      end
-    end
+    # get "/settings", to: redirect('/settings/account/edit'), as: :settings
+    # namespace :settings do
+    #   resource :password, only: [:show, :create]
+    #   resource :account, only: [:edit, :update, :destroy], controller: :account do
+    #     get "delete"
+    #   end
+    #   resources :teams, only: [:show, :new, :create, :update] do
+    #     delete "leave", on: :member
+    #   end
+    # end
   end # root domain constraint
 
   constraints(RouteConstraints::Subdomain) do
-    get "/" => "projects#index"
+    # get "/" => "projects#index"
 
     # First time setup flow
     constraints(RouteConstraints::SingleSite) do
@@ -62,31 +64,31 @@ Rails.application.routes.draw do
     get "/setup/invite_team", to: "setup#invite_team", as: :setup_invite_team
     post "/setup/invite_team", to: "setup#send_invites"
 
-    resources :files, only: :index
-    resources :team, only: [:index, :show, :update, :destroy]
-    resources :team_invites, only: [:new, :create, :edit, :update]
-    resources :search, only: :index
+    # resources :files, only: :index
+    # resources :team, only: [:index, :show, :update, :destroy]
+    # resources :team_invites, only: [:new, :create, :edit, :update]
+    # resources :search, only: :index
 
-    resources :projects do
-      get "archived", on: :collection
-      get "restore", on: :member
-      resources :stories do
-        get "archived", on: :collection
-        get "restore", on: :member
-        resources :comments
-        resources :tasks do
-          put "update-order", on: :collection
-          delete "delete-completed", on: :collection
-        end
-        resources :attachments
-      end
-    end
+    # resources :projects do
+    #   get "archived", on: :collection
+    #   get "restore", on: :member
+    #   resources :stories do
+    #     get "archived", on: :collection
+    #     get "restore", on: :member
+    #     resources :comments
+    #     resources :tasks do
+    #       put "update-order", on: :collection
+    #       delete "delete-completed", on: :collection
+    #     end
+    #     resources :attachments
+    #   end
+    # end
 
-    resources :me, only: :index
+    # resources :me, only: :index
 
-    resources :notifications, only: [:index] do
-      put "mark_all_seen", on: :collection
-    end
+    # resources :notifications, only: [:index] do
+    #   put "mark_all_seen", on: :collection
+    # end
 
   end # subdomain constraint
 
@@ -98,20 +100,16 @@ Rails.application.routes.draw do
       resources :auth, only: [:create]
       resource :user, except: [:new, :edit], controller: :user
       resources :team_invites, except: [:new, :edit]
-
-      resources :projects, except: [:new, :edit] do
-        resources :stories, except: [:new, :edit] do
-          resources :comments, except: [:new, :edit]
-          resources :tasks, except: [:new, :edit] do
-            put "order", on: :collection, to: "tasks#update_order"
-            delete "completed", on: :collection, to: "tasks#destroy_completed"
-          end
-          resources :attachments, except: [:new, :edit] do
-            get "presigned_upload_url", on: :collection
-          end
-        end
+      resources :projects, except: [:new, :edit]
+      resources :stories, except: [:new, :edit]
+      resources :comments, except: [:new, :edit]
+      resources :tasks, except: [:new, :edit] do
+        put "order", on: :collection, to: "tasks#update_order"
+        delete "completed", on: :collection, to: "tasks#destroy_completed"
       end
-
+      resources :attachments, except: [:new, :edit] do
+        get "presigned_upload_url", on: :collection
+      end
       resources :search, only: [:create]
     end
   end
@@ -129,7 +127,10 @@ Rails.application.routes.draw do
   get "/422", to: "errors#unacceptable"
   get "/500", to: "errors#internal_error"
 
-  root to: "public#index"
   get "help", to: "public#help"
+
+  root to: "ember#index"
+
+  match "*path", to: "ember#index", via: :all, constraints: RouteConstraints::NonApi
 
 end

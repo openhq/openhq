@@ -1,7 +1,7 @@
 module Api
   module V1
     class StoriesController < BaseController
-      before_action :set_project
+      before_action :set_project, only: [:index, :create]
 
       resource_description do
         formats ["json"]
@@ -15,17 +15,19 @@ module Api
       end
 
       api! "Fetch all stories"
+      param :project_id, String, desc: "Project ID or slug", required: true
       def index
         render json: @project.stories.includes(:owner)
       end
 
       api! "Fetch a single story"
       def show
-        story = @project.stories.friendly.find(params[:id])
+        story = Story.friendly.find(params[:id])
         render json: story
       end
 
       api! "Create a new story"
+      param :project_id, String, desc: "Project ID or slug", required: true
       param_group :story
       def create
         story = current_user.stories.build(story_params)

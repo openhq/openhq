@@ -1,0 +1,40 @@
+<div class="page-container">
+  <div class="page-header">
+    <ul class="actions h-list">
+      <li>
+        <a href="#" class="btn btn-text">Manage Project</a>
+      </li>
+      <li>
+        <a href="#" class="btn btn-main">New Story</a>
+      </li>
+    </ul>
+
+    <h1>
+      {{project.name}}
+    </h1>
+  </div>
+
+  <ul class="ui-stories-list">
+    {{#each story in stories}}
+      <li>
+        {{#link-to 'story' story}}
+          <div class="members">
+            avatars
+          </div>
+
+          <h4>
+            <span class="title">{{story.name}}</span>
+            <small>updated {{human-time time=story.updatedAt }}</small>
+          </h4>
+        {{/link-to}}
+      </li>
+    {{/each}}
+  </ul>
+
+  <div class="center archive-link">
+    <a href="#" class="btn btn-secondary btn-with-icon">
+      <span class="icon icon-archive"></span>
+      View archived stories (0)
+    </a>
+  </div>
+</div>
