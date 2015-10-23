@@ -103,10 +103,6 @@ Rails.application.routes.draw do
 
       resources :projects, except: [:new, :edit] do
         resources :stories, except: [:new, :edit] do
-          resources :tasks, except: [:new, :edit] do
-            put "order", on: :collection, to: "tasks#update_order"
-            delete "completed", on: :collection, to: "tasks#destroy_completed"
-          end
           resources :attachments, except: [:new, :edit] do
             get "presigned_upload_url", on: :collection
           end
@@ -114,6 +110,10 @@ Rails.application.routes.draw do
       end
       resources :stories, except: [:new, :edit]
       resources :comments, except: [:new, :edit]
+      resources :tasks, except: [:new, :edit] do
+        put "order", on: :collection, to: "tasks#update_order"
+        delete "completed", on: :collection, to: "tasks#destroy_completed"
+      end
 
       resources :search, only: [:create]
     end

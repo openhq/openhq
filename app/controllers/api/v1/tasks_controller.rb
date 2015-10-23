@@ -1,7 +1,7 @@
 module Api
   module V1
     class TasksController < BaseController
-      before_action :set_story
+      before_action :set_story, only: [:index, :create, :destroy_completed, :update_order]
 
       resource_description do
         formats ["json"]
@@ -24,7 +24,7 @@ module Api
 
       api! "Fetch a single task"
       def show
-        task = @story.tasks.includes(:assignment, :story, :project).find(params[:id])
+        task = Task.includes(:assignment, :story, :project).find(params[:id])
         render json: task
       end
 
@@ -46,7 +46,7 @@ module Api
       api! "Update a task"
       param_group :task
       def update
-        task = @story.tasks.find(params[:id])
+        task = Task.find(params[:id])
 
         originally_assigned_to = task.assigned_to
 
@@ -80,7 +80,7 @@ module Api
 
       api! "Delete task"
       def destroy
-        task = @story.tasks.find(params[:id])
+        task = Task.find(params[:id])
         task.destroy
 
         render nothing: true, status: 204
@@ -96,10 +96,10 @@ module Api
       private
 
       def set_story
-        @project = current_team.projects.friendly.find(params[:project_id])
-        @story = @project.stories.friendly.find(params[:story_id])
+        @story = Story.friendly.find(params[:story_id])
+        project = @story.project
 
-        authorize! :read, @project
+        authorize! :read, project
       end
 
       def task_params

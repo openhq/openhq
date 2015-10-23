@@ -3,7 +3,7 @@ class TaskSerializer < ActiveModel::Serializer
   has_one :assignment
 
   def url
-    api_v1_project_story_task_path(project, story, id)
+    api_v1_task_path(id)
   end
 
   def project_users
