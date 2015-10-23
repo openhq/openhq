@@ -22,7 +22,7 @@ module Api
         user = current_team.invite(invite_params, current_user)
 
         if user.persisted?
-          render json: user
+          render json: user, serializer: InviteUserSerializer, root: :user
         else
           render_errors user
         end
@@ -43,7 +43,7 @@ module Api
 
         if user.update(user_params)
           team_user.accept_invite!
-          render json: user
+          render json: user, serializer: InviteUserSerializer, root: :user
         else
           render_errors user
         end
