@@ -2,25 +2,25 @@ class SearchDocumentSerializer < ActiveModel::Serializer
   attributes :searchable_id, :searchable_type, :searchable, :url, :project, :project_url, :story, :story_url, :attachment_image
 
   def project_url
-    project.present? ? project_path(project) : nil
+    project.present? ? api_v1_project_path(project) : nil
   end
 
   def story_url
-    story.present? ? project_story_path(project, story) : nil
+    story.present? ? api_v1_story_path(story) : nil
   end
 
   def url
     case searchable_type
     when "Project"
-      project_path(searchable)
+      api_v1_project_path(searchable)
     when "Story"
-      project_story_path(project, searchable)
+      api_v1_story_path(searchable)
     when "Task"
-      project_story_path(project, story) + "#task:#{searchable_id}"
+      api_v1_task_path(searchable)
     when "Comment"
-      project_story_path(project, story) + "#comment:#{searchable_id}"
+      api_v1_comment_path(searchable)
     when "Attachment"
-      project_story_path(project, story) + "#attachment:#{searchable_id}"
+      api_v1_attachment_path(searchable)
     end
   end
 
@@ -28,10 +28,6 @@ class SearchDocumentSerializer < ActiveModel::Serializer
     return unless searchable_type == "Attachment"
 
     image_url = searchable.process_data["thumbnail:tile"]
-    if image_url.present?
-      S3UrlSigner.sign(image_url)
-    else
-      "/assets/file_types/#{searchable.extension}.png"
-    end
+    S3UrlSigner.sign(image_url) if image_url.present?
   end
 end

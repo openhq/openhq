@@ -23,7 +23,7 @@ module Api
           next_url: next_url
         }
 
-        render json: notifications, meta: meta, each_serializer: NotificationApiSerializer
+        render json: notifications, meta: meta
       end
 
       api! "Fetches all unseen notifications"
@@ -39,13 +39,13 @@ module Api
           notifications += seen
         end
 
-        render json: notifications, each_serializer: NotificationApiSerializer
+        render json: notifications
       end
 
       api! "Fetch a single notification"
       def show
         notification = current_user.notifications.find(params[:id])
-        render json: notification, serializer: NotificationApiSerializer, root: :notification
+        render json: notification
       end
 
       api! "Marks all notifications as seen"

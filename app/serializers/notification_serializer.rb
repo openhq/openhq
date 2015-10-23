@@ -1,40 +1,27 @@
 class NotificationSerializer < ActiveModel::Serializer
-  attributes :notifiable_type, :notifiable_id, :action_performed, :seen, :actioner, :project, :story, :team, :actioner_name, :actioner_avatar_url, :link_to
+  attributes :id, :notifiable_type, :notifiable, :action_performed, :seen, :actioner, :project, :story, :team, :link_to
 
-  def actioner_name
-    actioner.display_name
-  end
-
-  def actioner_avatar_url
-    if actioner.avatar_file_name.present?
-      actioner.avatar.url(:thumb)
-    else
-      gravatar_url(60)
-    end
-  end
-
-  def gravatar_url(size)
-    base_url = "https://www.gravatar.com/avatar/"
-    opts = "?d=blank&s="
-
-    hash = Digest::MD5.hexdigest(actioner.email)
-
-    base_url + hash + opts + size.to_s
-  end
+  has_one :actioner, serializer: UserSerializer
+  has_one :team, serializer: TeamSerializer
+  has_one :story, serializer: StorySerializer
+  has_one :project, serializer: ProjectSerializer
 
   def link_to
     case notifiable_type
     when "Project"
-      project_path(project)
+      api_v1_project_path(project)
     when "Story"
-      project_story_path(project, story)
+      api_v1_story_path(story)
     when "Task"
-      project_story_path(project, story) + "#task:#{notifiable_id}"
+      api_v1_task_path(notifiable)
     when "Comment"
-      project_story_path(project, story) + "#comment:#{notifiable_id}"
+      api_v1_comment_path(notifiable)
+    when "Attachment"
+      api_v1_attachment_path(notifiable)
     end
 
+  # If a story or project has been archived...
   rescue ActionController::UrlGenerationError
-    "#"
+    nil
   end
 end
