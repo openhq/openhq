@@ -84,7 +84,7 @@ module Api
         @story = Story.friendly.find(params[:story_id])
         project = @story.project
 
-        authorize! :read, @project
+        authorize! :read, project
       end
 
       def attachment_params
