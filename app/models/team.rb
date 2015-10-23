@@ -41,6 +41,11 @@ class Team < ActiveRecord::Base
           )
         end
 
+        # Add projects to the user
+        user_params[:project_ids].each do |pid|
+          user.projects << Project.find(pid) unless user.project_ids.include?(pid.to_i)
+        end
+
         UserMailer.team_invite(team_invite, inviter).deliver_later
       end
     end
