@@ -100,21 +100,16 @@ Rails.application.routes.draw do
       resources :auth, only: [:create]
       resource :user, except: [:new, :edit], controller: :user
       resources :team_invites, except: [:new, :edit]
-
-      resources :projects, except: [:new, :edit] do
-        resources :stories, except: [:new, :edit] do
-          resources :tasks, except: [:new, :edit] do
-            put "order", on: :collection, to: "tasks#update_order"
-            delete "completed", on: :collection, to: "tasks#destroy_completed"
-          end
-          resources :attachments, except: [:new, :edit] do
-            get "presigned_upload_url", on: :collection
-          end
-        end
-      end
+      resources :projects, except: [:new, :edit]
       resources :stories, except: [:new, :edit]
       resources :comments, except: [:new, :edit]
-
+      resources :tasks, except: [:new, :edit] do
+        put "order", on: :collection, to: "tasks#update_order"
+        delete "completed", on: :collection, to: "tasks#destroy_completed"
+      end
+      resources :attachments, except: [:new, :edit] do
+        get "presigned_upload_url", on: :collection
+      end
       resources :search, only: [:create]
     end
   end

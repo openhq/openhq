@@ -15,6 +15,7 @@ module Api
       end
 
       api! "Fetch all stories"
+      param :project_id, String, desc: "Project ID or slug", required: true
       def index
         render json: @project.stories.includes(:owner)
       end
@@ -26,6 +27,7 @@ module Api
       end
 
       api! "Create a new story"
+      param :project_id, String, desc: "Project ID or slug", required: true
       param_group :story
       def create
         story = current_user.stories.build(story_params)
