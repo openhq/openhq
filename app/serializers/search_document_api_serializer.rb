@@ -14,13 +14,13 @@ class SearchDocumentApiSerializer < ActiveModel::Serializer
     when "Project"
       api_v1_project_path(searchable)
     when "Story"
-      api_v1_project_story_path(project, searchable)
+      api_v1_story_path(searchable)
     when "Task"
-      api_v1_project_story_task_path(project, story, searchable)
+      api_v1_task_path(searchable)
     when "Comment"
-      api_v1_project_story_comment_path(project, story, searchable)
+      api_v1_comment_path(searchable)
     when "Attachment"
-      api_v1_project_story_attachment_path(project, story, searchable)
+      api_v1_attachment_path(searchable)
     end
   end
 

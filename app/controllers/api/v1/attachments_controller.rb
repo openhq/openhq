@@ -22,6 +22,7 @@ module Api
       end
 
       api! "Fetch all attachments"
+      param :story_id, String, desc: "Story ID or slug", required: true
       def index
         attachments = @story.attachments
         render json: attachments
@@ -34,6 +35,7 @@ module Api
       end
 
       api! "Create an attachment"
+      param :story_id, String, desc: "Story ID or slug", required: true
       param_group :attachment
       def create
         attachment = Attachment.new(attachment_params.merge(
