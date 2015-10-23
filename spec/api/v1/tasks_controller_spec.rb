@@ -11,7 +11,6 @@ RSpec.describe "Tasks API", type: :api do
   describe "GET /api/v1/tasks" do
     it "lists all tasks" do
       get "/api/v1/tasks", { story_id: story.slug }, api_token_header(user)
-      puts last_response.body
       expect(last_response.status).to eq(200)
       expect(response_json[:tasks].first[:label]).to eq(task.label)
     end
