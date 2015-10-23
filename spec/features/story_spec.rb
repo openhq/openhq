@@ -20,7 +20,7 @@ RSpec.feature "Stories", type: :feature do
     @story.comments.create!(content: "Hey @bob", owner: sarah, team: team)
   end
 
-  scenario "invites a user and assigns them to projects" do
+  xscenario "invites a user and assigns them to projects" do
     sign_in_with bob.email, "hunter212"
 
     # Page loads
