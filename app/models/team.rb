@@ -26,7 +26,7 @@ class Team < ActiveRecord::Base
       user.save!(validate: false) unless user.persisted?
 
       # skip the transaction if the user is already on the team
-      raise ActiveRecord::Rollback if team_users.pluck(:user_id).include?(user.id)
+      fail ActiveRecord::Rollback if team_users.pluck(:user_id).include?(user.id)
 
       team_invite = user_invites.find_by(user_id: user.id)
 
