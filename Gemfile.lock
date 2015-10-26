@@ -336,8 +336,8 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
-    shoulda-matchers (3.0.1)
-      activesupport (>= 4.0.0)
+    shoulda-matchers (2.8.0)
+      activesupport (>= 3.0.0)
     sidekiq (3.5.1)
       celluloid (~> 0.17.2)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -452,7 +452,7 @@ DEPENDENCIES
   s3_direct_upload (~> 0.1.7)
   sanitize (~> 3.0.3)
   sass-rails (~> 4.0.3)
-  shoulda-matchers
+  shoulda-matchers (~> 2.8.0)
   sidekiq
   simple_form
   sinatra

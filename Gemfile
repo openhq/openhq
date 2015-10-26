@@ -96,7 +96,7 @@ group :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara', '~> 2.0'
   gem 'factory_girl_rails'
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers', '~> 2.8.0', require: false
   gem 'faker'
   gem 'database_cleaner'
   gem 'mocha'
