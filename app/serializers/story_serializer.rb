@@ -7,4 +7,10 @@ class StorySerializer < ActiveModel::Serializer
   def markdown
     markdownify(object.description)
   end
+
+  def owner
+    # if the story has been archived - object will be nil
+    # this is a quick fix to stop the owner method blowing up
+    object.nil? ? nil : object.owner
+  end
 end
