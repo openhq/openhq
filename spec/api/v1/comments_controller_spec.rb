@@ -12,7 +12,7 @@ RSpec.describe "Comments API", type: :api do
     it "shows all comments" do
       get "/api/v1/comments", { story_id: story.slug }, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:comments].first[:content]).to eq(comment.content)
+      expect(response_json[:data].first[:attributes][:content]).to eq(comment.content)
     end
 
     it "paginates and filters comments"
@@ -22,7 +22,7 @@ RSpec.describe "Comments API", type: :api do
     it "returns a single comment" do
       get "/api/v1/comments/#{comment.id}", {}, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:comment][:content]).to eq(comment.content)
+      expect(response_json[:data][:attributes][:content]).to eq(comment.content)
     end
   end
 
@@ -35,11 +35,11 @@ RSpec.describe "Comments API", type: :api do
 
       it "creates a comment" do
         expect(last_response.status).to eq(201)
-        expect(response_json[:comment][:content]).to eq("**Hello** world")
+        expect(response_json[:data][:attributes][:content]).to eq("**Hello** world")
       end
 
       it "supports markdown" do
-        expect(response_json[:comment][:markdown]).to eq("<p><strong>Hello</strong> world</p>")
+        expect(response_json[:data][:attributes][:markdown]).to eq("<p><strong>Hello</strong> world</p>")
       end
     end
 
@@ -58,7 +58,7 @@ RSpec.describe "Comments API", type: :api do
         comment_params = { story_id: story.slug, comment: { content: "Hello world" } }
         patch "/api/v1/comments/#{comment.id}", comment_params, api_token_header(user)
         expect(last_response.status).to eq(200)
-        expect(response_json[:comment][:content]).to eq("Hello world")
+        expect(response_json[:data][:attributes][:content]).to eq("Hello world")
       end
     end
 

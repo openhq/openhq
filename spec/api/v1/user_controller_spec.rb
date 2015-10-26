@@ -14,8 +14,8 @@ RSpec.describe "User API", type: :api do
     context "when signed in" do
       it "returns the current users information" do
         get "/api/v1/user", {}, api_token_header(user)
-        expect(response_json[:user][:id]).to eq(user.id)
-        expect(response_json[:user].keys).to include(:id, :display_name, :first_name, :last_name, :username, :email, :notification_frequency, :last_notified_at, :job_title, :avatar_url, :created_at, :updated_at)
+        expect(response_json[:data][:id]).to eq(String(user.id))
+        expect(response_json[:data][:attributes].keys).to include(:display_name, :first_name, :last_name, :username, :email, :notification_frequency, :last_notified_at, :job_title, :avatar_url, :created_at, :updated_at)
       end
     end
   end

@@ -1,4 +1,6 @@
 class NotificationSerializer < ActiveModel::Serializer
+  include Rails.application.routes.url_helpers
+
   attributes :id, :notifiable_type, :notifiable, :action_performed, :seen, :link_to
 
   has_one :actioner, serializer: UserSerializer

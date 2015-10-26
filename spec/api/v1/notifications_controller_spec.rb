@@ -11,19 +11,19 @@ RSpec.describe "Notifications API", type: :api do
     it "shows all notifications" do
       get "/api/v1/notifications", {}, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:notifications].count).to eq(6)
+      expect(response_json[:data].count).to eq(6)
     end
 
     it "limits the results" do
       get "/api/v1/notifications", { limit: 4 }, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:notifications].count).to eq(4)
+      expect(response_json[:data].count).to eq(4)
     end
 
     it "gets the selected page" do
       get "/api/v1/notifications", { limit: 4, page: 2 }, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:notifications].count).to eq(2)
+      expect(response_json[:data].count).to eq(2)
     end
 
     it "returns the meta data" do
@@ -40,19 +40,19 @@ RSpec.describe "Notifications API", type: :api do
     it "returns all the unseen notification" do
       get "/api/v1/notifications/unseen", {}, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:notifications].count).to eq(3)
+      expect(response_json[:data].count).to eq(3)
     end
 
     it "can include seen notifications" do
       get "/api/v1/notifications/unseen", { include_seen: 1 }, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:notifications].count).to eq(6)
+      expect(response_json[:data].count).to eq(6)
     end
 
     it "can still limit the number of notifications" do
       get "/api/v1/notifications/unseen", { include_seen: 1, min_limit: 5 }, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:notifications].count).to eq(5)
+      expect(response_json[:data].count).to eq(5)
     end
   end
 
@@ -60,7 +60,7 @@ RSpec.describe "Notifications API", type: :api do
     it "can get a single notification" do
       get "/api/v1/notifications/#{unseen_notifications.first.id}", {}, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:notification][:action_performed]).to eq("created")
+      expect(response_json[:data][:attributes][:action_performed]).to eq("created")
     end
   end
 
@@ -70,10 +70,10 @@ RSpec.describe "Notifications API", type: :api do
 
     it "marks all notifications as seen" do
       get "/api/v1/notifications/unseen", {}, api_token_header(user)
-      expect(response_json[:notifications].count).to eq(3)
+      expect(response_json[:data].count).to eq(3)
       get "/api/v1/notifications/mark_all_seen", {}, api_token_header(user)
       get "/api/v1/notifications/unseen", {}, api_token_header(user)
-      expect(response_json[:notifications].count).to eq(0)
+      expect(response_json[:data].count).to eq(0)
     end
   end
 end

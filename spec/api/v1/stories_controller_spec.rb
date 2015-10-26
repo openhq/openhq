@@ -10,7 +10,7 @@ RSpec.describe "Stories API", type: :api do
     it "lists all stories for the project" do
       get "/api/v1/stories", { project_id: project.id }, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:stories].first[:name]).to eq(story.name)
+      expect(response_json[:data].first[:attributes][:name]).to eq(story.name)
     end
 
     it "paginates and filters"
@@ -20,7 +20,7 @@ RSpec.describe "Stories API", type: :api do
     it "displays the story" do
       get "/api/v1/stories/#{story.slug}", {}, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:story][:name]).to eq(story.name)
+      expect(response_json[:data][:attributes][:name]).to eq(story.name)
     end
   end
 
@@ -37,7 +37,7 @@ RSpec.describe "Stories API", type: :api do
 
         post "/api/v1/stories", story_params, api_token_header(user)
         expect(last_response.status).to eq(201)
-        expect(response_json[:story][:name]).to eq("Hiyas")
+        expect(response_json[:data][:attributes][:name]).to eq("Hiyas")
       end
     end
 
@@ -63,7 +63,7 @@ RSpec.describe "Stories API", type: :api do
 
         patch "/api/v1/stories/#{story.slug}", story_params, api_token_header(user)
         expect(last_response.status).to eq(200)
-        expect(response_json[:story][:name]).to eq("Hiyas")
+        expect(response_json[:data][:attributes][:name]).to eq("Hiyas")
       end
     end
 

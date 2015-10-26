@@ -33,7 +33,7 @@ gem 'clearance'
 gem 'cancancan', '~> 1.10'
 
 # Serializers
-gem 'active_model_serializers', '~> 0.9.3'
+gem 'active_model_serializers', git: "https://github.com/rails-api/active_model_serializers.git", tag: 'v0.10.0.rc3'
 
 # Form helpers
 gem 'simple_form'
@@ -96,7 +96,7 @@ group :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara', '~> 2.0'
   gem 'factory_girl_rails'
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers', '~> 2.8.0', require: false
   gem 'faker'
   gem 'database_cleaner'
   gem 'mocha'

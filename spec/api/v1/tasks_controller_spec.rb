@@ -12,7 +12,7 @@ RSpec.describe "Tasks API", type: :api do
     it "lists all tasks" do
       get "/api/v1/tasks", { story_id: story.slug }, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:tasks].first[:label]).to eq(task.label)
+      expect(response_json[:data].first[:attributes][:label]).to eq(task.label)
     end
   end
 
@@ -20,7 +20,7 @@ RSpec.describe "Tasks API", type: :api do
     it "retrieves a single task" do
       get "/api/v1/tasks/#{task.id}", {}, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:task][:label]).to eq(task.label)
+      expect(response_json[:data][:attributes][:label]).to eq(task.label)
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe "Tasks API", type: :api do
         task_params = { story_id: story.slug, task: { label: "Buy Milk" } }
         post "/api/v1/tasks", task_params, api_token_header(user)
         expect(last_response.status).to eq(201)
-        expect(response_json[:task][:label]).to eq("Buy Milk")
+        expect(response_json[:data][:attributes][:label]).to eq("Buy Milk")
       end
     end
 
@@ -50,7 +50,7 @@ RSpec.describe "Tasks API", type: :api do
         task_params = { task: { completed: true } }
         patch "/api/v1/tasks/#{task.id}", task_params, api_token_header(user)
         expect(last_response.status).to eq(200)
-        expect(response_json[:task][:completed]).to eq(true)
+        expect(response_json[:data][:attributes][:completed]).to eq(true)
         expect(task.reload.completed).to be(true)
         expect(task.reload.completed_by).to eq(user.id)
       end
@@ -60,7 +60,7 @@ RSpec.describe "Tasks API", type: :api do
         task_params = { task: { completed: false } }
         patch "/api/v1/tasks/#{task.id}", task_params, api_token_header(user)
         expect(last_response.status).to eq(200)
-        expect(response_json[:task][:completed]).to eq(false)
+        expect(response_json[:data][:attributes][:completed]).to eq(false)
         expect(task.reload.completed).to be(false)
       end
     end
@@ -70,7 +70,7 @@ RSpec.describe "Tasks API", type: :api do
         task_params = { task: { label: "Buy Milk" } }
         patch "/api/v1/tasks/#{task.id}", task_params, api_token_header(user)
         expect(last_response.status).to eq(200)
-        expect(response_json[:task][:label]).to eq("Buy Milk")
+        expect(response_json[:data][:attributes][:label]).to eq("Buy Milk")
       end
     end
 
