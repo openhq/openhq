@@ -12,7 +12,7 @@ RSpec.describe "Attachments API", type: :api do
     it "returns the attachments" do
       get "/api/v1/attachments", { story_id: story.slug }, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:attachments].first[:name]).to eq(attachment.name)
+      expect(response_json[:data].first[:attributes][:name]).to eq(attachment.name)
     end
   end
 
@@ -28,7 +28,7 @@ RSpec.describe "Attachments API", type: :api do
     it "returns the attachment" do
       get "/api/v1/attachments/#{attachment.id}", {}, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:attachment]).not_to be_empty
+      expect(response_json[:data][:attributes]).not_to be_empty
     end
   end
 
@@ -47,8 +47,8 @@ RSpec.describe "Attachments API", type: :api do
         }
         post "/api/v1/attachments", attachment_params, api_token_header(user)
         expect(last_response.status).to eq(201)
-        expect(response_json[:attachment]).not_to be(nil)
-        expect(response_json[:attachment][:file_name]).to eq("map.jpg")
+        expect(response_json[:data][:attributes]).not_to be(nil)
+        expect(response_json[:data][:attributes][:file_name]).to eq("map.jpg")
       end
     end
 
@@ -74,7 +74,7 @@ RSpec.describe "Attachments API", type: :api do
         attachment_params = { attachment: { name: "Turbo" } }
         patch "/api/v1/attachments/#{attachment.id}", attachment_params, api_token_header(user)
         expect(last_response.status).to eq(200)
-        expect(response_json[:attachment][:name]).to eq("Turbo")
+        expect(response_json[:data][:attributes][:name]).to eq("Turbo")
       end
     end
 
