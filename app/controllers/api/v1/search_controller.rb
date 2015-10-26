@@ -34,7 +34,7 @@ module Api
           next_url: next_url
         }
 
-        render json: results, meta: meta, each_serializer: SearchDocumentApiSerializer
+        render json: results, meta: meta
       end
     end
   end
