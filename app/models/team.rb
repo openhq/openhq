@@ -25,14 +25,27 @@ class Team < ActiveRecord::Base
     transaction do
       user.save!(validate: false) unless user.persisted?
 
-      team_invite = team_users.create!(
-        user: user,
-        role: "user",
-        status: "invited",
-        invitation_code: SecureRandom.urlsafe_base64,
-        invited_at: Time.zone.now,
-        invited_by: inviter.id
-      )
+      # skip the transaction if the user is already on the team
+      fail ActiveRecord::Rollback if team_users.pluck(:user_id).include?(user.id)
+
+      team_invite = user_invites.find_by(user_id: user.id)
+
+      # only create an invite if one doesn't already exist
+      if team_invite.nil?
+        team_invite = team_users.create!(
+          user: user,
+          role: "user",
+          status: "invited",
+          invitation_code: SecureRandom.urlsafe_base64,
+          invited_at: Time.zone.now,
+          invited_by: inviter.id
+        )
+      end
+
+      # Add projects to the user
+      user_params[:project_ids].each do |pid|
+        user.projects << Project.find(pid) unless user.project_ids.include?(pid.to_i)
+      end
 
       UserMailer.team_invite(team_invite, inviter).deliver_later
     end
