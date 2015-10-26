@@ -15,7 +15,7 @@
   </div>
 
   <ul class="ui-stories-list">
-    {{#each story in stories}}
+    {{#each stories as |story|}}
       <li>
         {{#link-to 'story' story}}
           <div class="members">
