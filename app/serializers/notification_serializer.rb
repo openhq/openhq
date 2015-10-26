@@ -1,5 +1,5 @@
 class NotificationSerializer < ActiveModel::Serializer
-  attributes :id, :notifiable_type, :notifiable, :action_performed, :seen, :actioner, :project, :story, :team, :link_to
+  attributes :id, :notifiable_type, :notifiable, :action_performed, :seen, :link_to
 
   has_one :actioner, serializer: UserSerializer
   has_one :team, serializer: TeamSerializer

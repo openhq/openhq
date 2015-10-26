@@ -12,7 +12,7 @@ module Api
         limit = (params[:limit] || 20).to_i
         page = (params[:page] || 1).to_i
 
-        notifications = current_user.notifications.page(page).per(limit)
+        notifications = current_user.notifications.includes(:team, :project, :story, :actioner).page(page).per(limit)
 
         has_more = (page * limit) < notifications.total_count
         next_url = api_v1_notifications_path(page: page + 1, limit: limit) if has_more
