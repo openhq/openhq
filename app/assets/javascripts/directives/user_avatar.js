@@ -3,7 +3,8 @@ angular.module("OpenHq").directive("userAvatar", function() {
         restrict: "E",
         scope: {
           user: '=',
+          size: '=',
         },
-        template: "<img src='{{ user.avatar_url }}' alt='{{ user.display_name }}'>",
+        template: JST['templates/users/avatar'],
     };
 });

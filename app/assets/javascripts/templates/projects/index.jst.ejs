@@ -17,9 +17,7 @@
 
       <footer>
         <div class="members">
-          <div ng-repeat="user in project.users">
-            <user-avatar user="user"></user-avatar>
-          </div>
+          <user-avatar user="user" ng-repeat="user in project.users"></user-avatar>
         </div>
       </footer>
     </div>
