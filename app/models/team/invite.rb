@@ -1,3 +1,4 @@
+# rubocop:disable Style/ClassAndModuleChildren
 class Team::Invite
   include ActiveModel::Model
   attr_accessor :email, :project_ids, :user
