@@ -16,6 +16,7 @@ module Api
         user = Clearance.configuration.user_model.authenticate(
           params[:email], params[:password]
         )
+        @current_user = user
 
         if user.present? && user.teams.any?
           render json: ApiToken.for(user, user.teams.first), scope: nil

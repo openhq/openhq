@@ -30,7 +30,7 @@ gem 'clearance'
 gem 'cancancan', '~> 1.10'
 
 # Serializers
-gem 'active_model_serializers', '~> 0.9.3'
+gem 'active_model_serializers', git: "https://github.com/rails-api/active_model_serializers.git", tag: 'v0.10.0.rc3'
 
 # Form helpers
 gem 'simple_form'
