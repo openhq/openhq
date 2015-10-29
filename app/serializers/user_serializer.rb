@@ -2,6 +2,19 @@ class UserSerializer < ActiveModel::Serializer
   attributes :id, :display_name, :first_name, :last_name, :username, :job_title, :avatar_url
 
   def avatar_url
-    object.avatar.url(:thumb)
+    if object.avatar_file_name.present?
+      url = user.avatar.url(:thumb)
+    else
+      url = gravatar_url
+    end
+  end
+
+  def gravatar_url(size = 200)
+    base_url = "https://www.gravatar.com/avatar/"
+    opts = "?d=blank&s="
+
+    hash = Digest::MD5.hexdigest(object.email)
+
+    base_url + hash + opts + size.to_s
   end
 end
