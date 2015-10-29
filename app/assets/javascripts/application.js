@@ -29,12 +29,11 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'restangular', 'ngSanitize'])
   $routeProvider
   .when('/', {
     template: JST['templates/projects/index'],
-    controller: 'ProjectsController',
-    resolve: {
-      projects: ['$route', function($route) {
-        return {};
-      }]
-    }
+    controller: 'ProjectsController'
+  })
+  .when('/projects/:slug', {
+    template: JST['templates/projects/show'],
+    controller: 'ProjectController'
   })
   .otherwise({
     redirectTo: '/'
