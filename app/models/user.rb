@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :projects, -> { order(name: :asc) }
 
-  has_attached_file :avatar, styles: { thumb: "300x300#" }, default_url: nil
+  has_attached_file :avatar, styles: { thumb: "300x300#" }
   validates_attachment_content_type :avatar, content_type: %r{^image\/}
 
   validates :first_name, :last_name, presence: true
