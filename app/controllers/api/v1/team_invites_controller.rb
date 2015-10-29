@@ -11,13 +11,12 @@ module Api
         param :project_ids, Array, of: Integer, desc: "Array of projects ids to attach to the user", required: false
       end
       def create
-        return invalid_email_error unless email_valid(invite_params[:email])
+        invite = Team::Invite.new(invite_params, current_team, current_user)
 
-        user = current_team.invite(invite_params, current_user)
-        if user.persisted?
-          render json: user, serializer: InviteUserSerializer, root: :user
+        if invite.save
+          render json: invite.user, serializer: InviteUserSerializer, root: :user
         else
-          render_errors user
+          render_errors invite
         end
       end
 
@@ -45,29 +44,12 @@ module Api
       private
 
       def invite_params
-        invite_params = params.require(:user).permit(:email, project_ids: [])
-        invite_params[:project_ids] = Array(invite_params[:project_ids])
-
-        # Ensure users can only invite team members to
-        # projects they have access to.
-        invite_params[:project_ids].select! do |pid|
-          current_user.project_ids.include?(Integer(pid)) unless pid.empty?
-        end
-
-        invite_params
+        params.require(:user).permit(:email, project_ids: [])
       end
 
       def user_params
         params.require(:user).permit(:first_name, :last_name, :username, :email,
           :password, :avatar)
-      end
-
-      def email_valid(email)
-        email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-      end
-
-      def invalid_email_error
-        render json: {message: "Validation Failed", errors: { field: "user[email]", errors: ["is invalid"] }}, status: 422
       end
     end
   end
