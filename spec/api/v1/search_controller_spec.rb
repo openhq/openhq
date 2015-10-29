@@ -13,7 +13,6 @@ RSpec.describe "Search API", type: :api do
     it "returns results" do
       post "/api/v1/search", { term: "Test" }, api_token_header(user)
       expect(last_response.status).to eq(200)
-      puts response_json
       expect(response_json[:search_documents].count).to be(2)
     end
 
