@@ -133,8 +133,8 @@ Rails.application.routes.draw do
 
   get "help", to: "public#help"
 
-  root to: "ember#index"
+  root to: "angular#index"
 
-  match "*path", to: "ember#index", via: :all, constraints: RouteConstraints::NonApi
+  match "*path", to: "angular#index", via: :all, constraints: RouteConstraints::NonApi
 
 end
