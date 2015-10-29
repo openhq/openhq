@@ -14,6 +14,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem "autoprefixer-rails" # scss prefixer
+gem "ejs"
 
 # Multitennate subdomains
 gem 'acts_as_tenant'

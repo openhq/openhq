@@ -1,3 +1,3 @@
-angular.module("OpenHq").controller("MainController", ["$scope", function($scope) {
-  $scope.hello = "Hiyas."
-}]);
+angular.module("OpenHq").controller("MainController", function($scope) {
+  //
+});
