@@ -1,3 +1,3 @@
-angular.module("OpenHq").controller("ProjectsController", function($scope) {
-  $scope.hello = "Hiyas.";
+angular.module("OpenHq").controller("ProjectsController", function($scope, Project) {
+  $scope.projects = Project.getList().$object;
 });

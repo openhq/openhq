@@ -1,3 +1,50 @@
-<h1>Projects</h1>
+<div class="ui-projects-list pure-g">
 
-{{hello}}
+  <div class="pure-u-1 pure-u-md-1-2" ng-repeat="project in projects">
+    <div class="info-box project-box">
+      <section class="info">
+        <h3>
+          <a href="/projects/{{ project.slug }}">
+            {{ project.name }}
+            <small>Last updated {{ project.updated_at }}</small>
+          </a>
+        </h3>
+
+        <ul class="recent-stories">
+          <li>No recent stories</li>
+        </ul>
+      </section>
+
+      <footer>
+        <div class="members">
+          avatars
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <div class="pure-u-1 pure-u-md-1-2">
+    <div class="info-box project-box">
+
+      <form class="pure-form pure-form-stacked">
+        <section class="info">
+          <label for="project_name">Project Name</label>
+          <input type="text" name="name" id="project_name">
+        </section>
+
+        <footer>
+          <button class="btn btn-main">Create Project</button>
+        </footer>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="center archive-link">
+  <a href="/projects/archived" class="btn btn-secondary btn-with-icon">
+    <span class="icon icon-archive"></span>
+    View archived projects (0)
+  </a>
+</div>
