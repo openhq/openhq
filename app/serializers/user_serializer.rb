@@ -3,9 +3,9 @@ class UserSerializer < ActiveModel::Serializer
 
   def avatar_url
     if object.avatar_file_name.present?
-      url = user.avatar.url(:thumb)
+      user.avatar.url(:thumb)
     else
-      url = gravatar_url
+      gravatar_url
     end
   end
 
