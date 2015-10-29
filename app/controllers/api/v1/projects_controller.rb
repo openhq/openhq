@@ -69,7 +69,8 @@ module Api
       private
 
       def project_params
-        params.require(:project).permit(:name, user_ids: [])
+        params = ActionController::Parameters.new(MultiJson.load(request.body.read, symbolize_keys: true)[:data][:attributes])
+        params.permit(:name)
       end
     end
   end

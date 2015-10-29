@@ -55,3 +55,5 @@ Rails/HasAndBelongsToMany:
   Enabled: false
 Rails/FindBy:
   Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
