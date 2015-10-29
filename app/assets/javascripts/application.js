@@ -1,4 +1,5 @@
 //= require modernizr
+//= require sugar
 //= require jquery
 //= require jquery_ujs
 //= require angular/angular
@@ -45,12 +46,8 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'restangular', 'ngSanitize'])
   RestangularProvider.setBaseUrl('/api/v1');
 
   RestangularProvider.addResponseInterceptor(function(data, operation, modelName, url, response, deferred) {
-    var singular = modelName,
+    var singular = modelName.singularize(),
         objs;
-
-    if (modelName[modelName.length - 1] === "s") {
-      singular = modelName.substring(0, modelName.length - 1);
-    }
 
     objs = data[singular] || data[modelName];
     console.log("Restangular extract", singular, modelName, objs);
