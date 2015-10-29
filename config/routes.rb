@@ -110,6 +110,10 @@ Rails.application.routes.draw do
       resources :attachments, except: [:new, :edit] do
         get "presigned_upload_url", on: :collection
       end
+      resources :notifications, only: [:index, :show] do
+        get "unseen", on: :collection
+        get "mark_all_seen", on: :collection
+      end
       resources :search, only: [:create]
     end
   end
