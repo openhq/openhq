@@ -1,4 +1,6 @@
 class SearchDocumentApiSerializer < ActiveModel::Serializer
+  include Rails.application.routes.url_helpers
+
   attributes :searchable_id, :searchable_type, :searchable, :url, :project, :project_url, :story, :story_url, :attachment_image
 
   def project_url

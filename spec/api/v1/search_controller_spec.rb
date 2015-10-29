@@ -13,13 +13,14 @@ RSpec.describe "Search API", type: :api do
     it "returns results" do
       post "/api/v1/search", { term: "Test" }, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:search].count).to be(2)
+      puts response_json
+      expect(response_json[:search_documents].count).to be(2)
     end
 
     it "limits the results and includes meta" do
       post "/api/v1/search", { term: "Test", limit: 1 }, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:search].count).to be(1)
+      expect(response_json[:search_documents].count).to be(1)
     end
 
     it "includes meta data" do
@@ -40,7 +41,7 @@ RSpec.describe "Search API", type: :api do
     it "returns an empty array when there are no results" do
       post "/api/v1/search", { term: "gobbledygook" }, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:search].count).to be(0)
+      expect(response_json[:search_documents].count).to be(0)
     end
 
     it "returns an error when there is no term" do
