@@ -14,10 +14,6 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem "autoprefixer-rails" # scss prefixer
-gem 'ejs' # client side templates
-gem 'active-model-adapter-source', '2.0.1'
-gem 'ember-rails'
-gem 'ember-source', '~> 1.13.10' # or the version you need
 
 # Multitennate subdomains
 gem 'acts_as_tenant'

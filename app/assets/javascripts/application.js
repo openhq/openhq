@@ -1,9 +1,11 @@
 //= require modernizr
 //= require jquery
 //= require jquery_ujs
-//= require ember
-//= require ember-data
-//= require active-model-adapter
+//= require angular/angular
+//= require angular/angular-route
+//= require angular/angular-resource
+//= require angular/angular-animate
+//= require angular/angular-sanitize
 //= require jquery.timeago
 //# require jquery-ui
 //# require chosen.jquery
@@ -15,8 +17,10 @@
 //# require imagesloaded.pkgd.min
 //# require mousetrap.min
 //= require message-bus
+//= require_tree ./templates
 //= require_self
-//= require ./open_hq
+//= require_tree ./directives
+//= require_tree ./services
+//= require_tree ./controllers
 
-// for more details see: http://emberjs.com/guides/application/
-window.OpenHq = Ember.Application.create();
+angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngResource', 'ngSanitize']);
