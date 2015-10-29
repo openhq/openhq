@@ -50,7 +50,7 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'restangular', 'ngSanitize'])
         objs;
 
     objs = data[singular] || data[modelName];
-    console.log("Restangular extract", singular, modelName, objs);
+    console.log("Restangular extract", data, singular, modelName, objs);
 
     deferred.resolve(objs);
     return objs;

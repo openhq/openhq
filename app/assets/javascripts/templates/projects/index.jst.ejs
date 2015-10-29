@@ -26,10 +26,10 @@
   <div class="pure-u-1 pure-u-md-1-2">
     <div class="info-box project-box">
 
-      <form class="pure-form pure-form-stacked">
+      <form class="pure-form pure-form-stacked" ng-submit="createProject(newProject)">
         <section class="info">
           <label for="project_name">Project Name</label>
-          <input type="text" name="name" id="project_name">
+          <input type="text" name="name" id="project_name" ng-model="newProject.name">
         </section>
 
         <footer>
