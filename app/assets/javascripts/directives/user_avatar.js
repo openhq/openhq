@@ -5,6 +5,6 @@ angular.module("OpenHq").directive("userAvatar", function() {
           user: '=',
           size: '=',
         },
-        template: JST['templates/users/avatar'],
+        template: JST['templates/directives/user_avatar'],
     };
 });
