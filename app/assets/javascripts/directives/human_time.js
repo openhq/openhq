@@ -5,10 +5,10 @@ angular.module("OpenHq").directive("humanTime", function() {
           datetime: '=',
         },
         template: "<abbr title='{{ datetime }}'>{{ datetime }}</abbr>",
-        link: function(scope, el){
-            setTimeout(function() {
+        link: function($scope, el){
+            $scope.$watch('datetime', function(){
                 $(el).find('abbr').timeago();
-            }, 0);
+            });
         },
     };
 });
