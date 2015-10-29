@@ -35,11 +35,11 @@
         <form class="pure-form pure-form-stacked">
           <section class="info">
             <label for="project_name">Project Name</label>
-            <input type="text" name="project[name]" id="project_name">
+            {{input value=projectName id="project_name"}}
           </section>
 
           <footer>
-            <input type="submit" value="Create Project" class="btn btn-main">
+            <button {{action "createProject" target="controller"}} class="btn btn-main">Create Project</button>
           </footer>
         </form>
       </div>
