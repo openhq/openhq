@@ -23,4 +23,23 @@
 //= require_tree ./services
 //= require_tree ./controllers
 
-angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngResource', 'ngSanitize']);
+angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngResource', 'ngSanitize'])
+.config(function($routeProvider, $locationProvider) {
+  $routeProvider
+  .when('/', {
+    template: JST['templates/projects/index'],
+    controller: 'ProjectsController',
+    resolve: {
+      projects: ['$route', function($route) {
+        return {};
+      }]
+    }
+  })
+  .otherwise({
+    redirectTo: '/'
+  });
+
+  // configure html5 to get links working on jsfiddle
+  $locationProvider.html5Mode(true);
+});
+
