@@ -1,10 +1,14 @@
 angular.module("OpenHq").directive("humanTime", function() {
     return {
+        restrict: "E",
         scope: {
           datetime: '=',
         },
-        link: function($scope, el){
-            $(el).html($.timeago($scope.datetime));
-        }
+        template: "<abbr title='{{ datetime }}'>{{ datetime }}</abbr>",
+        link: function(scope, el){
+            setTimeout(function() {
+                $(el).find('abbr').timeago();
+            }, 0);
+        },
     };
 });
