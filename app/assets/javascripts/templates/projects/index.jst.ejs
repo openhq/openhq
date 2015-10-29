@@ -6,18 +6,22 @@
         <h3>
           <a href="/projects/{{ project.slug }}">
             {{ project.name }}
-            <small>Last updated <human-time datetime="project.updated_at" /></small>
+            <small>Last updated <human-time datetime="project.updated_at"></human-time></small>
           </a>
         </h3>
 
         <ul class="recent-stories">
-          <li>No recent stories</li>
+          <li ng-hide="project.stories.length > 0">No recent stories</li>
+          <li ng-repeat="story in project.stories">
+            <span class="when">{{ story.updated_at }}</span>
+            <a href="/projects/{{ project.slug }}/stories/{{ story.slug }}">{{ story.name }}</a>
+          </li>
         </ul>
       </section>
 
       <footer>
         <div class="members">
-          avatars
+          <user-avatar user="user" ng-repeat="user in project.users"></user-avatar>
         </div>
       </footer>
     </div>
