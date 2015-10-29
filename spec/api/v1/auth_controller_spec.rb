@@ -14,7 +14,7 @@ RSpec.describe "Auth API", type: :api do
 
         post "/api/v1/auth", params
         expect(last_response.status).to eq(200)
-        expect(response_json[:api_token]).to include(:token)
+        expect(response_json[:data][:attributes]).to include(:token)
       end
     end
 

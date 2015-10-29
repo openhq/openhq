@@ -12,6 +12,8 @@ module OpenHq
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'London'
 
+    config.ember.app_name = "OpenHq"
+
     # Set Active::Job backend
     config.active_job.queue_adapter = :sidekiq
 
@@ -26,6 +28,7 @@ module OpenHq
       g.test_framework :rspec
       g.skip_routes true
       g.controller_specs false
+      g.view_specs false
       g.stylesheets false
       g.javascripts false
       g.helper false

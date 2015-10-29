@@ -1,0 +1,100 @@
+<div class="page-container">
+  <h1>
+    {{ model.name }}
+    <small><a href="#">[Project name]</a></small>
+  </h1>
+
+  <div class="pure-g">
+
+    <div class="pure-u-1 pure-u-md-17-24 ui-story-container">
+      <div class="ui-story">
+        <article>
+          <header>
+            <div class="actions">
+              <a href="#">Edit</a>
+            </div>
+            {{user-avatar user=owner}}
+            {{ owner.username }} added {{human-time time=model.createdAt}}
+          </header>
+          <section class="body">
+            {{{ model.markdown }}}
+          </section>
+        </article>
+
+        <div class="tasks" data-url="<%= project_story_tasks_path(@project, @story) %>">
+          <div class="loader"></div>
+          <div class="no-tasks">
+            <h4>No Tasks</h4>
+          </div>
+        </div>
+
+        <div class="attachments">
+            <p>No attachments</p>
+        </div>
+        [Comment partial]
+        <div class="add-comment content-input">
+          <header class="plain">
+            [current_user.avatar] Reply to this topic
+          </header>
+          <form class="pure-form pure-form-stacked" id="new-attachment-form">
+            <input type="hidden" name="story[attachment_ids]" id="story_attachment_ids">
+            <div class="text-box">
+              <textarea name="story[content]" placeholder="Type your message" class="atwho"></textarea>
+              <span class="note">
+                <a href="https://daringfireball.net/projects/markdown/basics" target="_blank" title="Learn the basics of Markdown">Markdown</a> &amp; <a href="http://www.emoji-cheat-sheet.com/" target="_blank" title="Emoji cheat sheet">Emoji</a> support <i class="icon-help"></i>
+              </span>
+            </div>
+
+            <footer>
+              <button class="btn btn-secondary btn-with-icon attach-files">
+                <span class="icon icon-disk"></span>
+                Attach files
+              </button>
+              <input type="submit" value="Reply" class="btn btn-main">
+            </footer>
+          </form>
+
+          [attachment uploads]
+
+          <div id="attachments-list"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pure-u-1 pure-u-md-6-24">
+      <aside class="story-menu">
+        <ul class="plain-list actions-list">
+          <li>
+            <a href="#" class="icon-link link-large">
+              <span class="icon icon-bell"></span>
+              Disable Notifications
+            </a>
+          </li>
+          <li>
+            <a href="#" class="icon-link link-large danger">
+              <span class="icon icon-trash"></span>
+              Archive this story
+            </a>
+          </li>
+        </ul>
+
+        <h4>0 Contributors</h4>
+
+        <div class="members">
+          [user avatars]
+        </div>
+
+        <div class="overall-task-progress">
+          <h4>Task progress</h4>
+          <div class="progress-bar">
+            <span class="completion"></span>
+          </div>
+        </div>
+
+        <h4>0 Attachments</h4>
+      </aside>
+    </div>
+
+  </div>
+</div>

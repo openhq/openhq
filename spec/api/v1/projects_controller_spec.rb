@@ -21,7 +21,7 @@ RSpec.describe "Projects API", type: :api do
       it "returns the users projects" do
         get "/api/v1/projects", {}, api_token_header(user)
         expect(last_response.status).to eq(200)
-        expect(response_json[:projects].first[:name]).to eq(project.name)
+        expect(response_json[:data].first[:attributes][:name]).to eq(project.name)
       end
     end
   end
@@ -31,7 +31,7 @@ RSpec.describe "Projects API", type: :api do
       it "returns the users projects" do
         get "/api/v1/projects/#{project.slug}", {}, api_token_header(user)
         expect(last_response.status).to eq(200)
-        expect(response_json[:project][:name]).to eq(project.name)
+        expect(response_json[:data][:attributes][:name]).to eq(project.name)
       end
     end
   end
@@ -46,7 +46,7 @@ RSpec.describe "Projects API", type: :api do
         }
         post "/api/v1/projects", project_params, api_token_header(user)
         expect(last_response.status).to eq(201)
-        expect(response_json[:project][:name]).to eq("Accounting")
+        expect(response_json[:data][:attributes][:name]).to eq("Accounting")
       end
     end
 
@@ -72,7 +72,7 @@ RSpec.describe "Projects API", type: :api do
         }
         patch "/api/v1/projects/#{project.slug}", project_params, api_token_header(user)
         expect(last_response.status).to eq(200)
-        expect(response_json[:project][:name]).to eq("Website V1")
+        expect(response_json[:data][:attributes][:name]).to eq("Website V1")
       end
     end
 

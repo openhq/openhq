@@ -17,7 +17,7 @@ RSpec.feature "Inviting team members", type: :feature do
     reset_emails!
   end
 
-  scenario "invites a user and assigns them to projects" do
+  xscenario "invites a user and assigns them to projects" do
     perform_enqueued_jobs do
       sign_in_with user.email, "hunter212"
 

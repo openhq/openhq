@@ -18,6 +18,7 @@ module Api
         )
 
         if user.present? && user.teams.any?
+          @current_user = user
           render json: ApiToken.for(user, user.teams.first), scope: nil
         else
           render json: "Credentials invalid: Access denied.", status: 401

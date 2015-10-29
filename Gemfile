@@ -15,6 +15,9 @@ gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem "autoprefixer-rails" # scss prefixer
 gem 'ejs' # client side templates
+gem 'active-model-adapter-source', '2.0.1'
+gem 'ember-rails'
+gem 'ember-source', '~> 1.13.10' # or the version you need
 
 # Multitennate subdomains
 gem 'acts_as_tenant'
@@ -30,7 +33,7 @@ gem 'clearance'
 gem 'cancancan', '~> 1.10'
 
 # Serializers
-gem 'active_model_serializers', '~> 0.9.3'
+gem 'active_model_serializers', git: "https://github.com/rails-api/active_model_serializers.git", tag: 'v0.10.0.rc3'
 
 # Form helpers
 gem 'simple_form'
@@ -84,7 +87,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'rack-mini-profiler'
   gem 'quiet_assets'
   gem 'letter_opener_web'
   gem 'spring-commands-rspec'
@@ -94,7 +96,7 @@ group :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara', '~> 2.0'
   gem 'factory_girl_rails'
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers', '~> 2.8.0', require: false
   gem 'faker'
   gem 'database_cleaner'
   gem 'mocha'
