@@ -6,7 +6,7 @@
         <h3>
           <a href="/projects/{{ project.slug }}">
             {{ project.name }}
-            <small>Last updated {{ project.updated_at }}</small>
+            <small>Last updated <human-time datetime="project.updated_at"></human-time></small>
           </a>
         </h3>
 
