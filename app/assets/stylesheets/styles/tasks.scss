@@ -23,6 +23,9 @@
             position: relative;
             padding-left: 20px;
 
+            &.editing {
+                padding-left: 0;
+            }
             &.complete {
                 display: none;
                 text-decoration: line-through;
@@ -99,7 +102,6 @@
 
     .edit-form {
         form {
-            display: none;
             padding: 15px;
             background: $rollover-dark;
 
