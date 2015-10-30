@@ -7,5 +7,3 @@ angular.module("OpenHq").factory("Story", function(railsResourceFactory) {
   });
 
 });
-
-

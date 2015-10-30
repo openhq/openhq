@@ -1,0 +1,33 @@
+<div class="default-form">
+  <form>
+    <input type="checkbox" ng-model="task.completed">
+    <p class="label">{{ task.label }}</p>
+  </form>
+</div>
+
+<div class="edit-form">
+  <form>
+    <div class="task_label">
+      <input autocomplete="off" class="string required" type="text" ng-model="task.label">
+    </div>
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-11-24 input select optional task_assignment">
+        <select class="select optional" ng-model="task.assigned_to">
+          <option value="">unassigned</option>
+          <option value="2">colin</option>
+          <option value="1">pete</option>
+        </select>
+      </div>
+      <div class="pure-u-1 pure-u-md-3-24 due-label">Due:</div>
+      <div class="pure-u-1 pure-u-md-10-24 input string task_due_at">
+        <input type="text" class="task_due_at hasDatepicker" ng-model="task.due_at">
+      </div>
+    </div>
+
+    <hr>
+
+    <input type="submit" name="commit" value="Update" class="btn btn-main btn-small">
+    <a class="btn btn-danger btn-small" rel="nofollow" href="#">Delete</a>
+    <a class="cancel" href="#">Cancel</a>
+  </form>
+</div>

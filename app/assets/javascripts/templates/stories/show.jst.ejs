@@ -21,10 +21,45 @@
       </article>
 
       <div class="tasks">
-        <div class="loader"></div>
-        <div class="no-tasks">
-          <h4>No Tasks</h4>
+        <div class="tasks-list-container">
+          <h4 class="incomplete-tasks-title">2 Incomplete Tasks</h4>
+
+          <ul>
+            <li class="task" ng-repeat="task in story.tasks">
+              <task-item task="task"></task-item>
+            </li>
+
+            <li class="action">
+              <a href="#" class="show-completed-tasks">Show completed tasks</a>
+            </li>
+
+            <li class="action" style="display:none">
+              <a href="/projects/gather/stories/desktop-redesign/tasks/delete-completed" data-method="delete" class="delete-all-completed-tasks danger" data-confirm="Are you sure?" data-confirm-title="Delete all completed tasks">Delete all completed tasks</a>
+            </li>
+          </ul>
         </div>
+
+        <form class="pure-form pure-form-stacked" novalidate ng-submit="createTask(newTask)">
+          <input autocomplete="off" class="atwho" placeholder="Add a new task..." type="text" ng-model="newTask.label">
+
+          <div class="pure-g">
+            <div class="pure-u-1 pure-u-md-11-24">
+              <div class="input select optional task_assignment">
+                <select class="select optional" ng-model="newTask.assigned_to">
+                  <option value="0">unassigned</option>
+                  <option value="2">colin</option>
+                  <option value="1">pete</option>
+                </select>
+              </div>
+            </div>
+            <div class="pure-u-1 pure-u-md-3-24 due-label">Due:</div>
+            <div class="pure-u-1 pure-u-md-10-24">
+              <input class="task_due_at hasDatepicker" type="text" ng-model="newTask.due_at">
+            </div>
+          </div>
+
+          <input type="submit" value="Create Task" class="btn btn-main btn-small">
+        </form>
       </div>
 
       <div class="attachments">
