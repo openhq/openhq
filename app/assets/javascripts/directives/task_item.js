@@ -13,11 +13,11 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, Task) {
 
       $scope.startEditing = function() {
         $scope.editing = true;
-      }
+      };
 
       $scope.stopEditing = function() {
         $scope.editing = false;
-      }
+      };
 
       $scope.updateTask = function() {
         $scope.editTask.due_at = $scope.editTask.due_at_pretty;
@@ -28,7 +28,7 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, Task) {
         }, function(errors) {
           console.error(errors);
         });
-      }
+      };
 
       $scope.deleteTask = function($event) {
         var c = confirm("Are you sure you want to delete this task?");
@@ -37,7 +37,13 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, Task) {
         new Task($scope.task).delete().then(function(){
           $rootScope.$broadcast('task:deleted', $scope.task.id);
         });
-      }
+      };
+
+      $scope.$watch("task.completed", function(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          $scope.task.update();
+        }
+      });
     }
   };
 });
