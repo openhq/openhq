@@ -30,13 +30,13 @@ angular.module("OpenHq").directive("taskItem", function(Task) {
         });
       }
 
-      $scope.deleteTask = function($event, task) {
+      $scope.deleteTask = function($event) {
         var $list_item = $($event.currentTarget).closest('li'),
             c = confirm("Are you sure you want to delete this task?");
 
         if (!c) return;
 
-        new Task(task).delete().then(function(){
+        new Task($scope.task).delete().then(function(){
           $list_item.remove();
         });
       }
