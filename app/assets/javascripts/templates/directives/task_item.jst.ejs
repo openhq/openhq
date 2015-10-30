@@ -9,13 +9,13 @@
 </div>
 
 <div class="edit-form">
-  <form novalidate="novalidate" id="edit_task_{{ task.id }}" action="{{ task.url }}" method="post" ng-show="editing">
+  <form novalidate="novalidate" ng-submit="updateTask($event, task)" ng-show="editing">
     <div class="input string required task_label">
-      <input autocomplete="off" class="string required" type="text" value="{{ task.label }}" name="task[label]" id="task_label">
+      <input autocomplete="off" class="string required task_label" type="text" value="{{ task.label }}" name="task[label]">
     </div>
     <div class="pure-g">
       <div class="pure-u-1 pure-u-md-11-24 input select optional task_assignment">
-        <select class="select optional" name="task[assignment]" id="task_assignment">
+        <select class="select optional task_assignment" name="task[assignment]">
             <option ng-repeat="user in users" value="{{ user[1] }}" ng-selected="user[0] === task.assignment_name">{{ user[0] }}</option>
         </select>
       </div>
@@ -27,8 +27,8 @@
 
     <hr>
 
-    <input type="submit" name="commit" value="Update" class="btn btn-main btn-small" ng-click="updateTask($event)">
-    <a class="btn btn-danger btn-small" href="#" ng-click="deleteTask($event)">Delete</a>
+    <input type="submit" name="commit" value="Update" class="btn btn-main btn-small">
+    <a class="btn btn-danger btn-small" href="#" ng-click="deleteTask(task)">Delete</a>
     <a class="cancel" href="#" ng-click="stopEditing($event)">Cancel</a>
   </form>
 </div>
