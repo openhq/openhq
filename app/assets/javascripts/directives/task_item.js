@@ -25,16 +25,23 @@ angular.module("OpenHq").directive("taskItem", function(Task) {
       }
 
       $scope.updateTask = function($event, task) {
-        var $form = $($event.currentTarget);
+        var $form = $($event.currentTarget),
+            update_params = {
+              id: task.id,
+              label: $form.find('input.task_label').val(),
+              assigned_to: $form.find('select.task_assignment').val(),
+              due_at: $form.find('input.task_due_at').val()
+            };
 
-        task.label = $form.find('input.task_label').val();
-        task.assigned_to = $form.find('select.task_assignment').val();
-        task.assignment_name = $form.find('select.task_assignment option:selected').html();
-        task.due_at = $form.find('input.task_due_at').val();
-        task.due_at_pretty = $form.find('input.task_due_at').val();
+        new Task(update_params).update().then(function(resp){
+          task.label = resp.label;
+          task.due_at_pretty = resp.due_at_pretty;
+          task.assignment_name = resp.assignment_name;
 
-        new Task(task).update();
-        $scope.stopEditing($event);
+          $scope.stopEditing($event);
+        }, function(errors) {
+          console.error(errors);
+        });
       }
     }
   };
