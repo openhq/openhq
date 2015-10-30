@@ -23,8 +23,8 @@ module Api
       end
 
       api! "Create new comment"
-      param :story_id, String, desc: "Story ID or slug", required: true
       param_group :comment
+      param :"comment[story_id]", String, desc: "Story ID or slug", required: true
       def create
         story = Story.friendly.find(params[:comment][:story_id])
         project = story.project
