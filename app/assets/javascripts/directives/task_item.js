@@ -19,7 +19,7 @@ angular.module("OpenHq").directive("taskItem", function(Task) {
         $scope.editing = false;
       }
 
-      $scope.updateTask = function($event, task) {
+      $scope.updateTask = function($event) {
         $scope.editTask.due_at = $scope.editTask.due_at_pretty;
 
         new Task($scope.editTask).update().then(function(resp){
