@@ -21,9 +21,16 @@
       </article>
 
       <div class="tasks">
-        <div class="loader"></div>
-        <div class="no-tasks">
+        <div ng-hide="story.tasks.length > 0" class="no-tasks">
           <h4>No Tasks</h4>
+        </div>
+        <div ng-show="story.tasks.length > 0" class="tasks-list-container">
+          <h4>{{ story.tasks.length }} Incomplete Tasks</h4>
+          <ul class="sortable">
+            <li ng-repeat="task in story.tasks">
+              <task-item task="task" users="story.users_select_array"></task-item>
+            </li>
+          </ul>
         </div>
       </div>
 

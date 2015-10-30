@@ -1,7 +1,7 @@
 class TaskSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :label, :assignment_name, :url, :owner_id, :completed, :due_at, :due_at_pretty
+  attributes :id, :label, :assigned_to, :assignment_name, :url, :owner_id, :completed, :due_at, :due_at_pretty
   has_one :assignment
   has_one :project
 

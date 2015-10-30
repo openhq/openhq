@@ -22,7 +22,7 @@ module Api
 
       api! "Fetch a single story"
       def show
-        story = Story.includes(:owner, :project, :tasks, comments: [:owner]).friendly.find(params[:id])
+        story = Story.includes(:owner, :tasks, project: [:users], comments: [:owner]).friendly.find(params[:id])
         render json: story
       end
 

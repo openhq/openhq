@@ -24,7 +24,7 @@ class Project < ActiveRecord::Base
   end
 
   def users_select_array
-    @users_select_array ||= [['unassigned', 0]].concat(users.active.order(username: :asc).pluck(:username, :id))
+    @users_select_array ||= [['unassigned', 0]].concat(users.active.where("username IS NOT NULL").order(username: :asc).pluck(:username, :id))
   end
 
   def live?
