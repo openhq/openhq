@@ -20,10 +20,6 @@ angular.module("OpenHq").directive("taskItem", function(Task) {
         $($event.currentTarget).closest('li').removeClass('editing');
       }
 
-      $scope.deleteTask = function(task) {
-        console.log('delete task', task);
-      }
-
       $scope.updateTask = function($event, task) {
         var $form = $($event.currentTarget),
             update_params = {
@@ -41,6 +37,17 @@ angular.module("OpenHq").directive("taskItem", function(Task) {
           $scope.stopEditing($event);
         }, function(errors) {
           console.error(errors);
+        });
+      }
+
+      $scope.deleteTask = function($event, task) {
+        var $list_item = $($event.currentTarget).closest('li'),
+            c = confirm("Are you sure you want to delete this task?");
+
+        if (!c) return;
+
+        new Task(task).delete().then(function(){
+          $list_item.remove();
         });
       }
     }

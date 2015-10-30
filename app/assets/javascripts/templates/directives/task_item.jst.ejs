@@ -28,7 +28,7 @@
     <hr>
 
     <input type="submit" name="commit" value="Update" class="btn btn-main btn-small">
-    <a class="btn btn-danger btn-small" href="#" ng-click="deleteTask(task)">Delete</a>
+    <a class="btn btn-danger btn-small" href="#" ng-click="deleteTask($event, task)">Delete</a>
     <a class="cancel" href="#" ng-click="stopEditing($event)">Cancel</a>
   </form>
 </div>
