@@ -1,7 +1,7 @@
 module Api
   module V1
     class TasksController < BaseController
-      before_action :set_story, only: [:index, :create, :destroy_completed, :update_order]
+      before_action :set_story, only: [:index, :destroy_completed, :update_order]
 
       resource_description do
         formats ["json"]
@@ -30,9 +30,10 @@ module Api
       end
 
       api! "Create new task"
-      param :story_id, String, desc: "Story ID or slug", required: true
       param_group :task
+      param :"task[story_id]", String, desc: "Story ID or slug", required: true
       def create
+        @story = Story.friendly.find(params[:task][:story_id])
         @task = @story.tasks.build(task_params.merge(owner: current_user))
 
         authorize! :create, @task

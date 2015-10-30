@@ -27,7 +27,7 @@ RSpec.describe "Tasks API", type: :api do
   describe "POST /api/v1/tasks" do
     context "when input is valid" do
       it "creates a task" do
-        task_params = { story_id: story.slug, task: { label: "Buy Milk" } }
+        task_params = { task: { label: "Buy Milk", story_id: story.slug } }
         post "/api/v1/tasks", task_params, api_token_header(user)
         expect(last_response.status).to eq(201)
         expect(response_json[:task][:label]).to eq("Buy Milk")
@@ -36,7 +36,7 @@ RSpec.describe "Tasks API", type: :api do
 
     context "when input is invalid" do
       it "returns errors" do
-        task_params = { story_id: story.slug, task: { label: "" } }
+        task_params = { task: { label: "", story_id: story.slug} }
         post "/api/v1/tasks", task_params, api_token_header(user)
         expect(last_response.status).to eq(422)
       end
