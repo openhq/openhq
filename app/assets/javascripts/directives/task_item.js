@@ -12,12 +12,10 @@ angular.module("OpenHq").directive("taskItem", function(Task) {
 
       $scope.startEditing = function($event) {
         $scope.editing = true;
-        $($event.currentTarget).closest('li').addClass('editing');
       }
 
       $scope.stopEditing = function($event) {
         $scope.editing = false;
-        $($event.currentTarget).closest('li').removeClass('editing');
       }
 
       $scope.updateTask = function($event, task) {
