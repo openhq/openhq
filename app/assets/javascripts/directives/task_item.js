@@ -3,7 +3,11 @@ angular.module("OpenHq").directive("taskItem", function() {
         restrict: "E",
         scope: {
           task: '=',
+          users: '=',
         },
-        template: JST['templates/directives/task_item']
+        template: JST['templates/directives/task_item'],
+        controller: function($scope){
+            console.log($scope.users);
+        }
     };
 });

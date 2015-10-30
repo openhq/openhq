@@ -28,7 +28,7 @@
           <h4>{{ story.tasks.length }} Incomplete Tasks</h4>
           <ul>
             <li ng-repeat="task in story.tasks">
-              <task-item task="task"></task-item>
+              <task-item task="task" users="story.users_select_array"></task-item>
             </li>
           </ul>
         </div>
