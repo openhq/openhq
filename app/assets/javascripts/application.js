@@ -34,6 +34,10 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'rails', 'ngSanitize'])
     template: JST['templates/projects/show'],
     controller: 'ProjectController'
   })
+  .when('/stories/:slug', {
+    template: JST['templates/stories/show'],
+    controller: 'StoryController'
+  })
   .otherwise({
     redirectTo: '/'
   });
