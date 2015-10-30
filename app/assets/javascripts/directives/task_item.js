@@ -8,6 +8,7 @@ angular.module("OpenHq").directive("taskItem", function(Task) {
     template: JST['templates/directives/task_item'],
 
     controller: function($scope){
+      $scope.editTask = angular.copy($scope.task);
       $scope.editing = false;
 
       $scope.startEditing = function($event) {
@@ -19,19 +20,10 @@ angular.module("OpenHq").directive("taskItem", function(Task) {
       }
 
       $scope.updateTask = function($event, task) {
-        var $form = $($event.currentTarget),
-            update_params = {
-              id: task.id,
-              label: $form.find('input.task_label').val(),
-              assigned_to: $form.find('select.task_assignment').val(),
-              due_at: $form.find('input.task_due_at').val()
-            };
+        $scope.editTask.due_at = $scope.editTask.due_at_pretty;
 
-        new Task(update_params).update().then(function(resp){
-          task.label = resp.label;
-          task.due_at_pretty = resp.due_at_pretty;
-          task.assignment_name = resp.assignment_name;
-
+        new Task($scope.editTask).update().then(function(resp){
+          $scope.task = resp;
           $scope.stopEditing($event);
         }, function(errors) {
           console.error(errors);
