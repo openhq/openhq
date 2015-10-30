@@ -3,8 +3,8 @@
     <input type="checkbox" ng-model="task.completed">
     <p class="label">{{ task.label }}</p>
 
-    <span ng-hide="assignment_name === 'unassigned'" class="assignment">{{ task.assignment_name }}</span>
-    <span ng-hide="due_at_pretty === ''" class="due_at">{{ task.due_at_pretty }}</span>
+    <span ng-hide="task.assignment_name === 'unassigned'" class="assignment">{{ task.assignment_name }}</span>
+    <span ng-hide="task.due_at_pretty === null" class="due_at">{{ task.due_at_pretty }}</span>
   </form>
 </div>
 
