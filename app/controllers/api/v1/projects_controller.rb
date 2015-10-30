@@ -14,7 +14,7 @@ module Api
 
       api! "Fetch all projects"
       def index
-        render json: current_user.projects.includes(:users, :stories).all
+        render json: current_user.projects.includes(:users, :recent_stories).all
       end
 
       api! "Fetch a single project"

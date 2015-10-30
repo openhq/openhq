@@ -11,8 +11,8 @@
         </h3>
 
         <ul class="recent-stories">
-          <li ng-hide="project.stories.length > 0">No recent stories</li>
-          <li ng-repeat="story in project.stories">
+          <li ng-hide="project.recent_stories.length > 0">No recent stories</li>
+          <li ng-repeat="story in project.recent_stories">
             <span class="when">{{ story.updated_at }}</span>
             <a href="/projects/{{ project.slug }}/stories/{{ story.slug }}">{{ story.name }}</a>
           </li>
