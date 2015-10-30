@@ -7,11 +7,9 @@ class StorySerializer < ActiveModel::Serializer
   has_many :comments, each_serializer: CommentSerializer
   has_many :tasks
 
+  delegate :users_select_array, to: :project
+
   def markdown
     markdownify(object.description)
-  end
-
-  def users_select_array
-    project.users_select_array
   end
 end
