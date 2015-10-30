@@ -1,8 +1,6 @@
 module Api
   module V1
     class CommentsController < BaseController
-      before_action :set_story, only: [:index, :create]
-
       def_param_group :comment do
         param :comment, Hash, desc: "Comment info" do
           param :content, String, desc: "Comment body", required: true
@@ -13,7 +11,8 @@ module Api
       api! "Fetch all comments"
       param :story_id, String, desc: "Story ID or slug", required: true
       def index
-        comments = @story.comments.includes(:owner).all
+        story = Story.friendly.find(params[:story_id])
+        comments = story.comments.includes(:owner).all
         render json: comments
       end
 
@@ -27,8 +26,12 @@ module Api
       param :story_id, String, desc: "Story ID or slug", required: true
       param_group :comment
       def create
+        story = Story.friendly.find(params[:comment][:story_id])
+        project = story.project
+        authorize! :read, project
+
         comment = Comment.new(
-          commentable: @story,
+          commentable: story,
           owner: current_user,
           content: comment_params[:content]
         )
@@ -68,13 +71,6 @@ module Api
       end
 
       private
-
-      def set_story
-        @story = Story.friendly.find(params[:story_id])
-        project = @story.project
-
-        authorize! :read, project
-      end
 
       def comment_params
         params.require(:comment).permit(:content, :attachment_ids)

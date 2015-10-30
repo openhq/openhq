@@ -13,8 +13,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'turbolinks'
-gem "autoprefixer-rails" # scss prefixer
-gem "ejs"
+gem 'autoprefixer-rails' # scss prefixer
+gem 'ejs'
+gem 'angularjs-rails-resource', '~> 2.0.0'
 
 # Multitennate subdomains
 gem 'acts_as_tenant'

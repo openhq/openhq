@@ -8,7 +8,7 @@ class CurrentUserSerializer < ActiveModel::Serializer
 
   def avatar_url
     if object.avatar_file_name.present?
-      user.avatar.url(:thumb)
+      object.avatar.url(:thumb)
     else
       gravatar_url
     end

@@ -1,0 +1,105 @@
+
+<h1>
+  {{ story.name }}
+  <small><a href="/projects/{{ story.project.slug }}">{{ story.project.name }}</a></small>
+</h1>
+
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-17-24 ui-story-container">
+    <div class="ui-story">
+      <article>
+        <header>
+          <div class="actions">
+            <a href="#">Edit</a>
+          </div>
+          <user-avatar user="story.owner"></user-avatar>
+          {{ story.owner.display_name }} added <human-time datetime="story.created_at"></human-time>
+        </header>
+        <section class="body" ng-bind-html="story.markdown">
+        </section>
+      </article>
+
+      <div class="tasks">
+        <div class="loader"></div>
+        <div class="no-tasks">
+          <h4>No Tasks</h4>
+        </div>
+      </div>
+
+      <div class="attachments">
+        <p>No attachments</p>
+      </div>
+      <article ng-repeat="comment in story.comments" class="comment-row">
+        <header>
+          <div class="actions">
+            <a href="#">Edit</a>
+            | <a href="#">Delete</a>
+          </div>
+          <user-avatar user="comment.owner"></user-avatar>
+
+          {{ comment.owner.display_name }} added <human-time datetime="comment.created_at"></human-time>
+        </header>
+        <section class="body comment" ng-bind-html="comment.markdown">
+        </section>
+      </article>
+      <div class="add-comment content-input">
+        <header class="plain">
+          <user-avatar user="currentUser"></user-avatar> Reply to this topic
+        </header>
+        <form class="pure-form pure-form-stacked" ng-submit="createComment(newComment)">
+          <div class="text-box">
+            <textarea class="atwho" ng-model="newComment.content" placeholder="Type your message"></textarea>
+            <span class="note">
+              <a href="https://daringfireball.net/projects/markdown/basics" target="_blank" title="Learn the basics of Markdown">Markdown</a> &amp; <a href="http://www.emoji-cheat-sheet.com/" target="_blank" title="Emoji cheat sheet">Emoji</a> support <i class="icon-help"></i>
+            </span>
+          </div>
+
+          <footer>
+            <button class="btn btn-secondary btn-with-icon attach-files">
+              <span class="icon icon-disk"></span>
+              Attach files
+            </button>
+            <button class="btn btn-main">Reply</button>
+          </footer>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-6-24">
+    <aside class="story-menu">
+      <ul class="plain-list actions-list">
+        <li>
+          <a href="#" class="icon-link link-large">
+            <span class="icon icon-bell"></span>
+            Disable Notifications
+          </a>
+        </li>
+        <li>
+          <a href="/stories/{{ story.slug }}/archive" class="icon-link link-large danger">
+            <span class="icon icon-trash"></span>
+            Archive this story
+          </a>
+        </li>
+      </ul>
+
+      <h4>0 Contributors</h4>
+
+      <div class="members">
+        collaborator avatars
+      </div>
+
+      <div class="overall-task-progress">
+        <h4>Task progress</h4>
+        <div class="progress-bar">
+          <span class="completion"></span>
+        </div>
+      </div>
+
+      <h4>0 Attachments</h4>
+    </aside>
+  </div>
+
+</div>
