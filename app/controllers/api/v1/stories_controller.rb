@@ -17,7 +17,7 @@ module Api
       api! "Fetch all stories"
       param :project_id, String, desc: "Project ID or slug", required: true
       def index
-        render json: @project.stories.includes(:owner)
+        render json: @project.stories.includes(:owner, :project, :comments, :tasks)
       end
 
       api! "Fetch a single story"
