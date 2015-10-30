@@ -1,4 +1,16 @@
-angular.module("OpenHq").factory("projectsRepository", function(Restangular) {
-  // return $resource('/api/v1/projects/:projectId', {projectId:'@id'}, {update: {method:'PUT'}});
-  return Restangular.all('projects');
+angular.module("OpenHq").factory("ProjectsRepository", function(Restangular) {
+  var allProjects = Restangular.all('projects');
+
+  return {
+    all: function(query) {
+      return allProjects.getList(query);
+    },
+    find: function(slug) {
+      return Restangular.one("projects", slug).get();
+    },
+    create: function(params) {
+      return allProjects.post({project: params});
+    }
+  };
+
 });

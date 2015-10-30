@@ -1,9 +1,4 @@
-angular.module("OpenHq").controller("ProjectController", function($scope, $routeParams, Restangular, storiesRepository) {
-  Restangular.one("projects", $routeParams.slug).get().then(function(project) {
-    $scope.project = project;
-  });
-
-  storiesRepository.getList({project_id: $routeParams.slug}).then(function(stories) {
-    $scope.stories = stories;
-  });
+angular.module("OpenHq").controller("ProjectController", function($scope, $routeParams, Restangular, ProjectsRepository, StoriesRepository) {
+  $scope.project = ProjectsRepository.find($routeParams.slug).$object;
+  $scope.stories = StoriesRepository.all({project_id: $routeParams.slug}).$object;
 });

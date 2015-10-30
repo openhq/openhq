@@ -1,9 +1,9 @@
-angular.module("OpenHq").controller("ProjectsController", function($scope, projectsRepository) {
+angular.module("OpenHq").controller("ProjectsController", function($scope, ProjectsRepository) {
   $scope.newProject = {};
-  $scope.projects = projectsRepository.getList().$object;
+  $scope.projects = ProjectsRepository.all().$object;
 
   $scope.createProject = function(newProject) {
-    projectsRepository.post({project: newProject}).then(function(project) {
+    ProjectsRepository.create(newProject).then(function(project) {
       $scope.projects.push(project);
     });
   };
