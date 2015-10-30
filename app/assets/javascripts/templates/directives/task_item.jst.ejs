@@ -1,15 +1,15 @@
 <div class="default-form">
-  <form novalidate="novalidate" id="edit_task_{{ task.id }}" action="{{ task.url }}" method="post" ng-dblclick="startEditing($event)" ng-hide="editing">
+  <form novalidate="novalidate" id="edit_task_{{ task.id }}" action="{{ task.url }}" method="post" ng-dblclick="startEditing()" ng-hide="editing">
     <input type="checkbox" ng-model="task.completed">
     <p class="label">{{ task.label }}</p>
 
-    <span ng-hide="assignment_name === 'unassigned'" class="assignment">{{ task.assignment_name }}</span>
-    <span ng-hide="due_at_pretty === ''" class="due_at">{{ task.due_at_pretty }}</span>
+    <span ng-hide="task.assignment_name === 'unassigned'" class="assignment">{{ task.assignment_name }}</span>
+    <span ng-hide="task.due_at_pretty === null" class="due_at">{{ task.due_at_pretty }}</span>
   </form>
 </div>
 
 <div class="edit-form">
-  <form novalidate="novalidate" ng-submit="updateTask($event)" ng-show="editing">
+  <form novalidate="novalidate" ng-submit="updateTask()" ng-show="editing">
     <div class="input string required task_label">
       <input autocomplete="off" class="string required task_label" type="text" ng-model="editTask.label">
     </div>
@@ -26,7 +26,7 @@
     <hr>
 
     <input type="submit" name="commit" value="Update" class="btn btn-main btn-small">
-    <a class="btn btn-danger btn-small" href="#" ng-click="deleteTask($event)">Delete</a>
-    <a class="cancel" href="#" ng-click="stopEditing($event)">Cancel</a>
+    <a class="btn btn-danger btn-small" href="#" ng-click="deleteTask()">Delete</a>
+    <a class="cancel" href="#" ng-click="stopEditing()">Cancel</a>
   </form>
 </div>
