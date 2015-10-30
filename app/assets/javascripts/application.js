@@ -24,7 +24,7 @@
 //= require_tree ./controllers
 
 angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'rails', 'ngSanitize'])
-.config(function($routeProvider, $locationProvider) {
+.config(function($routeProvider, $locationProvider, railsSerializerProvider) {
   $routeProvider
   .when('/', {
     template: JST['templates/projects/index'],
@@ -40,5 +40,8 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'rails', 'ngSanitize'])
 
   // configure html5 to get links working on jsfiddle
   $locationProvider.html5Mode(true);
+
+  // Don’t convert attributes to camel case
+  railsSerializerProvider.underscore(angular.identity).camelize(angular.identity);
 
 });
