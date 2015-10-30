@@ -1,6 +1,6 @@
 <div class="default-form">
   <form novalidate="novalidate" id="edit_task_{{ task.id }}" action="{{ task.url }}" method="post" ng-dblclick="startEditing($event)" ng-hide="editing">
-    <input type="checkbox" {{ task.completed ? "checked=\"\"" : "" }}>
+    <input type="checkbox" ng-model="task.completed">
     <p class="label">{{ task.label }}</p>
 
     <span ng-hide="assignment_name === 'unassigned'" class="assignment">{{ task.assignment_name }}</span>

@@ -13,11 +13,11 @@ angular.module("OpenHq").directive("taskItem", function(Task) {
 
       $scope.startEditing = function($event) {
         $scope.editing = true;
-      }
+      };
 
       $scope.stopEditing = function($event) {
         $scope.editing = false;
-      }
+      };
 
       $scope.updateTask = function($event) {
         $scope.editTask.due_at = $scope.editTask.due_at_pretty;
@@ -28,7 +28,7 @@ angular.module("OpenHq").directive("taskItem", function(Task) {
         }, function(errors) {
           console.error(errors);
         });
-      }
+      };
 
       $scope.deleteTask = function($event) {
         var $list_item = $($event.currentTarget).closest('li'),
@@ -39,7 +39,13 @@ angular.module("OpenHq").directive("taskItem", function(Task) {
         new Task($scope.task).delete().then(function(){
           $list_item.remove();
         });
-      }
+      };
+
+      $scope.$watch("task.completed", function(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          $scope.task.update();
+        }
+      });
     }
   };
 });
