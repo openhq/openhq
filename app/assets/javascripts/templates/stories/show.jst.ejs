@@ -47,9 +47,9 @@
         <header class="plain">
           <user-avatar user="currentUser"></user-avatar> Reply to this topic
         </header>
-        <form class="pure-form pure-form-stacked">
+        <form class="pure-form pure-form-stacked" ng-submit="createComment(newComment)">
           <div class="text-box">
-            <textarea class="atwho" placeholder="Type your message"></textarea>
+            <textarea class="atwho" ng-model="newComment.content" placeholder="Type your message"></textarea>
             <span class="note">
               <a href="https://daringfireball.net/projects/markdown/basics" target="_blank" title="Learn the basics of Markdown">Markdown</a> &amp; <a href="http://www.emoji-cheat-sheet.com/" target="_blank" title="Emoji cheat sheet">Emoji</a> support <i class="icon-help"></i>
             </span>
