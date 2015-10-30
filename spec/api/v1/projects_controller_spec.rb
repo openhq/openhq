@@ -23,6 +23,11 @@ RSpec.describe "Projects API", type: :api do
         expect(last_response.status).to eq(200)
         expect(response_json[:projects].first[:name]).to eq(project.name)
       end
+
+      it "includes recent_stories" do
+        get "/api/v1/projects", {}, api_token_header(user)
+        expect(response_json[:projects].first[:recent_stories]).to be_a(Array)
+      end
     end
   end
 
