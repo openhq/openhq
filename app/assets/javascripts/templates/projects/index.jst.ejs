@@ -37,8 +37,8 @@
 
           <label class="check_boxes optional">Invite team members</label>
           <span class="checkbox" ng-repeat="user in teamUsers" ng-hide="currentUser.id === user.id">
-            <label for="project_user_ids_2">
-              <input type="checkbox" ng-model="newProjectUsers[user.id]">
+            <label for="project_user_ids_{{ user.id }}">
+              <input type="checkbox" ng-model="newProjectUsers[user.id]" id="project_user_ids_{{ user.id }}">
               {{ user.display_name }}
             </label>
           </span>
