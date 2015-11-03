@@ -16,9 +16,12 @@
 //# require jquery.atwho
 //# require imagesloaded.pkgd.min
 //# require mousetrap.min
+//= require moment
+//= require moment-timezone
 //= require message-bus
 //= require_tree ./templates
 //= require_self
+//= require_tree ./filters
 //= require_tree ./directives
 //= require_tree ./services
 //= require_tree ./controllers
