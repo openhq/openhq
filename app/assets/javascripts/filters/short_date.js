@@ -8,7 +8,6 @@ angular.module("OpenHq").filter("shortDate", function() {
    */
   return function(datetime) {
     var time = moment.parseZone(datetime);
-    console.log("shortDate", time);
 
     return time.calendar(null, {
         sameDay: '[Today]',
