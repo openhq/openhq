@@ -84,4 +84,12 @@ RSpec.describe "Stories API", type: :api do
       expect(last_response.body).to be_blank
     end
   end
+
+  describe "GET /api/v1/stories/:id/collaborators" do
+    it "fetches the collaborators" do
+      get "/api/v1/stories/#{story.id}/collaborators", {}, api_token_header(user)
+      expect(last_response.status).to eq(200)
+      expect(response_json[:users].first[:id]).to eq(user.id)
+    end
+  end
 end

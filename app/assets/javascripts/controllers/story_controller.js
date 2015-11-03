@@ -1,24 +1,17 @@
-angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, Task, Story, CurrentUser, Comment) {
+angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, Task, StoriesRepository, Story, CurrentUser, Comment) {
   CurrentUser.get(function(user) {
     $scope.currentUser = user;
   });
 
-  Story.get($routeParams.slug).then(function(story) {
+  StoriesRepository.find($routeParams.slug).then(function(story) {
     $scope.newComment = new Comment({story_id: story.id });
     $scope.newTask = new Task({story_id: story.id, assigned_to: 0 });
-
-    // Wrap all tasks in models
-    story.tasks = story.tasks.map(function(taskData) {
-      return new Task(taskData);
-    });
-
-    // Wrap all comments in models
-    story.comments = story.comments.map(function(commentData) {
-      return new Comment(commentData);
-    });
-
     $scope.story = story;
-  })
+  });
+
+  StoriesRepository.collaborators($routeParams.slug).then(function(collaborators) {
+    $scope.collaborators = collaborators;
+  });
 
   $scope.createComment = function(newComment) {
     newComment.create().then(function(resp) {

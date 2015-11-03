@@ -110,10 +110,17 @@
         </li>
       </ul>
 
-      <h4>0 Contributors</h4>
+
+      <h4>
+        <ng-pluralize count="collaborators.length"
+                 when="{'0': 'No Contributors',
+                      'one': '1 Contributor',
+                      'other': '{} Contributors'}">
+        </ng-pluralize>
+      </h4>
 
       <div class="members">
-        collaborator avatars
+        <user-avatar user="user" ng-repeat="user in collaborators"></user-avatar>
       </div>
 
       <div class="overall-task-progress">
