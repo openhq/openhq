@@ -1,8 +1,12 @@
-angular.module("OpenHq").controller("ProjectsController", function($scope, UsersRepository, Project, projects) {
+angular.module("OpenHq").controller("ProjectsController", function($scope, UsersRepository, Project, CurrentUser, projects) {
   $scope.newProject = new Project();
   $scope.newProjectUsers = {};
   $scope.projects = projects;
   $scope.teamUsers = UsersRepository.all();
+
+  CurrentUser.get(function(user) {
+    $scope.currentUser = user;
+  });
 
   $scope.createProject = function(newProject, newProjectUsers) {
     var selectedUsers = [];

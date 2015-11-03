@@ -34,16 +34,15 @@
         <section class="info">
           <label for="project_name">Project Name</label>
           <input type="text" name="name" id="project_name" ng-model="newProject.name">
-        </section>
 
-        <ul>
-          <li ng-repeat="user in teamUsers">
-            <label>
+          <label class="check_boxes optional">Invite team members</label>
+          <span class="checkbox" ng-repeat="user in teamUsers" ng-hide="currentUser.id === user.id">
+            <label for="project_user_ids_2">
               <input type="checkbox" ng-model="newProjectUsers[user.id]">
               {{ user.display_name }}
             </label>
-          </li>
-        </ul>
+          </span>
+        </section>
 
         <footer>
           <button class="btn btn-main">Create Project</button>
