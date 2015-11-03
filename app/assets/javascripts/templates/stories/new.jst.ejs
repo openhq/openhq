@@ -14,12 +14,7 @@
           </header>
           <section class="body edit-mode">
             <div class="content-input">
-              <div class="text-box">
-                <textarea class="atwho" ng-model="story.description" placeholder="Type your message"></textarea>
-                <span class="note">
-                  <a href="https://daringfireball.net/projects/markdown/basics" target="_blank" title="Learn the basics of Markdown">Markdown</a> &amp; <a href="http://www.emoji-cheat-sheet.com/" target="_blank" title="Emoji cheat sheet">Emoji</a> support <i class="icon-help"></i>
-                </span>
-              </div>
+              <markdown-input content="story.description" filler="'Type your message'"></markdown-input>
 
               <footer>
                 <button class="btn btn-main" tabindex="3">Post</button>
