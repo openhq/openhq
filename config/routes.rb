@@ -99,6 +99,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :auth, only: [:create]
       resource :user, except: [:new, :edit], controller: :user
+      resources :users, only: :index
       resources :team_invites, only: [:create, :update]
       resources :projects, except: [:new, :edit]
       resources :stories, except: [:new, :edit] do

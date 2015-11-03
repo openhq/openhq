@@ -30,10 +30,18 @@
   <div class="pure-u-1 pure-u-md-1-2">
     <div class="info-box project-box">
 
-      <form class="pure-form pure-form-stacked" ng-submit="createProject(newProject)">
+      <form class="pure-form pure-form-stacked" ng-submit="createProject(newProject, newProjectUsers)">
         <section class="info">
           <label for="project_name">Project Name</label>
           <input type="text" name="name" id="project_name" ng-model="newProject.name">
+
+          <label class="check_boxes optional">Invite team members</label>
+          <span class="checkbox" ng-repeat="user in teamUsers" ng-hide="currentUser.id === user.id">
+            <label for="project_user_ids_{{ user.id }}">
+              <input type="checkbox" ng-model="newProjectUsers[user.id]" id="project_user_ids_{{ user.id }}">
+              {{ user.display_name }}
+            </label>
+          </span>
         </section>
 
         <footer>

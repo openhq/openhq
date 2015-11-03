@@ -32,7 +32,7 @@ module Api
         if project.save
           notify(project, 'created')
 
-          project.users << current_user
+          project.users << current_user unless project.users.exists?(current_user.id)
           render json: project, status: 201
         else
           render_errors(project)
