@@ -16,9 +16,12 @@
 //# require jquery.atwho
 //# require imagesloaded.pkgd.min
 //# require mousetrap.min
+//= require moment
+//= require moment-timezone
 //= require message-bus
 //= require_tree ./templates
 //= require_self
+//= require_tree ./filters
 //= require_tree ./directives
 //= require_tree ./services
 //= require_tree ./controllers
@@ -28,11 +31,20 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'rails', 'ngSanitize'])
   $routeProvider
   .when('/', {
     template: JST['templates/projects/index'],
-    controller: 'ProjectsController'
+    controller: 'ProjectsController',
+    resolve: {
+      projects: function(Project) {
+        return Project.query();
+      }
+    }
   })
   .when('/projects/:slug', {
     template: JST['templates/projects/show'],
     controller: 'ProjectController'
+  })
+  .when('/projects/:slug/stories/new', {
+    template: JST['templates/stories/new'],
+    controller: 'NewStoryController'
   })
   .when('/stories/:slug', {
     template: JST['templates/stories/show'],
