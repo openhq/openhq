@@ -26,6 +26,12 @@ module Api
         render json: story
       end
 
+      api! "Get the stories collaborators"
+      def collaborators
+        story = Story.includes(:owner, comments: [:owner]).friendly.find(params[:id])
+        render json: story.collaborators
+      end
+
       api! "Create a new story"
       param :project_id, String, desc: "Project ID or slug", required: true
       param_group :story

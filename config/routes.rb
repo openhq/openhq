@@ -101,7 +101,9 @@ Rails.application.routes.draw do
       resource :user, except: [:new, :edit], controller: :user
       resources :team_invites, only: [:create, :update]
       resources :projects, except: [:new, :edit]
-      resources :stories, except: [:new, :edit]
+      resources :stories, except: [:new, :edit] do
+        get "collaborators", on: :member
+      end
       resources :comments, except: [:new, :edit]
       resources :tasks, except: [:new, :edit] do
         put "order", on: :collection, to: "tasks#update_order"
