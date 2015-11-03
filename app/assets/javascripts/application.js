@@ -28,7 +28,12 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'rails', 'ngSanitize'])
   $routeProvider
   .when('/', {
     template: JST['templates/projects/index'],
-    controller: 'ProjectsController'
+    controller: 'ProjectsController',
+    resolve: {
+      projects: function(Project) {
+        return Project.query();
+      }
+    }
   })
   .when('/projects/:slug', {
     template: JST['templates/projects/show'],
