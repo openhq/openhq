@@ -28,10 +28,10 @@ RSpec.describe "Stories API", type: :api do
     context "when input is valid" do
       it "creates a story" do
         story_params = {
-          project_id: project.id,
           story: {
             name: "Hiyas",
-            description: "What about ye"
+            description: "What about ye",
+            project_id: project.id
           }
         }
 
@@ -44,9 +44,9 @@ RSpec.describe "Stories API", type: :api do
     context "when input is invalid" do
       it "returns errors" do
         story_params = {
-          project_id: project.id,
           story: {
-            description: "What about ye"
+            description: "What about ye",
+            project_id: project.id
           }
         }
 
