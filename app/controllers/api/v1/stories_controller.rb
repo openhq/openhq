@@ -33,7 +33,7 @@ module Api
       end
 
       api! "Create a new story"
-      param :"stpry[project_id]", String, desc: "Project ID or slug", required: true
+      param :"story[project_id]", String, desc: "Project ID or slug", required: true
       param_group :story
       def create
         project = Project.friendly.find(params[:story][:project_id])
