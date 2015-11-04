@@ -1,0 +1,40 @@
+.upload-progress {
+  display: inline-block;
+  width: 33%;
+  border: solid 1px $line-color;
+  margin: 20px;
+  border-radius: 3px;
+  padding: 20px;
+  position: relative;
+
+  .preview {
+    display: block;
+    width: 100%;
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .progress {
+    border-radius: 3px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: $line-color-light;
+
+    &.complete {
+      .bar {display: none;}
+      background-color: #70C76F;
+    }
+  }
+
+  .bar {
+    display: block;
+    height: 5px;
+    width: 0;
+    background: $primary-color;
+  }
+}

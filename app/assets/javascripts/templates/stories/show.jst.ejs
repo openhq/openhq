@@ -84,6 +84,11 @@
           </footer>
         </form>
       </div>
+
+      <div ng-show="fileUploads.length">
+        <upload-progress class="upload-progress" ng-repeat="upload in fileUploads" file="upload">
+        </upload-progress>
+      </div>
     </div>
 
   </div>

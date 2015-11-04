@@ -1,0 +1,7 @@
+<span class="preview" style="background-image: url('{{ file.$ngfDataUrl }}');" ng-show="file.$ngfDataUrl"></span>
+
+<span>{{ file.name }}</span>
+
+<span class="progress" ng-class="{'complete': file.uploadComplete}">
+  <span class="bar" style="width: {{ file.uploadProgress }}%;"></span>
+</span>

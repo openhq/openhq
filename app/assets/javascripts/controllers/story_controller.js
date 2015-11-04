@@ -1,4 +1,5 @@
 angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, Task, AttachmentsRepository, StoriesRepository, Story, CurrentUser, Comment, Upload) {
+  $scope.fileUploads = [];
   CurrentUser.get(function(user) {
     $scope.currentUser = user;
   });
@@ -40,27 +41,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
         AttachmentsRepository.presignedUrl(file).then(function(awsData) {
           console.log("Upload start", awsData.upload_url, file.name, file.type);
 
-          // $http({
-          //   url: awsData.upload_url,
-          //   method: "PUT",
-          //   data: file,
-          //   headers: {
-          //     'Content-Type': file.type
-          //   }
-          // }).then(function(resp) {
-          //   console.log("Upload success", resp);
-
-          //   var attachmentData = {
-          //     file_name: file.name,
-          //     file_size: file.size,
-          //     content_type: file.type,
-          //     file_path: awsData.file_path,
-          //   };
-
-          //   console.log("attachmentData", attachmentData);
-          // }, function(err) {
-          //   console.error("Upload failed", err, arguments);
-          // });
+          $scope.fileUploads.push(file);
 
           Upload.http({
               url: awsData.upload_url,
@@ -70,12 +51,12 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
                 'Content-Type': file.type
               }
           }).progress(function (evt) {
-            console.log("Upload progress", evt);
-              // var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-              // $scope.log = 'progress: ' + progressPercentage + '% ' +
-              //             evt.config.data.file.name + '\n' + $scope.log;
+              var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+              file.uploadProgress = progressPercentage;
           }).success(function (data, status, headers, config) {
             console.log("Upload success", arguments);
+
+            file.uploadComplete = true;
 
             var attachmentData = {
               file_name: file.name,
