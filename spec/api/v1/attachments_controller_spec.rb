@@ -23,7 +23,7 @@ RSpec.describe "Attachments API", type: :api do
         file_type: "image/jpeg"
         }, api_token_header(user)
       expect(last_response.status).to eq(201)
-      expect(response_json[:url]).not_to be_empty
+      expect(response_json[:upload_url]).not_to be_empty
     end
   end
 
