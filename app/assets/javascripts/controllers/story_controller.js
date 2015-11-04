@@ -1,11 +1,12 @@
 angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, Task, StoriesRepository, Story, AttachmentsRepository, Attachment, CurrentUser, Comment, Upload) {
   $scope.fileUploads = [];
+
   CurrentUser.get(function(user) {
     $scope.currentUser = user;
   });
 
   StoriesRepository.find($routeParams.slug).then(function(story) {
-    $scope.newComment = new Comment({story_id: story.id });
+    $scope.newComment = new Comment({story_id: story.id, attachment_ids: "" });
     $scope.newTask = new Task({story_id: story.id, assigned_to: 0 });
     $scope.story = story;
   });
@@ -16,8 +17,9 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
 
   $scope.createComment = function(newComment) {
     newComment.create().then(function(resp) {
-      console.log("comment created", resp);
       $scope.story.comments.push(resp);
+      $scope.fileUploads = [];
+      $scope.newComment = new Comment({story_id: $scope.story.id, attachment_ids: "" });
     });
   };
 
@@ -69,6 +71,8 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
             attachment.create().then(function(attachment) {
               console.log("Actually created", attachment);
               $scope.story.attachments.push(attachment);
+
+              $scope.newComment.attachment_ids += attachment.id + ",";
             });
           }); // upload
 

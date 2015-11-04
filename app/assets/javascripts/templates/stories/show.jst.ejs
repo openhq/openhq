@@ -79,7 +79,33 @@
 
           {{ comment.owner.display_name }} added <human-time datetime="comment.created_at"></human-time>
         </header>
-        <section class="body comment" ng-bind-html="comment.markdown">
+        <section class="body comment">
+
+          <div ng-bind-html="comment.markdown"></div>
+
+          <div ng-show="comment.attachments.length">
+            <h5>Added
+              <ng-pluralize count="comment.attachments.length"
+                 when="{'0': 'no attachments',
+                      'one': 'an attachment',
+                      'other': '{} attachments'}">
+              </ng-pluralize>
+            </h5>
+            <ul class="comment-files-list">
+              <li ng-repeat="attachment in comment.attachments">
+                <div class="attachment-preview">
+                  <a href="{{ attachment.url }}" target="_blank" title="{{ attachment.file_name }}">
+                    <div class="image-preview">
+                      <img src="{{ attachment.preview_url }}">
+                    </div>
+                    <span class="file-name">{{ attachment.file_name | limitTo : 20 }}</span>
+                    <span class="file-size">{{ attachment.human_file_size }}</span>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
         </section>
       </article>
       <div class="add-comment content-input">
