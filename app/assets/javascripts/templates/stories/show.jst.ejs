@@ -62,7 +62,7 @@
                 <div class="file-preview">
                   <img src="{{ attachment.preview_url }}" alt="{{ attachment.file_name }}" width="59">
                 </div>
-                <span class="file-name">{{ attachment.file_name }}</span>
+                <span class="file-name">{{ attachment.file_name | limitTo : 20 }}</span>
                 <span class="file-size">{{ attachment.human_file_size }}</span>
               </a>
             </div>
