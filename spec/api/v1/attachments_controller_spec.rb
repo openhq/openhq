@@ -18,7 +18,10 @@ RSpec.describe "Attachments API", type: :api do
 
   describe "GET /api/v1/attachments/presigned_upload_url" do
     it "returns a presigned s3 url to upload to" do
-      get "/api/v1/attachments/presigned_upload_url", {}, api_token_header(user)
+      get "/api/v1/attachments/presigned_upload_url", {
+        file_name: "boss.jpg",
+        file_type: "image/jpeg"
+        }, api_token_header(user)
       expect(last_response.status).to eq(201)
       expect(response_json[:url]).not_to be_empty
     end

@@ -6,6 +6,7 @@
 //= require angularjs/rails/resource
 //= require angular/angular-animate
 //= require angular/angular-sanitize
+//= require angular/ng-file-upload
 //= require jquery.timeago
 //# require jquery-ui
 //# require chosen.jquery
@@ -26,7 +27,7 @@
 //= require_tree ./services
 //= require_tree ./controllers
 
-angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'rails', 'ngSanitize'])
+angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFileUpload'])
 .config(function($routeProvider, $locationProvider, railsSerializerProvider) {
   $routeProvider
   .when('/', {
@@ -37,6 +38,10 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'rails', 'ngSanitize'])
         return Project.query();
       }
     }
+  })
+  .when('/projects/:slug/manage', {
+    template: JST['templates/projects/manage'],
+    controller: 'ManageProjectController'
   })
   .when('/projects/:slug', {
     template: JST['templates/projects/show'],

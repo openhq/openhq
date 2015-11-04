@@ -71,13 +71,20 @@ module Api
 
       api! "Get a presigned S3 URL to upload your file to"
       def presigned_upload_url
-        new_file_name = "attachment_#{SecureRandom.uuid}"
+        new_file_name = "#{SecureRandom.uuid}/#{params[:file_name]}"
 
         s3 = AWS::S3.new
         obj = s3.buckets[ENV['AWS_S3_BUCKET']].objects["attachments/#{new_file_name}"]
-        url = obj.url_for(:write, content_type: "text/plain")
+        # TODO validate file type is allowed
+        upload_url = obj.url_for(:put, expires: 3600, content_type: params[:file_type])
 
-        render json: {url: url.to_s}, status: 201
+        resp = {
+          file_path: obj.key,
+          public_url: obj.public_url.to_s,
+          upload_url: upload_url.to_s
+        }
+
+        render json: resp, status: 201
       end
 
       private
