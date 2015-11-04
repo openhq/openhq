@@ -39,8 +39,8 @@ RSpec.describe "Attachments API", type: :api do
     context "when input is valid" do
       it "creates an attachment" do
         attachment_params = {
-          story_id: story.slug,
           attachment: {
+            story_id: story.slug,
             name: "Map",
             file_name: "map.jpg",
             file_path: "uploads/images/map.jpg",
@@ -58,8 +58,8 @@ RSpec.describe "Attachments API", type: :api do
     context "when input is invalid" do
       it "returns errors" do
         attachment_params = {
-          story_id: story.slug,
           attachment: {
+            story_id: story.slug,
             name: "",
             file_name: "",
             file_path: ""

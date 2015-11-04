@@ -1,4 +1,4 @@
-angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, Task, AttachmentsRepository, StoriesRepository, Story, CurrentUser, Comment, Upload) {
+angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, Task, StoriesRepository, Story, AttachmentsRepository, Attachment, CurrentUser, Comment, Upload) {
   $scope.fileUploads = [];
   CurrentUser.get(function(user) {
     $scope.currentUser = user;
@@ -58,17 +58,18 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
 
             file.uploadComplete = true;
 
-            var attachmentData = {
+            var attachment = new Attachment({
+              story_id: $scope.story.id,
               file_name: file.name,
               file_size: file.size,
               content_type: file.type,
               file_path: awsData.file_path,
-            };
+            });
 
-            console.log("attachmentData", attachmentData);
-            // $timeout(function() {
-            //     $scope.log = 'file: ' + config.data.file.name + ', Response: ' + JSON.stringify(data) + '\n' + $scope.log;
-            // });
+            attachment.create().then(function(attachment) {
+              console.log("Actually created", attachment);
+              $scope.story.attachments.push(attachment);
+            });
           }); // upload
 
         }); // presignedUrl

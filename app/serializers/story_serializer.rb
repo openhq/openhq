@@ -6,6 +6,7 @@ class StorySerializer < ActiveModel::Serializer
   has_one :project
   has_many :comments, each_serializer: CommentSerializer
   has_many :tasks
+  has_many :attachments
 
   delegate :users_select_array, to: :project
 

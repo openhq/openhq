@@ -53,7 +53,21 @@
       </div>
 
       <div class="attachments">
-        <p>No attachments</p>
+        <p ng-hide="story.attachments.length">No attachments</p>
+
+        <ul class="file-list" ng-show="story.attachments.length">
+          <li ng-repeat="attachment in story.attachments">
+            <div class="attachment-file">
+              <a href="#" target="_blank" title="{{ attachment.file_name }}">
+                <div class="file-preview">
+                  <img src="{{ attachment.preview_url }}" alt="{{ attachment.file_name }}" width="59">
+                </div>
+                <span class="file-name">{{ attachment.file_name }}</span>
+                <span class="file-size">{{ attachment.human_file_size }}</span>
+              </a>
+            </div>
+          </li>
+        </ul>
       </div>
       <article ng-repeat="comment in story.comments" class="comment-row">
         <header>

@@ -4,7 +4,7 @@ require 'securerandom'
 module Api
   module V1
     class AttachmentsController < BaseController
-      before_action :set_story, only: [:index, :create]
+      before_action :set_story, only: [:index]
 
       resource_description do
         short "Uploading and attaching files"
@@ -35,12 +35,13 @@ module Api
       end
 
       api! "Create an attachment"
-      param :story_id, String, desc: "Story ID or slug", required: true
+      param :"attachment[story_id]", String, desc: "Story ID or slug", required: true
       param_group :attachment
       def create
+        story = Story.friendly.find(params[:attachment][:story_id])
         attachment = Attachment.new(attachment_params.merge(
           owner: current_user,
-          story: @story
+          story: story
         ))
 
         if attachment.save
