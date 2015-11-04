@@ -1,4 +1,4 @@
-angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, Task, StoriesRepository, Story, AttachmentsRepository, Attachment, CurrentUser, Comment, Upload) {
+angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, Task, StoriesRepository, Story, AttachmentsRepository, Attachment, CurrentUser, Comment, Upload) {
   $scope.fileUploads = [];
 
   CurrentUser.get(function(user) {
@@ -14,6 +14,13 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
   StoriesRepository.collaborators($routeParams.slug).then(function(collaborators) {
     $scope.collaborators = collaborators;
   });
+
+  $scope.taskCompletionPercentage = function() {
+    if (! $scope.story) return 0; // Story not loaded yet
+
+    var percent = $filter('completedTasks')($scope.story.tasks).length / $scope.story.tasks.length * 100;
+    return Math.round(percent);
+  };
 
   $scope.createComment = function(newComment) {
     newComment.create().then(function(resp) {
@@ -35,8 +42,6 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
       console.error("No files found");
       return;
     }
-
-    console.log("Uploading files...", $files);
 
     _.each($files, function(file) {
       if (!file.$error) {
