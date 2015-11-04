@@ -3,7 +3,7 @@ require 's3_url_signer'
 class AttachmentSerializer < ActiveModel::Serializer
   include ActionView::Helpers::NumberHelper
 
-  attributes :id, :name, :attachable_type, :attachable_id, :preview_url, :story_id, :owner_id, :file_name, :file_path, :file_size, :human_file_size, :content_type, :process_data, :process_attempts, :processed_at, :created_at, :updated_at
+  attributes :id, :name, :attachable_type, :attachable_id, :url, :preview_url, :story_id, :owner_id, :file_name, :file_path, :file_size, :human_file_size, :content_type, :process_data, :process_attempts, :processed_at, :created_at, :updated_at
   has_one :owner
 
   def human_file_size
