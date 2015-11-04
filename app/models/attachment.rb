@@ -58,6 +58,19 @@ class Attachment < ActiveRecord::Base
     story.present? && story.live?
   end
 
+  def icon_name
+    case extension
+    when "css", "html", "js", "doc", "mkv", "mp3", "pdf", "png", "jpg", "gif", "psd", "rar", "zip", "txt"
+      extension
+    when "docx"
+      "doc"
+    when "jpeg"
+      "jpg"
+    else
+      "generic"
+    end
+  end
+
   private
 
   def process_upload

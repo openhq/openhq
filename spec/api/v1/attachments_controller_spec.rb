@@ -18,9 +18,12 @@ RSpec.describe "Attachments API", type: :api do
 
   describe "GET /api/v1/attachments/presigned_upload_url" do
     it "returns a presigned s3 url to upload to" do
-      get "/api/v1/attachments/presigned_upload_url", {}, api_token_header(user)
+      get "/api/v1/attachments/presigned_upload_url", {
+        file_name: "boss.jpg",
+        file_type: "image/jpeg"
+        }, api_token_header(user)
       expect(last_response.status).to eq(201)
-      expect(response_json[:url]).not_to be_empty
+      expect(response_json[:upload_url]).not_to be_empty
     end
   end
 
@@ -36,8 +39,8 @@ RSpec.describe "Attachments API", type: :api do
     context "when input is valid" do
       it "creates an attachment" do
         attachment_params = {
-          story_id: story.slug,
           attachment: {
+            story_id: story.slug,
             name: "Map",
             file_name: "map.jpg",
             file_path: "uploads/images/map.jpg",
@@ -55,8 +58,8 @@ RSpec.describe "Attachments API", type: :api do
     context "when input is invalid" do
       it "returns errors" do
         attachment_params = {
-          story_id: story.slug,
           attachment: {
+            story_id: story.slug,
             name: "",
             file_name: "",
             file_path: ""

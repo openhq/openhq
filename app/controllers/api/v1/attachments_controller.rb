@@ -4,7 +4,7 @@ require 'securerandom'
 module Api
   module V1
     class AttachmentsController < BaseController
-      before_action :set_story, only: [:index, :create]
+      before_action :set_story, only: [:index]
 
       resource_description do
         short "Uploading and attaching files"
@@ -35,12 +35,13 @@ module Api
       end
 
       api! "Create an attachment"
-      param :story_id, String, desc: "Story ID or slug", required: true
+      param :"attachment[story_id]", String, desc: "Story ID or slug", required: true
       param_group :attachment
       def create
+        story = Story.friendly.find(params[:attachment][:story_id])
         attachment = Attachment.new(attachment_params.merge(
           owner: current_user,
-          story: @story
+          story: story
         ))
 
         if attachment.save
@@ -71,13 +72,20 @@ module Api
 
       api! "Get a presigned S3 URL to upload your file to"
       def presigned_upload_url
-        new_file_name = "attachment_#{SecureRandom.uuid}"
+        new_file_name = "#{SecureRandom.uuid}/#{params[:file_name]}"
 
         s3 = AWS::S3.new
         obj = s3.buckets[ENV['AWS_S3_BUCKET']].objects["attachments/#{new_file_name}"]
-        url = obj.url_for(:write, content_type: "text/plain")
+        # TODO validate file type is allowed
+        upload_url = obj.url_for(:put, expires: 3600, content_type: params[:file_type])
 
-        render json: {url: url.to_s}, status: 201
+        resp = {
+          file_path: obj.key,
+          public_url: obj.public_url.to_s,
+          upload_url: upload_url.to_s
+        }
+
+        render json: resp, status: 201
       end
 
       private

@@ -38,6 +38,7 @@ module Api
 
         if comment.save
           attachment_ids = String(comment_params[:attachment_ids]).split(',')
+
           if attachment_ids.any?
             Attachment.where("id IN (?)", attachment_ids).each { |a| a.attach_to(comment) }
           end

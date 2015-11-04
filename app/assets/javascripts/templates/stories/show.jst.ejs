@@ -53,7 +53,21 @@
       </div>
 
       <div class="attachments">
-        <p>No attachments</p>
+        <p ng-hide="story.attachments.length">No attachments</p>
+
+        <ul class="file-list" ng-show="story.attachments.length">
+          <li ng-repeat="attachment in story.attachments">
+            <div class="attachment-file">
+              <a href="{{ attachment.url }}" target="_blank" title="{{ attachment.file_name }}">
+                <div class="file-preview">
+                  <img src="{{ attachment.preview_url }}" alt="{{ attachment.file_name }}" width="59">
+                </div>
+                <span class="file-name">{{ attachment.file_name | limitTo : 20 }}</span>
+                <span class="file-size">{{ attachment.human_file_size }}</span>
+              </a>
+            </div>
+          </li>
+        </ul>
       </div>
       <article ng-repeat="comment in story.comments" class="comment-row">
         <header>
@@ -65,7 +79,33 @@
 
           {{ comment.owner.display_name }} added <human-time datetime="comment.created_at"></human-time>
         </header>
-        <section class="body comment" ng-bind-html="comment.markdown">
+        <section class="body comment">
+
+          <div ng-bind-html="comment.markdown"></div>
+
+          <div ng-show="comment.attachments.length">
+            <h5>Added
+              <ng-pluralize count="comment.attachments.length"
+                 when="{'0': 'no attachments',
+                      'one': 'an attachment',
+                      'other': '{} attachments'}">
+              </ng-pluralize>
+            </h5>
+            <ul class="comment-files-list">
+              <li ng-repeat="attachment in comment.attachments">
+                <div class="attachment-preview">
+                  <a href="{{ attachment.url }}" target="_blank" title="{{ attachment.file_name }}">
+                    <div class="image-preview">
+                      <img src="{{ attachment.preview_url }}">
+                    </div>
+                    <span class="file-name">{{ attachment.file_name | limitTo : 20 }}</span>
+                    <span class="file-size">{{ attachment.human_file_size }}</span>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
         </section>
       </article>
       <div class="add-comment content-input">
@@ -76,13 +116,18 @@
           <markdown-input content="newComment.content" filler="'Type your message'"></markdown-input>
 
           <footer>
-            <button class="btn btn-secondary btn-with-icon attach-files">
+            <button class="btn btn-secondary btn-with-icon attach-files" ngf-select="upload($files)" ngf-multiple="true">
               <span class="icon icon-disk"></span>
               Attach files
             </button>
             <button class="btn btn-main">Reply</button>
           </footer>
         </form>
+      </div>
+
+      <div ng-show="fileUploads.length">
+        <upload-progress class="upload-progress" ng-repeat="upload in fileUploads" file="upload">
+        </upload-progress>
       </div>
     </div>
 
