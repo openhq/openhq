@@ -25,7 +25,7 @@
           <h4>No Tasks</h4>
         </div>
         <div ng-show="story.tasks.length > 0" class="tasks-list-container">
-          <h4>{{ story.tasks.length }} Incomplete Tasks</h4>
+          <h4>{{ story.tasks | incompleteTasks | countArray }} Incomplete Tasks</h4>
           <ul class="sortable">
             <li ng-repeat="task in story.tasks">
               <task-item task="task" users="story.users_select_array"></task-item>
@@ -166,7 +166,9 @@
       <div class="overall-task-progress">
         <h4>Task progress</h4>
         <div class="progress-bar">
-          <span class="completion"></span>
+          <span class="completion" style="width: {{ taskCompletionPercentage() }}%;">
+            {{ taskCompletionPercentage() }}%
+          </span>
         </div>
       </div>
 
