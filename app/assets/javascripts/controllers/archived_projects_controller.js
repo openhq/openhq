@@ -1,4 +1,4 @@
-angular.module("OpenHq").controller("ArchivedProjectsController", function($scope, $routeParams, $location, Project, ProjectsRepository) {
+angular.module("OpenHq").controller("ArchivedProjectsController", function($scope, $location, Project, ProjectsRepository) {
   Project.query({archived: true}).then(function(projects) {
     $scope.archived_projects = projects;
   });
