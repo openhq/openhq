@@ -4,6 +4,10 @@ angular.module("OpenHq").controller("ProjectsController", function($scope, Users
   $scope.projects = projects;
   $scope.teamUsers = UsersRepository.all();
 
+  Project.query({archived: true}).then(function(resp){
+    $scope.archivedCount = resp.length;
+  });
+
   CurrentUser.get(function(user) {
     $scope.currentUser = user;
   });

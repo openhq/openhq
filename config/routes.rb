@@ -101,9 +101,12 @@ Rails.application.routes.draw do
       resource :user, except: [:new, :edit], controller: :user
       resources :users, only: :index
       resources :team_invites, only: [:create, :update]
-      resources :projects, except: [:new, :edit]
+      resources :projects, except: [:new, :edit] do
+        put "restore", on: :member
+      end
       resources :stories, except: [:new, :edit] do
         get "collaborators", on: :member
+        put "restore", on: :member
       end
       resources :comments, except: [:new, :edit]
       resources :tasks, except: [:new, :edit] do

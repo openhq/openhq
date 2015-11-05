@@ -1,7 +1,7 @@
 <div class="page-header">
   <ul class="actions h-list">
     <li>
-      <a href="#" class="btn btn-text">Manage Project</a>
+      <a href="/projects/{{ project.slug }}/manage" class="btn btn-text">Manage Project</a>
     </li>
     <li>
       <a href="/projects/{{ project.slug }}/stories/new" class="btn btn-main">New Story</a>
@@ -27,3 +27,10 @@
     </a>
   </li>
 </ul>
+
+<div ng-show="project.archived_count" class="center archive-link">
+  <a class="btn btn-secondary btn-with-icon" href="/projects/{{ project.slug }}/archived">
+    <span class="icon icon-archive"></span>
+    View archived stories ({{ project.archived_count }})
+  </a>
+</div>

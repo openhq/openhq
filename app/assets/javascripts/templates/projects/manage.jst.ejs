@@ -1,0 +1,15 @@
+<div class="page-header">
+  <h1>
+    Manage Project
+    <small><a href="/projects/{{ project.slug }}">{{ project.name }}</a></small>
+  </h1>
+</div>
+
+<ul class="plain-list actions-list">
+  <li>
+    <a class="icon-link link-large danger" href="#" ng-click="archiveProject()">
+      <span class="icon icon-trash"></span>
+      Archive this project
+    </a>
+  </li>
+</ul>

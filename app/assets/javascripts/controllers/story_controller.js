@@ -1,4 +1,4 @@
-angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, Task, StoriesRepository, Story, AttachmentsRepository, Attachment, CurrentUser, Comment, Upload) {
+angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, $location, Task, StoriesRepository, Story, AttachmentsRepository, Attachment, CurrentUser, Comment, Upload) {
   $scope.fileUploads = [];
 
   CurrentUser.get(function(user) {
@@ -34,6 +34,17 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     newTask.create().then(function(resp) {
       $scope.story.tasks.push(resp);
       $scope.newTask = new Task({story_id: $scope.story.id, assigned_to: 0});
+    });
+  };
+
+  $scope.archiveStory = function() {
+    // TODO: nice confirm popup thingies
+    var c = confirm("Are you sure you want to archive this story?");
+    if (!c) return;
+
+    $scope.story.delete().then(function(){
+      // TODO: add a notification
+      $location.url('/projects/'+$scope.story.project.slug);
     });
   };
 

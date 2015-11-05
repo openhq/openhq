@@ -28,6 +28,17 @@ RSpec.describe "Projects API", type: :api do
         get "/api/v1/projects", {}, api_token_header(user)
         expect(response_json[:projects].first[:recent_stories]).to be_a(Array)
       end
+
+      it "can return the archived projects" do
+        get "/api/v1/projects", {archived: true}, api_token_header(user)
+        expect(last_response.status).to eq(200)
+        expect(response_json[:projects]).to be_empty
+
+        project.destroy()
+        get "/api/v1/projects", {archived: true}, api_token_header(user)
+        expect(last_response.status).to eq(200)
+        expect(response_json[:projects].first[:name]).to eq(project.name)
+      end
     end
   end
 
@@ -100,6 +111,17 @@ RSpec.describe "Projects API", type: :api do
       expect(last_response.body).to be_empty
 
       expect { Project.find(project.id) }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
+
+  describe "PATCH /api/v1/projects/:id/restore" do
+    it "restores an archived project" do
+      project.destroy()
+      expect(project.reload.deleted_at).not_to be_nil
+
+      put "/api/v1/projects/#{project.id}/restore", {}, api_token_header(user)
+      expect(last_response.status).to eq(200)
+      expect(project.reload.deleted_at).to be_nil
     end
   end
 end
