@@ -13,8 +13,13 @@ module Api
       end
 
       api! "Fetch all projects"
+      param :archived, [true, false], desc: "Get the archived projects (default: false)", required: false
       def index
-        render json: current_user.projects.includes(:users, :recent_stories).all
+        if params[:archived]
+          render json: current_user.projects.only_deleted, each_serializer: ThinProjectSerializer
+        else
+          render json: current_user.projects.includes(:users, :recent_stories).all
+        end
       end
 
       api! "Fetch a single project"
