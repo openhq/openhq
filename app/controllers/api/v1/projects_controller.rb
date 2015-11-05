@@ -71,6 +71,14 @@ module Api
         render nothing: true, status: 204
       end
 
+      api! "Restores a project"
+      def restore
+        project = current_user.projects.only_deleted.friendly.find(params[:id])
+        project.restore
+
+        render json: project
+      end
+
       private
 
       def project_params

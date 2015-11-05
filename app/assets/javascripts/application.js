@@ -39,6 +39,10 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFile
       }
     }
   })
+  .when('/projects/archived', {
+    template: JST['templates/projects/archived'],
+    controller: 'ArchivedProjectsController'
+  })
   .when('/projects/:slug/manage', {
     template: JST['templates/projects/manage'],
     controller: 'ManageProjectController'
