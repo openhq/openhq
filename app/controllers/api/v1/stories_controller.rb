@@ -16,8 +16,15 @@ module Api
 
       api! "Fetch all stories"
       param :project_id, String, desc: "Project ID or slug", required: true
+      param :archived, [true, false], desc: "Get the archived stories (default: false)", required: false
       def index
-        render json: @project.stories.includes(:owner, :project, :comments, :tasks).recent
+        stories = @project.stories.includes(:owner, :project, :comments, :tasks)
+
+        if params[:archived]
+          render json: stories.only_deleted, each_serializer: ThinStorySerializer
+        else
+          render json: stories.recent
+        end
       end
 
       api! "Fetch a single story"

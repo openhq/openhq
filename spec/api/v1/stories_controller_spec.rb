@@ -13,6 +13,19 @@ RSpec.describe "Stories API", type: :api do
       expect(response_json[:stories].first[:name]).to eq(story.name)
     end
 
+    it "lists archived stories for the project" do
+      # None archived at first
+      get "/api/v1/stories", { project_id: project.id, archived: true }, api_token_header(user)
+      expect(last_response.status).to eq(200)
+      expect(response_json[:stories]).to be_empty
+
+      # Gets the archived story after deleting it
+      story.destroy()
+      get "/api/v1/stories", { project_id: project.id, archived: true }, api_token_header(user)
+      expect(last_response.status).to eq(200)
+      expect(response_json[:stories].first[:name]).to eq(story.name)
+    end
+
     it "paginates and filters"
   end
 
