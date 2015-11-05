@@ -1,0 +1,13 @@
+<div class="page-header">
+  <h1>
+    Archived Stories
+    <small><a href="/projects/{{ project.slug }}">{{ project.name }}</a></small>
+  </h1>
+</div>
+
+<ul class="ui-archived-list">
+  <li ng-repeat="story in archived_stories">
+    {{ story.name }}
+    <a class="btn btn-main" href="#" ng-click="restoreStory(story)">Restore</a>
+  </li>
+</ul>

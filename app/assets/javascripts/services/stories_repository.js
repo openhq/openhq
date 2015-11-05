@@ -31,6 +31,17 @@ angular.module("OpenHq").factory("StoriesRepository", function($http, Story, Tas
       return $http.get("/api/v1/stories/"+ id +"/collaborators").then(function(resp) {
         return resp.data.users;
       });
+    },
+
+    /**
+     * Restores a story
+     * @param  {String/Integer} id [ID or slug for the story]
+     * @return {Promise}
+     */
+    restore: function(id) {
+      return $http.put("/api/v1/stories/"+ id +"/restore").then(function(resp) {
+        return resp;
+      });
     }
   };
 });
