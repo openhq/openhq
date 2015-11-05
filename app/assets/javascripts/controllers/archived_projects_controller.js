@@ -1,6 +1,6 @@
 angular.module("OpenHq").controller("ArchivedProjectsController", function($scope, $location, Project, ProjectsRepository) {
   Project.query({archived: true}).then(function(projects) {
-    $scope.archived_projects = projects;
+    $scope.archivedProjects = projects;
   });
 
   $scope.restoreProject = function(project) {

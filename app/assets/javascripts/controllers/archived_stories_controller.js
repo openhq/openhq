@@ -4,7 +4,7 @@ angular.module("OpenHq").controller("ArchivedStoriesController", function($scope
   });
 
   Story.query({project_id: $routeParams.slug, archived: true}).then(function(stories) {
-    $scope.archived_stories = stories;
+    $scope.archivedStories = stories;
   });
 
   $scope.restoreStory = function(story) {

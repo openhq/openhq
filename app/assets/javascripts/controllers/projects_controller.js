@@ -5,7 +5,7 @@ angular.module("OpenHq").controller("ProjectsController", function($scope, Users
   $scope.teamUsers = UsersRepository.all();
 
   Project.query({archived: true}).then(function(resp){
-    $scope.archived_count = resp.length;
+    $scope.archivedCount = resp.length;
   });
 
   CurrentUser.get(function(user) {
