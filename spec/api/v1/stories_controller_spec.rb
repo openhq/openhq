@@ -105,4 +105,15 @@ RSpec.describe "Stories API", type: :api do
       expect(response_json[:users].first[:id]).to eq(user.id)
     end
   end
+
+  describe "PATCH /api/v1/stories/:id/restore" do
+    it "restores an archived story" do
+      story.destroy()
+      expect(story.reload.deleted_at).not_to be_nil
+
+      put "/api/v1/stories/#{story.id}/restore", {}, api_token_header(user)
+      expect(last_response.status).to eq(200)
+      expect(story.reload.deleted_at).to be_nil
+    end
+  end
 end

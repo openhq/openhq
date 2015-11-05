@@ -44,7 +44,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
 
     $scope.story.delete().then(function(resp){
       // TODO: add a notification
-      $location.url('/projects/'+resp.project.slug);
+      $location.url('/projects/'+$scope.story.project.slug);
     });
   };
 

@@ -104,6 +104,7 @@ Rails.application.routes.draw do
       resources :projects, except: [:new, :edit]
       resources :stories, except: [:new, :edit] do
         get "collaborators", on: :member
+        put "restore", on: :member
       end
       resources :comments, except: [:new, :edit]
       resources :tasks, except: [:new, :edit] do

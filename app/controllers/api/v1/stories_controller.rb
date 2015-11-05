@@ -78,6 +78,14 @@ module Api
         render nothing: true, status: 204
       end
 
+      api! "Restore an archived story"
+      def restore
+        story = current_user.stories.only_deleted.friendly.find(params[:id])
+        story.restore
+
+        render json: story
+      end
+
       private
 
       def set_project
