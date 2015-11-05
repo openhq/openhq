@@ -28,6 +28,17 @@ RSpec.describe "Projects API", type: :api do
         get "/api/v1/projects", {}, api_token_header(user)
         expect(response_json[:projects].first[:recent_stories]).to be_a(Array)
       end
+
+      it "can return the archived projects" do
+        get "/api/v1/projects", {archived: true}, api_token_header(user)
+        expect(last_response.status).to eq(200)
+        expect(response_json[:projects]).to be_empty
+
+        project.destroy()
+        get "/api/v1/projects", {archived: true}, api_token_header(user)
+        expect(last_response.status).to eq(200)
+        expect(response_json[:projects].first[:name]).to eq(project.name)
+      end
     end
   end
 
