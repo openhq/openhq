@@ -27,3 +27,10 @@
     </a>
   </li>
 </ul>
+
+<div ng-show="project.archived_count" class="center archive-link">
+  <a class="btn btn-secondary btn-with-icon" href="/projects/{{ project.slug }}/archived">
+    <span class="icon icon-archive"></span>
+    View archived stories ({{ project.archived_count }})
+  </a>
+</div>
