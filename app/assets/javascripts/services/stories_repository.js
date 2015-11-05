@@ -40,7 +40,7 @@ angular.module("OpenHq").factory("StoriesRepository", function($http, Story, Tas
      */
     restore: function(id) {
       return $http.put("/api/v1/stories/"+ id +"/restore").then(function(resp) {
-        return resp;
+        return resp.data.story;
       });
     }
   };

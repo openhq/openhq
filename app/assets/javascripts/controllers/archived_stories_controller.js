@@ -1,4 +1,4 @@
-angular.module("OpenHq").controller("ArchivedStoriesController", function($scope, $routeParams, Project, Story, StoriesRepository) {
+angular.module("OpenHq").controller("ArchivedStoriesController", function($scope, $routeParams, $location, Project, Story, StoriesRepository) {
   Project.get($routeParams.slug).then(function(project) {
     $scope.project = project;
   });
@@ -8,8 +8,8 @@ angular.module("OpenHq").controller("ArchivedStoriesController", function($scope
   });
 
   $scope.restoreStory = function(story) {
-    StoriesRepository.restore(story.slug).then(function(resp){
-      console.log(resp);
+    StoriesRepository.restore(story.slug).then(function(story){
+      $location.url('/stories/'+story.slug);
     });
   };
 });
