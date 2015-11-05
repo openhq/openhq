@@ -113,4 +113,15 @@ RSpec.describe "Projects API", type: :api do
       expect { Project.find(project.id) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
+
+  describe "PATCH /api/v1/projects/:id/restore" do
+    it "restores an archived project" do
+      project.destroy()
+      expect(project.reload.deleted_at).not_to be_nil
+
+      put "/api/v1/projects/#{project.id}/restore", {}, api_token_header(user)
+      expect(last_response.status).to eq(200)
+      expect(project.reload.deleted_at).to be_nil
+    end
+  end
 end
