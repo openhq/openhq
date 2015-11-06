@@ -24,6 +24,7 @@
 //= require message-bus
 //= require_tree ./templates
 //= require_self
+//= require_tree ./config
 //= require_tree ./filters
 //= require_tree ./directives
 //= require_tree ./services
