@@ -39,7 +39,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
   };
 
   $scope.archiveStory = function() {
-    $rootScope.confirm('Archive Story', 'Are you sure?', function(){
+    $rootScope.confirm('Archive Story', 'Are you sure you want to archive this story?', function(){
       $scope.story.delete().then(function(){
         // TODO: add a notification
         $location.url('/projects/'+$scope.story.project.slug);

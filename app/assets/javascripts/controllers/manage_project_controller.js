@@ -4,7 +4,7 @@ angular.module("OpenHq").controller("ManageProjectController", function($scope, 
   });
 
   $scope.archiveProject = function() {
-    $rootScope.confirm('Archive Project', 'Are you sure?', function(){
+    $rootScope.confirm('Archive Project', 'Are you sure you want to archive this project?', function(){
       $scope.project.delete().then(function(resp){
         // TODO: add a notification
         $location.url('/');
