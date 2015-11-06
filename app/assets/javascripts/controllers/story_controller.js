@@ -39,13 +39,11 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
   };
 
   $scope.archiveStory = function() {
-    // TODO: nice confirm popup thingies
-    var c = confirm("Are you sure you want to archive this story?");
-    if (!c) return;
-
-    $scope.story.delete().then(function(){
-      // TODO: add a notification
-      $location.url('/projects/'+$scope.story.project.slug);
+    $rootScope.confirm('Archive Story', 'Are you sure?', function(){
+      $scope.story.delete().then(function(){
+        // TODO: add a notification
+        $location.url('/projects/'+$scope.story.project.slug);
+      });
     });
   };
 

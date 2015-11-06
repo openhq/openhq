@@ -78,7 +78,7 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFile
 })
 
 .run(function($rootScope, $mdDialog) {
-  $rootScope.confirmDialog = function(title, content, callback) {
+  $rootScope.confirm = function(title, content, callback) {
     var confirm = $mdDialog.confirm()
           .title(title)
           .content(content)
