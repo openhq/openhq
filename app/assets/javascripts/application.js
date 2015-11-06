@@ -3,8 +3,10 @@
 //= require jquery_ujs
 //= require angular/angular
 //= require angular/angular-route
-//= require angularjs/rails/resource
 //= require angular/angular-animate
+//= require angular/angular-aria
+//= require angular/angular-material
+//= require angularjs/rails/resource
 //= require angular/angular-sanitize
 //= require angular/ng-file-upload
 //= require jquery.timeago
@@ -22,12 +24,13 @@
 //= require message-bus
 //= require_tree ./templates
 //= require_self
+//= require_tree ./config
 //= require_tree ./filters
 //= require_tree ./directives
 //= require_tree ./services
 //= require_tree ./controllers
 
-angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFileUpload'])
+angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFileUpload', 'ngMaterial'])
 .config(function($routeProvider, $locationProvider, railsSerializerProvider) {
   $routeProvider
   .when('/', {

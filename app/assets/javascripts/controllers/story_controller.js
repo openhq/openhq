@@ -32,6 +32,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
 
   $scope.createTask = function(newTask) {
     newTask.create().then(function(resp) {
+      resp.due_at = resp.due_at ? new Date(resp.due_at) : "";
       $scope.story.tasks.push(resp);
       $scope.newTask = new Task({story_id: $scope.story.id, assigned_to: 0});
     });

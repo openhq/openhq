@@ -10,7 +10,10 @@ angular.module("OpenHq").factory("StoriesRepository", function($http, Story, Tas
       return Story.get(id).then(function(story) {
         // Wrap all tasks in models
         story.tasks = story.tasks.map(function(taskData) {
-          return new Task(taskData);
+          var task = new Task(taskData);
+          task.due_at = task.due_at ? new Date(task.due_at) : "";
+
+          return task;
         });
 
         // Wrap all comments in models
