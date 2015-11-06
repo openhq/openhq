@@ -8,6 +8,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
   StoriesRepository.find($routeParams.slug).then(function(story) {
     $scope.newComment = new Comment({story_id: story.id, attachment_ids: "" });
     $scope.newTask = new Task({story_id: story.id, assigned_to: 0 });
+    $scope.newTask.due_at = new Date();
     $scope.story = story;
   });
 
