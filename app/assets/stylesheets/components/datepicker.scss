@@ -1,3 +1,18 @@
+md-datepicker {
+    background: none;
+}
+
+.md-button.md-icon-button {
+    margin-top: -6px;
+    &.md-datepicker-triangle-button {
+        margin-top: 4px;
+    }
+}
+
+.md-datepicker-input-container {
+    border-bottom: 0;
+}
+
 .md-datepicker-calendar {
     background: #fff;
 
