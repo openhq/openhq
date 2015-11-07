@@ -75,5 +75,4 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFile
 
   // Don’t convert attributes to camel case
   railsSerializerProvider.underscore(angular.identity).camelize(angular.identity);
-
 });
