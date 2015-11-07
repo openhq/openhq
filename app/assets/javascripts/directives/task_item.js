@@ -1,4 +1,4 @@
-angular.module("OpenHq").directive("taskItem", function($rootScope, Task) {
+angular.module("OpenHq").directive("taskItem", function($rootScope, Task, ConfirmDialog) {
   return {
     restrict: "E",
     scope: {
@@ -29,7 +29,7 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, Task) {
       };
 
       $scope.deleteTask = function() {
-        $rootScope.confirm('Delete Task', 'Are you sure you want to delete this task?', function(){
+        ConfirmDialog.show('Delete Task', 'Are you sure you want to delete this task?').then(function(){
           new Task($scope.task).delete().then(function(){
             $rootScope.$broadcast('task:deleted', $scope.task.id);
           });

@@ -1,4 +1,4 @@
-angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, $location, Task, StoriesRepository, Story, AttachmentsRepository, Attachment, CurrentUser, Comment, Upload) {
+angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, $location, Task, StoriesRepository, Story, AttachmentsRepository, Attachment, CurrentUser, Comment, Upload, ConfirmDialog) {
   $scope.fileUploads = [];
 
   CurrentUser.get(function(user) {
@@ -39,7 +39,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
   };
 
   $scope.archiveStory = function() {
-    $rootScope.confirm('Archive Story', 'Are you sure you want to archive this story?', function(){
+    ConfirmDialog.show('Archive Story', 'Are you sure you want to archive this story?').then(function(){
       $scope.story.delete().then(function(){
         // TODO: add a notification
         $location.url('/projects/'+$scope.story.project.slug);

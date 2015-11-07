@@ -75,15 +75,4 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFile
 
   // Don’t convert attributes to camel case
   railsSerializerProvider.underscore(angular.identity).camelize(angular.identity);
-})
-
-.run(function($rootScope, $mdDialog) {
-  $rootScope.confirm = function(title, content, callback) {
-    var confirm = $mdDialog.confirm()
-          .title(title)
-          .content(content)
-          .ok('Yes, do it!')
-          .cancel('Cancel');
-    $mdDialog.show(confirm).then(callback);
-  };
 });
