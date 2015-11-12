@@ -7,16 +7,10 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
       $scope.searching = false;
       $scope.term = "";
       $scope.count = 0; // number of total results
+      $scope.searchResults = [];
       $scope.morePages = false;
       $scope.currentPage = 0;
       $scope.loadingMore = false;
-
-      // Result templates
-      $scope.project_template = JST['templates/search/project'];
-      $scope.story_template = JST['templates/search/story'];
-      $scope.task_template = JST['templates/search/task'];
-      $scope.comment_template = JST['templates/search/comment'];
-      $scope.attachment_template = JST['templates/search/attachment'];
 
       /**
        * Mousetrap open/close the sidebar
@@ -45,8 +39,6 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
         if (ev.keyCode == 27) {
           $('search-sidebar input').blur();
           $scope.closeSearchSidebar();
-        } else {
-          $scope.termChanged();
         }
       };
 
@@ -76,7 +68,7 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
       /**
        * When the search term changes
        */
-      $scope.termChanged = function() {
+      $scope.$watch('term', function() {
         if ($scope.term == "") {
           $scope.count = 0;
           $scope.morePages = false;
@@ -86,7 +78,7 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
         } else {
           $scope.performSearch();
         }
-      };
+      });
 
       /**
        * Perform the search and render the results etc.
@@ -99,7 +91,7 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
           $scope.morePages = resp.meta.has_more;
           $scope.currentPage = 1;
 
-          $scope.renderResults(resp.search_documents);
+          $scope.searchResults = resp.search_documents;
 
           $scope.searching = false;
         });
@@ -118,58 +110,13 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
           $scope.count = resp.meta.total;
           $scope.morePages = resp.meta.has_more;
 
-          $scope.renderResults(resp.search_documents, { fresh: false });
+          // merge the new results into the existing ones
+          $scope.searchResults = _.union($scope.searchResults, resp.search_documents);
 
           $scope.loadingMore = false;
         });
       };
 
-      /**
-       * Renders the results returned from the API in the sidebar
-       *
-       * @param  Array results
-       * @param  Object opts
-       */
-      $scope.renderResults = function(results, opts) {
-        var $results_list = $('search-sidebar .ui-search-list'),
-            html = "";
-
-        opts = opts || {};
-        _.defaults(opts, {
-          fresh: true // clear old results before adding new ones
-        });
-
-        if (opts.fresh) $results_list.html('');
-
-        _.each(results, function(result){
-          html += $scope.renderResult(result);
-        });
-
-        $results_list.append(html);
-      };
-
-      /**
-       * Gets the HTML for a single search result
-       *
-       * @param  Object result
-       * @return String
-       */
-      $scope.renderResult = function(result) {
-        switch(result.searchable_type) {
-          case "Project":
-            return $scope.project_template({ result: result });
-          case "Story":
-            return $scope.story_template({ result: result });
-          case "Task":
-            return $scope.task_template({ result: result });
-          case "Comment":
-            return $scope.comment_template({ result: result });
-          case "Attachment":
-            return $scope.attachment_template({ result: result });
-          default:
-            console.error('could not render result type:', result.searchable_type);
-        }
-      }
     }
   }
 });
