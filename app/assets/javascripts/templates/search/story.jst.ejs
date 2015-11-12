@@ -1,6 +1,6 @@
 <li>
   <div class="title">
-    Story in <a href="<%= result.project_url %>"><%= result.project.name %></a>
+    Story in <a href="/projects/<%= result.project.slug %>"><%= result.project.name %></a>
   </div>
 
   <div class="content">
@@ -8,6 +8,6 @@
   </div>
 
   <div class="actions">
-    <a href="<%= result.url %>">View Story</a>
+    <a href="/stories/<%= result.story.slug %>">View Story</a>
   </div>
 </li>

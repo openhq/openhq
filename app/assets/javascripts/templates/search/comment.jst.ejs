@@ -1,6 +1,6 @@
 <li>
   <div class="title">
-    Comment on story <a href="<%= result.story_url %>"><%= result.story.name %></a> in <a href="<%= result.project_url %>"><%= result.project.name %></a>
+    Comment on story <a href="/stories/<%= result.story.slug %>"><%= result.story.name %></a> in <a href="/projects/<%= result.project.slug %>"><%= result.project.name %></a>
   </div>
 
   <div class="content">
@@ -8,6 +8,6 @@
   </div>
 
   <div class="actions">
-    <a href="<%= result.url %>">View Comment</a>
+    <a href="/stories/<%= result.story.slug %>">View Comment</a>
   </div>
 </li>

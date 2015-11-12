@@ -1,5 +1,5 @@
 <form>
-  <input type="text" ng-model="term" ng-trim="true" placeholder="Start typing to search..." autocomplete="off">
+  <input type="text" ng-model="term" ng-trim="true" ng-change="termChanged()" placeholder="Start typing to search..." autocomplete="off">
 </form>
 
 <div class="loading" ng-show="searching">Searching...</div>
@@ -9,5 +9,11 @@
   <p><span class="count">{{ count }}</span> results found for <span class="term">{{ term }}</span></p>
   <ul class="ui-search-list"></ul>
 
-  <div class="view-more" ng-show="morePages"><a href="#">View more results</a></div>
+  <div class="view-more" ng-show="morePages">
+    <a href="#" ng-click="loadMore()" disabled="{{loadingMore}}">View more results</a>
+  </div>
+
+  <div class="all-loaded" ng-hide="morePages">
+    Showing all {{ count }} results
+  </div>
 </div>

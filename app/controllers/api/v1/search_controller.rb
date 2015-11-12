@@ -20,7 +20,7 @@ module Api
         end
 
         page = (params[:page] || 1).to_i
-        limit = (params[:limit] || 20).to_i
+        limit = (params[:limit] || 5).to_i
 
         results = SearchDocument.search(term, current_team.id, current_user.project_ids).page(page).per(limit)
 

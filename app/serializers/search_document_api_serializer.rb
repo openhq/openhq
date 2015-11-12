@@ -29,7 +29,12 @@ class SearchDocumentApiSerializer < ActiveModel::Serializer
   def attachment_image
     return unless searchable_type == "Attachment"
 
-    image_url = searchable.process_data["thumbnail:tile"]
-    S3UrlSigner.sign(image_url) if image_url.present?
+    thumb_url = searchable.process_data["thumbnail:tile"]
+
+    if thumb_url.present?
+      S3UrlSigner.sign(thumb_url)
+    else
+      ActionController::Base.helpers.image_url "file_types/#{searchable.icon_name}.png"
+    end
   end
 end
