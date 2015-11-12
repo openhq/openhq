@@ -4,12 +4,12 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
     template: JST['templates/directives/search_sidebar'],
 
     controller: function($scope) {
-      $scope.searching = false; // currently performing a seach
-      $scope.term = ""; // what the user has searched for
-      $scope.count = 0; // number of results returned
-      $scope.morePages = false; // the search results include more pages
-      $scope.page = 0; // current page of results
-      $scope.loadingMore = false; // load more function is running
+      $scope.searching = false;
+      $scope.term = "";
+      $scope.count = 0; // number of total results
+      $scope.morePages = false;
+      $scope.currentPage = 0;
+      $scope.loadingMore = false;
 
       // Result templates
       $scope.project_template = JST['templates/search/project'];
@@ -81,7 +81,7 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
           $scope.count = 0;
           $scope.morePages = false;
           $scope.searching = false;
-          $scope.page = 1;
+          $scope.currentPage = 1;
 
         } else {
           $scope.performSearch();
@@ -97,7 +97,7 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
         Search.query({ term: $scope.term }).then(function(resp){
           $scope.count = resp.meta.total;
           $scope.morePages = resp.meta.has_more;
-          $scope.page = 1;
+          $scope.currentPage = 1;
 
           $scope.renderResults(resp.search_documents);
 
@@ -111,10 +111,10 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
       $scope.loadMore = function() {
         if ($scope.loadingMore) return;
 
-        $scope.page += 1;
+        $scope.currentPage += 1;
         $scope.loadingMore = true;
 
-        Search.query({ term: $scope.term, page: $scope.page }).then(function(resp){
+        Search.query({ term: $scope.term, page: $scope.currentPage }).then(function(resp){
           $scope.count = resp.meta.total;
           $scope.morePages = resp.meta.has_more;
 
