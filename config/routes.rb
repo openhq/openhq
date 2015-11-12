@@ -120,7 +120,7 @@ Rails.application.routes.draw do
         get "unseen", on: :collection
         get "mark_all_seen", on: :collection
       end
-      resources :search, only: [:create]
+      resources :search, only: [:index]
     end
   end
 

@@ -18,7 +18,7 @@
 //# require highlightjs
 //# require jquery.atwho
 //# require imagesloaded.pkgd.min
-//# require mousetrap.min
+//= require mousetrap.min
 //= require moment
 //= require moment-timezone
 //= require message-bus
