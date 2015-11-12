@@ -1,10 +1,23 @@
-angular.module("OpenHq").factory("Search", function(railsResourceFactory) {
+angular.module("OpenHq").factory("Search", function($http) {
+  return {
+    find: function(term, opts) {
+      opts = opts || {};
+      _.defaults(opts, {
+        page: 1,
+        limit: 20
+      });
 
-  return railsResourceFactory({
-    url: "/api/v1/search",
-    name: "search"
-  });
-
+      return $http({
+        method: "GET",
+        url: "/api/v1/search",
+        params: {
+          term: term,
+          page: opts.page,
+          limit: opts.limit
+        }
+      });
+    }
+  }
 });
 
 
