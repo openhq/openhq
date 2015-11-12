@@ -25,14 +25,14 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
         $scope.openSearchSidebar();
       });
       Mousetrap.bind('esc', function() {
-        $scope.closeSearchSidebar();
+        $scope.$apply($scope.closeSearchSidebar);
       });
 
       /**
        * Clicking outside the search sidebar closes it
        */
       $(document).on("click", function() {
-        $scope.closeSearchSidebar();
+        $scope.$apply($scope.closeSearchSidebar);
       });
       $(document).on("click", "search-sidebar", function(ev) {
         ev.stopPropagation();
@@ -41,12 +41,14 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
       /**
        * Pressing ESC while in the search sidebar input closes it
        */
-      $(document).on('keyup', 'search-sidebar input', function(ev){
+      $scope.termKeypress = function(ev) {
         if (ev.keyCode == 27) {
           $('search-sidebar input').blur();
           $scope.closeSearchSidebar();
+        } else {
+          $scope.termChanged();
         }
-      });
+      };
 
       /**
        * Clicking a link in the sidebar closes it
@@ -68,9 +70,7 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
        */
       $scope.closeSearchSidebar = function() {
         $('body').removeClass('search-sidebar-open');
-        $scope.$apply(function(){
-          $scope.term = "";
-        });
+        $scope.term = "";
       };
 
       /**

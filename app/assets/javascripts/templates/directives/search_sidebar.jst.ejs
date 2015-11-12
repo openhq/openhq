@@ -1,5 +1,5 @@
 <form>
-  <input type="text" ng-model="term" ng-trim="true" ng-change="termChanged()" placeholder="Start typing to search..." autocomplete="off">
+  <input type="text" ng-model="term" ng-trim="true" ng-keyup="termKeypress($event)" placeholder="Start typing to search..." autocomplete="off">
 </form>
 
 <div class="loading" ng-show="searching">Searching...</div>
