@@ -1,5 +1,5 @@
 <div class="title">
-  Attachment on story <a href="/stories/{{ result.story.slug }}">{{ result.story.name }}</a> in <a href="/projects/{{ result.project.slug }}">{{ result.project.name }}</a>
+  Attachment on story <a href="/stories/{{ result.story.slug }}" ng-click="closeDialogs()">{{ result.story.name }}</a> in <a href="/projects/{{ result.project.slug }}" ng-click="closeDialogs()">{{ result.project.name }}</a>
 </div>
 
 <div class="content">
@@ -13,5 +13,5 @@
 </div>
 
 <div class="actions">
-  <a href="/stories/{{ result.story.slug }}">View Attachment</a>
+  <a href="/stories/{{ result.story.slug }}" ng-click="closeDialogs()">View Attachment</a>
 </div>

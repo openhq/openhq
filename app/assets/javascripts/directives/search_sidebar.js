@@ -3,7 +3,7 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
     restrict: "E",
     template: JST['templates/directives/search_sidebar'],
 
-    controller: function($scope) {
+    controller: function($scope, $rootScope) {
       $scope.searching = false;
       $scope.term = "";
       $scope.count = 0; // number of total results
@@ -43,9 +43,9 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
       };
 
       /**
-       * Clicking a link in the sidebar closes it
+       * Close the sidebar from a broadcast
        */
-      $(document).on('click', 'search-sidebar li a', function(){
+      $rootScope.$on('dialogs:close', function(){
         $scope.closeSearchSidebar();
       });
 

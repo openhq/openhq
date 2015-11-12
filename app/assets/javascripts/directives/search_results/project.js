@@ -4,6 +4,12 @@ angular.module("OpenHq").directive("searchResultProject", function() {
     scope: {
       result: '=',
     },
-    template: JST['templates/directives/search_results/project']
+    template: JST['templates/directives/search_results/project'],
+
+    controller: function($scope, $rootScope) {
+      $scope.closeDialogs = function(){
+        $rootScope.$broadcast('dialogs:close');
+      }
+    }
   }
 });

@@ -4,6 +4,12 @@ angular.module("OpenHq").directive("searchResultComment", function() {
     scope: {
       result: '=',
     },
-    template: JST['templates/directives/search_results/comment']
+    template: JST['templates/directives/search_results/comment'],
+
+    controller: function($scope, $rootScope) {
+      $scope.closeDialogs = function(){
+        $rootScope.$broadcast('dialogs:close');
+      }
+    }
   }
 });

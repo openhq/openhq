@@ -1,5 +1,5 @@
 <div class="title">
-  Story in <a href="/projects/{{ result.project.slug }}">{{ result.project.name }}</a>
+  Story in <a href="/projects/{{ result.project.slug }}" ng-click="closeDialogs()">{{ result.project.name }}</a>
 </div>
 
 <div class="content">
@@ -7,5 +7,5 @@
 </div>
 
 <div class="actions">
-  <a href="/stories/{{ result.story.slug }}">View Story</a>
+  <a href="/stories/{{ result.story.slug }}" ng-click="closeDialogs()">View Story</a>
 </div>
