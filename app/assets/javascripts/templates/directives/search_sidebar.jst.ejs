@@ -3,7 +3,7 @@
 </form>
 
 <div class="loading" ng-show="searching">Searching...</div>
-<div class="no-results" ng-show="searching === false && count === 0">Nothing found for <span>{{ term }}</span></div>
+<div class="no-results" ng-show="searching === false && count === 0 && term">Nothing found for <span>{{ term }}</span></div>
 
 <div class="search-results" ng-show="searching === false && count > 0">
   <p><span class="count">{{ count }}</span> results found for <span class="term">{{ term }}</span></p>
