@@ -42,7 +42,10 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
        * Pressing ESC while in the search sidebar input closes it
        */
       $(document).on('keyup', 'search-sidebar input', function(ev){
-        if (ev.keyCode == 27) $scope.closeSearchSidebar();
+        if (ev.keyCode == 27) {
+          $('search-sidebar input').blur();
+          $scope.closeSearchSidebar();
+        }
       });
 
       /**
@@ -65,7 +68,9 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
        */
       $scope.closeSearchSidebar = function() {
         $('body').removeClass('search-sidebar-open');
-        $('search-sidebar input').val('');
+        $scope.$apply(function(){
+          $scope.term = "";
+        });
       };
 
       /**
