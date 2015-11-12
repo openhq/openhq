@@ -1,18 +1,15 @@
 angular.module("OpenHq").directive("searchSidebar", function(Search) {
   return {
     restrict: "E",
-    scope: {
-      task: '=',
-      users: '=',
-    },
     template: JST['templates/directives/search_sidebar'],
+
     controller: function($scope) {
       $scope.searching = false; // currently performing a seach
       $scope.term = ""; // what the user has searched for
       $scope.count = 0; // number of results returned
       $scope.morePages = false; // the search results include more pages
       $scope.page = 0; // current page of results
-      $scope.loadingMore = false;
+      $scope.loadingMore = false; // load more function is running
 
       // Result templates
       $scope.project_template = JST['templates/search/project'];
@@ -59,8 +56,8 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
        * Open the search sidebar
        */
       $scope.openSearchSidebar = function() {
-        $('search-sidebar input').focus();
         $('body').addClass('search-sidebar-open');
+        $('search-sidebar input').focus();
       };
 
       /**
@@ -68,9 +65,7 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
        */
       $scope.closeSearchSidebar = function() {
         $('body').removeClass('search-sidebar-open');
-        setTimeout(function() {
-          $('search-sidebar input').val('');
-        }, 500);
+        $('search-sidebar input').val('');
       };
 
       /**
@@ -165,7 +160,6 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
           case "Comment":
             return $scope.comment_template({ result: result });
           case "Attachment":
-            console.log(result);
             return $scope.attachment_template({ result: result });
           default:
             console.error('could not render result type:', result.searchable_type);
