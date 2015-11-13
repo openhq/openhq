@@ -1,4 +1,4 @@
-angular.module("OpenHq").directive("taskItem", function($rootScope, Task, ConfirmDialog) {
+angular.module("OpenHq").directive("taskItem", function($rootScope, Task, TasksRepository, ConfirmDialog) {
   return {
     restrict: "E",
     scope: {
@@ -39,6 +39,17 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, Task, Confir
       $scope.$watch("task.completed", function(newValue, oldValue) {
         if (newValue !== oldValue) {
           $scope.task.update();
+        }
+      });
+
+      $(".tasks ul.sortable").sortable({
+        items: "li",
+        update: function() {
+          var $this = $(this),
+              story_id = $this.attr('data-story-id'),
+              order = $this.sortable("toArray");
+
+          TasksRepository.updateOrder(story_id, order);
         }
       });
     }

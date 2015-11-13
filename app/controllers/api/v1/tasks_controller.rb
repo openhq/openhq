@@ -72,6 +72,7 @@ module Api
       end
 
       api! "Update task order"
+      param :story_id, String, desc: "Story ID or slug", required: true
       param :order, Array, desc: "Task IDs in new order", required: true
       def update_order
         params[:order].each_with_index do |task_id, i|
