@@ -10,7 +10,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     $scope.newTask = new Task({story_id: story.id, assigned_to: 0 });
     $scope.story = story;
 
-    $scope.story.hasCompletedTasks = $scope.storyHasCompletedTasks();
+    $scope.story.hasCompletedTasks = $filter('completedTasks')($scope.story.tasks).length > 0;
     $scope.story.showingCompletedTasks = false;
   });
 
@@ -18,14 +18,8 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     $scope.collaborators = collaborators;
   });
 
-  $scope.storyHasCompletedTasks = function() {
-    return _.some($scope.story.tasks, function(task){
-      return task.completed;
-    });
-  };
-
   $rootScope.$on('story:taskCompleted', function(){
-    $scope.story.hasCompletedTasks = $scope.storyHasCompletedTasks();
+    $scope.story.hasCompletedTasks = $filter('completedTasks')($scope.story.tasks).length > 0;
   });
 
   $scope.taskCompletionPercentage = function() {
