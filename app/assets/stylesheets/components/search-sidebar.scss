@@ -3,12 +3,12 @@ body.search-sidebar-open {
   header.app-header {
     margin-left: -400px;
   }
-  #search-sidebar {
+  search-sidebar {
     right: 0px;
   }
 }
 
-#search-sidebar {
+search-sidebar {
   box-sizing: border-box;
   height: 100%;
   width: 400px;
@@ -23,7 +23,7 @@ body.search-sidebar-open {
   border-left: 1px solid $primary-deep;
 
   form {
-    padding: 12px 20px;
+    padding: 10px;
     background: $primary-deep;
     position: absolute;
     top: 0;
@@ -42,14 +42,12 @@ body.search-sidebar-open {
   }
 
   .loading {
-    display: none;
     text-align: center;
     color: #fff;
     padding-top: 75px;
   }
 
   .no-results {
-    display: none;
     text-align: center;
     color: #fff;
     padding-top: 75px;
@@ -62,7 +60,6 @@ body.search-sidebar-open {
   }
 
   .search-results {
-    display: none;
     position: absolute;
     max-height: 100%;
     width: 100%;
@@ -93,19 +90,9 @@ body.search-sidebar-open {
     }
   }
 
-  &.searching {
-    .loading {
-      display: block;
-    }
-    .search-results {
-      display: none;
-    }
-  }
-
   .view-more {
     text-align: center;
     a {
-      display: none;
       color: #fff;
       text-decoration: none;
       font-weight: 600;
@@ -114,5 +101,11 @@ body.search-sidebar-open {
         border-bottom: 1px solid #fff;
       }
     }
+  }
+
+  .all-loaded {
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
   }
 }

@@ -37,6 +37,10 @@ body {
 @media only screen and (min-width: 768px) {
   .page-container {
     padding-top: 0;
+    padding-bottom: 40px;
+  }
+
+  .app-header .page-container {
     padding-bottom: 0;
   }
 

@@ -10,7 +10,7 @@ module Api
       param :term, String, desc: "The search term", required: true
       param :limit, Integer, desc: "The number of results you want returned (default: 20)", required: false
       param :page, Integer, desc: "The page number you want returned (default: 1)", required: false
-      def create
+      def index
         term = params[:term]
 
         # Make sure a term is provided

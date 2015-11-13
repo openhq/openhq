@@ -1,0 +1,38 @@
+<form>
+  <input type="text" ng-model="term" ng-trim="true" ng-keyup="termKeypress($event)" placeholder="Start typing to search..." autocomplete="off">
+</form>
+
+<div class="loading" ng-show="searching">Searching...</div>
+<div class="no-results" ng-show="searching === false && count === 0 && term">Nothing found for <span>{{ term }}</span></div>
+
+<div class="search-results" ng-show="searching === false && count > 0">
+  <p><span class="count">{{ count }}</span> results found for <span class="term">{{ term }}</span></p>
+  <ul class="ui-search-list">
+    <li ng-repeat="result in searchResults" ng-switch="result.searchable_type">
+      <div ng-switch-when="Project">
+        <search-result-project result="result"></search-result>
+      </div>
+      <div ng-switch-when="Story">
+        <search-result-story result="result"></search-result>
+      </div>
+      <div ng-switch-when="Task">
+        <search-result-task result="result"></search-result>
+      </div>
+      <div ng-switch-when="Comment">
+        <search-result-comment result="result"></search-result>
+      </div>
+      <div ng-switch-when="Attachment">
+        <search-result-attachment result="result"></search-result>
+      </div>
+      <div ng-switch-default></div>
+    </li>
+  </ul>
+
+  <div class="view-more" ng-show="morePages">
+    <a href="#" ng-click="loadMore()" disabled="{{loadingMore}}">View more results</a>
+  </div>
+
+  <div class="all-loaded" ng-hide="morePages">
+    Showing all {{ count }} results
+  </div>
+</div>

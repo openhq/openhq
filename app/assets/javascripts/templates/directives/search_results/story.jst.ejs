@@ -1,0 +1,11 @@
+<div class="title">
+  Story in <a href="/projects/{{ result.project.slug }}" ng-click="closeDialogs()">{{ result.project.name }}</a>
+</div>
+
+<div class="content">
+  {{ result.searchable.name }}
+</div>
+
+<div class="actions">
+  <a href="/stories/{{ result.story.slug }}" ng-click="closeDialogs()">View Story</a>
+</div>
