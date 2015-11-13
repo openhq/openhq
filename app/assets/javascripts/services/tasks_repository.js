@@ -7,7 +7,20 @@ angular.module("OpenHq").factory("TasksRepository", function($http) {
      * @return {Promise}
      */
     updateOrder: function(story_id, order) {
-      $http.put("/api/v1/tasks/order", { story_id: story_id, order: order });
+      return $http.put("/api/v1/tasks/order", { story_id: story_id, order: order });
+    },
+
+    /**
+     * Deletes any completed tasks on a story
+     * @param  {String/Integer} story_id [ID or slug for the story]
+     * @return {Promise}
+     */
+    deleteCompleted: function(story_id) {
+      return $http({
+        method: "DELETE",
+        url: "/api/v1/tasks/completed",
+        params: { story_id: story_id }
+      });
     }
   };
 });

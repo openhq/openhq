@@ -1,4 +1,4 @@
-angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, $location, Task, StoriesRepository, Story, AttachmentsRepository, Attachment, CurrentUser, Comment, Upload, ConfirmDialog) {
+angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, $location, Task, TasksRepository, StoriesRepository, Story, AttachmentsRepository, Attachment, CurrentUser, Comment, Upload, ConfirmDialog) {
   $scope.fileUploads = [];
 
   CurrentUser.get(function(user) {
@@ -9,10 +9,17 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     $scope.newComment = new Comment({story_id: story.id, attachment_ids: "" });
     $scope.newTask = new Task({story_id: story.id, assigned_to: 0 });
     $scope.story = story;
+
+    $scope.story.hasCompletedTasks = $filter('completedTasks')($scope.story.tasks).length > 0;
+    $scope.story.showingCompletedTasks = false;
   });
 
   StoriesRepository.collaborators($routeParams.slug).then(function(collaborators) {
     $scope.collaborators = collaborators;
+  });
+
+  $rootScope.$on('story:taskCompleted', function(){
+    $scope.story.hasCompletedTasks = $filter('completedTasks')($scope.story.tasks).length > 0;
   });
 
   $scope.taskCompletionPercentage = function() {
@@ -43,6 +50,17 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
       $scope.story.delete().then(function(){
         // TODO: add a notification
         $location.url('/projects/'+$scope.story.project.slug);
+      });
+    });
+  };
+
+  $scope.deleteCompletedTasks = function() {
+    ConfirmDialog.show('Delete Completed Tasks', 'Are you sure you want to delete all the completed tasks?').then(function(){
+      TasksRepository.deleteCompleted($routeParams.slug).then(function(){
+        // remove any completed tasks from the collection
+        $scope.story.tasks = _.where($scope.story.tasks, {completed: false});
+        $scope.story.hasCompletedTasks = false;
+        $scope.story.showingCompletedTasks = false;
       });
     });
   };
