@@ -26,7 +26,7 @@
         </div>
         <div ng-show="story.tasks.length > 0" class="tasks-list-container">
           <h4>{{ story.tasks | incompleteTasks | countArray }} Incomplete Tasks</h4>
-          <ul class="sortable" data-story-id="{{ story.id }}">
+          <ul class="sortable">
             <li ng-repeat="task in story.tasks" id="{{ task.id }}">
               <task-item task="task" users="story.users_select_array"></task-item>
             </li>

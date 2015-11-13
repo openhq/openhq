@@ -1,4 +1,4 @@
-angular.module("OpenHq").directive("taskItem", function($rootScope, Task, TasksRepository, ConfirmDialog) {
+angular.module("OpenHq").directive("taskItem", function($rootScope, $routeParams, Task, TasksRepository, ConfirmDialog) {
   return {
     restrict: "E",
     scope: {
@@ -45,9 +45,8 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, Task, TasksR
       $(".tasks ul.sortable").sortable({
         items: "li",
         update: function() {
-          var $this = $(this),
-              story_id = $this.attr('data-story-id'),
-              order = $this.sortable("toArray");
+          var story_id = $routeParams.slug,
+              order = $(this).sortable("toArray");
 
           TasksRepository.updateOrder(story_id, order);
         }
