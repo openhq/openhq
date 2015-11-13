@@ -3,13 +3,14 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, Task, TasksR
     restrict: "E",
     scope: {
       task: '=',
-      users: '=',
+      users: '='
     },
     template: JST['templates/directives/task_item'],
 
     controller: function($scope){
       $scope.editTask = angular.copy($scope.task);
       $scope.editing = false;
+      $scope.task.completeInline = false; // still show the task, even if it is completed
 
       $scope.startEditing = function() {
         $scope.editing = true;
@@ -38,6 +39,7 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, Task, TasksR
 
       $scope.$watch("task.completed", function(newValue, oldValue) {
         if (newValue !== oldValue) {
+          $scope.task.completeInline = true;
           $scope.task.update();
         }
       });

@@ -27,6 +27,10 @@
                 display: none;
                 text-decoration: line-through;
                 opacity: 0.4;
+
+                &.complete-inline {
+                    display: block;
+                }
             }
             &.warmdown {
                 background-color: $primary-color;
