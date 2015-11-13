@@ -27,12 +27,12 @@
         <div ng-show="story.tasks.length > 0" class="tasks-list-container">
           <h4>{{ story.tasks | incompleteTasks | countArray }} Incomplete Tasks</h4>
           <ul class="sortable" data-story-id="{{ story.id }}">
-            <li ng-repeat="task in story.tasks" id="{{ task.id }}" ng-class="{'complete' : task.completed, 'complete-inline' : task.completeInline}">
+            <li ng-repeat="task in story.tasks" id="{{ task.id }}" ng-class="{'complete' : task.completed}" ng-show="!task.completed || task.completeInline || story.showingCompletedTasks">
               <task-item task="task" users="story.users_select_array"></task-item>
             </li>
 
             <li class="action" ng-show="story.hasCompletedTasks && !story.showingCompletedTasks">
-              <a href="#">Show completed tasks</a>
+              <a href="#" ng-click="story.showingCompletedTasks = true">Show completed tasks</a>
             </li>
 
             <li class="action" ng-show="story.showingCompletedTasks">
