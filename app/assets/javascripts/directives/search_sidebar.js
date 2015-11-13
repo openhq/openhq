@@ -105,11 +105,13 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
        */
       $scope.loadMore = function() {
         if ($scope.loadingMore) return;
+        if (_.isObject($scope.searchRequest)) $scope.searchRequest.abort();
 
         $scope.currentPage += 1;
         $scope.loadingMore = true;
 
-        Search.find($scope.term, { page: $scope.currentPage }).then(function(resp){
+        $scope.searchRequest = Search.find($scope.term, { page: $scope.currentPage });
+        $scope.searchRequest.then(function(resp){
           $scope.count = resp.meta.total;
           $scope.morePages = resp.meta.has_more;
 
