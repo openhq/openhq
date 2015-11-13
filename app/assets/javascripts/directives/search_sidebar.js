@@ -87,11 +87,11 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
         $scope.searching = true;
 
         Search.find($scope.term).then(function(resp){
-          $scope.count = resp.data.meta.total;
-          $scope.morePages = resp.data.meta.has_more;
+          $scope.count = resp.meta.total;
+          $scope.morePages = resp.meta.has_more;
           $scope.currentPage = 1;
 
-          $scope.searchResults = resp.data.search_documents;
+          $scope.searchResults = resp.search_documents;
 
           $scope.searching = false;
         });
@@ -107,11 +107,11 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
         $scope.loadingMore = true;
 
         Search.find($scope.term, { page: $scope.currentPage }).then(function(resp){
-          $scope.count = resp.data.meta.total;
-          $scope.morePages = resp.data.meta.has_more;
+          $scope.count = resp.meta.total;
+          $scope.morePages = resp.meta.has_more;
 
           // merge the new results into the existing ones
-          $scope.searchResults = _.union($scope.searchResults, resp.data.search_documents);
+          $scope.searchResults = _.union($scope.searchResults, resp.search_documents);
 
           $scope.loadingMore = false;
         });

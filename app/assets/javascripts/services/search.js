@@ -15,6 +15,8 @@ angular.module("OpenHq").factory("Search", function($http) {
           page: opts.page,
           limit: opts.limit
         }
+      }).then(function(resp){
+        return resp.data;
       });
     }
   }
