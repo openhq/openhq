@@ -41,6 +41,7 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, Task, TasksR
         if (newValue !== oldValue) {
           $scope.task.completeInline = true;
           $scope.task.update();
+          $rootScope.$broadcast('story:taskCompleted');
         }
       });
 

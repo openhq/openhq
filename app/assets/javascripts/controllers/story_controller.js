@@ -9,10 +9,23 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     $scope.newComment = new Comment({story_id: story.id, attachment_ids: "" });
     $scope.newTask = new Task({story_id: story.id, assigned_to: 0 });
     $scope.story = story;
+
+    $scope.story.hasCompletedTasks = $scope.storyHasCompletedTasks();
+    $scope.story.showingCompletedTasks = false;
   });
 
   StoriesRepository.collaborators($routeParams.slug).then(function(collaborators) {
     $scope.collaborators = collaborators;
+  });
+
+  $scope.storyHasCompletedTasks = function() {
+    return _.some($scope.story.tasks, function(task){
+      return task.completed;
+    });
+  };
+
+  $rootScope.$on('story:taskCompleted', function(){
+    $scope.story.hasCompletedTasks = $scope.storyHasCompletedTasks();
   });
 
   $scope.taskCompletionPercentage = function() {

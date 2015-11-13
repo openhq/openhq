@@ -30,6 +30,14 @@
             <li ng-repeat="task in story.tasks" id="{{ task.id }}" ng-class="{'complete' : task.completed, 'complete-inline' : task.completeInline}">
               <task-item task="task" users="story.users_select_array"></task-item>
             </li>
+
+            <li class="action" ng-show="story.hasCompletedTasks && !story.showingCompletedTasks">
+              <a href="#">Show completed tasks</a>
+            </li>
+
+            <li class="action" ng-show="story.showingCompletedTasks">
+              <a href="#" class="danger">Delete all completed tasks</a>
+            </li>
           </ul>
         </div>
 
