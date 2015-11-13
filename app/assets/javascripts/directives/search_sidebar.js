@@ -11,6 +11,7 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
       $scope.morePages = false;
       $scope.currentPage = 0;
       $scope.loadingMore = false;
+      $scope.searchRequest = null;
 
       /**
        * Mousetrap open/close the sidebar
@@ -84,9 +85,11 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
        * Perform the search and render the results etc.
        */
       $scope.performSearch = function() {
+        if (_.isObject($scope.searchRequest)) $scope.searchRequest.abort();
         $scope.searching = true;
 
-        Search.find($scope.term).then(function(resp){
+        $scope.searchRequest = Search.find($scope.term);
+        $scope.searchRequest.then(function(resp){
           $scope.count = resp.meta.total;
           $scope.morePages = resp.meta.has_more;
           $scope.currentPage = 1;
