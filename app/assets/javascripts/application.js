@@ -10,7 +10,7 @@
 //= require angular/angular-sanitize
 //= require angular/ng-file-upload
 //= require jquery.timeago
-//# require jquery-ui
+//= require jquery-ui
 //# require chosen.jquery
 //# require pickadate/picker
 //# require pickadate/picker.date
