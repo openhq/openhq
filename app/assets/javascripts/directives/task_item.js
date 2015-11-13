@@ -1,4 +1,4 @@
-angular.module("OpenHq").directive("taskItem", function($rootScope, Task, TasksRepository, ConfirmDialog) {
+angular.module("OpenHq").directive("taskItem", function($rootScope, $routeParams, Task, TasksRepository, ConfirmDialog) {
   return {
     restrict: "E",
     scope: {
@@ -11,6 +11,7 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, Task, TasksR
       $scope.editTask = angular.copy($scope.task);
       $scope.editing = false;
       $scope.task.completeInline = false; // still show the task, even if it is completed
+      $scope.$task_list = $(".tasks ul.sortable");
 
       $scope.startEditing = function() {
         $scope.editing = true;
@@ -45,12 +46,17 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, Task, TasksR
         }
       });
 
-      $(".tasks ul.sortable").sortable({
+      // Remove sortable if already initalized
+      if ($scope.$task_list.hasClass('ui-sortable')) {
+        $scope.$task_list.sortable("destroy");
+      }
+
+      // Set updated list as sorted
+      $scope.$task_list.sortable({
         items: "li",
         update: function() {
-          var $this = $(this),
-              story_id = $this.attr('data-story-id'),
-              order = $this.sortable("toArray");
+          var story_id = $routeParams.slug,
+              order = $(this).sortable("toArray");
 
           TasksRepository.updateOrder(story_id, order);
         }
