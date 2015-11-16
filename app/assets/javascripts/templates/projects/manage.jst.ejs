@@ -1,9 +1,37 @@
 <div class="page-header">
   <h1>
     Manage Project
-    <small><a href="/projects/{{ project.slug }}">{{ project.name }}</a></small>
+    <small><a href="/projects/{{ staticProject.slug }}">{{ staticProject.name }}</a></small>
   </h1>
 </div>
+
+<form class="pure-form pure-form-stacked" novalidate="novalidate" ng-submit="updateProject(project, projectUsers)">
+
+
+  <section class="info">
+    <div class="input string required project_name">
+      <label class="string required" for="project_name">
+        <abbr title="required">*</abbr> Project Name
+      </label>
+      <input class="string required" type="text" ng-model="project.name" id="project_name">
+    </div>
+    <div class="input check_boxes optional project_users">
+      <label class="check_boxes optional">Invite team members</label>
+      <span class="checkbox" ng-repeat="user in teamUsers" ng-hide="currentUser.id === user.id">
+        <label for="project_user_ids_{{ user.id }}">
+          <input type="checkbox" id="project_user_ids_{{ user.id }}" ng-model="projectUsers[user.id]">
+          {{ user.display_name }}
+        </label>
+      </span>
+    </div>
+  </section>
+
+  <footer>
+    <input type="submit" name="commit" value="Update Project" class="btn btn-main">
+  </footer>
+</form>
+
+<hr>
 
 <ul class="plain-list actions-list">
   <li>

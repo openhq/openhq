@@ -13,7 +13,11 @@ angular.module("OpenHq").factory("UsersRepository", function($http) {
 
     fetch: function() {
       return $http.get("/api/v1/users").then(function(resp) {
-        teamUsers = resp.data.users;
+        // Push users into the existing array so all classes that already
+        // have a copy of it will receive new users
+        resp.data.users.forEach(function(user) {
+          teamUsers.push(user);
+        });
 
         return teamUsers;
       });
