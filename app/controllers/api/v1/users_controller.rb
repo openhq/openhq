@@ -8,7 +8,12 @@ module Api
 
       api! "Fetch all users for the team"
       def index
-        render json: current_team.users
+        users = current_team.team_users.includes(:user).map do |team_user|
+          team_user.user.role = team_user.role
+          team_user.user
+        end
+
+        render json: users
       end
     end
   end

@@ -9,6 +9,18 @@ RSpec.describe "Team Invites API", type: :api do
     project.users << user
   end
 
+  describe "GET /api/v1/team_invites" do
+    before do
+      Team::Invite.new({email: "jack.reacher@example.org"}, user.teams.first, user).save
+    end
+
+    it "lists out invited users" do
+      get "/api/v1/team_invites", {}, api_token_header(user)
+      expect(last_response.status).to eq(200)
+      expect(response_json[:users].first[:display_name]).to eq("jack.reacher@example.org")
+    end
+  end
+
   describe "POST /api/v1/team_invites" do
     it "requires a valid email address" do
       post "/api/v1/team_invites", { user: { email: "invite" } }, api_token_header(user)

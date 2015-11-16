@@ -1,0 +1,20 @@
+<h2>Inviting a team member</h2>
+
+<form novalidate="novalidate" ng-submit="sendInvite(invite, selectedProjects)">
+  <div class="input email optional user_email">
+    <label class="email optional" for="user_email">Their email address is:</label>
+    <input class="string email optional" type="email" ng-model="invite.email" id="user_email">
+  </div>
+
+  <div class="input check_boxes optional user_projects">
+    <label class="check_boxes optional">Add them to the following projects:</label>
+    <span class="checkbox" ng-repeat="project in projects">
+      <label for="user_project_ids_{{ project.id }}">
+        <input class="check_boxes optional" type="checkbox" ng-model="selectedProjects[project.id]" id="user_project_ids_{{ project.id }}">
+        {{ project.name }}
+      </label>
+    </span>
+  </div>
+
+  <input type="submit" value="Invite" class="btn">
+</form>

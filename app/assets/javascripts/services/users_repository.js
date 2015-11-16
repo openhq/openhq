@@ -11,6 +11,18 @@ angular.module("OpenHq").factory("UsersRepository", function($http) {
       return teamUsers;
     },
 
+    invitedUsers: function() {
+      return $http.get("/api/v1/team_invites").then(function(resp) { return resp.data.users });
+    },
+
+    invite: function(user) {
+      return $http({
+        url: "/api/v1/team_invites",
+        method: "POST",
+        data: { user: user }
+      });
+    },
+
     fetch: function() {
       return $http.get("/api/v1/users").then(function(resp) {
         // Push users into the existing array so all classes that already

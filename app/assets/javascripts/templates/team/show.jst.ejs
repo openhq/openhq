@@ -1,0 +1,20 @@
+<div class="account-profile owner" ng-repeat="user in teamUsers" ng-show="user.username === username">
+  <h1 class="job-title">
+    <user-avatar user="user" size="100"></user-avatar>
+
+    {{ user.display_name }}
+
+    <small>({{ user.role }})</small>
+
+    <span  ng-show="user.job_title">{{ user.job_title }}</span>
+  </h1>
+
+  <hr>
+
+  <ul>
+    <li ng-show="user.email">Email: <a href="mailto:{{ user.email }}">{{ user.email }}</a></li>
+    <li ng-show="user.phone">Phone: {{ user.phone }}</li>
+    <li ng-show="user.skype">Skype: <a href="skype:{{ user.skype }}?userinfo">{{ user.skype }}</a></li>
+  </ul>
+
+</div>

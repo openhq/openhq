@@ -66,6 +66,18 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFile
     template: JST['templates/stories/show'],
     controller: 'StoryController'
   })
+  .when('/team', {
+    template: JST['templates/team/index'],
+    controller: 'TeamController'
+  })
+  .when('/team/new', {
+    template: JST['templates/team/new'],
+    controller: 'NewTeamInviteController'
+  })
+  .when('/team/:username', {
+    template: JST['templates/team/show'],
+    controller: 'ShowTeamController'
+  })
   .when('/stories/:slug/edit', {
     template: JST['templates/stories/edit'],
     controller: 'EditStoryController'

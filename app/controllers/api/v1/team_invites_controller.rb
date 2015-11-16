@@ -5,6 +5,11 @@ module Api
         formats ["json"]
       end
 
+      api! "Fetchs invited users"
+      def index
+        render json: current_team.invited_users
+      end
+
       api! "Invite a user"
       param :user, Hash, desc: "Invited user info" do
         param :email, String, desc: "Email addess of the invitee", required: true

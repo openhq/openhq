@@ -1,0 +1,24 @@
+<ul class="team-list">
+  <li class="{{ user.role }}" ng-repeat="user in teamUsers">
+    <a href="/team/{{ user.username }}">
+      <user-avatar user="user" size="100"></user-avatar>
+    </a>
+    <h4>
+      <a href="/team/{{ user.username }}">{{ user.display_name }}</a>
+      <small>({{ user.role }})</small>
+    </h4>
+  </li>
+  <li class="invited" ng-repeat="user in invitedUsers">
+    <user-avatar user="user" size="100"></user-avatar>
+    <h4>
+      {{ user.display_name }}
+      <small>(invited)</small>
+    </h4>
+  </li>
+  <li>
+    <a href="/team/new">
+      <span class="avatar add-new-user"></span>
+      <h4>Invite someone new</h4>
+    </a>
+  </li>
+</ul>
