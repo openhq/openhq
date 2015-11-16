@@ -17,6 +17,22 @@ class Task < ActiveRecord::Base
 
   delegate :project_id, to: :story
 
+  def self.overdue
+    where('due_at IS NOT NULL AND due_at < ?', Time.zone.now - 1.day)
+  end
+
+  def self.today
+    where('due_at IS NOT NULL AND due_at > ? AND due_at < ?', Time.zone.now - 1.day, Time.zone.now)
+  end
+
+  def self.this_week
+    where('due_at IS NOT NULL AND due_at > ? AND due_at < ?', Time.zone.now, Time.zone.now + 6.days)
+  end
+
+  def self.all_other
+    where('due_at IS NULL OR due_at > ?', Time.zone.now + 6.days)
+  end
+
   def assignment_name
     if assignment.present?
       assignment.username

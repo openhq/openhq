@@ -1,4 +1,4 @@
-angular.module("OpenHq").factory("CurrentUser", function($http) {
+angular.module("OpenHq").factory("CurrentUser", function($http, $rootScope) {
   var user;
 
   return {
@@ -10,6 +10,7 @@ angular.module("OpenHq").factory("CurrentUser", function($http) {
       $http.get("/api/v1/user").then(function(userResp) {
         // cache user for later calls
         user = userResp.data.user;
+
         callback.call(cbContext, user);
       });
     }

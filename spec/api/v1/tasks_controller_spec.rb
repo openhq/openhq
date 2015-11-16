@@ -16,6 +16,24 @@ RSpec.describe "Tasks API", type: :api do
     end
   end
 
+  describe "GET /api/v1/tasks/me" do
+    before do
+      user.tasks.create!(label: "Buy milk", due_at: Time.zone.now - 1.day, story: story, team: team)
+      user.tasks.create!(label: "Buy printer ink", due_at: Time.zone.now, story: story, team: team)
+      user.tasks.create!(label: "Send invoices", due_at: Time.zone.now + 3.days, story: story, team: team)
+      user.tasks.create!(label: "Feed the fish", story: story, team: team)
+    end
+
+    it "lists tasks assigned to me" do
+      get "/api/v1/tasks/me", {}, api_token_header(user)
+      expect(last_response.status).to eq(200)
+      expect(response_json[:overdue].first[:label]).to eq("Buy milk")
+      expect(response_json[:today].first[:label]).to eq("Buy printer ink")
+      expect(response_json[:this_week].first[:label]).to eq("Send invoices")
+      expect(response_json[:other].first[:label]).to eq("Feed the fish")
+    end
+  end
+
   describe "GET /api/v1/tasks/:id" do
     it "retrieves a single task" do
       get "/api/v1/tasks/#{task.id}", {}, api_token_header(user)

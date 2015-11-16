@@ -11,15 +11,17 @@
   <base href="/"><%# angular base url %>
   <%= csrf_meta_tags %>
 </head>
-<body ng-controller="MainController">
+<body ng-controller="MainController" ng-click="closeDialogs()">
   <div id="main-content">
     <header class="app-header">
       <div class="page-container">
         <span class="close-cross mobile-only">&times;</span>
         <menu>
           <% if signed_in? %>
-            <%# = render "shared/search_dropdown" if current_team.present? %>
-            <%# = render "shared/notifications_dropdown" if current_team.present? %>
+            <div class="main-menu-item search" ng-controller="MainController" ng-click="openSearchSidebar($event)">
+              <span class="icon search"></span>
+            </div>
+            <notifications-dropdown></notifications-dropdown>
             <%# = render "shared/team_switcher" if multisite_install? %>
             <%# = render "shared/signed_in_menu" %>
           <% else %>

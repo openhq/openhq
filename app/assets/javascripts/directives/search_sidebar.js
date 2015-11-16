@@ -9,7 +9,7 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
       $scope.count = 0; // number of total results
       $scope.searchResults = [];
       $scope.morePages = false;
-      $scope.currentPage = 0;
+      $scope.currentPage = 1;
       $scope.loadingMore = false;
       $scope.searchRequest = null;
 
@@ -20,18 +20,12 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
         $scope.openSearchSidebar();
       });
       Mousetrap.bind('esc', function() {
-        $scope.$apply($scope.closeSearchSidebar);
+        $rootScope.$broadcast('dialogs:close');
       });
 
-      /**
-       * Clicking outside the search sidebar closes it
-       */
-      $(document).on("click", function() {
-        $scope.$apply($scope.closeSearchSidebar);
-      });
-      $(document).on("click", "search-sidebar", function(ev) {
-        ev.stopPropagation();
-      });
+      $scope.stopProp = function($event) {
+        $event.stopPropagation();
+      };
 
       /**
        * Pressing ESC while in the search sidebar input closes it
@@ -48,6 +42,13 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
        */
       $rootScope.$on('dialogs:close', function(){
         $scope.closeSearchSidebar();
+      });
+
+      /**
+       * Open the sidebar from a broadcast
+       */
+      $rootScope.$on('search:open', function(){
+        $scope.openSearchSidebar();
       });
 
       /**
@@ -70,33 +71,37 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
        * When the search term changes
        */
       $scope.$watch('term', function() {
+        $scope.searchResults = [];
+        $scope.currentPage = 1;
+
         if ($scope.term == "") {
           $scope.count = 0;
           $scope.morePages = false;
           $scope.searching = false;
-          $scope.currentPage = 1;
 
         } else {
-          $scope.performSearch();
+          $scope.searching = true;
+          $scope.loadResults();
         }
       });
 
       /**
        * Perform the search and render the results etc.
        */
-      $scope.performSearch = function() {
+      $scope.loadResults = function() {
         if (_.isObject($scope.searchRequest)) $scope.searchRequest.abort();
-        $scope.searching = true;
 
-        $scope.searchRequest = Search.find($scope.term);
+        $scope.searchRequest = Search.find($scope.term, { page: $scope.currentPage });
         $scope.searchRequest.then(function(resp){
           $scope.count = resp.meta.total;
           $scope.morePages = resp.meta.has_more;
-          $scope.currentPage = 1;
 
-          $scope.searchResults = resp.search_documents;
+          resp.search_documents.forEach(function(result){
+            $scope.searchResults.push(result);
+          });
 
           $scope.searching = false;
+          $scope.loadingMore = false;
         });
       };
 
@@ -105,21 +110,10 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
        */
       $scope.loadMore = function() {
         if ($scope.loadingMore) return;
-        if (_.isObject($scope.searchRequest)) $scope.searchRequest.abort();
 
-        $scope.currentPage += 1;
+        $scope.currentPage++;
         $scope.loadingMore = true;
-
-        $scope.searchRequest = Search.find($scope.term, { page: $scope.currentPage });
-        $scope.searchRequest.then(function(resp){
-          $scope.count = resp.meta.total;
-          $scope.morePages = resp.meta.has_more;
-
-          // merge the new results into the existing ones
-          $scope.searchResults = _.union($scope.searchResults, resp.search_documents);
-
-          $scope.loadingMore = false;
-        });
+        $scope.loadResults();
       };
 
     }

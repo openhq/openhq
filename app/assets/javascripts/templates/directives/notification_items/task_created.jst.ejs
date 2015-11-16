@@ -1,0 +1,9 @@
+<a href="/stories/{{ notification.story.slug }}">
+  <div class="owner-details">
+    <user-avatar user="notification.actioner"></user-avatar> {{ notification.actioner.display_name }}
+  </div>
+
+  <div class="details">
+    created a task in: <em>{{ notification.story.name }}</em>
+  </div>
+</a>

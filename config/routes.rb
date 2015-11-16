@@ -110,6 +110,7 @@ Rails.application.routes.draw do
       end
       resources :comments, except: [:new, :edit]
       resources :tasks, except: [:new, :edit] do
+        get "me", on: :collection
         put "order", on: :collection, to: "tasks#update_order"
         delete "completed", on: :collection, to: "tasks#destroy_completed"
       end
@@ -118,7 +119,8 @@ Rails.application.routes.draw do
       end
       resources :notifications, only: [:index, :show] do
         get "unseen", on: :collection
-        get "mark_all_seen", on: :collection
+        put "mark_all_seen", on: :collection
+        put "mark_as_seen", on: :collection
       end
       resources :search, only: [:index]
     end
