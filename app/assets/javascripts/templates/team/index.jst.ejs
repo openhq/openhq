@@ -1,11 +1,20 @@
 <ul class="team-list">
-  <li class="{{ user.display_role }}" ng-repeat="user in teamUsers">
+  <li class="{{ user.role }}" ng-repeat="user in teamUsers">
     <a href="#">
       <user-avatar user="user" size="100"></user-avatar>
     </a>
     <h4>
       <a href="#">{{ user.display_name }}</a>
-      <small>({{ user.display_role }})</small>
+      <small>({{ user.role }})</small>
+    </h4>
+  </li>
+  <li class="invited" ng-repeat="user in invitedUsers">
+    <a href="#">
+      <user-avatar user="user" size="100"></user-avatar>
+    </a>
+    <h4>
+      <a href="#">{{ user.display_name }}</a>
+      <small>(invited)</small>
     </h4>
   </li>
   <li>
