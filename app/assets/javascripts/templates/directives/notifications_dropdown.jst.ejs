@@ -1,0 +1,44 @@
+<div class="main-menu-item ui-dropdown-menu notifications" ng-click="stopProp($event)">
+  <span class="icon notifications" ng-click="toggleShowing()"></span>
+  <span class="notification-count" ng-show="newCount > 0">{{ newCount }}</span>
+  <div class="dropdown" ng-show="showing">
+    <p class="notification-count">{{ newCount }} new notifications</p>
+    <ul class="notification-list">
+
+      <li ng-repeat="n in notifications" ng-switch="n.action_performed" ng-class="{unseen:!n.seen}">
+        <div ng-switch-when="comment_created">
+          <comment-created-notification notification="n"></task-assigned-notification>
+        </div>
+        <div ng-switch-when="comment_mentioned">
+          <comment-mentioned-notification notification="n"></task-assigned-notification>
+        </div>
+        <div ng-switch-when="project_created">
+          <project-created-notification notification="n"></task-assigned-notification>
+        </div>
+        <div ng-switch-when="story_created">
+          <story-created-notification notification="n"></task-assigned-notification>
+        </div>
+        <div ng-switch-when="story_mentioned">
+          <story-mentioned-notification notification="n"></task-assigned-notification>
+        </div>
+        <div ng-switch-when="task_assigned">
+          <task-assigned-notification notification="n"></task-assigned-notification>
+        </div>
+        <div ng-switch-when="task_completed">
+          <task-completed-notification notification="n"></task-assigned-notification>
+        </div>
+        <div ng-switch-when="task_created">
+          <task-created-notification notification="n"></task-assigned-notification>
+        </div>
+        <div ng-switch-when="task_mentioned">
+          <task-mentioned-notification notification="n"></task-assigned-notification>
+        </div>
+      </li>
+
+    </ul>
+    <ul class="actions">
+      <li><a href="#">View All Notifications</a></li>
+      <li><a href="#">Notification Settings</a></li>
+    </ul>
+  </div>
+</div>

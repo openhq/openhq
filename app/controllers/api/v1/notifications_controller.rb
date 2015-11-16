@@ -53,6 +53,13 @@ module Api
         current_user.notifications.unseen.each(&:seen!)
         render nothing: true, status: 204
       end
+
+      api! "Marks given ids as seen"
+      param :ids, Array, desc: "Array of notification ids to be marked as seen", required: true
+      def mark_as_seen
+        current_user.notifications.unseen.where(id: params[:ids]).each(&:seen!)
+        render nothing: true, status: 204
+      end
     end
   end
 end
