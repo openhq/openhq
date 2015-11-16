@@ -1,1 +1,9 @@
-project_created.jst.ejs
+<a href="/projects/{{ notification.project.slug }}">
+  <div class="owner-details">
+    <user-avatar user="notification.actioner"></user-avatar> {{ notification.actioner.display_name }}
+  </div>
+
+  <div class="details">
+    created the project: <em>{{ notification.notifiable.name }}</em>
+  </div>
+</a>

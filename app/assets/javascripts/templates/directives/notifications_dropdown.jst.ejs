@@ -4,7 +4,8 @@
   <div class="dropdown" ng-show="showing">
     <p class="notification-count">{{ newCount }} new notifications</p>
     <ul class="notification-list">
-      <li ng-repeat="n in notifications" ng-switch="n.action_performed">
+
+      <li ng-repeat="n in notifications" ng-switch="n.action_performed" ng-class="{unseen:!n.seen}">
         <div ng-switch-when="comment_created">
           <comment-created-notification notification="n"></task-assigned-notification>
         </div>
@@ -33,6 +34,7 @@
           <task-mentioned-notification notification="n"></task-assigned-notification>
         </div>
       </li>
+
     </ul>
     <ul class="actions">
       <li><a href="#">View All Notifications</a></li>
