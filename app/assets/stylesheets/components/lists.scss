@@ -123,6 +123,15 @@
     text-align: center;
     box-sizing: border-box;
   }
+
+  .add-new-user {
+    display: inline-block;
+    background-image: image-url("add-new-user.png");
+    background-size: 100%;
+    border-radius: 100px;
+    width: 100px;
+    height: 100px;
+  }
 }
 
 
