@@ -4,7 +4,8 @@ angular.module("OpenHq").controller("MainController", function($scope, $rootScop
     $rootScope.$broadcast("dialogs:close");
   };
 
-  $scope.openSearchSidebar = function(){
+  $scope.openSearchSidebar = function($event){
+    $event.stopPropagation();
     $rootScope.$broadcast('search:open');
   };
 

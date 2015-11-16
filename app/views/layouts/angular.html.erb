@@ -18,7 +18,7 @@
         <span class="close-cross mobile-only">&times;</span>
         <menu>
           <% if signed_in? %>
-            <div class="main-menu-item search" ng-controller="MainController" ng-click="openSearchSidebar()">
+            <div class="main-menu-item search" ng-controller="MainController" ng-click="openSearchSidebar($event)">
               <span class="icon search"></span>
             </div>
             <notifications-dropdown></notifications-dropdown>
