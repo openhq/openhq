@@ -33,6 +33,14 @@ angular.module("OpenHq").factory("UsersRepository", function($http) {
 
         return teamUsers;
       });
+    },
+
+    usersSelectArray: function() {
+      return $http.get("/api/v1/users").then(function(resp) {
+        return resp.data.users.map(function(user) {
+          return [user.display_name, parseInt(user.id, 10)];
+        });
+      });
     }
   };
 }).run(function(UsersRepository) {
