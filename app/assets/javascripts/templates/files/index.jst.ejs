@@ -29,3 +29,8 @@
     </div>
 
 </div>
+
+<div class="meta center" ng-show="files.length">
+  Showing {{ files.length }} of {{ meta.total }} attachments
+  <a href="#" class="load-more" ng-click="loadMore()" ng-show="meta.has_more">Load More&hellip;</a>
+</div>

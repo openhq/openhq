@@ -22,6 +22,8 @@ module Api
       api! "Fetch all attachments"
       param :story_id, String, desc: "Story ID or slug", required: true
       def index
+        page = Integer(params[:page].presence || 1)
+        limit = Integer(params[:limit].presence || 20)
         attachments = Attachment.all_for_user(current_user)
 
         if params[:story_id].present?
@@ -29,7 +31,17 @@ module Api
           attachments = attachments.where(story_id: story.id)
         end
 
-        render json: attachments.page(params[:page]).per(25)
+        attachments = attachments.page(page).per(limit)
+        has_more = !attachments.last_page?
+        next_url = api_v1_attachments_path(page: page + 1, limit: limit, story_id: params[:story_id]) if has_more
+
+        meta = {
+          total: attachments.total_count,
+          has_more: has_more,
+          next_url: next_url
+        }
+
+        render json: attachments, meta: meta
       end
 
       api! "Fetch a single attachment"
