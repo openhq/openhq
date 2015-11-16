@@ -55,9 +55,8 @@ angular.module("OpenHq").directive("notificationsDropdown", function(Notificatio
         });
       });
 
-      /**
-       * Clicking outside the dropdown closes it
-       */
+
+      // Clicking outside the dropdown closes it
       $(document).on("click", function() {
         $scope.$apply(function(){
           $scope.showing = false;
