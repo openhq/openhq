@@ -70,6 +70,10 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFile
     template: JST['templates/team/index'],
     controller: 'TeamController'
   })
+  .when('/team/new', {
+    template: JST['templates/team/new'],
+    controller: 'NewTeamInviteController'
+  })
   .otherwise({
     redirectTo: '/'
   });
