@@ -11,7 +11,7 @@
       <article>
         <header>
           <div class="actions">
-            <a href="#">Edit</a>
+            <a href="/stories/{{ story.slug }}/edit">Edit</a>
           </div>
           <user-avatar user="story.owner"></user-avatar>
           {{ story.owner.display_name }} added <human-time datetime="story.created_at"></human-time>
