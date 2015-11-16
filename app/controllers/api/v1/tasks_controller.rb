@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 module Api
   module V1
     class TasksController < BaseController
