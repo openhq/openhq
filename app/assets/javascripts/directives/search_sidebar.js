@@ -29,7 +29,7 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
       $(document).on("click", function() {
         $scope.$apply($scope.closeSearchSidebar);
       });
-      $(document).on("click", "search-sidebar", function(ev) {
+      $(document).on("click", "search-sidebar, .main-menu-item.search", function(ev) {
         ev.stopPropagation();
       });
 
@@ -48,6 +48,13 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
        */
       $rootScope.$on('dialogs:close', function(){
         $scope.closeSearchSidebar();
+      });
+
+      /**
+       * Open the sidebar from a broadcast
+       */
+      $rootScope.$on('search:open', function(){
+        $scope.openSearchSidebar();
       });
 
       /**
