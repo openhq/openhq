@@ -5,8 +5,6 @@ angular.module("OpenHq").controller("FilesController", function($scope, Attachme
 
   function loadResults() {
     AttachmentsRepository.all($scope.page).then(function(resp) {
-      console.log("files", resp);
-
       $scope.meta = resp.meta;
 
       resp.attachments.forEach(function(file) {
@@ -18,7 +16,6 @@ angular.module("OpenHq").controller("FilesController", function($scope, Attachme
   $scope.loadMore = function() {
     $scope.page++;
     loadResults();
-    console.log("Loading more results");
   };
 
   loadResults();
