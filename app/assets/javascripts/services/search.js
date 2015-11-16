@@ -4,7 +4,7 @@ angular.module("OpenHq").factory("Search", function($http, $q) {
       opts = opts || {};
       _.defaults(opts, {
         page: 1,
-        limit: 3
+        limit: 20
       });
 
       // Deferred value to allow us to abort the request
