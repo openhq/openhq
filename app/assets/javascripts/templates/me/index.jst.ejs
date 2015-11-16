@@ -3,7 +3,7 @@
 <div class="tasks">
   <ul>
     <li ng-repeat="task in overdue">
-      <task-item task="task"></task-item>
+      <task-item task="task" users="allUsers"></task-item>
     </li>
   </ul>
 </div>
@@ -15,7 +15,7 @@
 <div class="tasks">
   <ul>
     <li ng-repeat="task in today">
-      <task-item task="task"></task-item>
+      <task-item task="task" users="allUsers"></task-item>
     </li>
   </ul>
 </div>
@@ -27,7 +27,7 @@
 <div class="tasks">
   <ul>
     <li ng-repeat="task in thisWeek">
-      <task-item task="task"></task-item>
+      <task-item task="task" users="allUsers"></task-item>
     </li>
   </ul>
 </div>
@@ -39,7 +39,7 @@
 <div class="tasks">
   <ul>
     <li ng-repeat="task in other">
-      <task-item task="task"></task-item>
+      <task-item task="task" users="allUsers"></task-item>
     </li>
   </ul>
 </div>
