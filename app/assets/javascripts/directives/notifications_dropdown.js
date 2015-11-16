@@ -18,20 +18,14 @@ angular.module("OpenHq").directive("notificationsDropdown", function(Notificatio
             return (_.isNull(n.project) || _.isNull(n.story));
           }
         });
-
-        $scope.updateNewCount();
       });
 
-      $scope.updateNewCount = function(){
+      // when notifications update, update the new count
+      $scope.$watch('notifications', function(){
         $scope.newCount = _.reject($scope.notifications, function(n) {
           return n.seen;
         }).length;
-      };
-
-      $scope.toggleShowing = function(){
-        $scope.showing = !$scope.showing;
-        if ($scope.newCount > 0) $scope.markAllAsSeen();
-      };
+      });
 
       $scope.$watch('showing', function(){
         if ($scope.newCount > 0 && !$scope.showing) {
@@ -42,9 +36,24 @@ angular.module("OpenHq").directive("notificationsDropdown", function(Notificatio
         }
       });
 
-      $scope.markAllAsSeen = function(){
-        NotificationsRepository.markAllAsSeen();
+      $scope.toggleShowing = function(){
+        $scope.showing = !$scope.showing;
+        if ($scope.newCount > 0) $scope.markAllAsSeen();
       };
+
+      $scope.markAllAsSeen = function(){
+        NotificationsRepository.markAsSeen(_.map($scope.notifications, function(n){
+          return n.id;
+        }));
+      };
+
+      // New notification has come in
+      $rootScope.$on('notification:new', function(_ev, data){
+        NotificationsRepository.find(data.id).then(function(notification){
+          $scope.notifications.unshift(notification);
+          $scope.newCount += 1;
+        });
+      });
 
       /**
        * Clicking outside the dropdown closes it
@@ -57,6 +66,7 @@ angular.module("OpenHq").directive("notificationsDropdown", function(Notificatio
       $(document).on("click", "notifications-dropdown", function(ev) {
         ev.stopPropagation();
       });
+
     }
   }
 });
