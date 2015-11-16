@@ -1,6 +1,8 @@
 <ul class="team-list">
   <li class="{{ user.role }}" ng-repeat="user in teamUsers">
-    <user-avatar user="user" size="100"></user-avatar>
+    <a href="/team/{{ user.username }}">
+      <user-avatar user="user" size="100"></user-avatar>
+    </a>
     <h4>
       <a href="/team/{{ user.username }}">{{ user.display_name }}</a>
       <small>({{ user.role }})</small>

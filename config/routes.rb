@@ -119,7 +119,8 @@ Rails.application.routes.draw do
       end
       resources :notifications, only: [:index, :show] do
         get "unseen", on: :collection
-        get "mark_all_seen", on: :collection
+        put "mark_all_seen", on: :collection
+        put "mark_as_seen", on: :collection
       end
       resources :search, only: [:index]
     end
