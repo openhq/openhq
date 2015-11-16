@@ -1,0 +1,47 @@
+<h1 class="danger">Overdue tasks</h1>
+
+<div class="tasks">
+  <ul>
+    <li ng-repeat="task in overdue">
+      <task-item task="task"></task-item>
+    </li>
+  </ul>
+</div>
+
+<hr>
+
+<h1>Todays tasks</h1>
+
+<div class="tasks">
+  <ul>
+    <li ng-repeat="task in today">
+      <task-item task="task"></task-item>
+    </li>
+  </ul>
+</div>
+
+<hr>
+
+<h1>This weeks tasks</h1>
+
+<div class="tasks">
+  <ul>
+    <li ng-repeat="task in thisWeek">
+      <task-item task="task"></task-item>
+    </li>
+  </ul>
+</div>
+
+<hr>
+
+<h1>All other tasks</h1>
+
+<div class="tasks">
+  <ul>
+    <li ng-repeat="task in other">
+      <task-item task="task"></task-item>
+    </li>
+  </ul>
+</div>
+
+<hr>

@@ -13,7 +13,7 @@ module Api
     private
 
     def serialize_collection(scope)
-      ActiveModel::Serializer::ArraySerializer.new(scope, root: false).object.as_json
+      scope.map { |obj| ActiveModel::SerializableResource.new(obj, root: :root_key_name).serializable_hash[:root_key_name] }
     end
 
     def render_errors(object)
