@@ -11,12 +11,6 @@ angular.module("OpenHq").factory("CurrentUser", function($http, $rootScope) {
         // cache user for later calls
         user = userResp.data.user;
 
-        // subscribe the user to get notifications
-        var bus = window.MessageBus;
-        bus.subscribe("/user/"+user.id+"/notifications", function(data) {
-          $rootScope.$broadcast('notification:new', data);
-        });
-
         callback.call(cbContext, user);
       });
     }
