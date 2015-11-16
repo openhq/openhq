@@ -8,6 +8,10 @@ RSpec.describe "Attachments API", type: :api do
   let!(:story) { create(:story, project: project, team: team, owner: user) }
   let!(:attachment) { create(:attachment, story: story, project: project, team: team, owner: user) }
 
+  before do
+    project.users << user
+  end
+
   describe "GET /api/v1/attachments" do
     it "returns the attachments" do
       get "/api/v1/attachments", { story_id: story.slug }, api_token_header(user)
