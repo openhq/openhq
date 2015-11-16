@@ -13,7 +13,6 @@ menu .main-menu-item {
   }
 
   .dropdown {
-    display: none;
     position: absolute;
     top: 45px;
     right: -25px;
@@ -49,6 +48,7 @@ menu .main-menu-item {
     border-radius: 30px;
     border: 1px solid #000;
     opacity: 0.4;
+    outline: none;
 
     &:hover {
       cursor: pointer;
