@@ -4,7 +4,7 @@ RSpec.describe "Notifications API", type: :api do
   let!(:user) { create(:user_with_team) }
   let(:team) { user.teams.first }
 
-  let!(:unseen_notifications) { create_list(:notification, 3, user: user, team: team, action_performed: "created", seen: false) }
+  let!(:unseen_notifications) { create_list(:notification, 3, user: user, team: team, notifiable_type: "Task", action_performed: "created", seen: false) }
   let!(:seen_notifications) { create_list(:notification, 3, user: user, team: team, seen: true) }
 
   describe "GET /api/v1/notifications" do
@@ -60,20 +60,27 @@ RSpec.describe "Notifications API", type: :api do
     it "can get a single notification" do
       get "/api/v1/notifications/#{unseen_notifications.first.id}", {}, api_token_header(user)
       expect(last_response.status).to eq(200)
-      expect(response_json[:notification][:action_performed]).to eq("created")
+      expect(response_json[:notification][:action_performed]).to eq("task_created")
     end
   end
 
-  describe "GET /api/v1/notifications/mark_all_seen" do
-    before do
-    end
-
+  describe "PUT /api/v1/notifications/mark_all_seen" do
     it "marks all notifications as seen" do
       get "/api/v1/notifications/unseen", {}, api_token_header(user)
       expect(response_json[:notifications].count).to eq(3)
-      get "/api/v1/notifications/mark_all_seen", {}, api_token_header(user)
+      put "/api/v1/notifications/mark_all_seen", {}, api_token_header(user)
       get "/api/v1/notifications/unseen", {}, api_token_header(user)
       expect(response_json[:notifications].count).to eq(0)
+    end
+  end
+
+  describe "PUT /api/v1/notifications/mark_as_seen" do
+    it "marks given notifications as seen" do
+      get "/api/v1/notifications/unseen", {}, api_token_header(user)
+      expect(response_json[:notifications].count).to eq(3)
+      put "/api/v1/notifications/mark_as_seen", {ids: [unseen_notifications.first.id]}, api_token_header(user)
+      get "/api/v1/notifications/unseen", {}, api_token_header(user)
+      expect(response_json[:notifications].count).to eq(2)
     end
   end
 end
