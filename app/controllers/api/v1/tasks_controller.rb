@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 module Api
   module V1
     class TasksController < BaseController
@@ -21,6 +22,19 @@ module Api
       def index
         tasks = @story.tasks.includes(:assignment, :story, :project)
         render json: tasks
+      end
+
+      api! "Tasks assigned to the current user"
+      def me
+        resp = {}
+        tasks = current_user.tasks.incomplete.includes(:project, :story).order(due_at: :asc)
+
+        resp[:overdue] = serialize_collection(tasks.overdue)
+        resp[:today] = serialize_collection(tasks.today)
+        resp[:this_week] = serialize_collection(tasks.this_week)
+        resp[:other] = serialize_collection(tasks.all_other)
+
+        render json: resp, root: false
       end
 
       api! "Fetch a single task"
