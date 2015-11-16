@@ -2,9 +2,7 @@ class UserSerializer < ActiveModel::Serializer
   attributes :id, :display_name, :first_name, :last_name, :username, :job_title, :avatar_url, :role
 
   def role
-    if object.role.present?
-      object.role
-    end
+    object.role if object.role.present?
   end
 
   def avatar_url
