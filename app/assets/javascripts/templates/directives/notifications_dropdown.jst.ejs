@@ -1,4 +1,4 @@
-<div class="main-menu-item ui-dropdown-menu notifications">
+<div class="main-menu-item ui-dropdown-menu notifications" ng-click="stopProp($event)">
   <span class="icon notifications" ng-click="toggleShowing()"></span>
   <span class="notification-count" ng-show="newCount > 0">{{ newCount }}</span>
   <div class="dropdown" ng-show="showing">

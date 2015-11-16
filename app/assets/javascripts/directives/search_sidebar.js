@@ -20,18 +20,12 @@ angular.module("OpenHq").directive("searchSidebar", function(Search) {
         $scope.openSearchSidebar();
       });
       Mousetrap.bind('esc', function() {
-        $scope.$apply($scope.closeSearchSidebar);
+        $rootScope.$broadcast('dialogs:close');
       });
 
-      /**
-       * Clicking outside the search sidebar closes it
-       */
-      $(document).on("click", function() {
-        $scope.$apply($scope.closeSearchSidebar);
-      });
-      $(document).on("click", "search-sidebar", function(ev) {
-        ev.stopPropagation();
-      });
+      $scope.stopProp = function($event) {
+        $event.stopPropagation();
+      };
 
       /**
        * Pressing ESC while in the search sidebar input closes it
