@@ -4,8 +4,6 @@ require 'securerandom'
 module Api
   module V1
     class AttachmentsController < BaseController
-      before_action :set_story, only: [:index]
-
       resource_description do
         short "Uploading and attaching files"
         formats ["json"]
@@ -24,8 +22,26 @@ module Api
       api! "Fetch all attachments"
       param :story_id, String, desc: "Story ID or slug", required: true
       def index
-        attachments = @story.attachments
-        render json: attachments
+        page = Integer(params[:page].presence || 1)
+        limit = Integer(params[:limit].presence || 20)
+        attachments = Attachment.all_for_user(current_user)
+
+        if params[:story_id].present?
+          story = Story.friendly.find(params[:story_id])
+          attachments = attachments.where(story_id: story.id)
+        end
+
+        attachments = attachments.page(page).per(limit)
+        has_more = !attachments.last_page?
+        next_url = api_v1_attachments_path(page: page + 1, limit: limit, story_id: params[:story_id]) if has_more
+
+        meta = {
+          total: attachments.total_count,
+          has_more: has_more,
+          next_url: next_url
+        }
+
+        render json: attachments, meta: meta
       end
 
       api! "Fetch a single attachment"
@@ -89,13 +105,6 @@ module Api
       end
 
       private
-
-      def set_story
-        @story = Story.friendly.find(params[:story_id])
-        project = @story.project
-
-        authorize! :read, project
-      end
 
       def attachment_params
         params.require(:attachment).permit(:name, :file_name, :file_size, :content_type, :file_path)
