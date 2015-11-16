@@ -110,6 +110,7 @@ Rails.application.routes.draw do
       end
       resources :comments, except: [:new, :edit]
       resources :tasks, except: [:new, :edit] do
+        get "me", on: :collection
         put "order", on: :collection, to: "tasks#update_order"
         delete "completed", on: :collection, to: "tasks#destroy_completed"
       end

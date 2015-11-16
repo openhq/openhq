@@ -12,6 +12,10 @@ module Api
 
     private
 
+    def serialize_collection(scope)
+      ActiveModel::Serializer::ArraySerializer.new(scope, root: false).object.as_json
+    end
+
     def render_errors(object)
       errors = object.errors.messages.map do |field, error_messages|
         {field: field, errors: error_messages}
