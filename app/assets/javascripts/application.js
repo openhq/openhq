@@ -74,6 +74,10 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFile
     template: JST['templates/team/new'],
     controller: 'NewTeamInviteController'
   })
+  .when('/team/:username', {
+    template: JST['templates/team/show'],
+    controller: 'ShowTeamController'
+  })
   .when('/files', {
     template: JST['templates/files/index'],
     controller: 'FilesController'
