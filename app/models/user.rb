@@ -15,7 +15,8 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :projects, -> { order(name: :asc) }
 
-  has_attached_file :avatar, styles: { thumb: "300x300#" },
+  has_attached_file :avatar,
+    styles: { thumb: "300x300#" },
     default_url: ActionController::Base.helpers.asset_path('default-avatar.jpg')
   validates_attachment_content_type :avatar, content_type: %r{^image\/}
 
