@@ -123,6 +123,8 @@ Rails.application.routes.draw do
         put "mark_as_seen", on: :collection
       end
       resources :search, only: [:index]
+      get "/mentions/users" => "mentions#users"
+      get "/mentions/emojis" => "mentions#emojis"
     end
   end
 

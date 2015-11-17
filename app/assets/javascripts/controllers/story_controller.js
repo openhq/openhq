@@ -24,6 +24,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
 
   $scope.taskCompletionPercentage = function() {
     if (! $scope.story) return 0; // Story not loaded yet
+    if ($scope.story.tasks.length === 0) return 0; // Protect zero division error
 
     var percent = $filter('completedTasks')($scope.story.tasks).length / $scope.story.tasks.length * 100;
     return Math.round(percent);
