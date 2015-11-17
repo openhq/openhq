@@ -16,7 +16,7 @@
 //# require pickadate/picker.date
 //= require underscore
 //# require highlightjs
-//# require jquery.atwho
+//= require jquery.atwho
 //# require imagesloaded.pkgd.min
 //= require mousetrap.min
 //= require moment

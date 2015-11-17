@@ -11,5 +11,17 @@ angular.module("OpenHq").factory('apiTokenInterceptor', function() {
     };
 })
 .config(function($httpProvider) {
+    // Ensure all angular requests use api token
     $httpProvider.interceptors.push('apiTokenInterceptor');
+
+    // Ensure third party plugins use api token if posting to self
+    $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+      if (options.url[0] === "/") {
+        if (!options.beforeSend) {
+          options.beforeSend = function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Token token="'+ window.apiToken +'"');
+          }
+        }
+      }
+    });
 });
