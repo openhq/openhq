@@ -181,7 +181,13 @@
         </div>
       </div>
 
-      <h4>0 Attachments</h4>
+      <h4>
+        <ng-pluralize count="story.attachments.length"
+                 when="{'0': 'No Attachments',
+                      'one': '1 Attachment',
+                      'other': '{} Attachments'}">
+        </ng-pluralize>
+      </h4>
     </aside>
   </div>
 
