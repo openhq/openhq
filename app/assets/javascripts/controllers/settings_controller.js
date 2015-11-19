@@ -1,7 +1,9 @@
-angular.module("OpenHq").controller("SettingsController", function($scope, $rootScope, CurrentUser) {
+angular.module("OpenHq").controller("SettingsController", function($scope, $rootScope, $timeout, CurrentUser) {
   $scope.onProfilePage = true;
   $scope.onPasswordPage = false;
-  $scope.current_password = "";
+  $scope.currentlyUpdating = false;
+  $scope.errors = [];
+  $scope.showSuccessMessage = false;
 
   $scope.notificationFrequencies = [
     ['ASAP', 'asap'],
@@ -14,10 +16,22 @@ angular.module("OpenHq").controller("SettingsController", function($scope, $root
   });
 
   $scope.updateProfile = function(){
+    if ($scope.currentlyUpdating) return;
+
+    $scope.currentlyUpdating = true;
+    $scope.showSuccessMessage = false;
+    $scope.errors = [];
+
     CurrentUser.update($scope.user).then(function(resp){
-      console.log('updated', resp);
+      $scope.currentlyUpdating = false;
+      $scope.showSuccessMessage = true;
+      $timeout(function(){
+        $scope.showSuccessMessage = false;
+      }, 5000)
+
     }, function(resp){
-      console.log('failed', resp);
+      $scope.currentlyUpdating = false;
+      $scope.errors = resp.data.errors;
     });
   };
 
