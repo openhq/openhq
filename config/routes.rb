@@ -34,22 +34,9 @@ Rails.application.routes.draw do
     resources :signups, only: [:new, :create] do
       get "success", on: :collection
     end
-
-    # get "/settings", to: redirect('/settings/account/edit'), as: :settings
-    # namespace :settings do
-    #   resource :password, only: [:show, :create]
-    #   resource :account, only: [:edit, :update, :destroy], controller: :account do
-    #     get "delete"
-    #   end
-    #   resources :teams, only: [:show, :new, :create, :update] do
-    #     delete "leave", on: :member
-    #   end
-    # end
   end # root domain constraint
 
   constraints(RouteConstraints::Subdomain) do
-    # get "/" => "projects#index"
-
     # First time setup flow
     constraints(RouteConstraints::SingleSite) do
       get "/setup", to: "setup/single_site#index", as: :setup_first_time_user
@@ -64,32 +51,7 @@ Rails.application.routes.draw do
     get "/setup/invite_team", to: "setup#invite_team", as: :setup_invite_team
     post "/setup/invite_team", to: "setup#send_invites"
 
-    # resources :files, only: :index
-    # resources :team, only: [:index, :show, :update, :destroy]
-    # resources :team_invites, only: [:new, :create, :edit, :update]
-    # resources :search, only: :index
-
-    # resources :projects do
-    #   get "archived", on: :collection
-    #   get "restore", on: :member
-    #   resources :stories do
-    #     get "archived", on: :collection
-    #     get "restore", on: :member
-    #     resources :comments
-    #     resources :tasks do
-    #       put "update-order", on: :collection
-    #       delete "delete-completed", on: :collection
-    #     end
-    #     resources :attachments
-    #   end
-    # end
-
-    # resources :me, only: :index
-
-    # resources :notifications, only: [:index] do
-    #   put "mark_all_seen", on: :collection
-    # end
-
+    resources :team_invites, only: [:edit, :update]
   end # subdomain constraint
 
   namespace :api, format: "json" do

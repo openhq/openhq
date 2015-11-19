@@ -1,29 +1,7 @@
 class TeamInvitesController < ApplicationController
-  skip_before_action :require_login, only: [:edit, :update]
-  skip_before_action :user_belongs_to_team!, only: [:edit, :update]
-  before_action :set_team_user, only: [:edit, :update]
-
-  def new
-    @user = current_team.users.new
-  end
-
-  def create
-    invite_params = params.require(:user).permit(:email, project_ids: [])
-
-    # Ensure users can only invite team members to
-    # projects they have access to.
-    invite_params[:project_ids].select! do |pid|
-      current_user.project_ids.include?(Integer(pid)) unless pid.empty?
-    end
-
-    @user = current_team.invite(invite_params, current_user)
-
-    if @user.persisted?
-      redirect_to team_index_path
-    else
-      render :new
-    end
-  end
+  skip_before_action :require_login
+  skip_before_action :user_belongs_to_team!
+  before_action :set_team_user
 
   def edit
     render layout: "auth"
