@@ -128,7 +128,8 @@
               <span class="icon icon-disk"></span>
               Attach files
             </button>
-            <button class="btn btn-main">Reply</button>
+            <button class="btn btn-main" ng-show="currentlyUploading < 1">Reply</button>
+            <button class="btn btn-main" disabled="disabled" ng-hide="currentlyUploading < 1">Uploading&hellip;</button>
           </footer>
         </form>
       </div>
