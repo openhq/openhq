@@ -32,6 +32,8 @@
 
 angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFileUpload', 'ngMaterial'])
 .config(function($routeProvider, $locationProvider, railsSerializerProvider) {
+
+  // App routes
   $routeProvider
   .when('/', {
     template: JST['templates/projects/index'],

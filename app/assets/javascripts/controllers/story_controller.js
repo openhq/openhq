@@ -1,5 +1,6 @@
 angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, $location, Task, TasksRepository, StoriesRepository, Story, AttachmentsRepository, Attachment, CurrentUser, Comment, Upload, ConfirmDialog) {
   $scope.fileUploads = [];
+  $scope.currentlyUploading = 0;
 
   CurrentUser.get(function(user) {
     $scope.currentUser = user;
@@ -74,6 +75,8 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
 
     _.each($files, function(file) {
       if (!file.$error) {
+        $scope.currentlyUploading++;
+
         AttachmentsRepository.presignedUrl(file).then(function(awsData) {
           console.log("Upload start", awsData.upload_url, file.name, file.type);
 
@@ -91,6 +94,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
               file.uploadProgress = progressPercentage;
           }).success(function (data, status, headers, config) {
             console.log("Upload success", arguments);
+            $scope.currentlyUploading--;
 
             file.uploadComplete = true;
 

@@ -128,7 +128,8 @@
               <span class="icon icon-disk"></span>
               Attach files
             </button>
-            <button class="btn btn-main">Reply</button>
+            <button class="btn btn-main" ng-show="currentlyUploading < 1">Reply</button>
+            <button class="btn btn-main" disabled="disabled" ng-hide="currentlyUploading < 1">Uploading&hellip;</button>
           </footer>
         </form>
       </div>
@@ -180,7 +181,13 @@
         </div>
       </div>
 
-      <h4>0 Attachments</h4>
+      <h4>
+        <ng-pluralize count="story.attachments.length"
+                 when="{'0': 'No Attachments',
+                      'one': '1 Attachment',
+                      'other': '{} Attachments'}">
+        </ng-pluralize>
+      </h4>
     </aside>
   </div>
 

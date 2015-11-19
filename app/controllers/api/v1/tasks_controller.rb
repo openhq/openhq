@@ -90,7 +90,8 @@ module Api
       param :order, Array, desc: "Task IDs in new order", required: true
       def update_order
         params[:order].each_with_index do |task_id, i|
-          @story.tasks.find(task_id.to_i).update(order: i + 1)
+          task = @story.tasks.find_by(id: task_id.to_i)
+          task.update(order: i + 1) if task
         end
 
         render nothing: true, status: 204
