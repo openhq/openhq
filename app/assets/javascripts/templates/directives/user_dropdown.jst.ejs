@@ -1,0 +1,16 @@
+<div class="main-menu-item ui-dropdown-menu" ng-click="stopProp($event)">
+  <span class="icon profile" ng-click="toggleShowing()">
+    <user-avatar user="user"></user-avatar>
+  </span>
+
+  <div class="dropdown" ng-show="showing">
+    <p>Hi {{ user.display_name }},</p>
+    <ul>
+      <li><a href="/settings">My Settings</a></li>
+    </ul>
+    <ul class="actions">
+      <li><a href="/help">Help &amp; Support</a></li>
+      <li><a href="/sign_out" data-method="delete">Sign out</a></li>
+    </ul>
+  </div>
+</div>

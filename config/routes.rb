@@ -141,8 +141,6 @@ Rails.application.routes.draw do
   get "/422", to: "errors#unacceptable"
   get "/500", to: "errors#internal_error"
 
-  get "help", to: "public#help"
-
   root to: "angular#index"
 
   match "*path", to: "angular#index", via: :all, constraints: RouteConstraints::NonApi

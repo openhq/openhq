@@ -1,6 +1,7 @@
 angular.module("OpenHq").directive("notificationsDropdown", function(NotificationsRepository) {
   return {
     restrict: "E",
+    scope: {},
     template: JST['templates/directives/notifications_dropdown'],
 
     controller: function($scope, $rootScope, $timeout){
@@ -37,8 +38,10 @@ angular.module("OpenHq").directive("notificationsDropdown", function(Notificatio
       });
 
       $scope.toggleShowing = function(){
-        $scope.showing = !$scope.showing;
-        if ($scope.newCount > 0) $scope.markAllAsSeen();
+        var currently_showing = angular.copy($scope.showing);
+        $rootScope.$broadcast('dialogs:close');
+        if (!currently_showing) { $scope.showing = true; }
+        if ($scope.newCount > 0) { $scope.markAllAsSeen(); }
       };
 
       $scope.markAllAsSeen = function(){

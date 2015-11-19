@@ -15,12 +15,25 @@ module Api
         # TODO
       end
 
+      api! "Update the current user"
       def update
-        # TODO
+        if current_user.update_with_password(user_params)
+          render json: current_user, serializer: CurrentUserSerializer, root: :user
+        else
+          render_errors(current_user)
+        end
       end
 
       def destroy
         # TODO
+      end
+
+      private
+
+      def user_params
+        params.require(:user).permit(:first_name, :last_name, :username, :email,
+          :notification_frequency, :avatar,
+          :job_title, :phone, :skype, :bio, :current_password)
       end
     end
   end

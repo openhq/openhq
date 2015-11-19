@@ -13,6 +13,12 @@ angular.module("OpenHq").factory("CurrentUser", function($http, $rootScope) {
 
         callback.call(cbContext, user);
       });
+    },
+
+    update: function(user){
+      return $http.put("/api/v1/user", {user:user}).then(function(userResp) {
+        return userResp.data.user;
+      });
     }
   };
 

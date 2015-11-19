@@ -90,6 +90,14 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFile
     template: JST['templates/me/index'],
     controller: 'MeController'
   })
+  .when('/help', {
+    template: JST['templates/help/index'],
+    controller: 'HelpController'
+  })
+  .when('/settings', {
+    template: JST['templates/settings/index'],
+    controller: 'SettingsController'
+  })
   .otherwise({
     redirectTo: '/'
   });
