@@ -36,9 +36,6 @@ angular.module("OpenHq").controller("SettingsController", function($scope, $root
     CurrentUser.update($scope.user).then(function(resp){
       $scope.currentlyUpdating = false;
       $scope.showSuccessMessage = true;
-      $timeout(function(){
-        $scope.showSuccessMessage = false;
-      }, 5000)
 
     }, function(resp){
       $scope.currentlyUpdating = false;
@@ -46,15 +43,17 @@ angular.module("OpenHq").controller("SettingsController", function($scope, $root
     });
   };
 
+  // TODO: actually delete account
   $scope.deleteAccount = function(){
-    ConfirmDialog.show('Delete Account', 'Are you sure you want to delete your account? You won\'t be able to get it back').then(function(){
-      // TODO: actually delete account
-      console.log('delete account');
+    ConfirmDialog.show('Delete Account', 'Are you sure you want to delete your account?').then(function(){
+      ConfirmDialog.show('Seriously Though.', 'You won\'t be able to get it back').then(function(){
+        console.log('delete account');
+      });
     });
   };
 
+  // TODO: update the password
   $scope.updatePassword = function(){
-    // TODO: update the password
     console.log('update the password');
   };
 });
