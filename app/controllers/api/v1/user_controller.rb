@@ -24,6 +24,18 @@ module Api
         end
       end
 
+      api! "Update the current users password"
+      def password
+        current_user.password_changing = true
+
+        if current_user.update_with_password(password_params)
+          UserMailer.password_changed(current_user).deliver_later
+          render json: current_user, serializer: CurrentUserSerializer, root: :user
+        else
+          render_errors(current_user)
+        end
+      end
+
       def destroy
         # TODO
       end
@@ -34,6 +46,10 @@ module Api
         params.require(:user).permit(:first_name, :last_name, :username, :email,
           :notification_frequency, :avatar,
           :job_title, :phone, :skype, :bio, :current_password)
+      end
+
+      def password_params
+        params.require(:user).permit(:current_password, :password)
       end
     end
   end

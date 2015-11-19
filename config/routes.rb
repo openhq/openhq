@@ -98,7 +98,9 @@ Rails.application.routes.draw do
 
     namespace :v1 do
       resources :auth, only: [:create]
-      resource :user, except: [:new, :edit], controller: :user
+      resource :user, except: [:new, :edit], controller: :user do
+        put "password"
+      end
       resources :users, only: :index
       resources :team_invites, only: [:index, :create, :update]
       resources :projects, except: [:new, :edit] do

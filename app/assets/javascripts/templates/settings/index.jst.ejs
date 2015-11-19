@@ -100,7 +100,7 @@
         </div>
       </div>
 
-      <error-list ng-show="profileErrors.length > 0" errors="profileErrors"></error-list>
+      <error-list ng-show="errors.length > 0" errors="errors"></error-list>
 
       <div class="form-actions">
         <input type="submit" class="btn btn-main" value="Save Changes" />
@@ -131,10 +131,11 @@
         </div>
       </div>
 
-      <error-list ng-show="passwordErrors.length > 0" errors="passwordErrors"></error-list>
+      <error-list ng-show="errors.length > 0" errors="errors"></error-list>
 
       <div class="form-actions">
         <input type="submit" value="Update Password" class="btn btn-main">
+        <p ng-show="showSuccessMessage">Update Successful</p>
       </div>
     </form>
 

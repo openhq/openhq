@@ -2,8 +2,7 @@ angular.module("OpenHq").controller("SettingsController", function($scope, $root
   $scope.onProfilePage = true;
   $scope.onPasswordPage = false;
   $scope.currentlyUpdating = false;
-  $scope.passwordErrors = [];
-  $scope.profileErrors = [];
+  $scope.errors = [];
   $scope.showSuccessMessage = false;
 
   $scope.notificationFrequencies = [
@@ -17,11 +16,15 @@ angular.module("OpenHq").controller("SettingsController", function($scope, $root
   });
 
   $scope.showProfilePage = function(){
+    $scope.errors = [];
+    $scope.showSuccessMessage = false;
     $scope.onProfilePage = true;
     $scope.onPasswordPage = false;
   };
 
   $scope.showPasswordPage = function(){
+    $scope.errors = [];
+    $scope.showSuccessMessage = false;
     $scope.onProfilePage = false;
     $scope.onPasswordPage = true;
   };
@@ -31,7 +34,7 @@ angular.module("OpenHq").controller("SettingsController", function($scope, $root
 
     $scope.currentlyUpdating = true;
     $scope.showSuccessMessage = false;
-    $scope.profileErrors = [];
+    $scope.errors = [];
 
     CurrentUser.update($scope.user).then(function(resp){
       $scope.currentlyUpdating = false;
@@ -39,7 +42,7 @@ angular.module("OpenHq").controller("SettingsController", function($scope, $root
 
     }, function(resp){
       $scope.currentlyUpdating = false;
-      $scope.profileErrors = resp.data.errors;
+      $scope.errors = resp.data.errors;
     });
   };
 
@@ -54,6 +57,19 @@ angular.module("OpenHq").controller("SettingsController", function($scope, $root
 
   // TODO: update the password
   $scope.updatePassword = function(){
-    console.log('update the password');
+    if ($scope.currentlyUpdating) return;
+
+    $scope.currentlyUpdating = true;
+    $scope.showSuccessMessage = false;
+    $scope.errors = [];
+
+    CurrentUser.updatePassword($scope.user).then(function(resp){
+      $scope.currentlyUpdating = false;
+      $scope.showSuccessMessage = true;
+
+    }, function(resp){
+      $scope.currentlyUpdating = false;
+      $scope.errors = resp.data.errors;
+    });
   };
 });

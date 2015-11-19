@@ -19,6 +19,12 @@ angular.module("OpenHq").factory("CurrentUser", function($http, $rootScope) {
       return $http.put("/api/v1/user", {user:user}).then(function(userResp) {
         return userResp.data.user;
       });
+    },
+
+    updatePassword: function(user){
+      return $http.put("/api/v1/user/password", {user:user}).then(function(userResp) {
+        return userResp.data.user;
+      });
     }
   };
 
