@@ -36,8 +36,15 @@ module Api
         end
       end
 
+      api! "Delete the users account"
       def destroy
-        # TODO
+        if current_user.authenticated?(params[:current_password])
+          current_user.update(deleted_at: Time.zone.now)
+
+          render json: current_user, serializer: CurrentUserSerializer, root: :user
+        else
+          render_errors(current_user)
+        end
       end
 
       private

@@ -25,6 +25,10 @@ angular.module("OpenHq").factory("CurrentUser", function($http, $rootScope) {
       return $http.put("/api/v1/user/password", {user:user}).then(function(userResp) {
         return userResp.data.user;
       });
+    },
+
+    deleteAccount: function(current_password){
+      return $http.delete("/api/v1/user", {params: {current_password:current_password}});
     }
   };
 

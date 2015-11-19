@@ -1,4 +1,4 @@
-angular.module("OpenHq").controller("SettingsController", function($scope, $rootScope, $timeout, CurrentUser, ConfirmDialog) {
+angular.module("OpenHq").controller("SettingsController", function($scope, $rootScope, CurrentUser, ConfirmDialog) {
   $scope.onProfilePage = true;
   $scope.onPasswordPage = false;
   $scope.currentlyUpdating = false;
@@ -46,16 +46,6 @@ angular.module("OpenHq").controller("SettingsController", function($scope, $root
     });
   };
 
-  // TODO: actually delete account
-  $scope.deleteAccount = function(){
-    ConfirmDialog.show('Delete Account', 'Are you sure you want to delete your account?').then(function(){
-      ConfirmDialog.show('Seriously Though.', 'You won\'t be able to get it back').then(function(){
-        console.log('delete account');
-      });
-    });
-  };
-
-  // TODO: update the password
   $scope.updatePassword = function(){
     if ($scope.currentlyUpdating) return;
 
@@ -70,6 +60,18 @@ angular.module("OpenHq").controller("SettingsController", function($scope, $root
     }, function(resp){
       $scope.currentlyUpdating = false;
       $scope.errors = resp.data.errors;
+    });
+  };
+
+  $scope.deleteAccount = function(){
+    ConfirmDialog.show('Delete Account', 'Are you sure you want to delete your account?').then(function(){
+      CurrentUser.deleteAccount($scope.user.current_password).then(function(resp){
+        // TODO: sign out when deleting the count and just use $location.url('/') here
+        window.location.replace('/sign_out');
+
+      }, function(resp){
+        $scope.errors = [{field: "Password", errors: ["Your current password was incorrect"]}];
+      });
     });
   };
 });
