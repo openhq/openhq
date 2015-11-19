@@ -3,6 +3,10 @@ class ProjectSerializer < ActiveModel::Serializer
   has_many :users, serializer: UserSerializer
   has_many :recent_stories, serializer: ThinStorySerializer
 
+  def recent_stories
+    object.recent_stories.take(5)
+  end
+
   def archived_count
     object.stories.only_deleted.count
   end
