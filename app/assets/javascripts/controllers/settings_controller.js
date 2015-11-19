@@ -66,7 +66,7 @@ angular.module("OpenHq").controller("SettingsController", function($scope, $root
   $scope.deleteAccount = function(){
     ConfirmDialog.show('Delete Account', 'Are you sure you want to delete your account?').then(function(){
       CurrentUser.deleteAccount($scope.user.current_password).then(function(resp){
-        // TODO: sign out when deleting the count and just use $location.url('/') here
+        // TODO: sign out when deleting the account on the API and just use $location.url('/') here
         window.location.replace('/sign_out');
 
       }, function(resp){

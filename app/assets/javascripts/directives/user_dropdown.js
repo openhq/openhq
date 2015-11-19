@@ -22,10 +22,6 @@ angular.module("OpenHq").directive("userDropdown", function(CurrentUser) {
       $scope.stopProp = function($event) {
         $event.stopPropagation();
       };
-
-      $scope.signOut = function() {
-        console.log('signin out, braw?');
-      };
     }
   }
 });
