@@ -3,7 +3,6 @@ require 'route_constraints/subdomain'
 require 'route_constraints/single_site'
 require 'route_constraints/multi_site'
 require 'route_constraints/non_api'
-require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
@@ -92,10 +91,6 @@ Rails.application.routes.draw do
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
-  end
-
-  constraints Clearance::Constraints::SignedIn.new { |user| user.admin? } do
-    mount Sidekiq::Web => '/sidekiq'
   end
 
   # Dynamic error pages

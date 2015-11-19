@@ -19,7 +19,11 @@ class ProcessAttachmentJob < ActiveJob::Base
     attachment.process_attempts += 1
     attachment.save
 
-    raise e if attachment.process_attempts < MAX_ATTEMPTS
+    if attachment.process_attempts < MAX_ATTEMPTS
+      raise e
+    else
+      Rails.logger.error("attachment::#{attachment.id} failed permanently - #{e.message}")
+    end
   end
 
   private
