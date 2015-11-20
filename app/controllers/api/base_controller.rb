@@ -1,6 +1,5 @@
 module Api
   class BaseController < ActionController::Base
-    include Clearance::Controller
     include NotifyConcern
     include CurrentTeamAbilityConcern
 

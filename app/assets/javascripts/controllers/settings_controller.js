@@ -66,7 +66,7 @@ angular.module("OpenHq").controller("SettingsController", function($scope, $root
   $scope.deleteAccount = function(){
     ConfirmDialog.show('Delete Account', 'Are you sure you want to delete your account?').then(function(){
       CurrentUser.deleteAccount($scope.user.current_password).then(function(resp){
-        window.location.replace('/sign_out');
+        window.location.replace('/');
 
       }, function(resp){
         $scope.errors = [{field: "Password", errors: ["Your current password was incorrect"]}];
