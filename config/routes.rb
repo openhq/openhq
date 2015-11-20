@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   get '/sign_in' => 'clearance/sessions#new', as: 'sign_in'
   delete '/sign_out' => 'clearance/sessions#destroy', as: 'sign_out'
-  get '/sign_out' => 'clearance/sessions#destroy' # easier to sign out with angular, bad?
+  get '/sign_out' => 'clearance/sessions#destroy'
   # end Clearance routes
 
   constraints(RouteConstraints::RootDomain) do
