@@ -1,0 +1,11 @@
+error-list {
+  display: block;
+  background: $danger-color;
+  padding: 10px 20px;
+  color: #fff;
+
+  & > ul {
+    list-style: none;
+    padding: 0;
+  }
+}

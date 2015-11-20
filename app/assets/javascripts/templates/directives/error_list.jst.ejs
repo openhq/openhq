@@ -1,0 +1,7 @@
+<p>Please correct the following errors:</p>
+<ul class="error-list">
+  <li ng-repeat="error in errors">
+    <strong>{{ error.field | prettyFieldname }}:</strong>
+    <ul><li ng-repeat="msg in error.errors">{{ msg }}</li></ul>
+  </li>
+</ul>

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   get '/sign_in' => 'clearance/sessions#new', as: 'sign_in'
   delete '/sign_out' => 'clearance/sessions#destroy', as: 'sign_out'
+  get '/sign_out' => 'clearance/sessions#destroy'
   # end Clearance routes
 
   constraints(RouteConstraints::RootDomain) do
@@ -59,7 +60,9 @@ Rails.application.routes.draw do
 
     namespace :v1 do
       resources :auth, only: [:create]
-      resource :user, except: [:new, :edit], controller: :user
+      resource :user, except: [:new, :edit], controller: :user do
+        put "password"
+      end
       resources :users, only: :index
       resources :team_invites, only: [:index, :create, :update]
       resources :projects, except: [:new, :edit] do
@@ -97,8 +100,6 @@ Rails.application.routes.draw do
   get "/404", to: "errors#not_found"
   get "/422", to: "errors#unacceptable"
   get "/500", to: "errors#internal_error"
-
-  get "help", to: "public#help"
 
   root to: "angular#index"
 
