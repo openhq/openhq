@@ -42,11 +42,9 @@ gem 'friendly_id', '~> 5.0.4'
 # File uploads
 gem 'paperclip', '~> 4.2'
 gem 'aws-sdk', '< 2.0'
-gem 's3_direct_upload', '~> 0.1.7'
 
 # Background jobs
-gem 'sinatra', require: nil # for sidekiq/web
-gem 'sidekiq'
+gem 'sucker_punch'
 
 # Markdown / editing support
 gem 'html-pipeline'

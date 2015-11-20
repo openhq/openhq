@@ -2,6 +2,7 @@ require 'tempfile'
 require 'securerandom'
 require 'rmagick'
 require 's3_uploader'
+require 'open-uri'
 
 module AttachmentProcessor
   class Image
@@ -24,7 +25,7 @@ module AttachmentProcessor
       tmp_img = Tempfile.new([SecureRandom.hex(18), ext])
 
       # resize it
-      img = Magick::Image.read(attachment.url).first
+      img = Magick::Image.from_blob(open(attachment.url).read).first
       img.resize_to_fill!(width, height)
       img.write(tmp_img.path)
 
