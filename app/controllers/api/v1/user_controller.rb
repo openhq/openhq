@@ -58,6 +58,7 @@ module Api
       def destroy
         if current_user.authenticated?(params[:current_password])
           current_user.update(deleted_at: Time.zone.now)
+          sign_out
 
           render json: current_user, serializer: CurrentUserSerializer, root: :user
         else
