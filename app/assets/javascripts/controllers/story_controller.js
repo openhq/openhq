@@ -39,6 +39,27 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     });
   };
 
+  $scope.toggleEditComment = function(comment) {
+    if (comment.editing) return comment.editing = false;
+
+    comment.editing = true;
+  };
+
+  $scope.updateComment = function(comment) {
+    comment.update().then(function(resp) {
+      comment.editing = false;
+    });
+  };
+
+  $scope.deleteComment = function(comment) {
+    ConfirmDialog.show('Delete comment', 'Are you sure you want to delete this comment?').then(function(){
+      comment.delete().then(function() {
+        var index = $scope.story.comments.indexOf(comment);
+        if (index > -1) $scope.story.comments.splice(index, 1);
+      });
+    });
+  };
+
   $scope.createTask = function(newTask) {
     newTask.create().then(function(resp) {
       resp.due_at = resp.due_at ? new Date(resp.due_at) : "";
