@@ -79,7 +79,7 @@
       <article ng-repeat="comment in story.comments" class="comment-row">
         <header>
           <div class="actions" ng-show="comment.owner_id == currentUser.id">
-            <a href="#">Edit</a>
+            <a href="#" ng-click="toggleEditComment(comment)">Edit</a>
             | <a href="#" ng-click="deleteComment(comment)">Delete</a>
           </div>
           <user-avatar user="comment.owner"></user-avatar>
@@ -88,9 +88,14 @@
         </header>
         <section class="body comment">
 
-          <div ng-bind-html="comment.markdown"></div>
+          <form class="editing-comment" ng-show="comment.editing" ng-submit="updateComment(comment)">
+            <markdown-input content="comment.content" filler="'Type your message'"></markdown-input>
+            <button class="btn btn-main">Save changes</button>
+          </form>
 
-          <div ng-show="comment.attachments.length">
+          <div ng-hide="comment.editing" ng-bind-html="comment.markdown"></div>
+
+          <div ng-show="comment.attachments.length && !comment.editing">
             <h5>Added
               <ng-pluralize count="comment.attachments.length"
                  when="{'0': 'no attachments',
