@@ -39,6 +39,15 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     });
   };
 
+  $scope.deleteComment = function(comment) {
+    ConfirmDialog.show('Delete comment', 'Are you sure you want to delete this comment?').then(function(){
+      comment.delete().then(function() {
+        var index = $scope.story.comments.indexOf(comment);
+        if (index > -1) $scope.story.comments.splice(index, 1);
+      });
+    });
+  };
+
   $scope.createTask = function(newTask) {
     newTask.create().then(function(resp) {
       resp.due_at = resp.due_at ? new Date(resp.due_at) : "";

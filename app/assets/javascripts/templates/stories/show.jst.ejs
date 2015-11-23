@@ -1,4 +1,3 @@
-
 <h1>
   {{ story.name }}
   <small><a href="/projects/{{ story.project.slug }}">{{ story.project.name }}</a></small>
@@ -11,7 +10,7 @@
       <article>
         <header>
           <div class="actions">
-            <a href="/stories/{{ story.slug }}/edit">Edit</a>
+            <a href="/stories/{{ story.slug }}/edit" ng-show="story.owner_id == currentUser.id">Edit</a>
           </div>
           <user-avatar user="story.owner"></user-avatar>
           {{ story.owner.display_name }} added <human-time datetime="story.created_at"></human-time>
@@ -79,9 +78,9 @@
       </div>
       <article ng-repeat="comment in story.comments" class="comment-row">
         <header>
-          <div class="actions">
+          <div class="actions" ng-show="comment.owner_id == currentUser.id">
             <a href="#">Edit</a>
-            | <a href="#">Delete</a>
+            | <a href="#" ng-click="deleteComment(comment)">Delete</a>
           </div>
           <user-avatar user="comment.owner"></user-avatar>
 
