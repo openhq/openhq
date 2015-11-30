@@ -15,9 +15,10 @@ class Story < ActiveRecord::Base
   belongs_to :project, touch: true
   belongs_to :owner, class_name: "User"
   has_many :tasks, -> { order(completed: :asc, order: :asc, created_at: :asc) }
-  has_many :attachments
-  has_many :comments, as: :commentable
-  has_many :users, -> { uniq }, through: :comments, source: :owner
+  has_many :attachments, -> { order(created_at: :desc) }
+  has_many :comments, -> { order(created_at: :desc) }, as: :commentable
+  has_many :comments_unordered, as: :commentable, class_name: "Comment"
+  has_many :users, -> { uniq }, through: :comments_unordered, source: :owner
 
   validates_presence_of :project_id, :name, :owner_id
 
