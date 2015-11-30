@@ -12,7 +12,7 @@ module Api
       param :story_id, String, desc: "Story ID or slug", required: true
       def index
         story = Story.friendly.find(params[:story_id])
-        comments = story.comments.includes(:owner).all
+        comments = story.comments.includes(:owner).order(created_at: :desc).all
         render json: comments
       end
 
