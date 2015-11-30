@@ -21,6 +21,9 @@ angular.module("OpenHq").factory("StoriesRepository", function($http, Story, Tas
           return new Comment(commentData);
         });
 
+        story.comments = story.comments.reverse();
+        story.attachments = story.attachments.reverse();
+
         return story;
       });
     },
