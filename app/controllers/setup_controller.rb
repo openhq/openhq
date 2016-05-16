@@ -28,7 +28,7 @@ class SetupController < ApplicationController
 
     if @team_invites.submit(invite_params)
       flash[:notice] = "Your team members have been invited!"
-      redirect_to project_path(Project.first)
+      redirect_to "/projects/#{Project.first.try(:slug)}"
     else
       render :invite_team
     end
