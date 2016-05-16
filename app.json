@@ -2,7 +2,7 @@
   "name": "Open HQ",
   "description": "Open source project management software",
   "website": "https://openhq.io/",
-  "repository": "https://github.com/phawkinsltd/openhq",
+  "repository": "https://github.com/openhq/openhq",
   "keywords": ["project", "management"],
   "scripts": {
     "postdeploy": "bin/rake db:migrate db:seed"

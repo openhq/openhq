@@ -23,7 +23,7 @@
 
     <div class="form-actions">
       <%= f.button :submit, "Invite team", class: "btn btn-main" %>
-      <span>or <%= link_to "Skip this step", project_path(Project.first) %></span>
+      <span>or <a href="/projects/<%= Project.first.slug %>">Skip this step</a></span>
     </div>
   <% end %>
 </div>
