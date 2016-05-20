@@ -8,6 +8,9 @@ html.auth.setup {
 
     .setup-container {
       padding: 100px 0;
+      form input[type=file] {
+        color: $body-color;
+      }
       form input, form select {
         max-width: 100%;
       }
