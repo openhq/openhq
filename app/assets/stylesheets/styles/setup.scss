@@ -1,5 +1,18 @@
 html.auth.setup {
   body {
+    background: transparent;
+
+    .brand {
+      margin-top: 0;
+    }
+
+    .setup-container {
+      padding: 100px 0;
+      form input, form select {
+        max-width: 100%;
+      }
+    }
+
     ul.steps {
       text-align: center;
       margin: 0 0 30px;
