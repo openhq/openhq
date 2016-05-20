@@ -41,7 +41,7 @@ module Setup
     def check_aws_credentials!
       s3 = AWS::S3.new
       bucket = s3.buckets[ENV.fetch('AWS_S3_BUCKET')]
-      s3.buckets.create(ENV.fetch('AWS_S3_BUCKET')) if !bucket.exists?
+      s3.buckets.create(ENV.fetch('AWS_S3_BUCKET')) unless bucket.exists?
 
     rescue StandardError
       render :invalid_aws_credentials
