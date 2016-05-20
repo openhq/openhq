@@ -5,6 +5,7 @@ module Setup
     skip_before_action :run_first_time_setup
     before_action :ensure_single_site_install, only: [:index, :create]
     before_action :ensure_no_users, only: [:index, :create]
+    before_action :check_aws_credentials!, only: [:index, :create]
 
     def index
       @user = User.new
@@ -35,6 +36,15 @@ module Setup
 
     def ensure_no_users
       redirect_to root_url if current_team.users.count > 0
+    end
+
+    def check_aws_credentials!
+      s3 = AWS::S3.new
+      bucket = s3.buckets[ENV.fetch('AWS_S3_BUCKET')]
+      s3.buckets.create(ENV.fetch('AWS_S3_BUCKET')) unless bucket.exists?
+
+    rescue StandardError
+      render :invalid_aws_credentials
     end
   end
 end
