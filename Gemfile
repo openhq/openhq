@@ -2,9 +2,6 @@ source 'https://rubygems.org'
 
 ruby '2.2.2'
 
-# New mime-types uses way less memory
-gem 'mime-types', '~> 2.6.1', require: 'mime/types/columnar'
-
 gem 'rails', '>= 5.0.0.rc1', '< 5.1'
 gem 'pg'
 gem 'pg_search'
