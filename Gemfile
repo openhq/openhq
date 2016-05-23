@@ -5,14 +5,13 @@ ruby '2.2.2'
 # New mime-types uses way less memory
 gem 'mime-types', '~> 2.6.1', require: 'mime/types/columnar'
 
-gem 'rails', '~> 4.2.3'
+gem 'rails', '>= 5.0.0.rc1', '< 5.1'
 gem 'pg'
 gem 'pg_search'
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'turbolinks'
 gem 'autoprefixer-rails' # scss prefixer
 gem 'ejs'
 gem 'angularjs-rails-resource', '~> 2.0.0'
@@ -61,10 +60,10 @@ gem 'rmagick'
 gem 'kaminari', '~> 0.16.1'
 
 # Soft deletes
-gem "paranoia", "~> 2.0"
+gem "paranoia", git: "https://github.com/rubysherpas/paranoia.git", branch: "core"
 
 # Sending emails
-gem 'roadie-rails', '~> 1.0.4'
+gem 'roadie-rails', '~> 1.1.1'
 
 gem 'puma'
 gem 'message_bus'
@@ -74,15 +73,17 @@ gem 'maruku'
 gem 'apipie-rails'
 
 group :development, :test do
+  gem 'listen', '~> 3.0.5'
   gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console'
   gem 'rubocop', require: false
 end
 
 group :development do
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console'
   gem 'quiet_assets'
   gem 'letter_opener_web'
   gem 'spring-commands-rspec'
