@@ -5,7 +5,6 @@ require 'route_constraints/multi_site'
 require 'route_constraints/non_api'
 
 Rails.application.routes.draw do
-
   apipie
 
   # Clearance routes for authentication
@@ -104,5 +103,4 @@ Rails.application.routes.draw do
   root to: "angular#index"
 
   match "*path", to: "angular#index", via: :all, constraints: RouteConstraints::NonApi
-
 end
