@@ -68,7 +68,7 @@ module Api
 
         project.destroy
 
-        render nothing: true, status: 204
+        head 204
       end
 
       api! "Restores a project"

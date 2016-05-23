@@ -83,7 +83,7 @@ module Api
       def destroy
         attachment = Attachment.find(params[:id])
         attachment.destroy
-        render nothing: true, status: 204
+        head 204
       end
 
       api! "Get a presigned S3 URL to upload your file to"

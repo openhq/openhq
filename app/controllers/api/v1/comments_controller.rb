@@ -68,7 +68,7 @@ module Api
         comment = Comment.find(params[:id])
         authorize! :destroy, comment
         comment.destroy
-        render nothing: true, status: 204
+        head 204
       end
 
       private
