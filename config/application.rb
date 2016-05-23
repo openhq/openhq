@@ -17,8 +17,6 @@ module OpenHq
 
     config.active_record.schema_format = :sql
 
-    config.active_record.raise_in_transactional_callbacks = true
-
     # Reloading of lib classes with require_dependency
     config.watchable_dirs['lib'] = [:rb]
 
