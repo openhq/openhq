@@ -51,14 +51,14 @@ module Api
       api! "Marks all notifications as seen"
       def mark_all_seen
         current_user.notifications.unseen.each(&:seen!)
-        head 204
+        head :no_content
       end
 
       api! "Marks given ids as seen"
       param :ids, Array, desc: "Array of notification ids to be marked as seen", required: true
       def mark_as_seen
         current_user.notifications.unseen.where(id: params[:ids]).each(&:seen!)
-        head 204
+        head :no_content
       end
     end
   end

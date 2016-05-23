@@ -73,7 +73,7 @@ module Api
         authorize! :destroy, story
 
         story.destroy
-        head 204
+        head :no_content
       end
 
       api! "Restore an archived story"

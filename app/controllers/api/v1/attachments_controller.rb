@@ -83,7 +83,7 @@ module Api
       def destroy
         attachment = Attachment.find(params[:id])
         attachment.destroy
-        head 204
+        head :no_content
       end
 
       api! "Get a presigned S3 URL to upload your file to"
