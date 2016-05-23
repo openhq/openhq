@@ -69,6 +69,8 @@ gem 'message_bus'
 gem 'maruku'
 gem 'apipie-rails'
 
+gem 'multi_json'
+
 group :development, :test do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
@@ -87,7 +89,7 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails'
   gem 'capybara', '~> 2.0'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers', require: false
