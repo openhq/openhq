@@ -10,16 +10,16 @@
       <article>
         <header>
           <div class="actions">
-            <a href="/stories/{{ story.slug }}/edit" ng-show="story.owner_id == currentUser.id">Edit</a>
+            <a href="/{{ story.story_type }}s/{{ story.slug }}/edit" ng-show="story.owner_id == currentUser.id">Edit</a>
           </div>
           <user-avatar user="story.owner"></user-avatar>
           {{ story.owner.display_name }} added <human-time datetime="story.created_at"></human-time>
         </header>
-        <section class="body" ng-bind-html="story.markdown">
+        <section class="body" ng-bind-html="story.markdown" ng-show="story.story_type == 'discussion'">
         </section>
       </article>
 
-      <div class="tasks">
+      <div class="tasks" ng-show="story.story_type == 'todo'">
         <div ng-hide="story.tasks.length > 0" class="no-tasks">
           <h4>No Tasks</h4>
         </div>
@@ -59,7 +59,7 @@
         </form>
       </div>
 
-      <div class="attachments">
+      <div class="attachments" ng-show="story.story_type == 'file'">
         <p ng-hide="story.attachments.length">No attachments</p>
 
         <ul class="file-list" ng-show="story.attachments.length">

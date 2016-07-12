@@ -5,10 +5,4 @@ angular.module("OpenHq").controller("NewStoryController", function($scope, $rout
   CurrentUser.get(function(user) {
     $scope.currentUser = user;
   });
-
-  $scope.createStory = function(story) {
-    story.create().then(function(story) {
-      $location.path("/stories/"+story.slug);
-    });
-  };
 });

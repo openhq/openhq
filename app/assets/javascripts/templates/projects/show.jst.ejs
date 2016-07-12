@@ -8,9 +8,9 @@
         <span class="icon profile">Add New&hellip;</span>
         <div class="dropdown">
           <ul class="actions">
-            <li><a href="/projects/{{ project.slug }}/new-discussion">Discussion</a></li>
-            <li><a href="/projects/{{ project.slug }}/new-todo">Todo List</a></li>
-            <li><a href="/projects/{{ project.slug }}/new-file">File Upload</a></li>
+            <li><a href="/projects/{{ project.slug }}/discussions/new">Discussion</a></li>
+            <li><a href="/projects/{{ project.slug }}/todos/new">Todo List</a></li>
+            <li><a href="/projects/{{ project.slug }}/files/new">File Upload</a></li>
           </ul>
         </div>
       </div>
@@ -24,7 +24,7 @@
 
 <ul class="ui-stories-list">
   <li ng-repeat="story in stories">
-    <a href="/stories/{{ story.slug }}">
+    <a href="/{{ story.story_type }}s/{{ story.slug }}">
       <div class="members">
         avatars
       </div>

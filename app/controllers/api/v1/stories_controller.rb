@@ -7,6 +7,7 @@ module Api
         formats ["json"]
       end
 
+      # TODO - update this
       def_param_group :story do
         param :project, Hash, desc: "Project info" do
           param :name, String, desc: "Project name", required: true

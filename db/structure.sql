@@ -381,7 +381,8 @@ CREATE TABLE stories (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     deleted_at timestamp without time zone,
-    team_id integer
+    team_id integer,
+    story_type character varying
 );
 
 
@@ -1168,4 +1169,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151002105613');
 INSERT INTO schema_migrations (version) VALUES ('20151014104537');
 
 INSERT INTO schema_migrations (version) VALUES ('20151020153443');
+
+INSERT INTO schema_migrations (version) VALUES ('20160712191733');
 
