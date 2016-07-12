@@ -4,7 +4,16 @@
       <a href="/projects/{{ project.slug }}/manage" class="btn btn-text">Manage Project</a>
     </li>
     <li>
-      <a href="/projects/{{ project.slug }}/stories/new" class="btn btn-main">New Story</a>
+      <div class="ui-dropdown-menu">
+        <span class="icon profile">Add New&hellip;</span>
+        <div class="dropdown">
+          <ul class="actions">
+            <li><a href="/stories/new?type=discussion">Discussion</a></li>
+            <li><a href="/stories/new?type=todo">Todo List</a></li>
+            <li><a href="/stories/new?type=file">File Upload</a></li>
+          </ul>
+        </div>
+      </div>
     </li>
   </ul>
 

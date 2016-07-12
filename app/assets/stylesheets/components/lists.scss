@@ -122,6 +122,11 @@
     padding: 30px;
     text-align: center;
     box-sizing: border-box;
+
+    img.avatar {
+      width: 100px;
+      height: 100px;
+    }
   }
 
   .add-new-user {

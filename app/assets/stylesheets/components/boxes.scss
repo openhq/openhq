@@ -14,5 +14,10 @@
   footer {
     border-top: solid 1px $line-color;
     padding: 20px;
+
+    img.avatar {
+      width: 40px;
+      height: 40px;
+    }
   }
 }
