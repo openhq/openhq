@@ -56,8 +56,16 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFile
     template: JST['templates/projects/show'],
     controller: 'ProjectController'
   })
-  .when('/projects/:slug/stories/new', {
-    template: JST['templates/stories/new'],
+  .when('/projects/:slug/new-discussion', {
+    template: JST['templates/stories/new-discussion'],
+    controller: 'NewStoryController'
+  })
+  .when('/projects/:slug/new-todo', {
+    template: JST['templates/stories/new-todo'],
+    controller: 'NewStoryController'
+  })
+  .when('/projects/:slug/new-file', {
+    template: JST['templates/stories/new-file'],
     controller: 'NewStoryController'
   })
   .when('/projects/:slug/archived', {
