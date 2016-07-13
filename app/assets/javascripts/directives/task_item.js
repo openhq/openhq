@@ -3,7 +3,8 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, $routeParams
     restrict: "E",
     scope: {
       task: '=',
-      users: '='
+      users: '=',
+      persisted: '=',
     },
     template: JST['templates/directives/task_item'],
 
@@ -12,6 +13,30 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, $routeParams
       $scope.editing = false;
       $scope.task.completeInline = false; // still show the task, even if it is completed
       $scope.$task_list = $(".tasks ul.sortable");
+      $scope.isNewStory = $('.tasks').hasClass('new-story');
+
+      // Sets a pretty due at date if it hasnt been passed through
+      $scope.setDueAtPretty = function() {
+        if (_.isUndefined($scope.task.due_at)) {
+          $scope.task.due_at_pretty = null;
+        } else {
+          var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+              date = new Date($scope.task.due_at);
+          $scope.task.due_at_pretty = date.getDate() + " " + months[date.getMonth()] + ", " + date.getFullYear();
+        }
+      };
+      if (_.isUndefined($scope.task.due_at_pretty)) $scope.setDueAtPretty();
+
+      // Sets a assignment name if it hasnt been passed through
+      $scope.setAssignmentName = function() {
+        console.log("USERS:", $scope.users);
+        var user = _.find($scope.users, function(u){
+          return u[1] === $scope.task.assigned_to;
+        });
+
+        $scope.task.assignment_name = user[0];
+      };
+      if (_.isUndefined($scope.task.assignment_name)) $scope.setAssignmentName();
 
       $scope.startEditing = function() {
         $scope.editing = true;
@@ -22,20 +47,31 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, $routeParams
       };
 
       $scope.updateTask = function() {
-        new Task($scope.editTask).update().then(function(resp){
-          $scope.task = resp;
+        if ($scope.isNewStory) {
+          $scope.task = $scope.editTask;
+          $scope.setAssignmentName();
+          $scope.setDueAtPretty();
           $scope.stopEditing();
-        }, function(errors) {
-          console.error(errors);
-        });
+        } else {
+          new Task($scope.editTask).update().then(function(resp){
+            $scope.task = resp;
+            $scope.stopEditing();
+          }, function(errors) {
+            console.error(errors);
+          });
+        }
       };
 
       $scope.deleteTask = function() {
-        ConfirmDialog.show('Delete Task', 'Are you sure you want to delete this task?').then(function(){
-          new Task($scope.task).delete().then(function(){
-            $rootScope.$broadcast('task:deleted', $scope.task.id);
+        if ($scope.isNewStory) {
+          $rootScope.$broadcast('task:deleted', $scope.task.id);
+        } else {
+          ConfirmDialog.show('Delete Task', 'Are you sure you want to delete this task?').then(function(){
+            new Task($scope.task).delete().then(function(){
+              $rootScope.$broadcast('task:deleted', $scope.task.id);
+            });
           });
-        });
+        }
       };
 
       $scope.$watch("task.completed", function(newValue, oldValue) {
@@ -55,6 +91,8 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, $routeParams
       $scope.$task_list.sortable({
         items: "li",
         update: function() {
+          if ($scope.isNewStory) return;
+
           var story_id = $routeParams.slug,
               order = $(this).sortable("toArray");
 
