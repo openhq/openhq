@@ -144,3 +144,48 @@ menu .main-menu-item {
     line-height: 20px;
   }
 }
+
+.ui-dropdown-text-menu {
+  border: 1px solid $line-color;
+  text-align: left;
+  border-radius: 5px;
+  font-weight: 600;
+  position: relative;
+
+  &.open {
+    border-radius: 5px 5px 0 0;
+  }
+
+  .title {
+    display: block;
+    height: 20px;
+    line-height: 20px;
+    width: 150px;
+    padding: 10px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .dropdown {
+    position: absolute;
+    left: -1px;
+    width: 100%;
+    background: #fff;
+    border-radius: 0 0 5px 5px;
+    border: 1px solid $line-color;
+    border-top: 0;
+  }
+
+  .actions {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    text-align: left;
+    border-top: 1px solid $line-color;
+    padding: 10px;
+  }
+}

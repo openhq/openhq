@@ -4,9 +4,9 @@
       <a href="/projects/{{ project.slug }}/manage" class="btn btn-text">Manage Project</a>
     </li>
     <li>
-      <div class="ui-dropdown-menu">
-        <span class="icon profile">Add New&hellip;</span>
-        <div class="dropdown">
+      <div class="ui-dropdown-text-menu" ng-class="{'open':addNewListShowing}">
+        <span class="title" ng-click="toggleAddNewList($event)">Add new&hellip;</span>
+        <div class="dropdown" ng-show="addNewListShowing">
           <ul class="actions">
             <li><a href="/projects/{{ project.slug }}/discussions/new">Discussion</a></li>
             <li><a href="/projects/{{ project.slug }}/todos/new">Todo List</a></li>
