@@ -48,6 +48,7 @@ module Api
 
         story.project = project
         if story.save
+          add_tasks_to_story(story)
           notify(story, %w(created mentioned))
           render json: story, status: 201
         else
@@ -93,7 +94,17 @@ module Api
       end
 
       def story_params
-        params.require(:story).permit(:name, :description)
+        params.require(:story).permit(:name, :description, :story_type)
+      end
+
+      def add_tasks_to_story(story)
+        (params[:story][:tasks] || []).each do |task|
+          story.tasks.create({
+            label: task[:label],
+            assigned_to: task[:assigned_to],
+            due_at: task[:due_at]
+          })
+        end
       end
     end
   end

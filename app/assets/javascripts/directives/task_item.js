@@ -3,8 +3,7 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, $routeParams
     restrict: "E",
     scope: {
       task: '=',
-      users: '=',
-      persisted: '=',
+      users: '='
     },
     template: JST['templates/directives/task_item'],
 

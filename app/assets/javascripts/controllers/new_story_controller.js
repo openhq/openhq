@@ -1,9 +1,9 @@
 angular.module("OpenHq").controller("NewStoryController", function($scope, $rootScope, $routeParams, $location, Story, Project, Task, CurrentUser) {
   $scope.projectId = $routeParams.slug;
-  $scope.story = new Story({project_id: $scope.projectId});
+  $scope.story = new Story({project_id: $scope.projectId, story_type: "todo"});
 
   $scope.story.tasks = [];
-  $scope.newTask = new Task({ persisted: false, assigned_to: 0 });
+  $scope.newTask = new Task({ assigned_to: 0 });
 
   Project.get($routeParams.slug).then(function(project) {
     $scope.project = project;
@@ -18,11 +18,13 @@ angular.module("OpenHq").controller("NewStoryController", function($scope, $root
     $scope.story.tasks.push(angular.copy(task));
 
     // Reset the new task
-    $scope.newTask = new Task({ persisted: false, assigned_to: 0 });
+    $scope.newTask = new Task({ assigned_to: 0 });
   };
 
   $scope.createStory = function(story) {
-    console.log('create task list story', story);
+    story.create().then(function(story) {
+      $location.path("/todos/"+story.slug);
+    });
   };
 
   $rootScope.$on('task:deleted', function(_ev, task_id){
