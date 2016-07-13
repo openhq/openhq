@@ -23,3 +23,6 @@
 
 # Ignore code coverage
 coverage
+
+# Ignore capistrano production settings
+config/deploy/production.rb

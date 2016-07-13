@@ -71,6 +71,9 @@ gem 'apipie-rails'
 
 gem 'multi_json'
 
+# Manage cron jobs
+gem 'whenever', require: false
+
 group :development, :test do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
@@ -86,6 +89,12 @@ group :development do
   # gem 'quiet_assets'
   gem 'letter_opener_web'
   gem 'spring-commands-rspec'
+
+  # Deployments
+  gem 'capistrano',  '~> 3.5.0'
+  gem 'capistrano-rails', '~> 1.1.7'
+  gem 'capistrano-rbenv', '~> 2.0.4'
+  gem 'capistrano-passenger', '~> 0.2.0'
 end
 
 group :test do
