@@ -20,11 +20,11 @@ class NotificationSerializer < ActiveModel::Serializer
     when "Story"
       api_v1_story_path(story)
     when "Task"
-      api_v1_task_path(notifiable)
+      api_v1_task_path(object.notifiable)
     when "Comment"
-      api_v1_comment_path(notifiable)
+      api_v1_comment_path(object.notifiable)
     when "Attachment"
-      api_v1_attachment_path(notifiable)
+      api_v1_attachment_path(object.notifiable)
     end
 
   # If a story or project has been archived...

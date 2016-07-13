@@ -17,8 +17,6 @@ module OpenHq
 
     config.active_record.schema_format = :sql
 
-    config.active_record.raise_in_transactional_callbacks = true
-
     # Reloading of lib classes with require_dependency
     config.watchable_dirs['lib'] = [:rb]
 
@@ -32,7 +30,7 @@ module OpenHq
       g.helper false
     end
 
-    config.to_prepare do
+    ActiveSupport::Reloader.to_prepare do
       Clearance::PasswordsController.layout 'auth'
       Clearance::SessionsController.layout 'auth'
     end

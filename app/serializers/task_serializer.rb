@@ -6,12 +6,12 @@ class TaskSerializer < ActiveModel::Serializer
   has_one :project
 
   def url
-    api_v1_task_path(id)
+    api_v1_task_path(object.id)
   end
 
   def due_at_pretty
-    return unless due_at.present?
+    return unless object.due_at.present?
 
-    due_at.to_date.strftime('%e %b, %Y')
+    object.due_at.to_date.strftime('%e %b, %Y')
   end
 end
