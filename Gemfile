@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.2.2'
 
-gem 'rails', '>= 5.0.0.rc1', '< 5.1'
+gem 'rails', '>= 5.0.0', '< 5.1'
 gem 'pg'
 gem 'pg_search'
 gem 'sass-rails'
@@ -27,7 +27,7 @@ gem 'clearance'
 gem 'cancancan', '~> 1.10'
 
 # Serializers
-gem 'active_model_serializers', git: "https://github.com/rails-api/active_model_serializers.git", tag: 'v0.10.0.rc3'
+gem 'active_model_serializers', git: "https://github.com/rails-api/active_model_serializers.git", tag: 'v0.10.2'
 
 # Form helpers
 gem 'simple_form'
@@ -83,7 +83,7 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console'
-  gem 'quiet_assets'
+  # gem 'quiet_assets'
   gem 'letter_opener_web'
   gem 'spring-commands-rspec'
 end
