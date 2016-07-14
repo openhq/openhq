@@ -2,17 +2,13 @@ source 'https://rubygems.org'
 
 ruby '2.2.2'
 
-# New mime-types uses way less memory
-gem 'mime-types', '~> 2.6.1', require: 'mime/types/columnar'
-
-gem 'rails', '~> 4.2.3'
+gem 'rails', '>= 5.0.0', '< 5.1'
 gem 'pg'
 gem 'pg_search'
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'turbolinks'
 gem 'autoprefixer-rails' # scss prefixer
 gem 'ejs'
 gem 'angularjs-rails-resource', '~> 2.0.0'
@@ -31,7 +27,7 @@ gem 'clearance'
 gem 'cancancan', '~> 1.10'
 
 # Serializers
-gem 'active_model_serializers', git: "https://github.com/rails-api/active_model_serializers.git", tag: 'v0.10.0.rc3'
+gem 'active_model_serializers', git: "https://github.com/rails-api/active_model_serializers.git", tag: 'v0.10.2'
 
 # Form helpers
 gem 'simple_form'
@@ -61,10 +57,10 @@ gem 'rmagick'
 gem 'kaminari', '~> 0.16.1'
 
 # Soft deletes
-gem "paranoia", "~> 2.0"
+gem "paranoia", git: "https://github.com/rubysherpas/paranoia.git", branch: "core"
 
 # Sending emails
-gem 'roadie-rails', '~> 1.0.4'
+gem 'roadie-rails', '~> 1.1.1'
 
 gem 'puma'
 gem 'message_bus'
@@ -73,23 +69,36 @@ gem 'message_bus'
 gem 'maruku'
 gem 'apipie-rails'
 
+gem 'multi_json'
+
+# Manage cron jobs
+gem 'whenever', require: false
+
 group :development, :test do
+  gem 'listen', '~> 3.0.5'
   gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console'
   gem 'rubocop', require: false
 end
 
 group :development do
-  gem 'quiet_assets'
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console'
+  # gem 'quiet_assets'
   gem 'letter_opener_web'
   gem 'spring-commands-rspec'
+
+  # Deployments
+  gem 'capistrano',  '~> 3.5.0'
+  gem 'capistrano-rails', '~> 1.1.7'
+  gem 'capistrano-rbenv', '~> 2.0.4'
+  gem 'capistrano-passenger', '~> 0.2.0'
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails'
   gem 'capybara', '~> 2.0'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers', require: false
@@ -99,10 +108,6 @@ group :test do
   gem 'coveralls', require: false
   gem 'vcr', require: false
   gem 'webmock'
-end
-
-group :production do
-  gem 'rails_12factor'
 end
 
 source 'https://rails-assets.org' do

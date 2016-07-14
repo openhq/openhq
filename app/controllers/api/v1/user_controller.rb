@@ -43,8 +43,6 @@ module Api
         param :password, String, desc: "The new password", required: true
       end
       def password
-        current_user.password_changing = true
-
         if current_user.update_with_password(password_params)
           UserMailer.password_changed(current_user).deliver_later
           render json: current_user, serializer: CurrentUserSerializer, root: :user

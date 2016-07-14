@@ -55,3 +55,5 @@ Rails/HasAndBelongsToMany:
   Enabled: false
 Rails/FindBy:
   Enabled: false
+Rails/Delegate:
+  Enabled: false

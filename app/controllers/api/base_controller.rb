@@ -36,12 +36,12 @@ module Api
     end
 
     def current_user
-      @current_user ||= current_token.user
+      @current_user ||= current_token.try(:user)
     end
     helper_method :current_user
 
     def current_team
-      @current_team ||= current_token.team
+      @current_team ||= current_token.try(:team)
     end
     helper_method :current_team
 

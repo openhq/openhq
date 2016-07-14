@@ -18,7 +18,7 @@ class Story < ActiveRecord::Base
   has_many :attachments, -> { order(created_at: :desc) }
   has_many :comments, -> { order(created_at: :desc) }, as: :commentable
   has_many :comments_unordered, as: :commentable, class_name: "Comment"
-  has_many :users, -> { uniq }, through: :comments_unordered, source: :owner
+  has_many :users, -> { distinct }, through: :comments_unordered, source: :owner
 
   validates_presence_of :project_id, :name, :owner_id
 

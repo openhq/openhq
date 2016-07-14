@@ -12,28 +12,28 @@ class SearchDocumentSerializer < ActiveModel::Serializer
   end
 
   def url
-    case searchable_type
+    case object.searchable_type
     when "Project"
-      project_path(searchable)
+      project_path(object.searchable)
     when "Story"
-      project_story_path(project, searchable)
+      project_story_path(object.project, object.searchable)
     when "Task"
-      project_story_path(project, story) + "#task:#{searchable_id}"
+      project_story_path(object.project, object.story) + "#task:#{object.searchable_id}"
     when "Comment"
-      project_story_path(project, story) + "#comment:#{searchable_id}"
+      project_story_path(object.project, object.story) + "#comment:#{object.searchable_id}"
     when "Attachment"
-      project_story_path(project, story) + "#attachment:#{searchable_id}"
+      project_story_path(object.project, object.story) + "#attachment:#{object.searchable_id}"
     end
   end
 
   def attachment_image
-    return unless searchable_type == "Attachment"
+    return unless object.searchable_type == "Attachment"
 
-    image_url = searchable.process_data["thumbnail:tile"]
+    image_url = object.searchable.process_data["thumbnail:tile"]
     if image_url.present?
       S3UrlSigner.sign(image_url)
     else
-      "/assets/file_types/#{searchable.extension}.png"
+      "/assets/file_types/#{object.searchable.extension}.png"
     end
   end
 end

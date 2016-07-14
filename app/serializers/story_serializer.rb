@@ -13,4 +13,8 @@ class StorySerializer < ActiveModel::Serializer
   def markdown
     markdownify(object.description)
   end
+
+  def project
+    object.project
+  end
 end

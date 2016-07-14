@@ -94,7 +94,7 @@ module Api
           task.update(order: i + 1) if task
         end
 
-        render nothing: true, status: 204
+        head :no_content
       end
 
       api! "Delete task"
@@ -102,14 +102,14 @@ module Api
         task = Task.find(params[:id])
         task.destroy
 
-        render nothing: true, status: 204
+        head :no_content
       end
 
       api! "Delete all completed tasks"
       def destroy_completed
         @story.tasks.complete.destroy_all
 
-        render nothing: true, status: 204
+        head :no_content
       end
 
       private
