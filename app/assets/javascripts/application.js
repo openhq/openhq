@@ -57,19 +57,19 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFile
     controller: 'ProjectController'
   })
   .when('/projects/:slug/discussions/new', {
-    template: JST['templates/stories/new-discussion'],
+    template: JST['templates/stories/new'],
     controller: 'NewStoryController',
-    resolve: { story_type: function() { return "discussion"; } }
+    resolve: { StoryType: function() { return "discussion"; } }
   })
   .when('/projects/:slug/todos/new', {
-    template: JST['templates/stories/new-todo'],
+    template: JST['templates/stories/new'],
     controller: 'NewStoryController',
-    resolve: { story_type: function() { return "todo"; } }
+    resolve: { StoryType: function() { return "todo"; } }
   })
   .when('/projects/:slug/files/new', {
-    template: JST['templates/stories/new-file'],
+    template: JST['templates/stories/new'],
     controller: 'NewStoryController',
-    resolve: { story_type: function() { return "file"; } }
+    resolve: { StoryType: function() { return "file"; } }
   })
   .when('/projects/:slug/archived', {
     template: JST['templates/stories/archived'],

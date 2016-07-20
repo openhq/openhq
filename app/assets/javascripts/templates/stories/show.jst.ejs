@@ -15,11 +15,11 @@
           <user-avatar user="story.owner"></user-avatar>
           {{ story.owner.display_name }} added <human-time datetime="story.created_at"></human-time>
         </header>
-        <section class="body" ng-bind-html="story.markdown" ng-show="story.story_type == 'discussion'">
+        <section class="body" ng-bind-html="story.markdown" ng-show="showingDescription && story.description.length > 0">
         </section>
       </article>
 
-      <div class="tasks" ng-show="story.story_type == 'todo'">
+      <div class="tasks" ng-show="showingTodoList">
         <div ng-hide="story.tasks.length > 0" class="no-tasks">
           <h4>No Tasks</h4>
         </div>
