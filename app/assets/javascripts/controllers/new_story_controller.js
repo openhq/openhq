@@ -106,6 +106,11 @@ angular.module("OpenHq").controller("NewStoryController", function($scope, $root
 
   // Creates the story and redirects to it
   $scope.createStory = function(story) {
+    if ($scope.currentlyUploading > 0) {
+      console.error('please wait for uploads to finish');
+      return;
+    }
+
     story.create().then(function(story) {
       $location.path("/"+story.story_type+"s/"+story.slug);
     });
