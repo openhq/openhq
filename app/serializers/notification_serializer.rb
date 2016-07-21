@@ -16,15 +16,15 @@ class NotificationSerializer < ActiveModel::Serializer
   def link_to
     case object.notifiable_type
     when "Project"
-      api_v1_project_path(project)
+      api_v1_project_path(object.project) if object.project.present?
     when "Story"
-      api_v1_story_path(story)
+      api_v1_story_path(object.story) if object.story.present?
     when "Task"
-      api_v1_task_path(object.notifiable)
+      api_v1_task_path(object.notifiable) if object.notifiable.present?
     when "Comment"
-      api_v1_comment_path(object.notifiable)
+      api_v1_comment_path(object.notifiable) if object.notifiable.present?
     when "Attachment"
-      api_v1_attachment_path(object.notifiable)
+      api_v1_attachment_path(object.notifiable) if object.notifiable.present?
     end
 
   # If a story or project has been archived...
