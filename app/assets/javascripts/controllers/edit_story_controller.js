@@ -5,7 +5,7 @@ angular.module("OpenHq").controller("EditStoryController", function($scope, $rou
 
   $scope.saveChanges = function() {
     $scope.story.update().then(function(){
-      $location.url('/stories/'+$scope.story.slug);
+      $location.url('/'+$scope.story.story_type+'s/'+$scope.story.slug);
     });
   };
 });

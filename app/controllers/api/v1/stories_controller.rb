@@ -7,6 +7,7 @@ module Api
         formats ["json"]
       end
 
+      # TODO - update this
       def_param_group :story do
         param :project, Hash, desc: "Project info" do
           param :name, String, desc: "Project name", required: true
@@ -47,6 +48,8 @@ module Api
 
         story.project = project
         if story.save
+          add_tasks_to_story(story)
+          add_attachments_to_story(story)
           notify(story, %w(created mentioned))
           render json: story, status: 201
         else
@@ -92,7 +95,29 @@ module Api
       end
 
       def story_params
-        params.require(:story).permit(:name, :description)
+        params.require(:story).permit(:name, :description, :story_type)
+      end
+
+      def add_tasks_to_story(story)
+        (params[:story][:tasks] || []).each do |task|
+          story.tasks.create(
+            label: task[:label],
+            assigned_to: task[:assigned_to],
+            due_at: task[:due_at]
+          )
+        end
+      end
+
+      def add_attachments_to_story(story)
+        (params[:story][:attachments] || []).each do |file|
+          story.attachments.create(
+            owner_id: current_user.id,
+            file_name: file[:file_name],
+            file_size: file[:file_size],
+            content_type: file[:content_type],
+            file_path: file[:file_path]
+          )
+        end
       end
     end
   end

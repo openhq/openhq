@@ -10,7 +10,7 @@ angular.module("OpenHq").controller("ArchivedStoriesController", function($scope
   $scope.restoreStory = function(story) {
     StoriesRepository.restore(story.slug).then(function(story){
       // TODO: add a notification
-      $location.url('/stories/'+story.slug);
+      $location.url('/'+story.story_type+'s/'+story.slug);
     });
   };
 });

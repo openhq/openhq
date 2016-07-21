@@ -4,7 +4,16 @@
       <a href="/projects/{{ project.slug }}/manage" class="btn btn-text">Manage Project</a>
     </li>
     <li>
-      <a href="/projects/{{ project.slug }}/stories/new" class="btn btn-main">New Story</a>
+      <div class="ui-dropdown-text-menu" ng-class="{'open':addNewListShowing}">
+        <span class="title" ng-click="toggleAddNewList($event)">Add new&hellip;</span>
+        <div class="dropdown" ng-show="addNewListShowing">
+          <ul class="actions">
+            <li><a href="/projects/{{ project.slug }}/discussions/new">Discussion</a></li>
+            <li><a href="/projects/{{ project.slug }}/todos/new">Todo List</a></li>
+            <li><a href="/projects/{{ project.slug }}/files/new">File Upload</a></li>
+          </ul>
+        </div>
+      </div>
     </li>
   </ul>
 
@@ -15,13 +24,13 @@
 
 <ul class="ui-stories-list">
   <li ng-repeat="story in stories">
-    <a href="/stories/{{ story.slug }}">
+    <a href="/{{ story.story_type }}s/{{ story.slug }}">
       <div class="members">
         avatars
       </div>
 
       <h4>
-        <span class="title">{{ story.name }}</span>
+        <span class="title">{{ story.name }} ({{ story.story_type }})</span>
         <small>updated <human-time datetime="story.updated_at"></human-time></small>
       </h4>
     </a>

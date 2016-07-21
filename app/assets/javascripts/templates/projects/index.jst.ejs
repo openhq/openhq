@@ -14,7 +14,7 @@
           <li ng-hide="project.recent_stories.length > 0">No recent stories</li>
           <li ng-repeat="story in project.recent_stories">
             <span class="when">{{ story.updated_at | shortDate }}</span>
-            <a href="/stories/{{ story.slug }}">{{ story.name }}</a>
+            <a href="/{{ story.story_type }}s/{{ story.slug }}">{{ story.name }}</a>
           </li>
         </ul>
       </section>

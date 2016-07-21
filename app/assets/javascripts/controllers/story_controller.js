@@ -2,10 +2,12 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
   $scope.fileUploads = [];
   $scope.currentlyUploading = 0;
 
+  // Sets the current user
   CurrentUser.get(function(user) {
     $scope.currentUser = user;
   });
 
+  // Gets the story and sets up the page
   StoriesRepository.find($routeParams.slug).then(function(story) {
     $scope.newComment = new Comment({story_id: story.id, attachment_ids: "" });
     $scope.newTask = new Task({story_id: story.id, assigned_to: 0 });
@@ -13,16 +15,25 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
 
     $scope.story.hasCompletedTasks = $filter('completedTasks')($scope.story.tasks).length > 0;
     $scope.story.showingCompletedTasks = false;
+
+    if (_.contains(['discussion', 'file'], story.story_type)) {
+      $scope.showingDescription = true;
+    }
+
+    if (story.story_type === "todo") $scope.showingTodoList = true;
   });
 
+  // Sets collaborators
   StoriesRepository.collaborators($routeParams.slug).then(function(collaborators) {
     $scope.collaborators = collaborators;
   });
 
+  // When a task is marked as complete
   $rootScope.$on('story:taskCompleted', function(){
     $scope.story.hasCompletedTasks = $filter('completedTasks')($scope.story.tasks).length > 0;
   });
 
+  // Calculates the task completion percentage
   $scope.taskCompletionPercentage = function() {
     if (! $scope.story) return 0; // Story not loaded yet
     if ($scope.story.tasks.length === 0) return 0; // Protect zero division error
@@ -31,6 +42,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     return Math.round(percent);
   };
 
+  // Creates a new comment
   $scope.createComment = function(newComment) {
     newComment.create().then(function(resp) {
       $scope.story.comments.push(resp);
@@ -39,18 +51,21 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     });
   };
 
+  // Toggle comment editing
   $scope.toggleEditComment = function(comment) {
     if (comment.editing) return comment.editing = false;
 
     comment.editing = true;
   };
 
+  // Updates a comment
   $scope.updateComment = function(comment) {
     comment.update().then(function(resp) {
       comment.editing = false;
     });
   };
 
+  // Deletes a comment
   $scope.deleteComment = function(comment) {
     ConfirmDialog.show('Delete comment', 'Are you sure you want to delete this comment?').then(function(){
       comment.delete().then(function() {
@@ -60,6 +75,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     });
   };
 
+  // Creates a new task
   $scope.createTask = function(newTask) {
     newTask.create().then(function(resp) {
       resp.due_at = resp.due_at ? new Date(resp.due_at) : "";
@@ -68,15 +84,14 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     });
   };
 
-  $scope.archiveStory = function() {
-    ConfirmDialog.show('Archive Story', 'Are you sure you want to archive this story?').then(function(){
-      $scope.story.delete().then(function(){
-        // TODO: add a notification
-        $location.url('/projects/'+$scope.story.project.slug);
-      });
+  // Deletes a task from the list
+  $rootScope.$on('task:deleted', function(_ev, task_id){
+    $scope.story.tasks = _.reject($scope.story.tasks, function(task){
+      return task.id == task_id;
     });
-  };
+  });
 
+  // Deletes all completed tasks
   $scope.deleteCompletedTasks = function() {
     ConfirmDialog.show('Delete Completed Tasks', 'Are you sure you want to delete all the completed tasks?').then(function(){
       TasksRepository.deleteCompleted($routeParams.slug).then(function(){
@@ -88,6 +103,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     });
   };
 
+  // Uploads a new file
   $scope.upload = function($files) {
     if (!$files || !$files.length) {
       console.error("No files found");
@@ -140,9 +156,14 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     });
   };
 
-  $rootScope.$on('task:deleted', function(_ev, task_id){
-    $scope.story.tasks = _.reject($scope.story.tasks, function(task){
-      return task.id == task_id;
+  // Archive the story
+  $scope.archiveStory = function() {
+    ConfirmDialog.show('Archive Story', 'Are you sure you want to archive this story?').then(function(){
+      $scope.story.delete().then(function(){
+        // TODO: add a notification
+        $location.url('/projects/'+$scope.story.project.slug);
+      });
     });
-  });
+  };
+
 });

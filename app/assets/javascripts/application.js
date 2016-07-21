@@ -56,19 +56,46 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFile
     template: JST['templates/projects/show'],
     controller: 'ProjectController'
   })
-  .when('/projects/:slug/stories/new', {
+  .when('/projects/:slug/discussions/new', {
     template: JST['templates/stories/new'],
-    controller: 'NewStoryController'
+    controller: 'NewStoryController',
+    resolve: { StoryType: function() { return "discussion"; } }
+  })
+  .when('/projects/:slug/todos/new', {
+    template: JST['templates/stories/new'],
+    controller: 'NewStoryController',
+    resolve: { StoryType: function() { return "todo"; } }
+  })
+  .when('/projects/:slug/files/new', {
+    template: JST['templates/stories/new'],
+    controller: 'NewStoryController',
+    resolve: { StoryType: function() { return "file"; } }
   })
   .when('/projects/:slug/archived', {
     template: JST['templates/stories/archived'],
     controller: 'ArchivedStoriesController'
   })
-  .when('/stories/:slug', {
+  .when('/discussions/:slug', {
     template: JST['templates/stories/show'],
     controller: 'StoryController'
   })
-  .when('/stories/:slug/edit', {
+  .when('/discussions/:slug/edit', {
+    template: JST['templates/stories/edit'],
+    controller: 'EditStoryController'
+  })
+  .when('/todos/:slug', {
+    template: JST['templates/stories/show'],
+    controller: 'StoryController'
+  })
+  .when('/todos/:slug/edit', {
+    template: JST['templates/stories/edit'],
+    controller: 'EditStoryController'
+  })
+  .when('/files/:slug', {
+    template: JST['templates/stories/show'],
+    controller: 'StoryController'
+  })
+  .when('/files/:slug/edit', {
     template: JST['templates/stories/edit'],
     controller: 'EditStoryController'
   })

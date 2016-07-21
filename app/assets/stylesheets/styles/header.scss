@@ -26,6 +26,11 @@
     margin: 0;
     padding: 0;
     line-height: 22px;
+
+    img.avatar {
+      width: 30px;
+      height: 30px;
+    }
   }
 
   &.shadow {
