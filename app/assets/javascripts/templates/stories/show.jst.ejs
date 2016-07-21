@@ -27,7 +27,7 @@
           <h4>{{ story.tasks | incompleteTasks | countArray }} Incomplete Tasks</h4>
           <ul class="sortable">
             <li ng-repeat="task in story.tasks" id="{{ task.id }}" ng-class="{'complete' : task.completed}" ng-show="!task.completed || task.completeInline || story.showingCompletedTasks">
-              <task-item task="task" users="story.users_select_array"></task-item>
+              <task-item task="task" users="story.users_select_array" dblclick="show"></task-item>
             </li>
 
             <li class="action" ng-show="story.hasCompletedTasks && !story.showingCompletedTasks">

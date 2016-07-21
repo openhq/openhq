@@ -87,6 +87,10 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFile
     template: JST['templates/stories/show'],
     controller: 'StoryController'
   })
+  .when('/todos/:slug/task/:task_id', {
+    template: JST['templates/tasks/show'],
+    controller: 'TaskController'
+  })
   .when('/todos/:slug/edit', {
     template: JST['templates/stories/edit'],
     controller: 'EditStoryController'

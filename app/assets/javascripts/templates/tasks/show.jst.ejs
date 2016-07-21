@@ -1,0 +1,12 @@
+Project: <a href="/projects/{{ story.project.slug }}">{{ story.project.name }}</a><br>
+Story: <a href="/{{ story.story_type }}s/{{ story.slug }}">{{ story.name }}</a><br>
+
+<hr>
+
+<div ng-repeat="task in tasks" id="{{ task.id }}" ng-class="{'complete' : task.completed}">
+  <task-item task="task" users="story.users_select_array"></task-item>
+</div>
+
+<hr>
+
+<h3>Comments</h3>

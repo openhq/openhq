@@ -1,5 +1,6 @@
 angular.module("OpenHq").factory("TasksRepository", function($http) {
   return {
+
     /**
      * Reorders tasks in the given order
      * @param  {String/Integer} story_id [ID or slug for the story]
