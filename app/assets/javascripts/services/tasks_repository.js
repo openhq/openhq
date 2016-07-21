@@ -2,6 +2,13 @@ angular.module("OpenHq").factory("TasksRepository", function($http) {
   return {
 
     /**
+     * Finds a single task
+     */
+    find: function(id) {
+      return $http.get("/api/v1/tasks/"+id).then(function(resp) { return resp.data.task; });
+    },
+
+    /**
      * Reorders tasks in the given order
      * @param  {String/Integer} story_id [ID or slug for the story]
      * @param  {Array} ids [Array of task ids]

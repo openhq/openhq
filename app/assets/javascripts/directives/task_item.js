@@ -4,7 +4,6 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, $routeParams
     scope: {
       task: '=',
       users: '=',
-      singleView: '=' // viewing on its own, or in an overall list
     },
     template: JST['templates/directives/task_item'],
 
@@ -39,7 +38,6 @@ angular.module("OpenHq").directive("taskItem", function($rootScope, $routeParams
       if (_.isUndefined($scope.task.assignment_name)) $scope.setAssignmentName();
 
       $scope.loadTask = function() {
-        console.log('single view?', $scope.singleView);
         $location.url('/todos/'+$routeParams.slug+'/task/'+$scope.task.id);
       };
 

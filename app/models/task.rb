@@ -9,6 +9,7 @@ class Task < ActiveRecord::Base
   belongs_to :owner, class_name: "User"
   belongs_to :assignment, class_name: "User", foreign_key: "assigned_to"
   belongs_to :completer, class_name: "User", foreign_key: "completed_by"
+  has_many :comments, -> { order(created_at: :desc) }, as: :commentable
 
   validates_presence_of :label, :story_id
 
