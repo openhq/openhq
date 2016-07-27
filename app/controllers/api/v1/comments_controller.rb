@@ -26,7 +26,7 @@ module Api
       param_group :comment
       param :"comment[story_id]", String, desc: "Story ID or slug", required: true
       def create
-        unless comment_params[:commentable_type].in?(["Story", "Task"])
+        unless comment_params[:commentable_type].in?(%w(Story Task))
           comment = Comment.new
           comment.errors.add(:commentable_type, "Commentable type must be one of 'Story' or 'Task'")
           return render_errors(comment)
