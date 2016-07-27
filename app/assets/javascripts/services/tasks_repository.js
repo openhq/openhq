@@ -11,7 +11,7 @@ angular.module("OpenHq").factory("TasksRepository", function($http, Comment) {
             // Wrap all comments in models
             task.comments = task.comments.map(function(commentData) {
               return new Comment(commentData);
-            });
+            }).reverse();
 
             return task;
         });

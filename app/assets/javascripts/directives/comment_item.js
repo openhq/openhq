@@ -7,13 +7,9 @@ angular.module("OpenHq").directive("commentItem", function($rootScope, Comment, 
     },
     template: JST['templates/directives/comment_item'],
     controller: function($scope) {
-      console.log($scope.comment);
-      console.log($scope.currentUser);
-
       // Toggle comment editing
       $scope.toggleEditComment = function(comment) {
         if (comment.editing) return comment.editing = false;
-
         comment.editing = true;
       };
 
@@ -29,7 +25,7 @@ angular.module("OpenHq").directive("commentItem", function($rootScope, Comment, 
       $scope.deleteComment = function(comment) {
         ConfirmDialog.show('Delete comment', 'Are you sure you want to delete this comment?').then(function(){
           comment.delete().then(function() {
-            $rootScope.$broadcast('comment:deleted', comment.id);
+            $rootScope.$broadcast('comment:deleted', comment);
           });
         });
       };

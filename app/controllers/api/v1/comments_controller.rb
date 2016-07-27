@@ -42,7 +42,7 @@ module Api
             Attachment.where("id IN (?)", attachment_ids).each { |a| a.attach_to(comment) }
           end
 
-          notify(comment, %w(created mentioned))
+          # notify(comment, %w(created mentioned))
 
           render json: comment, status: 201
         else

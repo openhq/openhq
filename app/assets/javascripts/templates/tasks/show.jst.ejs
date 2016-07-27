@@ -13,4 +13,6 @@ Story: <a href="/{{ story.story_type }}s/{{ story.slug }}">{{ story.name }}</a><
   <article ng-repeat="comment in task.comments" class="comment-row">
     <comment-item comment="comment" current_user="currentUser"></comment-item>
   </article>
+
+  <comment-new current_user="currentUser" commentable_type="'Task'" commentable_id="task.id"></comment-new>
 </div>

@@ -56,10 +56,12 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     });
   });
 
-  $rootScope.$on('comment:deleted', function(_ev, comment_id){
-    $scope.story.comments = _.reject($scope.story.comments, function(comment) {
-      return comment.id == comment_id;
-    });
+  $rootScope.$on('comment:deleted', function(_ev, comment){
+    if (comment.commentable_type === "Story" && comment.commentable_id === $scope.story.id) {
+      $scope.story.comments = _.reject($scope.story.comments, function(c) {
+        return c.id == comment.id;
+      });
+    }
   });
 
   $rootScope.$on('comment:created', function(_ev, comment) {
