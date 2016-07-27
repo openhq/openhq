@@ -82,59 +82,6 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     });
   };
 
-  // Uploads a new file
-  $scope.upload = function($files) {
-    if (!$files || !$files.length) {
-      console.error("No files found");
-      return;
-    }
-
-    _.each($files, function(file) {
-      if (!file.$error) {
-        $scope.currentlyUploading++;
-
-        AttachmentsRepository.presignedUrl(file).then(function(awsData) {
-          console.log("Upload start", awsData.upload_url, file.name, file.type);
-
-          $scope.fileUploads.push(file);
-
-          Upload.http({
-              url: awsData.upload_url,
-              method: "PUT",
-              data: file,
-              headers: {
-                'Content-Type': file.type
-              }
-          }).progress(function (evt) {
-              var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-              file.uploadProgress = progressPercentage;
-          }).success(function (data, status, headers, config) {
-            console.log("Upload success", arguments);
-            $scope.currentlyUploading--;
-
-            file.uploadComplete = true;
-
-            var attachment = new Attachment({
-              story_id: $scope.story.id,
-              file_name: file.name,
-              file_size: file.size,
-              content_type: file.type,
-              file_path: awsData.file_path,
-            });
-
-            attachment.create().then(function(attachment) {
-              console.log("Actually created", attachment);
-              $scope.story.attachments.push(attachment);
-
-              $scope.newComment.attachment_ids += attachment.id + ",";
-            });
-          }); // upload
-
-        }); // presignedUrl
-      }
-    });
-  };
-
   // Archive the story
   $scope.archiveStory = function() {
     ConfirmDialog.show('Archive Story', 'Are you sure you want to archive this story?').then(function(){

@@ -22,8 +22,18 @@ class Comment < ActiveRecord::Base
     commentable.project_id if commentable.present? && commentable.live?
   end
 
-  # these will need to change if we ever add comments to anything other than stories
   def story_id
-    commentable_id
+    case commentable_type
+    when "Story"
+      commentable_id
+    when "Task"
+      commentable.story_id
+    else
+      nil
+    end
+  end
+
+  def story
+    Story.find(story_id) unless story_id.nil?
   end
 end
