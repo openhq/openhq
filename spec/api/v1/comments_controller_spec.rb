@@ -29,7 +29,7 @@ RSpec.describe "Comments API", type: :api do
   describe "POST /api/v1/comments" do
     context "when input is valid" do
       before do
-        comment_params = { comment: { content: "**Hello** world", story_id: story.slug } }
+        comment_params = { comment: { content: "**Hello** world", story_id: story.id, commentable_type: "Story", commentable_id: story.id } }
         post "/api/v1/comments", comment_params, api_token_header(user)
       end
 
@@ -45,7 +45,7 @@ RSpec.describe "Comments API", type: :api do
 
     context "when input is invalid" do
       it "returns errors" do
-        comment_params = { comment: { content: "", story_id: story.slug } }
+        comment_params = { comment: { content: "", story_id: story.id, commentable_type: "Story", commentable_id: story.id } }
         post "/api/v1/comments", comment_params, api_token_header(user)
         expect(last_response.status).to eq(422)
       end

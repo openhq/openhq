@@ -243,8 +243,8 @@ ALTER SEQUENCE notifications_id_seq OWNED BY notifications.id;
 CREATE TABLE pg_search_documents (
     id integer NOT NULL,
     content text,
-    searchable_id integer,
     searchable_type character varying,
+    searchable_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -350,8 +350,8 @@ CREATE TABLE schema_migrations (
 
 CREATE TABLE search_documents (
     id integer NOT NULL,
-    searchable_id integer,
     searchable_type character varying,
+    searchable_id integer,
     team_id integer,
     project_id integer,
     story_id integer,
@@ -736,6 +736,14 @@ ALTER TABLE ONLY projects_users
 
 
 --
+-- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
 -- Name: search_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1075,13 +1083,6 @@ CREATE INDEX pg_search_documents_content ON pg_search_documents USING gin (to_ts
 --
 
 CREATE INDEX search_documents_content ON search_documents USING gin (to_tsvector('english'::regconfig, content));
-
-
---
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
 
 
 --
