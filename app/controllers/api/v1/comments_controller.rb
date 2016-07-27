@@ -32,7 +32,8 @@ module Api
         comment = Comment.new(
           commentable: commentable,
           owner: current_user,
-          content: comment_params[:content]
+          content: comment_params[:content],
+          story_id: comment_params[:story_id]
         )
 
         if comment.save
@@ -73,7 +74,7 @@ module Api
       private
 
       def comment_params
-        params.require(:comment).permit(:content, :attachment_ids, :commentable_type, :commentable_id)
+        params.require(:comment).permit(:content, :attachment_ids, :commentable_type, :commentable_id, :story_id)
       end
     end
   end

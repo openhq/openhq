@@ -14,5 +14,5 @@ Story: <a href="/{{ story.story_type }}s/{{ story.slug }}">{{ story.name }}</a><
     <comment-item comment="comment" current_user="currentUser"></comment-item>
   </article>
 
-  <comment-new current_user="currentUser" commentable_type="'Task'" commentable_id="task.id"></comment-new>
+  <comment-new current_user="currentUser" commentable_type="'Task'" commentable_id="task.id" story_id="story.id"></comment-new>
 </div>

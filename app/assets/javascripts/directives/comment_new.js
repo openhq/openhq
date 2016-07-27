@@ -1,10 +1,11 @@
-angular.module("OpenHq").directive("commentNew", function($rootScope, Comment) {
+angular.module("OpenHq").directive("commentNew", function($rootScope, Comment, AttachmentsRepository, Attachment, Upload) {
   return {
     restrict: "E",
     scope: {
       currentUser: '=',
       commentableType: '=',
       commentableId: '=',
+      storyId: '=',
     },
 
     template: JST['templates/directives/comment_new'],
@@ -18,9 +19,10 @@ angular.module("OpenHq").directive("commentNew", function($rootScope, Comment) {
       $scope.createComment = function(comment) {
         comment.commentable_type = $scope.commentableType;
         comment.commentable_id = $scope.commentableId;
+        comment.story_id = $scope.storyId;
 
         comment.create().then(function(resp) {
-          $scope.comment = new Comment({attachment_ids: "" });
+          $scope.comment = new Comment({attachment_ids: ""});
           $scope.fileUploads = [];
 
           $rootScope.$broadcast('comment:created', resp);
@@ -62,7 +64,7 @@ angular.module("OpenHq").directive("commentNew", function($rootScope, Comment) {
                 file.uploadComplete = true;
 
                 var attachment = new Attachment({
-                  story_id: $scope.story.id,
+                  story_id: $scope.storyId,
                   file_name: file.name,
                   file_size: file.size,
                   content_type: file.type,
@@ -71,9 +73,9 @@ angular.module("OpenHq").directive("commentNew", function($rootScope, Comment) {
 
                 attachment.create().then(function(attachment) {
                   console.log("Actually created", attachment);
-                  $scope.story.attachments.push(attachment);
+                  // $scope.story.attachments.push(attachment);
 
-                  $scope.newComment.attachment_ids += attachment.id + ",";
+                  $scope.comment.attachment_ids += attachment.id + ",";
                 });
               }); // upload
 

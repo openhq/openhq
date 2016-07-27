@@ -1,4 +1,4 @@
-angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, $location, Task, TasksRepository, StoriesRepository, Story, AttachmentsRepository, Attachment, CurrentUser, Comment, Upload, ConfirmDialog) {
+angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, $location, Task, TasksRepository, StoriesRepository, Story, CurrentUser, Comment, ConfirmDialog) {
 
   // Sets the current user
   CurrentUser.get(function(user) {
