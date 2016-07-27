@@ -4,6 +4,7 @@ class TaskSerializer < ActiveModel::Serializer
   attributes :id, :label, :assigned_to, :assignment_name, :url, :owner_id, :completed, :due_at, :due_at_pretty
   has_one :assignment
   has_one :project
+  has_many :comments, each_serializer: CommentSerializer
 
   def url
     api_v1_task_path(object.id)

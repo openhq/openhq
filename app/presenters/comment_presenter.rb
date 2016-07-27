@@ -3,11 +3,8 @@ require_dependency 'parsers/mention_parser'
 class CommentPresenter < BasePresenter
   presents :comment
 
+  delegate :story, to: :comment
   delegate :project, to: :story
-
-  def story
-    comment.commentable
-  end
 
   def notifiable_users(action_performed)
     case action_performed

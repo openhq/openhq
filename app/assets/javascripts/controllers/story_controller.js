@@ -1,6 +1,4 @@
-angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, $location, Task, TasksRepository, StoriesRepository, Story, AttachmentsRepository, Attachment, CurrentUser, Comment, Upload, ConfirmDialog) {
-  $scope.fileUploads = [];
-  $scope.currentlyUploading = 0;
+angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, $location, Task, TasksRepository, StoriesRepository, Story, CurrentUser, Comment, ConfirmDialog) {
 
   // Sets the current user
   CurrentUser.get(function(user) {
@@ -9,7 +7,6 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
 
   // Gets the story and sets up the page
   StoriesRepository.find($routeParams.slug).then(function(story) {
-    $scope.newComment = new Comment({story_id: story.id, attachment_ids: "" });
     $scope.newTask = new Task({story_id: story.id, assigned_to: 0 });
     $scope.story = story;
 
@@ -42,38 +39,6 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     return Math.round(percent);
   };
 
-  // Creates a new comment
-  $scope.createComment = function(newComment) {
-    newComment.create().then(function(resp) {
-      $scope.story.comments.push(resp);
-      $scope.fileUploads = [];
-      $scope.newComment = new Comment({story_id: $scope.story.id, attachment_ids: "" });
-    });
-  };
-
-  // Toggle comment editing
-  $scope.toggleEditComment = function(comment) {
-    if (comment.editing) return comment.editing = false;
-
-    comment.editing = true;
-  };
-
-  // Updates a comment
-  $scope.updateComment = function(comment) {
-    comment.update().then(function(resp) {
-      comment.editing = false;
-    });
-  };
-
-  // Deletes a comment
-  $scope.deleteComment = function(comment) {
-    ConfirmDialog.show('Delete comment', 'Are you sure you want to delete this comment?').then(function(){
-      comment.delete().then(function() {
-        var index = $scope.story.comments.indexOf(comment);
-        if (index > -1) $scope.story.comments.splice(index, 1);
-      });
-    });
-  };
 
   // Creates a new task
   $scope.createTask = function(newTask) {
@@ -91,6 +56,20 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     });
   });
 
+  $rootScope.$on('comment:deleted', function(_ev, comment){
+    if (comment.commentable_type === "Story" && comment.commentable_id === $scope.story.id) {
+      $scope.story.comments = _.reject($scope.story.comments, function(c) {
+        return c.id == comment.id;
+      });
+    }
+  });
+
+  $rootScope.$on('comment:created', function(_ev, comment) {
+    if (comment.commentable_type === "Story" && comment.commentable_id === $scope.story.id) {
+      $scope.story.comments.push(comment);
+    }
+  });
+
   // Deletes all completed tasks
   $scope.deleteCompletedTasks = function() {
     ConfirmDialog.show('Delete Completed Tasks', 'Are you sure you want to delete all the completed tasks?').then(function(){
@@ -100,59 +79,6 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
         $scope.story.hasCompletedTasks = false;
         $scope.story.showingCompletedTasks = false;
       });
-    });
-  };
-
-  // Uploads a new file
-  $scope.upload = function($files) {
-    if (!$files || !$files.length) {
-      console.error("No files found");
-      return;
-    }
-
-    _.each($files, function(file) {
-      if (!file.$error) {
-        $scope.currentlyUploading++;
-
-        AttachmentsRepository.presignedUrl(file).then(function(awsData) {
-          console.log("Upload start", awsData.upload_url, file.name, file.type);
-
-          $scope.fileUploads.push(file);
-
-          Upload.http({
-              url: awsData.upload_url,
-              method: "PUT",
-              data: file,
-              headers: {
-                'Content-Type': file.type
-              }
-          }).progress(function (evt) {
-              var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-              file.uploadProgress = progressPercentage;
-          }).success(function (data, status, headers, config) {
-            console.log("Upload success", arguments);
-            $scope.currentlyUploading--;
-
-            file.uploadComplete = true;
-
-            var attachment = new Attachment({
-              story_id: $scope.story.id,
-              file_name: file.name,
-              file_size: file.size,
-              content_type: file.type,
-              file_path: awsData.file_path,
-            });
-
-            attachment.create().then(function(attachment) {
-              console.log("Actually created", attachment);
-              $scope.story.attachments.push(attachment);
-
-              $scope.newComment.attachment_ids += attachment.id + ",";
-            });
-          }); // upload
-
-        }); // presignedUrl
-      }
     });
   };
 

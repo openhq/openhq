@@ -1,5 +1,22 @@
-angular.module("OpenHq").factory("TasksRepository", function($http) {
+angular.module("OpenHq").factory("TasksRepository", function($http, Comment) {
   return {
+
+    /**
+     * Finds a single task
+     */
+    find: function(id) {
+      return $http.get("/api/v1/tasks/"+id).then(function(resp) {
+            var task = resp.data.task;
+
+            // Wrap all comments in models
+            task.comments = task.comments.map(function(commentData) {
+              return new Comment(commentData);
+            }).reverse();
+
+            return task;
+        });
+    },
+
     /**
      * Reorders tasks in the given order
      * @param  {String/Integer} story_id [ID or slug for the story]

@@ -1,0 +1,18 @@
+Project: <a href="/projects/{{ story.project.slug }}">{{ story.project.name }}</a><br>
+Story: <a href="/{{ story.story_type }}s/{{ story.slug }}">{{ story.name }}</a><br>
+
+<hr>
+
+<div ng-repeat="task in tasks" id="{{ task.id }}" ng-class="{'complete' : task.completed}">
+  <task-item task="task" users="story.users_select_array"></task-item>
+
+  <hr>
+
+  <h3>Comments</h3>
+
+  <article ng-repeat="comment in task.comments" class="comment-row">
+    <comment-item comment="comment" current_user="currentUser"></comment-item>
+  </article>
+
+  <comment-new current_user="currentUser" commentable_type="'Task'" commentable_id="task.id" story_id="story.id"></comment-new>
+</div>

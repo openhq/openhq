@@ -8,6 +8,7 @@ class Comment < ActiveRecord::Base
 
   belongs_to :commentable, polymorphic: true, touch: true
   belongs_to :owner, class_name: "User"
+  belongs_to :story
   has_many :attachments, as: :attachable
 
   delegate :project, to: :commentable
@@ -20,10 +21,5 @@ class Comment < ActiveRecord::Base
 
   def project_id
     commentable.project_id if commentable.present? && commentable.live?
-  end
-
-  # these will need to change if we ever add comments to anything other than stories
-  def story_id
-    commentable_id
   end
 end

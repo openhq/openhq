@@ -1,5 +1,5 @@
 <div class="default-form">
-  <form novalidate="novalidate" id="edit_task_{{ task.id }}" action="{{ task.url }}" method="post" ng-dblclick="startEditing()" ng-hide="editing">
+  <form novalidate="novalidate" id="edit_task_{{ task.id }}" action="{{ task.url }}" method="post" ng-dblclick="startEditing()" ng-click="loadTask()" ng-hide="editing">
     <input type="checkbox" ng-model="task.completed">
     <p class="label">{{ task.label }}</p>
 

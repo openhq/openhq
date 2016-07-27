@@ -172,7 +172,8 @@ CREATE TABLE comments (
     owner_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    team_id integer
+    team_id integer,
+    story_id integer
 );
 
 
@@ -242,8 +243,8 @@ ALTER SEQUENCE notifications_id_seq OWNED BY notifications.id;
 CREATE TABLE pg_search_documents (
     id integer NOT NULL,
     content text,
-    searchable_id integer,
     searchable_type character varying,
+    searchable_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -349,8 +350,8 @@ CREATE TABLE schema_migrations (
 
 CREATE TABLE search_documents (
     id integer NOT NULL,
-    searchable_id integer,
     searchable_type character varying,
+    searchable_id integer,
     team_id integer,
     project_id integer,
     story_id integer,
@@ -735,6 +736,14 @@ ALTER TABLE ONLY projects_users
 
 
 --
+-- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
 -- Name: search_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -843,6 +852,13 @@ CREATE INDEX index_comments_on_commentable_id ON comments USING btree (commentab
 --
 
 CREATE INDEX index_comments_on_owner_id ON comments USING btree (owner_id);
+
+
+--
+-- Name: index_comments_on_story_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_comments_on_story_id ON comments USING btree (story_id);
 
 
 --
@@ -1070,13 +1086,6 @@ CREATE INDEX search_documents_content ON search_documents USING gin (to_tsvector
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
-
-
---
 -- Name: fk_rails_3026241273; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1114,8 +1123,6 @@ ALTER TABLE ONLY api_tokens
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20150206163421'), ('20150206163523'), ('20150206163945'), ('20150206164025'), ('20150206164837'), ('20150206165324'), ('20150206165439'), ('20150206165858'), ('20150206170036'), ('20150206231753'), ('20150227113633'), ('20150306155556'), ('20150306162723'), ('20150619203825'), ('20150625135452'), ('20150625140256'), ('20150626105811'), ('20150709123308'), ('20150709153210'), ('20150709161745'), ('20150718133222'), ('20150724115748'), ('20150730132344'), ('20150730162623'), ('20150730170036'), ('20150811135707'), ('20150910113139'), ('20150910113223'), ('20150910115415'), ('20150910121953'), ('20150910155220'), ('20150910161337'), ('20150911135806'), ('20150914140555'), ('20150914170620'), ('20151002105613'), ('20151014104537'), ('20151020153443');
+INSERT INTO schema_migrations (version) VALUES ('20150206163421'), ('20150206163523'), ('20150206163945'), ('20150206164025'), ('20150206164837'), ('20150206165324'), ('20150206165439'), ('20150206165858'), ('20150206170036'), ('20150206231753'), ('20150227113633'), ('20150306155556'), ('20150306162723'), ('20150619203825'), ('20150625135452'), ('20150625140256'), ('20150626105811'), ('20150709123308'), ('20150709153210'), ('20150709161745'), ('20150718133222'), ('20150724115748'), ('20150730132344'), ('20150730162623'), ('20150730170036'), ('20150811135707'), ('20150910113139'), ('20150910113223'), ('20150910115415'), ('20150910121953'), ('20150910155220'), ('20150910161337'), ('20150911135806'), ('20150914140555'), ('20150914170620'), ('20151002105613'), ('20151014104537'), ('20151020153443'), ('20160712191733'), ('20160727152048');
 
-
-INSERT INTO schema_migrations (version) VALUES ('20160712191733');
 
