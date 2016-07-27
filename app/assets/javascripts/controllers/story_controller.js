@@ -50,31 +50,6 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
       $scope.newComment = new Comment({story_id: $scope.story.id, attachment_ids: "" });
     });
   };
-
-  // Toggle comment editing
-  $scope.toggleEditComment = function(comment) {
-    if (comment.editing) return comment.editing = false;
-
-    comment.editing = true;
-  };
-
-  // Updates a comment
-  $scope.updateComment = function(comment) {
-    comment.update().then(function(resp) {
-      comment.editing = false;
-    });
-  };
-
-  // Deletes a comment
-  $scope.deleteComment = function(comment) {
-    ConfirmDialog.show('Delete comment', 'Are you sure you want to delete this comment?').then(function(){
-      comment.delete().then(function() {
-        var index = $scope.story.comments.indexOf(comment);
-        if (index > -1) $scope.story.comments.splice(index, 1);
-      });
-    });
-  };
-
   // Creates a new task
   $scope.createTask = function(newTask) {
     newTask.create().then(function(resp) {
@@ -88,6 +63,12 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
   $rootScope.$on('task:deleted', function(_ev, task_id){
     $scope.story.tasks = _.reject($scope.story.tasks, function(task){
       return task.id == task_id;
+    });
+  });
+
+  $rootScope.$on('comment:deleted', function(_ev, comment_id){
+    $scope.story.comments = _.reject($scope.story.comments, function(comment) {
+      return comment.id == comment_id;
     });
   });
 

@@ -39,7 +39,7 @@ module Api
 
       api! "Fetch a single task"
       def show
-        task = Task.includes(:assignment, :story, :project).find(params[:id])
+        task = Task.includes(:assignment, :story, :project, :comments).find(params[:id])
         render json: task
       end
 

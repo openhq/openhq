@@ -11,47 +11,6 @@ Story: <a href="/{{ story.story_type }}s/{{ story.slug }}">{{ story.name }}</a><
   <h3>Comments</h3>
 
   <article ng-repeat="comment in task.comments" class="comment-row">
-    <header>
-      <div class="actions" ng-show="comment.owner_id == currentUser.id">
-        <a href="#" ng-click="toggleEditComment(comment)">Edit</a>
-        | <a href="#" ng-click="deleteComment(comment)">Delete</a>
-      </div>
-      <user-avatar user="comment.owner"></user-avatar>
-
-      {{ comment.owner.display_name }} added <human-time datetime="comment.created_at"></human-time>
-    </header>
-    <section class="body comment">
-
-      <form class="editing-comment" ng-show="comment.editing" ng-submit="updateComment(comment)">
-        <markdown-input content="comment.content" filler="'Type your message'"></markdown-input>
-        <button class="btn btn-main">Save changes</button>
-      </form>
-
-      <div ng-hide="comment.editing" ng-bind-html="comment.markdown"></div>
-
-      <div ng-show="comment.attachments.length && !comment.editing">
-        <h5>Added
-          <ng-pluralize count="comment.attachments.length"
-             when="{'0': 'no attachments',
-                  'one': 'an attachment',
-                  'other': '{} attachments'}">
-          </ng-pluralize>
-        </h5>
-        <ul class="comment-files-list">
-          <li ng-repeat="attachment in comment.attachments">
-            <div class="attachment-preview">
-              <a href="{{ attachment.url }}" target="_blank" title="{{ attachment.file_name }}">
-                <div class="image-preview">
-                  <img src="{{ attachment.preview_url }}">
-                </div>
-                <span class="file-name">{{ attachment.file_name | limitTo : 20 }}</span>
-                <span class="file-size">{{ attachment.human_file_size }}</span>
-              </a>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-    </section>
+    <comment-item comment="comment" current_user="currentUser"></comment-item>
   </article>
 </div>
