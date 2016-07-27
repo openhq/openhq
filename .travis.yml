@@ -15,14 +15,14 @@ script:
 - bin/rubocop --fail-level convention
 - bin/rspec
 sudo: false
-deploy:
-  provider: heroku
-  api_key:
-    secure: TIkoUkUWRfcwzgRsJKNNRqHx2bFP/IIxdDLACMiVsptxphAPSx+stno1PdRJ7hU7Rcm+m2UTE5Ei8ToFfunGwyNqicX2bsKGUwTyEKjR974i7FqSkRcYMyX3zAK67EnsnzdKCMVU79H4qO5ntFRV6Fg9rr8CCOyCKHcHtgU9Bt+JCCm2rSgONLLTiM049aj2rlw58odek5Yn+hbKIjxiHdy7OF2d8pRdP0cLQQvZDu103aC5YA9G/7ZgTV/l2qIutFUhNHK65JJJbtgL3CeAsAn3Q5kH9p4d3FDb8+3OY5YbEzgqOd9HUumWZzdVnks8yweOw2kIE/YHSScxz+tJ7+jyg/VoAp5ouJaXmYkXeL5zLqghmdaI0uwnjk/elT/Qnlw1Gxq1j/82h44Hyt+wynaB5GLwC9XhyiU58nIYcdRexCFrcBQPrSws5Xk4ygPs+fxpXaVDW/2jqloCL2dHiThzHXruuyGfbkqXHyElzC5vPkKLDIw63ghxUOHlO6LB3Q5neZozDyHxukJgNFUx6aaMWlHJnmSBlkRS6t1ns4c4IOQ9dBOIKpCG+PX/QLxaeHzcUzNGE9NX/Jy+mg7HawFtoO0/hOf09Jnxz7WoVtvDWZDnA/IU+fVapX2yoJ8Cz/JNcK56WraO8zEPV6ZV3NstZesO2YxnMyKBcnCJk0Y=
-  app: openhq
-  on:
-    branch: master
-    repo: openhq/openhq
-  run:
-    - "rake db:migrate"
-    - "restart"
+# deploy:
+#   provider: heroku
+#   api_key:
+#     secure: TIkoUkUWRfcwzgRsJKNNRqHx2bFP/IIxdDLACMiVsptxphAPSx+stno1PdRJ7hU7Rcm+m2UTE5Ei8ToFfunGwyNqicX2bsKGUwTyEKjR974i7FqSkRcYMyX3zAK67EnsnzdKCMVU79H4qO5ntFRV6Fg9rr8CCOyCKHcHtgU9Bt+JCCm2rSgONLLTiM049aj2rlw58odek5Yn+hbKIjxiHdy7OF2d8pRdP0cLQQvZDu103aC5YA9G/7ZgTV/l2qIutFUhNHK65JJJbtgL3CeAsAn3Q5kH9p4d3FDb8+3OY5YbEzgqOd9HUumWZzdVnks8yweOw2kIE/YHSScxz+tJ7+jyg/VoAp5ouJaXmYkXeL5zLqghmdaI0uwnjk/elT/Qnlw1Gxq1j/82h44Hyt+wynaB5GLwC9XhyiU58nIYcdRexCFrcBQPrSws5Xk4ygPs+fxpXaVDW/2jqloCL2dHiThzHXruuyGfbkqXHyElzC5vPkKLDIw63ghxUOHlO6LB3Q5neZozDyHxukJgNFUx6aaMWlHJnmSBlkRS6t1ns4c4IOQ9dBOIKpCG+PX/QLxaeHzcUzNGE9NX/Jy+mg7HawFtoO0/hOf09Jnxz7WoVtvDWZDnA/IU+fVapX2yoJ8Cz/JNcK56WraO8zEPV6ZV3NstZesO2YxnMyKBcnCJk0Y=
+#   app: openhq
+#   on:
+#     branch: master
+#     repo: openhq/openhq
+#   run:
+#     - "rake db:migrate"
+#     - "restart"
