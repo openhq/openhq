@@ -4,7 +4,7 @@ require 'parsers/mention_parser'
 RSpec.describe MentionParser do
   let!(:frank) { create(:user, username: "frank") }
   let!(:mac) { create(:user, username: "mac") }
-  let!(:charlie) { create(:user, username: "charlie") }
+  let!(:charlie) { create(:user, username: "charlie-day") }
 
   it "returns empty if string not passed through" do
     mentioned = MentionParser.users("")
@@ -13,7 +13,7 @@ RSpec.describe MentionParser do
   end
 
   it "only finds the at mentioned users" do
-    string = "@mac and @charlie, you've been at mentioned, but frank hasn't."
+    string = "@mac and @charlie-day, you've been at mentioned, but frank hasn't."
     mentioned = MentionParser.users(string)
 
     expect(mentioned.count).to equal(2)
@@ -23,7 +23,7 @@ RSpec.describe MentionParser do
   end
 
   it "returns empty if no one has been at mentioned" do
-    string = "mac, charlie and frank have not been at mentioned"
+    string = "mac, charlie-day and frank have not been at mentioned"
     mentioned = MentionParser.users(string)
 
     expect(mentioned).to be_empty
