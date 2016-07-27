@@ -1,11 +1,20 @@
-angular.module("OpenHq").factory("TasksRepository", function($http) {
+angular.module("OpenHq").factory("TasksRepository", function($http, Comment) {
   return {
 
     /**
      * Finds a single task
      */
     find: function(id) {
-      return $http.get("/api/v1/tasks/"+id).then(function(resp) { return resp.data.task; });
+      return $http.get("/api/v1/tasks/"+id).then(function(resp) {
+            var task = resp.data.task;
+
+            // Wrap all comments in models
+            task.comments = task.comments.map(function(commentData) {
+              return new Comment(commentData);
+            });
+
+            return task;
+        });
     },
 
     /**

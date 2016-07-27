@@ -1,0 +1,23 @@
+<div class="add-comment content-input">
+    <header class="plain">
+      <user-avatar user="currentUser"></user-avatar> Reply to this topic
+    </header>
+    <form class="pure-form pure-form-stacked" ng-submit="createComment(comment)">
+      <markdown-input content="comment.content" filler="'Type your message'"></markdown-input>
+
+      <footer>
+        <button class="btn btn-secondary btn-with-icon attach-files" ngf-select="upload($files)" ngf-multiple="true">
+          <span class="icon icon-disk"></span>
+          Attach files
+        </button>
+        <button class="btn btn-main" ng-show="currentlyUploading < 1">Reply</button>
+        <button class="btn btn-main" disabled="disabled" ng-hide="currentlyUploading < 1">Uploading&hellip;</button>
+      </footer>
+    </form>
+  </div>
+
+  <div ng-show="fileUploads.length">
+    <upload-progress class="upload-progress" ng-repeat="upload in fileUploads" file="upload">
+    </upload-progress>
+  </div>
+</div>

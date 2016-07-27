@@ -26,12 +26,11 @@ module Api
       param_group :comment
       param :"comment[story_id]", String, desc: "Story ID or slug", required: true
       def create
-        story = Story.friendly.find(params[:comment][:story_id])
-        project = story.project
-        authorize! :read, project
+        commentable = comment_params[:commentable_type].constantize.find(comment_params[:commentable_id])
+        authorize! :read, commentable.project
 
         comment = Comment.new(
-          commentable: story,
+          commentable: commentable,
           owner: current_user,
           content: comment_params[:content]
         )
@@ -74,7 +73,7 @@ module Api
       private
 
       def comment_params
-        params.require(:comment).permit(:content, :attachment_ids)
+        params.require(:comment).permit(:content, :attachment_ids, :commentable_type, :commentable_id)
       end
     end
   end

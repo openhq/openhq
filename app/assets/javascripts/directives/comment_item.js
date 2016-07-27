@@ -1,4 +1,4 @@
-angular.module("OpenHq").directive("commentItem", function($rootScope, ConfirmDialog) {
+angular.module("OpenHq").directive("commentItem", function($rootScope, Comment, ConfirmDialog) {
   return {
     restrict: "E",
     scope: {
@@ -19,6 +19,7 @@ angular.module("OpenHq").directive("commentItem", function($rootScope, ConfirmDi
 
       // Updates a comment
       $scope.updateComment = function(comment) {
+        console.log(comment);
         comment.update().then(function(resp) {
           comment.editing = false;
         });

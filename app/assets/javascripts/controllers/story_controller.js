@@ -1,6 +1,4 @@
 angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, $location, Task, TasksRepository, StoriesRepository, Story, AttachmentsRepository, Attachment, CurrentUser, Comment, Upload, ConfirmDialog) {
-  $scope.fileUploads = [];
-  $scope.currentlyUploading = 0;
 
   // Sets the current user
   CurrentUser.get(function(user) {
@@ -9,7 +7,6 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
 
   // Gets the story and sets up the page
   StoriesRepository.find($routeParams.slug).then(function(story) {
-    $scope.newComment = new Comment({story_id: story.id, attachment_ids: "" });
     $scope.newTask = new Task({story_id: story.id, assigned_to: 0 });
     $scope.story = story;
 
@@ -42,14 +39,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     return Math.round(percent);
   };
 
-  // Creates a new comment
-  $scope.createComment = function(newComment) {
-    newComment.create().then(function(resp) {
-      $scope.story.comments.push(resp);
-      $scope.fileUploads = [];
-      $scope.newComment = new Comment({story_id: $scope.story.id, attachment_ids: "" });
-    });
-  };
+
   // Creates a new task
   $scope.createTask = function(newTask) {
     newTask.create().then(function(resp) {
@@ -70,6 +60,12 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     $scope.story.comments = _.reject($scope.story.comments, function(comment) {
       return comment.id == comment_id;
     });
+  });
+
+  $rootScope.$on('comment:created', function(_ev, comment) {
+    if (comment.commentable_type === "Story" && comment.commentable_id === $scope.story.id) {
+      $scope.story.comments.push(comment);
+    }
   });
 
   // Deletes all completed tasks
