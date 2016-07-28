@@ -10,6 +10,11 @@ angular.module('OpenHq').directive('contenteditable', function($sce) {
         element.html($sce.getTrustedHtml(ngModel.$viewValue || ''));
       };
 
+      Mousetrap(element[0]).bind('enter', function(ev) {
+        ev.preventDefault();
+        $(ev.currentTarget).blur();
+      });
+
       // Listen for change events to enable binding
       element.on('blur keyup change', function() {
         scope.$evalAsync(read);

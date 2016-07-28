@@ -2,7 +2,7 @@
     <header class="plain">
       <user-avatar user="currentUser"></user-avatar> Reply to this topic
     </header>
-    <form class="pure-form pure-form-stacked" ng-submit="createComment(comment)">
+    <form class="pure-form pure-form-stacked" ng-submit="createComment($event, comment)">
       <markdown-input content="comment.content" filler="'Type your message'"></markdown-input>
 
       <footer>

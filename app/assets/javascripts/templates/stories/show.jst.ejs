@@ -1,5 +1,5 @@
 <h1>
-  <span contenteditable ng-keypress="storyNameKeypress($event)" ng-blur="update()" ng-model="story.name"></span>
+  <span contenteditable ng-blur="update($event)" ng-model="story.name"></span>
   <small><a href="/projects/{{ story.project.slug }}">{{ story.project.name }}</a></small>
 </h1>
 
@@ -10,21 +10,23 @@
       <article>
         <header>
           <div class="actions" ng-show="showingDescription && story.owner_id == currentUser.id">
-            <a href="#" ng-click="editDescription($event)">Edit</a>
+            <a href="#" ng-click="toggleEditDescription($event)">Edit</a>
           </div>
           <user-avatar user="story.owner"></user-avatar>
           {{ story.owner.display_name }} added <human-time datetime="story.created_at"></human-time>
         </header>
         <section class="body" ng-bind-html="story.markdown" ng-show="showingDescription && !editingDescription"></section>
 
-        <section class="body edit-mode" ng-show="editingDescription">
-          <div class="content-input">
-            <markdown-input content="story.description"></markdown-input>
-            <footer>
-              <input type="submit" value="Save changes" class="btn btn-main" ng-click="update()" />
-            </footer>
-          </div>
-        </section>
+        <form ng-submit="update($event)">
+          <section class="body edit-mode" ng-show="editingDescription">
+            <div class="content-input">
+              <markdown-input content="story.description"></markdown-input>
+              <footer>
+                <input type="submit" value="Save changes" class="btn btn-main" />
+              </footer>
+            </div>
+          </section>
+        </form>
       </article>
 
       <div class="tasks" ng-show="showingTodoList">

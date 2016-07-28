@@ -1,8 +1,8 @@
 angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, $location, Task, TasksRepository, StoriesRepository, Story, CurrentUser, Comment, ConfirmDialog) {
   $scope.editingDescription = false;
-  $scope.editDescription = function(ev) {
+  $scope.toggleEditDescription = function(ev) {
     ev.preventDefault();
-    $scope.editingDescription = true;
+    $scope.editingDescription = !$scope.editingDescription;
   }
 
   $scope.storyNameKeypress = function(ev){
@@ -12,7 +12,9 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     $(ev.currentTarget).blur();
   }
 
-  $scope.update = function() {
+  $scope.update = function(ev) {
+     if (ev) ev.preventDefault();
+
     $scope.editingDescription = false;
     // ensure the story name isnt blank
     if ( ! $scope.story.name.length) $scope.story.name = $scope.fallbackStoryName;

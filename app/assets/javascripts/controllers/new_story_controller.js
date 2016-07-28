@@ -105,7 +105,9 @@ angular.module("OpenHq").controller("NewStoryController", function($scope, $root
   };
 
   // Creates the story and redirects to it
-  $scope.createStory = function(story) {
+  $scope.createStory = function(ev, story) {
+    ev.preventDefault();
+
     if ($scope.currentlyUploading > 0) {
       console.error('please wait for uploads to finish');
       return;
