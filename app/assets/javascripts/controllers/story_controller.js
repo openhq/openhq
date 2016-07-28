@@ -1,28 +1,4 @@
 angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, $location, Task, TasksRepository, StoriesRepository, Story, CurrentUser, Comment, ConfirmDialog) {
-  $scope.editingDescription = false;
-  $scope.toggleEditDescription = function(ev) {
-    ev.preventDefault();
-    $scope.editingDescription = !$scope.editingDescription;
-  }
-
-  $scope.storyNameKeypress = function(ev){
-    if (ev.keyCode !== 13) return;
-
-    ev.preventDefault();
-    $(ev.currentTarget).blur();
-  }
-
-  $scope.update = function(ev) {
-     if (ev) ev.preventDefault();
-
-    $scope.editingDescription = false;
-    // ensure the story name isnt blank
-    if ( ! $scope.story.name.length) $scope.story.name = $scope.fallbackStoryName;
-    $scope.fallbackStoryName = $scope.story.name;
-
-    $scope.story.update();
-  }
-
   // Sets the current user
   CurrentUser.get(function(user) {
     $scope.currentUser = user;
@@ -48,6 +24,25 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
   StoriesRepository.collaborators($routeParams.slug).then(function(collaborators) {
     $scope.collaborators = collaborators;
   });
+
+  // Toggle edit description
+  $scope.editingDescription = false;
+  $scope.toggleEditDescription = function(ev) {
+    ev.preventDefault();
+    $scope.editingDescription = !$scope.editingDescription;
+  }
+
+  // Update the story name & description
+  $scope.update = function(ev) {
+     if (ev) ev.preventDefault();
+
+    $scope.editingDescription = false;
+    // ensure the story name isnt blank
+    if ( ! $scope.story.name.length) $scope.story.name = $scope.fallbackStoryName;
+    $scope.fallbackStoryName = $scope.story.name;
+
+    $scope.story.update();
+  }
 
   // When a task is marked as complete
   $rootScope.$on('story:taskCompleted', function(){
