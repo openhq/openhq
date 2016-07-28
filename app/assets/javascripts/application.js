@@ -79,10 +79,6 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFile
     template: JST['templates/stories/show'],
     controller: 'StoryController'
   })
-  .when('/discussions/:slug/edit', {
-    template: JST['templates/stories/edit'],
-    controller: 'EditStoryController'
-  })
   .when('/todos/:slug', {
     template: JST['templates/stories/show'],
     controller: 'StoryController'
@@ -91,17 +87,9 @@ angular.module("OpenHq", ['ngRoute', 'ngAnimate', 'ngSanitize', 'rails', 'ngFile
     template: JST['templates/tasks/show'],
     controller: 'TaskController'
   })
-  .when('/todos/:slug/edit', {
-    template: JST['templates/stories/edit'],
-    controller: 'EditStoryController'
-  })
   .when('/files/:slug', {
     template: JST['templates/stories/show'],
     controller: 'StoryController'
-  })
-  .when('/files/:slug/edit', {
-    template: JST['templates/stories/edit'],
-    controller: 'EditStoryController'
   })
   .when('/team', {
     template: JST['templates/team/index'],
