@@ -1,5 +1,4 @@
 angular.module("OpenHq").controller("StoryController", function($scope, $rootScope, $routeParams, $http, $filter, $location, Task, TasksRepository, StoriesRepository, Story, CurrentUser, Comment, ConfirmDialog) {
-
   // Sets the current user
   CurrentUser.get(function(user) {
     $scope.currentUser = user;
@@ -9,6 +8,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
   StoriesRepository.find($routeParams.slug).then(function(story) {
     $scope.newTask = new Task({story_id: story.id, assigned_to: 0 });
     $scope.story = story;
+    $scope.fallbackStoryName = story.name;
 
     $scope.story.hasCompletedTasks = $filter('completedTasks')($scope.story.tasks).length > 0;
     $scope.story.showingCompletedTasks = false;
@@ -25,6 +25,25 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
     $scope.collaborators = collaborators;
   });
 
+  // Toggle edit description
+  $scope.editingDescription = false;
+  $scope.toggleEditDescription = function(ev) {
+    ev.preventDefault();
+    $scope.editingDescription = !$scope.editingDescription;
+  }
+
+  // Update the story name & description
+  $scope.update = function(ev) {
+     if (ev) ev.preventDefault();
+
+    $scope.editingDescription = false;
+    // ensure the story name isnt blank
+    if ( ! $scope.story.name.length) $scope.story.name = $scope.fallbackStoryName;
+    $scope.fallbackStoryName = $scope.story.name;
+
+    $scope.story.update();
+  }
+
   // When a task is marked as complete
   $rootScope.$on('story:taskCompleted', function(){
     $scope.story.hasCompletedTasks = $filter('completedTasks')($scope.story.tasks).length > 0;
@@ -33,7 +52,7 @@ angular.module("OpenHq").controller("StoryController", function($scope, $rootSco
   // Calculates the task completion percentage
   $scope.taskCompletionPercentage = function() {
     if (! $scope.story) return 0; // Story not loaded yet
-    if ($scope.story.tasks.length === 0) return 0; // Protect zero division error
+    if (! $scope.story.tasks || $scope.story.tasks.length === 0) return 0; // Protect zero division error
 
     var percent = $filter('completedTasks')($scope.story.tasks).length / $scope.story.tasks.length * 100;
     return Math.round(percent);

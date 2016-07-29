@@ -3,72 +3,74 @@
 <div class="pure-g">
   <div class="pure-u-1 pure-u-md-17-24 ui-story-container">
     <div class="ui-story">
-      <article>
-        <header>
-          <div class="actions">
-            <a href="/projects/{{ projectId }}">Cancel</a>
-          </div>
-          <user-avatar user="currentUser"></user-avatar>
-          {{ currentUser.display_name }}&hellip;
-        </header>
+      <form ng-submit="createStory($event, story)">
+        <article>
+          <header>
+            <div class="actions">
+              <a href="/projects/{{ projectId }}">Cancel</a>
+            </div>
+            <user-avatar user="currentUser"></user-avatar>
+            {{ currentUser.display_name }}&hellip;
+          </header>
 
-        <section class="body edit-mode" ng-show="showingDescriptionField">
-          <div class="content-input">
-            <markdown-input content="story.description" filler="descriptionPlaceholder"></markdown-input>
-          </div>
-        </section>
+          <section class="body edit-mode" ng-show="showingDescriptionField">
+            <div class="content-input">
+              <markdown-input content="story.description" filler="descriptionPlaceholder"></markdown-input>
+            </div>
+          </section>
 
-        <div class="tasks new-story" ng-show="showingTodoList">
-          <div ng-hide="story.tasks.length > 0" class="no-tasks">
-            <h4>Add your first task</h4>
-          </div>
-          <div ng-show="story.tasks.length > 0" class="tasks-list-container">
-            <h4>{{ story.tasks | incompleteTasks | countArray }} Tasks</h4>
-            <ul class="sortable">
-              <li ng-repeat="task in story.tasks">
-                <task-item task="task" users="project.users_select_array"></task-item>
-              </li>
-            </ul>
-          </div>
-
-          <form class="pure-form pure-form-stacked" novalidate ng-submit="addTask(newTask)">
-            <input autocomplete="off" class="atwho" placeholder="Add a new task..." type="text" ng-model="newTask.label">
-
-            <div class="pure-g">
-              <div class="pure-u-1 pure-u-md-11-24">
-                <div class="input select optional task_assignment">
-                  <select ng-model="newTask.assigned_to" ng-options="user[1] as user[0] for user in project.users_select_array"></select>
-                </div>
-              </div>
-              <div class="pure-u-1 pure-u-md-3-24 due-label">Due:</div>
-              <div class="pure-u-1 pure-u-md-10-24">
-                <md-datepicker md-placeholder="Due Date" ng-model="newTask.due_at"></md-datepicker>
-              </div>
+          <div class="tasks new-story" ng-show="showingTodoList">
+            <div ng-hide="story.tasks.length > 0" class="no-tasks">
+              <h4>Add your first task</h4>
+            </div>
+            <div ng-show="story.tasks.length > 0" class="tasks-list-container">
+              <h4>{{ story.tasks | incompleteTasks | countArray }} Tasks</h4>
+              <ul class="sortable">
+                <li ng-repeat="task in story.tasks">
+                  <task-item task="task" users="project.users_select_array"></task-item>
+                </li>
+              </ul>
             </div>
 
-            <input type="submit" value="Add Task" class="btn btn-main btn-small">
-          </form>
-        </div>
+            <form class="pure-form pure-form-stacked" novalidate ng-submit="addTask(newTask)">
+              <input autocomplete="off" class="atwho" placeholder="Add a new task..." type="text" ng-model="newTask.label">
 
-        <section class="body edit-mode">
-          <div class="content-input">
-            <ul class="uploaded-files-list" ng-show="showingAttachedFiles">
-              <li ng-show="fileUploads < 1">No files attached yet</li>
-              <li ng-repeat="file in fileUploads">
-                {{ file.name }} ({{ file.uploadProgress }}%)
-              </li>
-            </ul>
+              <div class="pure-g">
+                <div class="pure-u-1 pure-u-md-11-24">
+                  <div class="input select optional task_assignment">
+                    <select ng-model="newTask.assigned_to" ng-options="user[1] as user[0] for user in project.users_select_array"></select>
+                  </div>
+                </div>
+                <div class="pure-u-1 pure-u-md-3-24 due-label">Due:</div>
+                <div class="pure-u-1 pure-u-md-10-24">
+                  <md-datepicker md-placeholder="Due Date" ng-model="newTask.due_at"></md-datepicker>
+                </div>
+              </div>
 
-            <footer>
-              <button class="btn btn-secondary btn-with-icon attach-files" ngf-select="addFiles($files)" ngf-multiple="true" ng-show="showingAttachedFiles">
-                <span class="icon icon-disk"></span>
-                Attach files
-              </button>
-              <button class="btn btn-main" tabindex="3" ng-click="createStory(story)">{{ currentlyUploading ? "Uploading..." : createBtnText }}</button>
-            </footer>
+              <input type="submit" value="Add Task" class="btn btn-main btn-small">
+            </form>
           </div>
-        </section>
-      </article>
+
+          <section class="body edit-mode">
+            <div class="content-input">
+              <ul class="uploaded-files-list" ng-show="showingAttachedFiles">
+                <li ng-show="fileUploads < 1">No files attached yet</li>
+                <li ng-repeat="file in fileUploads">
+                  {{ file.name }} ({{ file.uploadProgress }}%)
+                </li>
+              </ul>
+
+              <footer>
+                <button class="btn btn-secondary btn-with-icon attach-files" ngf-select="addFiles($files)" ngf-multiple="true" ng-show="showingAttachedFiles">
+                  <span class="icon icon-disk"></span>
+                  Attach files
+                </button>
+                <button class="btn btn-main" tabindex="3">{{ currentlyUploading ? "Uploading..." : createBtnText }}</button>
+              </footer>
+            </div>
+          </section>
+        </article>
+      </form>
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 <h1>
-  {{ story.name }}
+  <span contenteditable ng-blur="update($event)" ng-model="story.name"></span>
   <small><a href="/projects/{{ story.project.slug }}">{{ story.project.name }}</a></small>
 </h1>
 
@@ -9,14 +9,24 @@
     <div class="ui-story">
       <article>
         <header>
-          <div class="actions">
-            <a href="/{{ story.story_type }}s/{{ story.slug }}/edit" ng-show="story.owner_id == currentUser.id">Edit</a>
+          <div class="actions" ng-show="showingDescription && story.owner_id == currentUser.id">
+            <a href="#" ng-click="toggleEditDescription($event)">Edit</a>
           </div>
           <user-avatar user="story.owner"></user-avatar>
           {{ story.owner.display_name }} added <human-time datetime="story.created_at"></human-time>
         </header>
-        <section class="body" ng-bind-html="story.markdown" ng-show="showingDescription && story.description.length > 0">
-        </section>
+        <section class="body" ng-bind-html="story.markdown" ng-show="showingDescription && !editingDescription"></section>
+
+        <form ng-submit="update($event)">
+          <section class="body edit-mode" ng-show="editingDescription">
+            <div class="content-input">
+              <markdown-input content="story.description"></markdown-input>
+              <footer>
+                <input type="submit" value="Save changes" class="btn btn-main" />
+              </footer>
+            </div>
+          </section>
+        </form>
       </article>
 
       <div class="tasks" ng-show="showingTodoList">
@@ -27,7 +37,7 @@
           <h4>{{ story.tasks | incompleteTasks | countArray }} Incomplete Tasks</h4>
           <ul class="sortable">
             <li ng-repeat="task in story.tasks" id="{{ task.id }}" ng-class="{'complete' : task.completed}" ng-show="!task.completed || task.completeInline || story.showingCompletedTasks">
-              <task-item task="task" users="story.users_select_array" dblclick="show"></task-item>
+              <task-item task="task" users="story.users_select_array"></task-item>
             </li>
 
             <li class="action" ng-show="story.hasCompletedTasks && !story.showingCompletedTasks">
