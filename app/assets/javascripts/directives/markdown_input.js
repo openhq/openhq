@@ -19,6 +19,10 @@ angular.module("OpenHq").directive("markdownInput", function() {
         displayTpl: "<li><img src='https://a248.e.akamai.net/assets.github.com/images/icons/emoji/${name}.png' height='20' width='20'/> <span class='value'>${name}</span></li>",
         insertTpl: ":${name}:"
       });
+
+      Mousetrap(element[0]).bind('command+enter', function(ev) {
+        $(ev.currentTarget).blur().closest('form').trigger('submit');
+      });
     }
   };
 });

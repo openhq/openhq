@@ -16,7 +16,9 @@ angular.module("OpenHq").directive("commentNew", function($rootScope, Comment, A
       $scope.currentlyUploading = 0;
 
       // Creates a new comment
-      $scope.createComment = function(comment) {
+      $scope.createComment = function(ev, comment) {
+        ev.preventDefault();
+
         comment.commentable_type = $scope.commentableType;
         comment.commentable_id = $scope.commentableId;
         comment.story_id = $scope.storyId;
@@ -28,8 +30,6 @@ angular.module("OpenHq").directive("commentNew", function($rootScope, Comment, A
           $rootScope.$broadcast('comment:created', resp);
         });
       };
-
-
 
       // Uploads a new file
       $scope.upload = function($files) {

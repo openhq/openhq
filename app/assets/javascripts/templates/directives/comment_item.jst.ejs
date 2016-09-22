@@ -9,7 +9,7 @@
 </header>
 <section class="body comment">
 
-  <form class="editing-comment" ng-show="comment.editing" ng-submit="updateComment(comment)">
+  <form class="editing-comment" ng-show="comment.editing" ng-submit="updateComment($event, comment)">
     <markdown-input content="comment.content" filler="'Type your message'"></markdown-input>
     <button class="btn btn-main">Save changes</button>
   </form>

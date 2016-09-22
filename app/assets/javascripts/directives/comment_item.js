@@ -14,8 +14,8 @@ angular.module("OpenHq").directive("commentItem", function($rootScope, Comment, 
       };
 
       // Updates a comment
-      $scope.updateComment = function(comment) {
-        console.log(comment);
+      $scope.updateComment = function(ev, comment) {
+        ev.preventDefault();
         comment.update().then(function(resp) {
           comment.editing = false;
         });
