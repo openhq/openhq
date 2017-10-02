@@ -23,6 +23,7 @@ angular.module("OpenHq").controller("ProjectsController", function($scope, Users
 
     newProject.create().then(function(project) {
       $scope.projects.push(project);
+      $scope.newProject = new Project();
     });
   };
 });
