@@ -2,12 +2,17 @@
 -- PostgreSQL database dump
 --
 
+-- Dumped from database version 9.6.5
+-- Dumped by pg_dump version 9.6.5
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
@@ -72,7 +77,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: api_tokens; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: api_tokens; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE api_tokens (
@@ -106,7 +111,7 @@ ALTER SEQUENCE api_tokens_id_seq OWNED BY api_tokens.id;
 
 
 --
--- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE ar_internal_metadata (
@@ -118,7 +123,7 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
--- Name: attachments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: attachments; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE attachments (
@@ -161,7 +166,7 @@ ALTER SEQUENCE attachments_id_seq OWNED BY attachments.id;
 
 
 --
--- Name: comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: comments; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE comments (
@@ -197,7 +202,7 @@ ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
 
 
 --
--- Name: notifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: notifications; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE notifications (
@@ -237,14 +242,14 @@ ALTER SEQUENCE notifications_id_seq OWNED BY notifications.id;
 
 
 --
--- Name: pg_search_documents; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: pg_search_documents; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE pg_search_documents (
     id integer NOT NULL,
     content text,
-    searchable_id integer,
     searchable_type character varying,
+    searchable_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -270,7 +275,7 @@ ALTER SEQUENCE pg_search_documents_id_seq OWNED BY pg_search_documents.id;
 
 
 --
--- Name: projects; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: projects; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE projects (
@@ -305,7 +310,7 @@ ALTER SEQUENCE projects_id_seq OWNED BY projects.id;
 
 
 --
--- Name: projects_users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: projects_users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE projects_users (
@@ -336,7 +341,7 @@ ALTER SEQUENCE projects_users_id_seq OWNED BY projects_users.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE schema_migrations (
@@ -345,13 +350,13 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: search_documents; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: search_documents; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE search_documents (
     id integer NOT NULL,
-    searchable_id integer,
     searchable_type character varying,
+    searchable_id integer,
     team_id integer,
     project_id integer,
     story_id integer,
@@ -381,7 +386,7 @@ ALTER SEQUENCE search_documents_id_seq OWNED BY search_documents.id;
 
 
 --
--- Name: stories; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: stories; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE stories (
@@ -419,7 +424,7 @@ ALTER SEQUENCE stories_id_seq OWNED BY stories.id;
 
 
 --
--- Name: tasks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: tasks; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE tasks (
@@ -459,7 +464,7 @@ ALTER SEQUENCE tasks_id_seq OWNED BY tasks.id;
 
 
 --
--- Name: team_users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: team_users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE team_users (
@@ -497,7 +502,7 @@ ALTER SEQUENCE team_users_id_seq OWNED BY team_users.id;
 
 
 --
--- Name: teams; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: teams; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE teams (
@@ -532,7 +537,7 @@ ALTER SEQUENCE teams_id_seq OWNED BY teams.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE users (
@@ -581,98 +586,98 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: api_tokens id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY api_tokens ALTER COLUMN id SET DEFAULT nextval('api_tokens_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: attachments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY attachments ALTER COLUMN id SET DEFAULT nextval('attachments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: notifications id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY notifications ALTER COLUMN id SET DEFAULT nextval('notifications_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pg_search_documents id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pg_search_documents ALTER COLUMN id SET DEFAULT nextval('pg_search_documents_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: projects id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY projects ALTER COLUMN id SET DEFAULT nextval('projects_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: projects_users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY projects_users ALTER COLUMN id SET DEFAULT nextval('projects_users_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: search_documents id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY search_documents ALTER COLUMN id SET DEFAULT nextval('search_documents_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: stories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY stories ALTER COLUMN id SET DEFAULT nextval('stories_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: tasks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tasks ALTER COLUMN id SET DEFAULT nextval('tasks_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: team_users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY team_users ALTER COLUMN id SET DEFAULT nextval('team_users_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: teams id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY teams ALTER COLUMN id SET DEFAULT nextval('teams_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: api_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: api_tokens api_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY api_tokens
@@ -680,7 +685,7 @@ ALTER TABLE ONLY api_tokens
 
 
 --
--- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ar_internal_metadata
@@ -688,7 +693,7 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
--- Name: attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: attachments attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY attachments
@@ -696,7 +701,7 @@ ALTER TABLE ONLY attachments
 
 
 --
--- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY comments
@@ -704,7 +709,7 @@ ALTER TABLE ONLY comments
 
 
 --
--- Name: notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY notifications
@@ -712,7 +717,7 @@ ALTER TABLE ONLY notifications
 
 
 --
--- Name: pg_search_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: pg_search_documents pg_search_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pg_search_documents
@@ -720,7 +725,7 @@ ALTER TABLE ONLY pg_search_documents
 
 
 --
--- Name: projects_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: projects projects_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY projects
@@ -728,7 +733,7 @@ ALTER TABLE ONLY projects
 
 
 --
--- Name: projects_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: projects_users projects_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY projects_users
@@ -736,7 +741,15 @@ ALTER TABLE ONLY projects_users
 
 
 --
--- Name: search_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: search_documents search_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY search_documents
@@ -744,7 +757,7 @@ ALTER TABLE ONLY search_documents
 
 
 --
--- Name: stories_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: stories stories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY stories
@@ -752,7 +765,7 @@ ALTER TABLE ONLY stories
 
 
 --
--- Name: tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: tasks tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tasks
@@ -760,7 +773,7 @@ ALTER TABLE ONLY tasks
 
 
 --
--- Name: team_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: team_users team_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY team_users
@@ -768,7 +781,7 @@ ALTER TABLE ONLY team_users
 
 
 --
--- Name: teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: teams teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY teams
@@ -776,7 +789,7 @@ ALTER TABLE ONLY teams
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -784,308 +797,301 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: index_api_tokens_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_api_tokens_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_api_tokens_on_team_id ON api_tokens USING btree (team_id);
 
 
 --
--- Name: index_api_tokens_on_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_api_tokens_on_token; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_api_tokens_on_token ON api_tokens USING btree (token);
 
 
 --
--- Name: index_api_tokens_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_api_tokens_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_api_tokens_on_user_id ON api_tokens USING btree (user_id);
 
 
 --
--- Name: index_attachments_on_attachable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_attachments_on_attachable_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_attachments_on_attachable_id ON attachments USING btree (attachable_id);
 
 
 --
--- Name: index_attachments_on_owner_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_attachments_on_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_attachments_on_owner_id ON attachments USING btree (owner_id);
 
 
 --
--- Name: index_attachments_on_story_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_attachments_on_story_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_attachments_on_story_id ON attachments USING btree (story_id);
 
 
 --
--- Name: index_attachments_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_attachments_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_attachments_on_team_id ON attachments USING btree (team_id);
 
 
 --
--- Name: index_comments_on_commentable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_comments_on_commentable_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_comments_on_commentable_id ON comments USING btree (commentable_id);
 
 
 --
--- Name: index_comments_on_owner_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_comments_on_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_comments_on_owner_id ON comments USING btree (owner_id);
 
 
 --
--- Name: index_comments_on_story_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_comments_on_story_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_comments_on_story_id ON comments USING btree (story_id);
 
 
 --
--- Name: index_comments_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_comments_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_comments_on_team_id ON comments USING btree (team_id);
 
 
 --
--- Name: index_notifications_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_notifications_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_notifications_on_team_id ON notifications USING btree (team_id);
 
 
 --
--- Name: index_notifications_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_notifications_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_notifications_on_user_id ON notifications USING btree (user_id);
 
 
 --
--- Name: index_pg_search_documents_on_searchable_type_and_searchable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_pg_search_documents_on_searchable_type_and_searchable_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_pg_search_documents_on_searchable_type_and_searchable_id ON pg_search_documents USING btree (searchable_type, searchable_id);
 
 
 --
--- Name: index_projects_on_deleted_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_projects_on_deleted_at; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_projects_on_deleted_at ON projects USING btree (deleted_at);
 
 
 --
--- Name: index_projects_on_owner_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_projects_on_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_projects_on_owner_id ON projects USING btree (owner_id);
 
 
 --
--- Name: index_projects_on_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_projects_on_slug; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_projects_on_slug ON projects USING btree (slug);
 
 
 --
--- Name: index_projects_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_projects_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_projects_on_team_id ON projects USING btree (team_id);
 
 
 --
--- Name: index_projects_users_on_user_id_and_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_projects_users_on_user_id_and_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_projects_users_on_user_id_and_project_id ON projects_users USING btree (user_id, project_id);
 
 
 --
--- Name: index_search_documents_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_search_documents_on_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_search_documents_on_project_id ON search_documents USING btree (project_id);
 
 
 --
--- Name: index_search_documents_on_searchable_type_and_searchable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_search_documents_on_searchable_type_and_searchable_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_search_documents_on_searchable_type_and_searchable_id ON search_documents USING btree (searchable_type, searchable_id);
 
 
 --
--- Name: index_search_documents_on_story_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_search_documents_on_story_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_search_documents_on_story_id ON search_documents USING btree (story_id);
 
 
 --
--- Name: index_search_documents_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_search_documents_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_search_documents_on_team_id ON search_documents USING btree (team_id);
 
 
 --
--- Name: index_stories_on_deleted_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_stories_on_deleted_at; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_stories_on_deleted_at ON stories USING btree (deleted_at);
 
 
 --
--- Name: index_stories_on_project_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_stories_on_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_stories_on_project_id ON stories USING btree (project_id);
 
 
 --
--- Name: index_stories_on_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_stories_on_slug; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_stories_on_slug ON stories USING btree (slug);
 
 
 --
--- Name: index_stories_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_stories_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_stories_on_team_id ON stories USING btree (team_id);
 
 
 --
--- Name: index_tasks_on_assigned_to; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_tasks_on_assigned_to; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_tasks_on_assigned_to ON tasks USING btree (assigned_to);
 
 
 --
--- Name: index_tasks_on_owner_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_tasks_on_owner_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_tasks_on_owner_id ON tasks USING btree (owner_id);
 
 
 --
--- Name: index_tasks_on_story_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_tasks_on_story_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_tasks_on_story_id ON tasks USING btree (story_id);
 
 
 --
--- Name: index_tasks_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_tasks_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_tasks_on_team_id ON tasks USING btree (team_id);
 
 
 --
--- Name: index_team_users_on_invitation_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_team_users_on_invitation_code; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_team_users_on_invitation_code ON team_users USING btree (invitation_code);
 
 
 --
--- Name: index_team_users_on_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_team_users_on_status; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_team_users_on_status ON team_users USING btree (status);
 
 
 --
--- Name: index_team_users_on_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_team_users_on_team_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_team_users_on_team_id ON team_users USING btree (team_id);
 
 
 --
--- Name: index_team_users_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_team_users_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_team_users_on_user_id ON team_users USING btree (user_id);
 
 
 --
--- Name: index_teams_on_setup_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_teams_on_setup_code; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_teams_on_setup_code ON teams USING btree (setup_code);
 
 
 --
--- Name: index_teams_on_subdomain; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_teams_on_subdomain; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_teams_on_subdomain ON teams USING btree (subdomain);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_remember_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_remember_token; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_users_on_remember_token ON users USING btree (remember_token);
 
 
 --
--- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_username ON users USING btree (username);
 
 
 --
--- Name: pg_search_documents_content; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: pg_search_documents_content; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX pg_search_documents_content ON pg_search_documents USING gin (to_tsvector('english'::regconfig, content));
 
 
 --
--- Name: search_documents_content; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: search_documents_content; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX search_documents_content ON search_documents USING gin (to_tsvector('english'::regconfig, content));
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
-
-
---
--- Name: fk_rails_3026241273; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: api_tokens fk_rails_3026241273; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY api_tokens
@@ -1093,7 +1099,7 @@ ALTER TABLE ONLY api_tokens
 
 
 --
--- Name: fk_rails_6a8dc6a6fc; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: team_users fk_rails_6a8dc6a6fc; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY team_users
@@ -1101,7 +1107,7 @@ ALTER TABLE ONLY team_users
 
 
 --
--- Name: fk_rails_8b0a3daf0d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: team_users fk_rails_8b0a3daf0d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY team_users
@@ -1109,7 +1115,7 @@ ALTER TABLE ONLY team_users
 
 
 --
--- Name: fk_rails_f16b5e0447; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: api_tokens fk_rails_f16b5e0447; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY api_tokens
@@ -1120,7 +1126,7 @@ ALTER TABLE ONLY api_tokens
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user",public;
+SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20150206163421'), ('20150206163523'), ('20150206163945'), ('20150206164025'), ('20150206164837'), ('20150206165324'), ('20150206165439'), ('20150206165858'), ('20150206170036'), ('20150206231753'), ('20150227113633'), ('20150306155556'), ('20150306162723'), ('20150619203825'), ('20150625135452'), ('20150625140256'), ('20150626105811'), ('20150709123308'), ('20150709153210'), ('20150709161745'), ('20150718133222'), ('20150724115748'), ('20150730132344'), ('20150730162623'), ('20150730170036'), ('20150811135707'), ('20150910113139'), ('20150910113223'), ('20150910115415'), ('20150910121953'), ('20150910155220'), ('20150910161337'), ('20150911135806'), ('20150914140555'), ('20150914170620'), ('20151002105613'), ('20151014104537'), ('20151020153443'), ('20160712191733'), ('20160727152048');
 
