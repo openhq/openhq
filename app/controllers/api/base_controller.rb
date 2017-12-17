@@ -13,7 +13,7 @@ module Api
     private
 
     def serialize_collection(scope)
-      scope.map { |obj| ActiveModel::SerializableResource.new(obj, root: :root_key_name).serializable_hash[:root_key_name] }
+      scope.map { |obj| ActiveModelSerializers::SerializableResource.new(obj, root: :root_key_name).serializable_hash[:root_key_name] }
     end
 
     def render_errors(object)

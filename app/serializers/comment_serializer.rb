@@ -4,12 +4,12 @@ class CommentSerializer < ActiveModel::Serializer
   attributes :id, :content, :markdown, :commentable_type, :commentable_id, :owner_id, :created_at, :updated_at, :team_id, :owner, :attachments
 
   def owner
-    ActiveModel::SerializableResource.new(object.owner).serializable_hash[:user]
+    ActiveModelSerializers::SerializableResource.new(object.owner).serializable_hash[:user]
   end
 
   def attachments
     object.attachments.map do |a|
-      ActiveModel::SerializableResource.new(a).serializable_hash[:attachment]
+      ActiveModelSerializers::SerializableResource.new(a).serializable_hash[:attachment]
     end
   end
 

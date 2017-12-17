@@ -3,20 +3,20 @@ require 'rails_helper'
 RSpec.describe User do
   let(:user) { build(:user) }
 
-  it { should have_many(:created_projects) }
-  it { should have_many(:stories) }
-  it { should have_many(:notifications) }
-  it { should have_and_belong_to_many(:projects) }
+  it { is_expected.to have_many(:created_projects) }
+  it { is_expected.to have_many(:stories) }
+  it { is_expected.to have_many(:notifications) }
+  it { is_expected.to have_and_belong_to_many(:projects) }
 
-  it { should validate_presence_of(:first_name) }
-  it { should validate_presence_of(:last_name) }
-  it { should validate_presence_of(:notification_frequency) }
-  it { should validate_presence_of(:username) }
+  it { is_expected.to validate_presence_of(:first_name) }
+  it { is_expected.to validate_presence_of(:last_name) }
+  it { is_expected.to validate_presence_of(:notification_frequency) }
+  it { is_expected.to validate_presence_of(:username) }
 
-  it { should allow_value("freddy1997").for(:username) }
-  it { should allow_value("freddy_1997").for(:username) }
-  it { should allow_value("freddy-1997").for(:username) }
-  it { should_not allow_value("@freddyZ").for(:username) }
+  it { is_expected.to allow_value("freddy1997").for(:username) }
+  it { is_expected.to allow_value("freddy_1997").for(:username) }
+  it { is_expected.to allow_value("freddy-1997").for(:username) }
+  it { is_expected.not_to allow_value("@freddyZ").for(:username) }
 
   it "must be valid" do
     expect(user).to be_valid
