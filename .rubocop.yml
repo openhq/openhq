@@ -1,5 +1,4 @@
 AllCops:
-  RunRailsCops: true
   DisplayCopNames: true
   Include:
     - 'app/**/*.rb'
@@ -12,6 +11,8 @@ AllCops:
     - 'db/**/*'
     - 'vendor/**/*'
     - 'spec/fixtures/**/*'
+Rails:
+  Enabled: true
 Metrics/LineLength:
   Max: 120
   Severity: refactor
