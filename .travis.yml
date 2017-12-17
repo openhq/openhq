@@ -12,7 +12,6 @@ before_script:
   -U postgres
 script:
 - bin/rake db:test:prepare
-- bin/rubocop --fail-level convention
 - bin/rspec
 sudo: false
 # deploy:
