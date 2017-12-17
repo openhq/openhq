@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
+ruby '2.4.2'
 
 gem 'rails', '>= 5.0.0', '< 5.1'
 gem 'pg'
@@ -44,7 +44,7 @@ gem 'sucker_punch'
 
 # Markdown / editing support
 gem 'html-pipeline'
-gem 'github-markdown'
+gem 'commonmarker'
 gem 'sanitize', '~> 3.0.3'
 gem 'rinku'
 gem 'gemoji', '~> 2.1.0'
@@ -63,6 +63,7 @@ gem "paranoia", git: "https://github.com/rubysherpas/paranoia.git", branch: "cor
 gem 'roadie-rails', '~> 1.1.1'
 
 gem 'puma'
+gem 'redis'
 gem 'message_bus'
 
 # API Docs
