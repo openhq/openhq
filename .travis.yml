@@ -10,6 +10,7 @@ services:
 before_script:
 - psql -c "create role pm_app_test with createdb superuser login password 'test';"
   -U postgres
+- cp config/database.ci.yml config/database.yml
 script:
 - bin/rake db:test:prepare
 - bin/rspec

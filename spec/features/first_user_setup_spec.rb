@@ -18,7 +18,7 @@ RSpec.feature "First user setup", type: :feature do
       given!(:user) { create(:user) }
       given!(:team_user) { create(:team_user, user: user, team: team) }
 
-      xscenario "doesn’t allow access" do
+      scenario "doesn’t allow access" do
         visit "/setup"
         expect(page).not_to have_content "Setup your account"
       end
