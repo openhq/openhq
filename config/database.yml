@@ -6,8 +6,6 @@ default: &default
 development:
   <<: *default
   database: pm_app_dev
-  username: pm_app_dev
-  password: test
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -15,8 +13,6 @@ development:
 test: &test
   <<: *default
   database: pm_app_test
-  username: pm_app_test
-  password: test
 
 cucumber:
   <<: *test
