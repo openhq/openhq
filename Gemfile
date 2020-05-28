@@ -54,7 +54,7 @@ gem 'jquery-atwho-rails' # @mention autocomplete
 gem 'rmagick'
 
 # Pagination
-gem 'kaminari', '~> 0.16.1'
+gem 'kaminari', '~> 1.2.1'
 
 # Soft deletes
 gem "paranoia", git: "https://github.com/rubysherpas/paranoia.git", branch: "core"
