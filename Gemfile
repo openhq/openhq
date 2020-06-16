@@ -45,7 +45,7 @@ gem 'sucker_punch'
 # Markdown / editing support
 gem 'html-pipeline'
 gem 'commonmarker'
-gem 'sanitize', '~> 3.0.3'
+gem 'sanitize', '~> 5.2.1'
 gem 'rinku'
 gem 'gemoji', '~> 2.1.0'
 gem 'jquery-atwho-rails' # @mention autocomplete
